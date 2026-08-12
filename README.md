@@ -248,8 +248,8 @@ python scripts/eval_reid.py --root MSMT17 --embeddings results/embeddings/msmt17
 
 ### On Kaggle (recommended: five notebooks, online/offline split)
 
-Training needs internet OFF (Blackwell RTX PRO 6000) → the work splits into ONLINE
-notebooks (stage wheels/weights/shards, CPU/T4) and OFFLINE notebooks (train/eval, no
+Training needs internet OFF → the work splits into ONLINE notebooks (stage
+wheels/weights/shards, CPU/T4) and OFFLINE notebooks (train/eval, no
 internet). The five-notebook workflow, dataset DAG, and session sequence are in
 [docs/07_kaggle_plan.md](docs/07_kaggle_plan.md); the notebooks themselves live in
 [notebooks/](notebooks/) and are generated from
@@ -326,7 +326,7 @@ run_tests.py                          one command, one verdict
 
 ## Measured results — Agent 2 activity and falls (real data)
 
-RTX PRO 6000 Blackwell, 30-epoch budget with `--patience 8`, EMA weights. 24,908 val
+30-epoch budget with `--patience 8`, EMA weights. 24,908 val
 windows over 1,166 subjects, split seed 0. Full report:
 [results/evaluation.md](results/evaluation.md).
 
