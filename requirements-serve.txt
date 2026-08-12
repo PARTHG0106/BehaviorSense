@@ -1,0 +1,13 @@
+# Serving / CPU dependencies. No deep-learning framework required.
+#
+# The behaviour, verification and reporting layers deliberately have no torch dependency:
+# they are pure statistics and arithmetic, so they run and are testable anywhere - which
+# is what lets the end-to-end demo work with no GPU and no checkpoints.
+
+pydantic>=2.7,<3
+numpy>=1.26
+fastapi>=0.110
+uvicorn[standard]>=0.29
+httpx>=0.27          # FastAPI TestClient
+PyYAML>=6.0          # taxonomy config
+Pillow>=10.0         # ReID crop loading (embedding extraction on CPU)

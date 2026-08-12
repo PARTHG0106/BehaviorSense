@@ -1,0 +1,29 @@
+# NOT READ BY THE KAGGLE CLI. This file is a manifest, not a config.
+#
+# `kaggle datasets version -p .` uploads the working tree verbatim; nothing consults this
+# list. Treating it as enforcement cost a training session: runs/ and data/shards/ were
+# uploaded, and notebook 03 then resumed a 25-epoch CPU smoke checkpoint and mixed
+# _smoke_fall.npz into the real fall corpus.
+#
+# Use instead:  python scripts/publish_code_dataset.py -m "why this version exists"
+# which stages only src/ scripts/ configs/ weights/ into a temp dir, verifies the repo
+# contract against the STAGED copy, and refuses to upload if any artefact slipped in.
+#
+# Excluded from the behaviorsense-code Kaggle dataset upload.
+#
+# MSMT17 is the reason this file exists: 2.7 GB of licence-restricted person crops that
+# NO notebook reads. Tau is already fitted and committed (results/reid_eval.md), so
+# uploading it would multiply the dataset size by 36x, buy nothing, and put a
+# redistribution-restricted corpus on cloud storage. Excluding it takes the upload from
+# 2.7 GB to 74 MB.
+
+MSMT17/
+Market-1501*/
+__pycache__/
+*.pyc
+.git/
+runs/
+data/shards/
+data/*.db
+results/embeddings/
+.venv/

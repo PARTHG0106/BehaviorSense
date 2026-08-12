@@ -1,0 +1,58 @@
+{
+  "index": "https://download.pytorch.org/whl/cu128",
+  "torch": "2.7.1+cu128",
+  "platforms": 39,
+  "gpu_pins": 15,
+  "missing_python_tags": [],
+  "unresolvable": [],
+  "historical_platforms": [
+    "manylinux2014_x86_64",
+    "manylinux_2_28_x86_64"
+  ],
+  "would_have_missed": [
+    {
+      "package": "nvidia-cublas-cu12",
+      "version": "12.8.3.14",
+      "tags": [
+        "manylinux_2_27_x86_64"
+      ]
+    },
+    {
+      "package": "nvidia-cuda-nvrtc-cu12",
+      "version": "12.8.61",
+      "tags": [
+        "manylinux2010_x86_64",
+        "manylinux_2_12_x86_64"
+      ]
+    },
+    {
+      "package": "nvidia-cudnn-cu12",
+      "version": "9.7.1.26",
+      "tags": [
+        "manylinux_2_27_x86_64"
+      ]
+    },
+    {
+      "package": "nvidia-curand-cu12",
+      "version": "10.3.9.55",
+      "tags": [
+        "manylinux_2_27_x86_64"
+      ]
+    },
+    {
+      "package": "nvidia-cusolver-cu12",
+      "version": "11.7.2.55",
+      "tags": [
+        "manylinux_2_27_x86_64"
+      ]
+    },
+    {
+      "package": "nvidia-nvjitlink-cu12",
+      "version": "12.8.61",
+      "tags": [
+        "manylinux2010_x86_64",
+        "manylinux_2_12_x86_64"
+      ]
+    }
+  ]
+}

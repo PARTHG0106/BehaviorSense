@@ -1,0 +1,27 @@
+# Training dependencies (Kaggle GPU session, NO INTERNET at train time).
+#
+# Everything here must already be present in the Kaggle image or staged as a private
+# dataset before the session starts. Versions are pinned after the sm_120 smoke test -
+# see docs/06_technical_playbook.md section 1.
+#
+# NOTE ON torch: RTX PRO 6000 Blackwell is compute capability sm_120 and needs the cu128
+# wheels (torch >= 2.7). The Kaggle image usually satisfies this; the smoke test in
+# scripts/kaggle_smoke_test.py verifies it in ~30 seconds rather than 40 minutes into a
+# training run.
+
+-r requirements-serve.txt
+
+torch>=2.7            # cu128 build for sm_120 (Blackwell)
+transformers>=4.44    # Qwen2.5 reporter
+accelerate>=0.33
+outlines>=1.0         # grammar-constrained JSON decoding. NOT >=0.1: reporter.py calls
+                      # outlines.from_transformers / outlines.types.json_schema, both of
+                      # which are 1.x-only APIs, so a 0.x resolve fails at import.
+safetensors>=0.4
+
+# Pose extraction (Stage A only; not needed for skeleton training)
+# mmpose/mmdet are intentionally NOT listed: RTMO inference is staged as an ONNX or
+# torchscript export instead, because installing the mm* stack offline is fragile and
+# it is needed for exactly one preprocessing pass.
+onnxruntime-gpu>=1.18
+av>=12.0              # video decode

@@ -1,0 +1,59 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Licence-restricted corpora. Never commit these. ---
+# MSMT17 is 2.7 GB of redistribution-restricted person crops. The ReID operating point is
+# already fitted and the result is committed (results/reid_eval.md), so the corpus buys
+# nothing here and publishing it would breach its terms.
+MSMT17/
+Market-1501*/
+Charades*/
+Le2i*/
+CAUCAFall*/
+URFD*/
+
+# --- Model weights: third-party redistribution + git bloat ---
+# weights/osnet_ain_x1_0_{imagenet,msmt17}.pth are upstream checkpoints, not ours to
+# relicense. scripts/ documents where to fetch them.
+weights/
+*.pt
+*.pth
+*.onnx
+*.engine
+*.safetensors
+
+# --- Derived data and session output ---
+# data/shards/_smoke*.npz are synthetic fixtures, regenerable on CPU in seconds - and one
+# of them once contaminated a real fall corpus when it rode along in an upload.
+data/
+datasets/
+runs/
+results/embeddings/
+*.npz
+*.npy
+*.db
+
+# --- Media ---
+media/
+*.mp4
+*.avi
+
+# --- Local config ---
+configs/local.yaml
+configs/*.local.yaml
+
+# --- Frontend ---
+node_modules/
+dashboard/dist/
