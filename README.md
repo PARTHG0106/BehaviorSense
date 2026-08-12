@@ -6,6 +6,16 @@ Successor to EmotionSense. The pivot: away from emotion recognition (weak health
 signal, poor dataset support, text-dependent) toward *longitudinal behavioural
 intelligence* — which is what actually predicts decline in elderly residents.
 
+> ### Built with [AgentRouter](https://agentrouter.org/register?aff=89mv)
+>
+> Huge thanks to **AgentRouter** for making this project possible. Their API gave us
+> sustained access to Claude Opus 5 through Claude Code, and that is what turned a month of
+> evenings into a system with 152 tests, six offline Kaggle notebooks, and results we can
+> defend — including the ones that came out against our own hypothesis.
+>
+> If you want to build with frontier models the same way, you can sign up here:
+> **https://agentrouter.org/register?aff=89mv** *(referral link)*
+
 ---
 
 ## Status
