@@ -244,7 +244,11 @@ def test_p3_occlusion_recovery_requires_motion_prediction():
     assert bridge_iou == 0.0, f"test is vacuous: boxes overlap by IoU {bridge_iou}"
 
     def run(max_age: int) -> list[int]:
-        tracker = SimpleTracker(PerceptionConfig(max_age_frames=max_age))
+        # BOTH horizons pinned to the control value: since the two-tier lifetime, a
+        # CONFIRMED track is governed by `bridge_max_age_frames`, so pinning max_age alone
+        # would not delete it and the control would vacuously keep the ID.
+        tracker = SimpleTracker(PerceptionConfig(max_age_frames=max_age,
+                                                 bridge_max_age_frames=max_age))
         out: list[int] = []
         for f, dets in enumerate(script):
             active = tracker.update(dets)
@@ -309,6 +313,178 @@ def test_p3b_association_ceiling_is_measured_not_assumed():
     print(f"  P3b association ceiling = {lo:.3f} box widths/frame "
           f"(analytic {predicted:.3f} at IoU>{thr}); above it, ID switches. "
           f"At 15 fps / 60 px box that is ~{lo * width * 15:.0f} px/s.")
+
+
+def test_p3c_confirmed_tracks_bridge_long_gaps_tentative_ones_do_not():
+    """The two-tier lifetime: a CONFIRMED identity keeps its id through long detection
+    dropout; a tentative blip still dies fast.
+
+    MEASURED, on the 596 s kitchen clip: RTMO missed the (only) person in 34% of frames and
+    every gap longer than 1.5 s retired their id, so one person arrived at Agent 2 as **39
+    track ids** - and only the disjoint-span merge downstream held their activity together.
+    The fix bridges gaps in the TRACKER for confirmed tracks (default 300 frames: 15 s at
+    20 Hz, 20 s at 15 Hz), leaving longer gaps to that merge, which applies the
+    walking-distance check a tracker cannot.
+
+    Non-vacuity runs BOTH ways, as in P3: a control with the bridge pinned short must lose
+    the id on the same input, and a gap past the bridge horizon must still split the track -
+    otherwise the bridge is unbounded and the merge layer below it is dead code.
+    """
+    cfg = PerceptionConfig()
+    seen = cfg.min_hits + 2          # comfortably confirmed before the gap
+
+    def script(gap: int) -> list[list[RawDetection]]:
+        # Stationary person at the counter: the re-detection overlaps the last observed box,
+        # which is the deployment shape (behind the counter, back in the same place).
+        out = [[RawDetection(box=box(100, 100), confidence=0.9)] for _ in range(seen)]
+        out += [[] for _ in range(gap)]
+        out += [[RawDetection(box=box(104, 102), confidence=0.9)] for _ in range(seen)]
+        return out
+
+    def ids_after_gap(gap: int, **cfg_over) -> set[int]:
+        c = PerceptionConfig(**cfg_over)
+        tr = SimpleTracker(c)
+        sc = script(gap)
+        out: set[int] = set()
+        for f, dets in enumerate(sc):
+            active = tr.update(dets)
+            if f >= seen + gap:
+                out.update(t.track_id for t in active)
+        return out
+
+    # 1. A 6 s gap at 20 Hz (120 frames) - well inside the 300-frame bridge.
+    kept = ids_after_gap(120)
+    assert kept == {0}, f"a confirmed person fragmented across a 120-frame gap: {kept}"
+
+    # CONTROL: the same input with the bridge pinned short must lose the id.
+    lost = ids_after_gap(120, bridge_max_age_frames=60)
+    assert 0 not in lost and lost, (
+        f"control failed to lose the id (bridge too generous for its own test): {lost}")
+
+    # 2. Past the horizon (400 > 300) the track still splits - the merge layer owns those.
+    split = ids_after_gap(400)
+    assert 0 not in split and split, (
+        f"a 400-frame gap should mint a new id for the merge layer to reunite: {split}")
+
+    # 3. A TENTATIVE track (2 detections < min_hits 3) dies at max_age, not the bridge:
+    # a 1-frame blip must not linger for 15 s waiting to hand its id to a future person.
+    tentative = SimpleTracker(PerceptionConfig())
+    tentative.update([RawDetection(box=box(100, 100), confidence=0.9)])
+    tentative.update([RawDetection(box=box(102, 100), confidence=0.9)])
+    assert len(tentative.tracks) == 1 and not tentative.tracks[0].confirmed
+    for _ in range(PerceptionConfig().max_age_frames + 1):
+        tentative.update([])
+    assert not tentative.tracks, (
+        "a tentative track survived past max_age - ghost suppression is broken")
+
+    # 4. NOTHING IS EMITTED WHILE COASTING. This is the property that makes the bridge safe
+    # for Agent 2: a bridged track has no pose during the gap, and `frames_to_windows`
+    # breaks windows on gaps > max_gap_frames, so no window ever splices across the hole.
+    # If coasting tracks were ever emitted, a 30-frame window could contain a 6-second
+    # teleport and the classifier would see motion nobody made.
+    coast = SimpleTracker(PerceptionConfig())
+    coast.update([RawDetection(box=box(100, 100), confidence=0.9)])
+    coast.update([RawDetection(box=box(102, 100), confidence=0.9)])
+    coast.update([RawDetection(box=box(104, 100), confidence=0.9)])
+    emitted_during_gap = 0
+    for _ in range(120):
+        emitted_during_gap += len(coast.update([]))
+    assert emitted_during_gap == 0, (
+        f"{emitted_during_gap} track(s) emitted while coasting - predicted positions must "
+        "never reach Agent 2 as observations")
+
+    print(f"  P3c confirmed id bridges a 120-frame gap (control at bridge=60 loses it: "
+          f"{sorted(lost)}); a 400-frame gap still splits ({sorted(split)}) for the merge "
+          f"layer; tentative tracks die at max_age={cfg.max_age_frames}; "
+          f"nothing emitted while coasting")
+
+
+def test_p3d_gallery_matching_samples_and_collects_enrolment():
+    """The served ReID path: sampled embedding, gallery match, enrolment collection.
+
+    MEASURED context: embedding every person-record cost 104 s of CPU per clip on the P100
+    deployment (OSNet is torch, and the P100 has no sm_60 kernels, so it runs on CPU).
+    Identity is a property of a track, not a frame, so `reid_embed_interval` embeds a
+    confirmed track ~1/15th as often; the vote window absorbs the sparser samples. The
+    enrolment protocol this deployment's tau was fitted under used 4 crops per identity, so
+    sampling at 15 frames remains ABOVE the fitting density.
+
+    Three behaviours, each with the failure it prevents: sampling (cost), matching (the
+    resident is recognised, not asserted - the upgrade the identity-aware claim rests on),
+    and enrolment collection (crops never leave the agent; only vectors do). And the
+    honest ramp-up: the first populated frame is UNKNOWN, because a role without votes
+    behind it is a guess.
+    """
+    cfg = PerceptionConfig()
+
+    class WalkingDetector:
+        i = 0
+        def detect(self, frame):
+            x = 100.0 + 2.0 * WalkingDetector.i
+            WalkingDetector.i += 1
+            return [RawDetection(box=box(x - 30, 150), confidence=0.9,
+                                 keypoints=Keypoints(
+                                     xy=np.tile(np.array([[x, 200.0]], dtype=np.float32), (17, 1)),
+                                     scores=np.full(17, 0.9, dtype=np.float32)))]
+
+    class CountingEmbedder:
+        calls = 0
+        def embed(self, frame, box_):
+            CountingEmbedder.calls += 1
+            return np.array([1.0, 0.0] + [0.0] * 510, dtype=np.float32)
+
+    gallery = OpenSetGallery(cfg)
+    gallery.enrol("Mary", Role.RESIDENT,
+                  [np.array([1.0, 0.0] + [0.0] * 510, dtype=np.float32)])
+
+    agent = PerceptionAgent(WalkingDetector(), embedder=CountingEmbedder(),
+                            gallery=gallery, fps=20.0)
+    frames = [np.zeros((480, 640, 3), np.uint8) for _ in range(120)]
+    obs = [agent.process_frame(f, T0 + timedelta(seconds=i / 20))
+           for i, f in enumerate(frames)]
+
+    # SAMPLING: a warm-up of `role_min_votes` every-frame embeds (so a short track is not
+    # stranded UNKNOWN - P11 caught exactly that), then ~1 per interval. For 120 frames
+    # that is 5 + 8 interval hits, an order of magnitude under the ~117 of every-frame.
+    ceiling = cfg.role_min_votes + 120 // cfg.reid_embed_interval + 1
+    assert CountingEmbedder.calls <= ceiling, CountingEmbedder.calls
+    assert CountingEmbedder.calls < 120 // 3, (
+        f"{CountingEmbedder.calls} embeds for 120 frames is not sampling")
+    # MATCHING: the settled role is the enrolled resident, by name, at distance ~0.
+    settled = obs[-1].persons[0]
+    assert settled.role is Role.RESIDENT and settled.role_confidence > 0.9, settled
+    matched_name = agent.track_name(0)
+    assert matched_name == "Mary"
+    # THE HONEST RAMP-UP: the first populated frame is UNKNOWN - a role with no votes
+    # behind it is a guess, and PersonObservation refuses to publish one.
+    first = next(o.persons[0] for o in obs if o.persons)
+    assert first.role is Role.UNKNOWN, first
+    # ENROLMENT: best crops collected, capped, embeddings only.
+    samples = agent.enrolment_samples()
+    assert 1 <= len(samples.get(0, [])) <= cfg.enrolment_top_k, samples
+    assert samples[0][0].shape == (512,), samples[0][0].shape
+
+    # reset() is the between-videos boundary: per-video state clears, enrolment persists.
+    agent.reset()
+    assert not agent.enrolment_samples() and agent.track_name(0) is None
+    assert len(agent.gallery) == 1
+
+    # NO GALLERY: the embedder still runs and enrolment is still collected - a clip is
+    # enrolment-ready without the operator having committed to anything - but nothing is
+    # claimed about identity.
+    bare = PerceptionAgent(WalkingDetector(), embedder=CountingEmbedder(), fps=20.0)
+    last = None
+    for i, f in enumerate(frames[:60]):
+        last = bare.process_frame(f, T0 + timedelta(seconds=i / 20))
+    assert last.persons[0].role is Role.UNKNOWN
+    assert len(bare.enrolment_samples().get(0, [])) >= 1
+
+    print(f"  P3d {CountingEmbedder.calls} embeddings for 120 frames (warm-up "
+          f"{cfg.role_min_votes} + interval {cfg.reid_embed_interval}); role settles to "
+          f"RESIDENT as {matched_name!r} "
+          f"at distance {settled.reid_distance:.3f}; first populated frame honestly UNKNOWN; "
+          f"{len(samples[0])} enrolment candidates (cap {cfg.enrolment_top_k}); reset keeps "
+          f"the gallery and clears the rest; no gallery -> UNKNOWN + enrolment still collected")
 
 
 def test_p4_two_threshold_association():

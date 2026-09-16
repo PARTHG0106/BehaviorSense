@@ -28,6 +28,14 @@ FAST = [
     ("Open-set ReID", "tests/test_reid_eval.py"),
     ("Service API", "tests/test_service.py"),
     ("Pipeline + ensemble", "tests/test_pipeline.py"),
+    ("Toyota Smarthome ingestion", "tests/test_toyota.py"),
+    # M1 is the load-bearing one: it proves a class the source corpus cannot label
+    # receives exactly zero gradient, which is what stops 365,492 Toyota windows
+    # teaching the model that sitting never happens.
+    ("Partial-label multi-corpus", "tests/test_multicorpus.py"),
+    # Reads notebook 05's own AST and compares it to web/dev_backend.py. Fast, and it is the
+    # only thing standing between the front end and a shape the GPU never sends.
+    ("Web /video contract", "tests/test_web_contract.py"),
     ("Notebook validation", "tests/test_notebooks.py"),
     # Executes notebook 04's real cell sources. Listed here, not in SLOW, because every
     # failure it has caught cost a 10-minute GPU session; a ~40 s local run that gates

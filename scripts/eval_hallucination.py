@@ -13,6 +13,13 @@ Two backends:
   --backend qwen   the real Qwen2.5-7B-Instruct, run on Kaggle with staged weights.
                    Three arms - constrained, free, and free re-scored after format-only
                    repair.
+  --backend openrouter   the HOSTED arm the system actually serves (GLM -> nemotron
+                   chain, keys from OPENROUTER_API_KEY_1..N in the local environment).
+                   Runs on the LOCAL machine - no GPU, no Kaggle, keys never leave it.
+                   Same three arms as the Qwen benchmark, so the two tables sit side by
+                   side: `constrained` here is OpenRouter's server-side `response_format`
+                   enforcement rather than outlines' local grammar - the same guarantee
+                   from the other end of the wire.
 
 Two rates per row, and the distinction is the point
 ---------------------------------------------------
@@ -31,6 +38,8 @@ Usage:
     PYTHONPATH=src python scripts/eval_hallucination.py --days 60
     PYTHONPATH=src python scripts/eval_hallucination.py --backend qwen \\
         --model-path /kaggle/input/qwen25-7b-instruct --report results/hallucination.md
+    PYTHONPATH=src python scripts/eval_hallucination.py --backend openrouter \\
+        --report results/hallucination_openrouter.md
 """
 
 from __future__ import annotations
@@ -216,7 +225,7 @@ def run_condition(name: str, llm, states, cfg: ReporterConfig,
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--backend", choices=("stub", "qwen"), default="stub")
+    ap.add_argument("--backend", choices=("stub", "qwen", "openrouter"), default="stub")
     ap.add_argument("--model-path", default=None)
     ap.add_argument("--days", type=int, default=60)
     ap.add_argument("--scenarios", type=int, default=6)
@@ -242,6 +251,35 @@ def main() -> None:
             rows.append(run_condition(
                 f"corrupted stub @ {rate:.0%}",
                 HallucinatingStubLLM(rate=rate, seed=0, config=cfg), states, cfg, records))
+    elif args.backend == "openrouter":
+        # THE ARM WE ACTUALLY SERVE, and the reason this backend exists: notebook 04's Qwen
+        # table measures a pinned checkpoint the deployment no longer uses, and a
+        # dissertation claim about "Agent 4's model" should include the model in the
+        # system. Runs locally - the keys are here and the models are hosted - so there is
+        # no GPU session, no attached dataset, and no credential anywhere near Kaggle.
+        from behaviorsense.agents.reasoning.openrouter import OpenRouterLLM, discover_keys
+        keys = discover_keys()
+        if not keys:
+            raise SystemExit(
+                "--backend openrouter requires OPENROUTER_API_KEY_1..N (or "
+                "OPENROUTER_API_KEY_LIST) in the environment.")
+        # ONE instance for all three arms, deliberately. Provider cooldowns are shared, and
+        # `RecordingLLM` keys its cache on (constrained, prompt), so the repair arm replays
+        # the unconstrained arm's bytes rather than resampling them - the property that
+        # makes "unconstrained" and "unconstrained + repair" a controlled comparison.
+        # NOT cfg.max_new_tokens: that is the local Qwen arm's 1,600-token budget, and a
+        # hosted reasoning model spends part of any smaller budget thinking (measured:
+        # 1,600 truncated every report, 4,096 truncated dots-3). HOSTED_MAX_TOKENS is the
+        # right ceiling here and is OpenRouterLLM's own default.
+        llm = RecordingLLM(OpenRouterLLM(keys=keys))
+        arms = [("grammar-constrained", True, False),
+                ("unconstrained", False, False),
+                ("unconstrained + format repair", False, True)]
+        for label, constrained, salvage in arms:
+            cfg = ReporterConfig(constrained=constrained, salvage=salvage)
+            row = run_condition(label, llm, states, cfg, records)
+            row["replayed"] = llm.replaying
+            rows.append(row)
     else:
         if not args.model_path:
             raise SystemExit("--backend qwen requires --model-path")
@@ -277,11 +315,25 @@ def main() -> None:
     lines = ["# Hallucination rate", "",
              f"- {len(states)} analysed days ({n_alert} alerting) from "
              f"{args.scenarios} simulator scenarios",
-             "- a claim is a hallucination if it fails any of C1-C4 (deterministic, no LLM)",
+             "- a claim is a hallucination if it fails any of C1-C5 (deterministic, no LLM)",
              "- `hallucination rate` is over SCHEMA-VALID claims (the verifier's view);",
              "  `unusable rate` is over ALL emitted claims, counting schema rejects as",
              "  unusable - which is what a caregiver actually experiences",
-             "",
+             ]
+    if args.backend == "openrouter":
+        # The hosted arm cannot promise what the Qwen table promises. Free providers
+        # rotate without notice - two vanished from the tier in the week this backend was
+        # written - and the chain routes around saturation, so the model that answered is
+        # a property of the day, not of the config. Say so in the header rather than
+        # letting the table claim the reproducibility it does not have.
+        lines += [
+            "- **HOSTED ARM**: served over OpenRouter's free tier; the provider that",
+            "  answered each report is recorded in the JSONL dump. Free models rotate",
+            "  without notice, so this is a DATED measurement of the deployed",
+            "  configuration, not a pinned checkpoint - the Qwen table remains the",
+            "  reproducible anchor.",
+        ]
+    lines += ["",
              "| condition | model | reports | emitted | scorable | repaired | faithful | "
              "hallucination rate | 95% CI | unusable rate | parse fail | schema rejected |",
              "|---|---|---|---|---|---|---|---|---|---|---|---|"]
@@ -325,9 +377,10 @@ def main() -> None:
                 lines.append(f"- **{r['condition']}**: {causes}")
 
     if any(r["failed_checks"] for r in rows):
-        lines += ["", "## Which check caught it (C1-C4)", "",
-                  "| condition | bad ref (C1) | value (C2) | pct (C3) | direction (C4) |",
-                  "|---|---|---|---|---|"]
+        lines += ["", "## Which check caught it (C1-C5)", "",
+                  "| condition | bad ref (C1) | value (C2) | pct (C3) | direction (C4) "
+                  "| prose (C5) |",
+                  "|---|---|---|---|---|---|"]
         for r in rows:
             c = r["failed_checks"]
             if not c:
@@ -335,12 +388,20 @@ def main() -> None:
             lines.append(
                 f"| {r['condition']} | {c.get('missing_or_bad_ref', 0)} | "
                 f"{c.get('value_mismatch', 0)} | {c.get('pct_mismatch', 0)} | "
-                f"{c.get('direction_error', 0)} |")
+                f"{c.get('direction_error', 0)} | "
+                f"{c.get('prose_quoted_value_mismatch', 0)} |")
         lines += ["",
                   "Counts are per CHECK, not per claim - one claim can fail several - so "
                   "rows do not sum to the unfaithful total. C4 is the clinically "
                   "dangerous mode: a correct number narrated backwards. C3 alone is a "
-                  "copying error."]
+                  "copying error.",
+                  "",
+                  "C5 asks whether the claim's PROSE echoes the number in `claimed_value`. "
+                  "It exists because C2 compares the field against the evidence row and is "
+                  "blind to a claim whose row is right and whose sentence is not - and the "
+                  "sentence is what a caregiver reads. A run where C2 is 0 and C5 is not is "
+                  "a run where the model is copying into the field correctly and "
+                  "paraphrasing in the text."]
 
     repair_arm = next((r for r in rows if "repair" in r["condition"]), None)
     if repair_arm is not None:

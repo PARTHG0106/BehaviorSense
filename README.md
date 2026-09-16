@@ -29,22 +29,26 @@ intelligence* — which is what actually predicts decline in elderly residents.
 | Phase 4 — roadmap | ✅ [`docs/04_roadmap.md`](docs/04_roadmap.md) |
 | Phase 5 — execution plan | ✅ [`docs/05_plan.md`](docs/05_plan.md) |
 | Phase 6 — technical playbook (A–Z) | ✅ [`docs/06_technical_playbook.md`](docs/06_technical_playbook.md) |
+| Algorithms & workflows, step by step | ✅ [`docs/08_algorithms_and_workflows.md`](docs/08_algorithms_and_workflows.md) |
 | Agent 1 — perception | ✅ implemented + tested (19/19) |
 | Agent 2 — activity recognition | ✅ implemented + tested (11/11) |
 | Agent 3 — behaviour analysis | ✅ implemented + tested (16/16), evaluated |
 | Agent 4 — faithfulness verifier | ✅ implemented + tested (12/12) |
 | Agent 4 — LLM reporter | ✅ implemented + tested (13/13), benchmarked |
-| ST-GCN++ + training stack | ✅ implemented + tested (12/12), smoke-verified |
+| ST-GCN++ + training stack | ✅ implemented + tested (21/21), smoke-verified |
 | Open-set ReID protocol + fitted τ | ✅ implemented + tested (12/12), **τ measured on MSMT17** |
 | Ensemble loader + frames→segments pipeline | ✅ implemented + tested (15/15) |
 | Longitudinal simulator | ✅ implemented + 28-scenario eval suite |
 | FastAPI service + SQLite | ✅ implemented + tested (6/6), DB isolation asserted |
 | Docker + requirements + preflight + Charades map | ✅ |
+| Front end + video upload + Kaggle backend | ✅ [`web/`](web/README.md) + [`notebooks/05`](notebooks/05_serve_inference_online.ipynb); verifier ported to JS, cross-checked against the server |
 | ADL shard extraction (Charades → skeletons) | ✅ **165,109 windows / 7,985 videos**, [results/adl_extraction.md](results/adl_extraction.md) |
 | Fall shard extraction (4 corpora → skeletons) | ✅ **3,064 windows / 520 clips**, Le2i via PyAV fallback |
-| GPU training run (P1/P2 + ablations + Agent 4 table) | ✅ **all measured on real data**, [results/evaluation.md](results/evaluation.md); P3 staged→wild still pending |
+| GPU training run (P1/P2 + ablations + Agent 4 table) | ✅ **all measured, person-disjoint**, [results/evaluation.md](results/evaluation.md); P3 staged→wild still pending |
+| Accuracy levers (5, all measured) | ✅ logit-adjust **+0.053 mean-class**, subsets **+0.018 macro-F1**, second-person **class-18 recall 0.060→0.148**, TTA nil, Viterbi −**0.032** (a regression the frag ratio then resolved) |
+| Person-disjoint P1 (Charades actor ids) | ✅ **retrained + re-evaluated**; split-identity guard refuses cross-identity resume |
 
-**152 tests pass** across 11 suites (136 fast + 16 training). The full four-agent path is
+**167 tests pass** across 11 suites (146 fast + 21 training). The full four-agent path is
 implemented and verified on CPU (`scripts/run_full_pipeline.py`): RawDetection →
 PersonObservation → ActivitySegment → DailyFeatures → BehaviourState → Claim →
 VerificationResult. P1, calibration, P2, the combination ablation and the Agent 4
@@ -234,6 +238,42 @@ Then open http://localhost:8000/docs. Or with Docker:
 docker build -t behaviorsense . && docker run -p 8000:8000 behaviorsense
 ```
 
+**7. Open the front end** — no build step, no dependencies:
+
+```bash
+python -m http.server 5173 --directory web
+```
+
+The daily report at the top is verified *in the browser*: `web/scripts/verifier.js` is a port
+of the Python verifier with the same tolerances and word lists, so the four cells beside each
+claim are real check results rather than a picture of some.
+
+The models do not run there. Qwen2.5-7B needs ~16 GB in bf16 and the ADL ensemble needs a GPU,
+so `notebooks/05_serve_inference_online.ipynb` serves both from a Kaggle T4/P100 behind a
+Cloudflare tunnel and prints an address you paste into the page. `Generate live` then runs the
+real model, and the page **re-derives the verdicts from the evidence it was sent and compares
+them with the server's** — two independent implementations agreeing on live output, with
+disagreement reported as a reason to distrust the page rather than hidden. Details, states and
+the security caveats: [web/README.md](web/README.md).
+
+The **On your own footage** band takes a clip and runs Agents 1 and 2 on it: RTMO poses for
+every person in shot, the tracker holding an identity across frames, OSNet deciding which one
+is the resident, and the ensemble labelling each person's activity on their own windows. The
+skeletons are drawn back over the playing video from the coordinates the model returned, with
+one timeline per person and fall segments struck in pencil.
+
+It does **not** produce a caregiver report, and says so in the payload. Agent 3's baseline is a
+rolling 14-day median, so a single clip has no history to deviate from — and fabricating that
+history would yield a report verified against invented numbers. Decode runs in a child process,
+because ffmpeg raises SIGSEGV on malformed streams and a signal is not catchable: inline, one
+bad upload would take down the kernel, the tunnel and the demo together.
+
+To develop that path without booking a GPU:
+
+```bash
+python web/dev_backend.py    # same routes, no model, one deliberately false claim
+```
+
 ### Fitting the ReID threshold on real data
 
 Requires a Market-1501/MSMT17-layout dataset directory. CPU-only, ~9 min for 2,912 crops:
@@ -294,12 +334,13 @@ PYTHONPATH=src python scripts/train_adl.py --shards data/shards/*.npz --stream j
 
 ```
 configs/taxonomy.yaml                 unified 20-class ADL taxonomy + source mappings
-docs/                                 design documents (00-06)
+docs/                                 design documents (00-08)
 results/behaviour_eval.md             28-scenario evaluation report
 results/tuning_log.md                 every threshold, and the measurement behind it
 results/reid_eval.md                  fitted open-set ReID operating point
 results/hallucination.md              hallucination rate + calibration anchors
-results/evaluation.md                 P1 / calibration / P2 / ablation, from the GPU run
+results/evaluation.md                 P1 / calibration / P2 / ablation / levers, from the GPU run
+results/val_logits.npz                saved val logits — replay accuracy levers on CPU
 src/behaviorsense/
   schemas.py                          inter-agent contracts, robust statistics
   agents/perception.py                Agent 1: track, open-set ReID, role assignment
@@ -311,6 +352,7 @@ src/behaviorsense/
   models/ensemble.py                  checkpoint→WindowClassifier bridge (4-stream logit avg)
   models/osnet.py                     OSNet-AIN loader + embedder
   pipeline.py                         Agent 1→2 seam: frames → per-track windows → segments
+  video.py                            uploaded clip → poses → observations, crash-isolated
   data/simulator.py                   longitudinal simulator with injected ground truth
   data/skeleton_dataset.py            shards, augmentation, subject splits, sampling
   data/reid_datasets.py               open-set ReID protocol construction
@@ -318,49 +360,160 @@ src/behaviorsense/
   eval/reid_eval.py                   AUROC / TAR@FAR / DIR@1 / EER
   service/api.py                      FastAPI + SQLite persistence
 scripts/                              train, evaluate, extract, demo, preflight
-tests/                                152 tests, all runnable without pytest
+tests/                                167 tests, all runnable without pytest
 run_tests.py                          one command, one verdict
+web/                                  static front end + Kaggle-backed live mode
 ```
 
 ---
 
 ## Measured results — Agent 2 activity and falls (real data)
 
-30-epoch budget with `--patience 8`, EMA weights. 24,908 val
-windows over 1,166 subjects, split seed 0. Full report:
+30-epoch budget with `--patience 8`, EMA weights. **35,698 val windows over 41 held-out
+actors** — a person-disjoint split via the Charades `subject` column, not the video-id proxy
+this project used until it was caught (see limitation 5). Full report:
 [results/evaluation.md](results/evaluation.md).
 
-| stream | top-1 | mean-class | macro-F1 |
+| configuration | top-1 | mean-class | macro-F1 |
 |---|---|---|---|
-| `joint` | 0.337 | 0.180 | 0.169 |
-| `bone` | 0.331 | **0.189** | 0.168 |
-| `joint_motion` | 0.331 | 0.127 | 0.105 |
-| `bone_motion` | 0.325 | 0.123 | 0.117 |
-| **ensemble** (logit avg) | **0.375** | 0.151 | 0.150 |
+| `joint` alone | 0.327 | 0.181 | 0.141 |
+| `bone` alone | 0.324 | **0.187** | **0.146** |
+| `joint_motion` | **0.344** | 0.121 | 0.094 |
+| `bone_motion` | 0.333 | 0.121 | 0.090 |
+| **ensemble** (logit avg, P1 headline) | **0.375** | 0.156 | 0.128 |
+| ensemble, prob avg | 0.358 | 0.169 | 0.131 |
+| ensemble + logit-adjust τ=0.25 | 0.239 | 0.209 | 0.135 |
+| `bone+joint` + logit-adjust τ=0.25 | 0.185 | **0.219** | 0.133 |
+| ensemble + TTA flip | 0.376 | 0.156 | 0.129 |
 
-**The ensemble wins top-1 by 3.8 points and loses 3.8 points of mean-class accuracy versus
-`bone` alone.** Reported as measured, against the prediction. Logit averaging is a product
-of experts, so a stream that is confidently wrong on a rare class can veto it; on a
-long-tailed label distribution that trades tail recall for head accuracy. The ablation
-confirms the mechanism — probability averaging (a mixture) recovers mean-class to 0.167
-while giving up top-1 to 0.358.
+Effective sample size is **41 people**, not 35,698 windows — windows from one actor are not
+independent, so treat gaps under ~2 points as unresolved.
 
-The fall head is the strong result:
+**The ensemble wins top-1 by 4.8 points and loses 2.5 of mean-class and 1.8 of macro-F1
+versus `joint` alone.** Reported as measured, against the prediction. Logit averaging is a
+product of experts, so a stream that is confidently wrong on a rare class can veto it; with
+two streams at mean-class 0.121 that veto trades tail recall for head accuracy. Probability
+averaging recovers part of it, and **neither combination beats `bone` alone on any
+class-balanced metric** — four-stream averaging is simply the wrong default for this label
+distribution.
+
+**Logit adjustment moves mean-class and costs macro-F1**, and it needs no retraining:
+subtracting `τ·log(prior)` at decision time takes mean-class from 0.156 to 0.209 (ensemble) or
+0.219 (`bone+joint`). τ peaked at 0.25, well below 1.0 — consistent with effective-number
+sampling having already removed most of the imbalance during training.
+
+But mean-class is macro-*recall*, and under the honest split the two metrics now disagree at
+the top. Every τ>0 configuration costs macro-F1 (0.146 → 0.133–0.135): the extra tail recall is
+bought with precision. Agent 3 sums window predictions into daily *durations*, so
+over-predicting a class inflates a duration exactly as missing one deflates it — which makes
+**macro-F1 the right arbiter here, not mean-class**. On macro-F1 the winner is **`bone` alone
+at 0.146**, with no adjustment at all, and the P1 headline ensemble is the worst credible
+option at 0.128. Dropping the ensemble for one stream is the single largest free gain:
+**+0.018 macro-F1**.
+
+**TTA flip is a wash: +0.001 top-1, ±0.000 mean-class, +0.001 macro-F1.** Confirmed on both
+splits. The mirror is a transform the model trained on, so it had already learned the
+invariance. Measured, reported, not deployed.
+
+**Second-person context works exactly where it was aimed.** Every shard already carries two
+person slots, and slot 1 is non-zero when the tracker held a second person — the signal
+`OBJECT_PRIORS["person"]` was written for and had never received. It fires on 7.5% of windows
+and lifts `interacting_with_person` recall **0.060 → 0.148 at unchanged precision** (F1 0.047 →
+0.058), while global mean-class dips 0.156 → 0.152 because the offset costs other classes where
+it fires. A targeted fix with a small global cost — worth deploying because
+`social_interaction_duration_s` feeds Agent 3's social-withdrawal alert, not worth it as a
+general lever. It is the cheap half of object context; the three classes needing a real
+detector are untouched.
+
+**Segment-level decoding found a live regression, my fix for it mostly failed, and the
+fragmentation column changed the answer.** Agent 3 consumes smoothed segments, never windows,
+and that path had never been evaluated on real data.
+
+| decoding | top-1 | mean-class | frag |
+|---|---|---|---|
+| per-window argmax | 0.375 | 0.156 | 1.86 |
+| Viterbi, hand-set prior (0.90) | **0.403** | 0.124 | 0.48 |
+| Viterbi, fitted prior (0.764) | **0.403** | 0.126 | 0.48 |
+| argmax + logit-adjust τ=0.25 | 0.239 | **0.209** | 3.32 |
+| **Viterbi fitted + logit-adjust τ=0.25** | 0.298 | 0.194 | **0.62** |
+
+I predicted the cause was a mis-specified self-transition and fitted the matrix from 165,109
+training windows instead. The fitted value is 0.764, so the hand-set prior *was* too sticky —
+and correcting it recovered **0.002 of the 0.032**. The regression is intrinsic to max-product
+decoding over a posterior whose head class holds ~40% of the mass: whatever the transition
+rates, the cheapest path through a short rare-class run is to absorb it into the majority.
+
+On label quality alone, argmax + adjustment wins at 0.209 — and it **fragments 3.32×**. Agent 3
+counts `walking_bouts` and `mean_bout_duration_s` from segment structure, so deploying that
+would report roughly three times the true bouts at a third of the true mean duration while
+looking best in the accuracy column. `Viterbi fitted + logit-adjust` is the deployment choice:
+mean-class 0.194 (0.015 behind) at frag 0.62, the only row defensible on both axes — and one
+that neither column would have selected alone.
+
+The fall head is strong in domain and does not transfer:
 
 | metric | value |
 |---|---|
-| AUPRC | **0.822** |
+| AUPRC (validation) | **0.822** |
+| AUROC (validation) | 1.000 |
 | sensitivity @ 0.99 false alarms/hour | **0.951** |
 | negative duration behind that operating point | 23.2 h |
 | positive rate | 0.49% |
+| **AUROC, held-out corpora** | **0.471 – 0.603** |
 
-AUPRC rather than AUROC, because AUROC flatters at a 0.49% positive rate. ~168× chance. An
-operating point quoted per hour needs enough negative *hours* to be a decision rather than
-an artefact — the earlier 141-negative pool was 0.08 h.
+AUPRC rather than AUROC, because AUROC flatters at a 0.49% positive rate. An operating point
+quoted per hour needs enough negative *hours* to be a decision rather than an artefact — the
+earlier 141-negative pool was 0.08 h.
 
-Cross-corpus transfer (P2, leave-one-dataset-out) is weak and corpus-dependent: AUROC
-0.734 caucafall, 0.722 urfd, 0.586 le2i, 0.545 gmdcsa. Calibration fits T = 0.77 (mean
-confidence 0.391 vs accuracy 0.375).
+**But a validation AUROC of 1.000 beside held-out AUROCs of 0.471–0.603 is the finding.** A
+perfect in-domain ranking next to at-or-below-chance transfer means the validation negatives
+are separable by something other than "is this a fall" — recording setup, camera geometry,
+compression. 0.822 AUPRC is an in-domain ceiling, not a portable claim, and the operating point
+is scoped to the training distribution.
+
+Cross-corpus transfer (P2, leave-one-dataset-out) is weak, corpus-dependent, and got **worse**
+under the honest split: AUROC 0.603 caucafall, 0.571 le2i, 0.560 urfd, 0.471 gmdcsa (was
+0.734 / 0.586 / 0.722 / 0.545 with the leaky checkpoints). GMDCSA is below chance. Calibration
+fits T = 0.63 (mean confidence 0.381 vs accuracy 0.375) — down from 0.76, i.e. the honest
+ensemble is *more* under-confident, which is what you would expect once it can no longer
+recognise the person.
+
+### Five accuracy levers, measured — two work, one is targeted, one is a wash, one found a bug
+
+0.187 mean-class over 20 classes is poor, and P1's own numbers said where the slack was. All
+five are measured rather than assumed; four are pure post-processing on logits the notebook
+already computes, and the fifth is one extra forward pass:
+
+| lever | what it changes | outcome |
+|---|---|---|
+| **logit adjustment** | subtracts `τ·log(prior)` at decision time; τ peaked at 0.25 | free, **+0.053 mean-class**, −0.011 macro-F1 |
+| **stream subset selection** | all 15 subsets, both rules; `bone` alone won | free, **+0.018 macro-F1** |
+| **second-person context** | slot-1 occupancy → `OBJECT_PRIORS["person"]` | free, **class-18 recall 0.060 → 0.148** |
+| **test-time flip** | averages each window's logits with its mirror | 1 extra pass, **no gain** |
+| **Viterbi + fragmentation** | the metric Agent 3 actually consumes | free, **found a −0.032 regression** and picked the deployment config |
+
+Logit adjustment is warranted because training already uses effective-number balanced
+sampling, which **saturates by design**: at 65,000 vs 69 windows it removes ~145× of a ~942×
+ratio, so residual imbalance survives it. τ is swept rather than derived, because how much the
+sampler left is a property of the data — and it peaked at 0.25, well below 1.0, exactly as that
+reasoning predicts. Subset selection is warranted because the four-stream average *already
+lost* to `bone` alone, so it was never automatically right and there were 15 answers.
+
+The segment metric mattered most, and not in the direction hoped for: it exposed a live
+regression rather than an improvement, then the fragmentation column overturned the conclusion
+the accuracy column alone would have produced. Every other accuracy number here is per-window,
+and Agent 3 derives every daily feature from smoothed *segments* — a path `viterbi()` and
+`smooth()` had never been evaluated on with real data since Agent 2 was written.
+
+`train_adl.py` also gained `--sampler natural --tau-train τ` for logit-adjusted *training*,
+which is stronger than the post-hoc version but costs a run. It **refuses** to combine with
+balanced sampling — two corrections for one imbalance is a silent methodological error, so
+the script exits with the fix rather than warning inside a 12-hour log (test S11).
+
+And the artefact that makes all of this repeatable: notebook 04 writes
+`results/val_logits.npz` (~8 MB). It had computed those exact arrays four times across four
+sessions and discarded them four times. `scripts/rescore_p1.py` replays every post-hoc lever
+off that file on a laptop in seconds — which is how τ was swept without booking a GPU.
 
 ---
 
@@ -407,30 +560,42 @@ quotes the right number and narrates it backwards.
 
 ### Measured on the real model
 
-Qwen2.5-7B-Instruct, 116 analysed days, 6 personas
+Qwen2.5-7B-Instruct, 116 analysed days, 6 personas. Both arms send byte-identical templated
+text with identical greedy decoding, so the only difference between them is the grammar
 ([results/evaluation.md](results/evaluation.md)):
 
 | condition | emitted | faithful | hallucination rate | 95% CI | s/report |
 |---|---|---|---|---|---|
-| grammar-constrained | 498 | 457 | **8.2%** | 6.1–11.0% | 49.0 |
-| unconstrained | 509 | 476 | **6.5%** | 4.7–9.0% | 6.5 |
+| grammar-constrained | 518 | 478 | **7.7%** | 5.7–10.3% | 50.3 |
+| unconstrained | 514 | 472 | **8.2%** | 6.1–10.9% | 6.6 |
+| **pooled** | **1,032** | 950 | **7.9%** | 6.4–9.8% | — |
 
-**Grammar constraints did not improve faithfulness** — +1.7 points, z = 1.06, p = 0.29, and
-the intervals overlap across most of their range. Reported as measured, against the
-expectation. What the grammar buys is a *worst-case guarantee* that no invalid claim can be
-emitted, where the free arm merely happened to emit none; that is worth having in a
-caregiver-facing system, but it costs 7.5× the decoding time and is not a faithfulness
-result.
+**Grammar-constrained decoding does not measurably improve faithfulness** — −0.4 points,
+z = −0.27, **p = 0.79**. Reported as measured, against the expectation. The smallest
+difference this design could detect is ~3 points, so the true effect would have to be seven
+times larger than observed to register. What the grammar buys is a *worst-case guarantee*
+that no invalid claim can be emitted, where the free arm merely happened to emit none; worth
+having in a caregiver-facing system, but it costs **7.6× the decoding time** and is not a
+faithfulness result.
 
-Failures are concentrated in C2 (quoted value): 39 of 41 constrained, 30 of 33 free. C1 is
-**zero** in both arms — the model never fabricates a citation, because it is handed
-resolvable refs rather than asked to synthesise them. C4, inverted narration, fires 3 times
-per arm: ~2.6% of reports contain a right number told backwards, which C1–C3 would pass and
-a caregiver would remember.
+Getting to a comparison that meant anything took four GPU sessions and four defects, none of
+them in the model: the prompt withheld the output envelope, the grammar allowed twice the
+claims the reporter kept, the constrained arm was sampling at temperature 0.7 while the free
+arm was greedy, and the constrained arm skipped the chat template the free arm applied. All
+four were visible on CPU by reading the two code paths side by side. `test_r14` now audits
+every axis on which the arms can differ, in under a second.
 
-So the contribution does not rest on constrained-versus-free at all. It rests on this: **1
-claim in 13 that a 7B model makes about a resident's day is wrong against the data it was
-given**, and a deterministic arithmetic check catches all of it before anyone reads it.
+What is robust across all four runs: **C1 = 0**, always. The model has never fabricated a
+citation, because it is handed resolvable evidence refs rather than asked to synthesise them
+— one design choice removing one failure mode entirely. **C2 carries essentially all of the
+residual** (39 of 40, 42 of 42): quoting a number more than 2% off the stored value. **C4 is
+rare and not reliably estimable here** — 3, 3, 3, 3, 2, 0 occurrences per ~500 claims across
+runs. The check exists because inverted narration is catastrophic when it happens, not
+because it is frequent.
+
+So the contribution never rested on constrained-versus-free. It rests on this: **1 claim in
+13 that a 7B model makes about a resident's day is wrong against the data it was given**, and
+a deterministic arithmetic check catches all of it before anyone reads it.
 
 ### Two denominators, deliberately
 
@@ -449,12 +614,12 @@ A third arm re-scores the unconstrained arm's *cached* responses after format-on
 unstated direction — asserted by a negative control that replays all five content
 corruptions through repair and requires every one to still fail verification.
 
-On the second run that arm repaired **0 of 509 claims**, which is itself the result: once
+On both later runs that arm repaired **0 of 509 claims**, which is itself the result: once
 the prompt stated the output contract, free decoding produced nothing malformed. The 245
 rejections in run 1 came from a prompt that named `evidence_ref` and `claimed_value` in
 prose but never gave the JSON envelope — no `claim_id`, no `text`, no `claims` array. Fixing
-that removed **31.7 points** of measured "hallucination" (39.9% → 8.2%) that was never the
-model's fault, the same class of error as the earlier zero-baseline defect.
+that removed **more than 30 points** of measured "hallucination" that was never the model's
+fault, the same class of error as the earlier zero-baseline defect.
 
 Every claim and its verdict are now written to JSONL beside the report, so error analysis,
 quotable examples and tolerance sensitivity are a CPU rescore rather than another two-hour
@@ -533,15 +698,44 @@ reproduce the headline ReID number.
    be substantially below P1.
 4. **No clinical validation.** No claim of diagnostic validity. This is a research
    prototype, not a medical device.
-5. **Agent 2 accuracy is low, and measured.** P1 mean-class accuracy is 0.189 (`bone`,
-   the best stream) over 20 classes, top-1 0.375 for the ensemble — well above the 0.05
-   chance rate, well below anything deployable as a standalone activity classifier. Four
-   of the weakest classes have no skeleton-visible evidence at all, which is why object
-   context is part of the architecture rather than an extension. The fall head is the
-   strong result (AUPRC 0.822, sensitivity 0.951 at ~1 false alarm/hour over 23.2 h of
-   negatives), and it is the signal Agent 3's alert rules actually consume. P3
-   (staged→wild) is still pending. See [results/evaluation.md](results/evaluation.md).
-6. **SimpleTracker is a test double, not a tracker.** Association is motion-only, with a
+5. **P1 was video-disjoint, not person-disjoint — found late, fixed, retrained, reported.**
+   The split used video ids on the recorded-and-wrong belief that Charades publishes no
+   actor ids; `Charades_v1_train.csv` has a `subject` column (267 actors in the CSV, 209 in
+   our windows, ~30 videos each), so nearly every person sat on both sides. This is the
+   exact failure `subject_from_path` prevents in the fall corpora, committed on the biggest
+   corpus, and the disjointness assertion could never catch it — the ids *were* disjoint.
+   Every number in this README is now from the actor-disjoint retrain. The mean moved little
+   (ensemble mean-class 0.152 → 0.156, best lever 0.222 → 0.219) but **macro-F1 fell 0.152 →
+   0.128**: what leakage bought was *precision*, not recall. Peaks arrived far earlier (ep
+   3–9 vs 10–17), habit-and-context classes collapsed (`cleaning_housework` 0.193 → 0.098,
+   `personal_hygiene` 0.176 → 0.074, `eating` 0.164 → 0.082) while purely pose-defined
+   classes *improved* (`lying_down` 0.408 → 0.435, `sitting` 0.318 → 0.341), and P2
+   cross-corpus AUROC dropped across all four corpora. The pipeline remaps to actor ids
+   whenever the CSV is attached and refuses to resume a checkpoint across split identities.
+6. **Agent 2 accuracy is low, and measured.** Person-disjoint P1 mean-class is 0.187
+   (`bone`, the best stream) over 20 classes, 0.219 with post-hoc logit adjustment, top-1
+   0.375 for the ensemble — well above the 0.05 chance rate, well below anything deployable
+   as a standalone activity classifier. Effective sample size is 41 actors, not 35,698
+   windows. Four of the weakest classes have no skeleton-visible evidence at all, which is
+   why object context is part of the architecture rather than an extension; one of the four
+   (`interacting_with_person`) is now partly addressed by second-person slot occupancy, the
+   other three need RT-DETR wired to `fuse_objects()`.
+   See [results/evaluation.md](results/evaluation.md).
+7. **The fall head is strong in domain and does not transfer.** Validation AUPRC 0.822 with
+   AUROC **1.000**, sensitivity 0.951 at ~1 false alarm/hour over 23.2 h of negatives — but
+   leave-one-dataset-out AUROC is **0.471–0.603** across CaucaFall, GMDCSA, Le2i and URFD,
+   with GMDCSA below chance. A perfect in-domain ranking beside at-or-below-chance transfer
+   means the validation negatives are separable by recording setup rather than by "is this a
+   fall". 0.822 is an in-domain ceiling, not a portable claim, and the operating point is
+   scoped to the training distribution. P3 staged→wild on OmniFall's OOPS split is the
+   protocol that would settle how far it generalises and remains pending.
+8. **`walking` is under-populated by the label map.** 545 windows (1.5% of val) at F1 0.093,
+   for the most pose-separable activity in the taxonomy, in a corpus of people moving around
+   their homes. The Charades keyword rules are almost certainly routing locomotion into
+   `other_idle`. A class the map barely populates cannot be learned regardless of the
+   objective, and this is one case where a data fix likely beats every decoding lever
+   combined — `charades_map_review.tsv` needs an audit.
+9. **SimpleTracker is a test double, not a tracker.** Association is motion-only, with a
    measured ceiling of 0.538 box-widths/frame; two people crossing at the same depth can
    swap IDs where real BoT-SORT would not. Deployment uses BoT-SORT with ReID-gated
    association; the stand-in exists so the identity logic is testable on CPU.
@@ -567,7 +761,14 @@ printed what it measured:
 | grammar allowed 12 claims, reporter kept 6 | the real Qwen run lost 9 of 116 constrained reports to `max_new_tokens` | budget spent generating claims that were then silently discarded; a report emitting 12 mediocre claims scored the same as one emitting 6 |
 | unconstrained arm reported `nan%` | 245 claims emitted, 0 schema-valid, and the rate had a zero denominator | total failure would have read as missing data; the arm was measuring JSON compliance, not truthfulness |
 | notebook 04 printed nine hours of tables and saved none | the bundling cell globbed `results/*.md` and found only a subprocess's file | P1, per-class, calibration, P2 and the ablation existed solely as session scrollback |
-| the prompt never gave the LLM its output envelope | free decoding lost 245/245 claims to Pydantic; constrained decoding scored 39.9% "hallucination" | 31.7 points of the headline metric were our prompt, not the model — it fell to 8.2% once the field mapping was stated |
+| the prompt never gave the LLM its output envelope | free decoding lost 245/245 claims to Pydantic; constrained decoding scored 39.9% "hallucination" | >30 points of the headline metric were our prompt, not the model — it fell to 6.5% once the field mapping was stated |
+| P1 split by video id, not by actor | the Charades `subject` column exists after all — 267 actors, ~30 videos each, so nearly every person sat on both sides | "subject-disjoint" P1 was video-disjoint; the retrain cost 0.024 macro-F1 and collapsed the habit-and-context classes, which is what leakage had been buying |
+| fall-head validation AUROC of 1.000 | leave-one-dataset-out AUROC came back 0.471–0.603, GMDCSA below chance | the in-domain negatives are separable by recording setup, not by "is this a fall" — 0.822 AUPRC is a ceiling, not a portable claim |
+| accuracy alone chose the wrong decoder | argmax+adjustment won mean-class at 0.209 and fragmented segments 3.32x | Agent 3 counts bouts from segment structure, so it would have reported ~3x the true bouts while looking best in the accuracy column |
+| one decoding arm sampled while the other was greedy | the free arm reproduced bit-identically across runs; the constrained arm moved 498/457 → 504/452 and flipped p=0.29 → p=0.03 | the constrained-vs-free comparison measured temperature, not grammar — `outlines` inherited Qwen's `do_sample=True, temperature=0.7` while the free path passed `do_sample=False` |
+| resume moved the RNG state to the GPU | all five GPU runs died with `TypeError: RNG state must be a torch.ByteTensor`, while the CPU suite passed | `map_location="cuda"` moves every checkpoint tensor including the RNG state, and `set_rng_state` takes only a CPU ByteTensor — S7 resumes on CPU, where `map_location` is a no-op |
+| P1 and training split at different fractions | notebook 04 evaluated at `val_frac=0.15` while `train_adl.py` stops at `0.20` | no leakage (the smaller set nests inside the larger), but P1 was not measured on the set that selected `best.pt` and threw away a fifth of the evidence |
+| one arm skipped the chat template | found by reading the two code paths side by side after three runs, not from a log | `outlines` does not template a bare string, so one arm got a Qwen chat turn and the other a naked instruction block; under a grammar that shows up as worse *content*, not malformed JSON |
 
 The pattern: **a green suite is not evidence something works — it is evidence the
 assertion was satisfiable.** Every detection test in this repo prints the quantity it

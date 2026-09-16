@@ -1,0 +1,3065 @@
+
+[M01910] 2026-08-25T05:08:27.674Z USER (conversation) [C035:1703; copies=3]
+Successfully ran in 23041.4s
+Accelerator
+GPU RTX Pro 6000
+
+Environment
+Latest Container Image
+
+Output
+428.22 MB
+
+Time
+#
+Log Message
+4.1s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.1s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.1s	3	0.00s - to python to disable frozen modules.
+4.1s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.4s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.4s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.4s	7	0.00s - to python to disable frozen modules.
+4.4s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+6.3s	9	WARNING: Skipping onnxruntime as it is not installed.
+6.5s	10	WARNING: Skipping onnxruntime as it is not installed.
+6.5s	11	
+6.5s	12	WARNING: Skipping onnxruntime as it is not installed.
+6.8s	13	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+6.8s	14	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+6.8s	15	Installing collected packages: rtmlib
+6.9s	16	Successfully installed rtmlib-0.0.16
+7.0s	17	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.0s	18	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+7.0s	19	Installing collected packages: rtmlib
+7.0s	20	Successfully installed rtmlib-0.0.16
+7.3s	21	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.4s	22	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+7.5s	23	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.5s	24	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+10.1s	25	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+10.1s	26	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+10.1s	27	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+10.1s	28	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+10.1s	29	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+10.1s	30	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+10.3s	31	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+10.3s	32	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+10.3s	33	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+10.3s	34	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+10.3s	35	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+10.3s	36	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+10.9s	37	Installing collected packages: onnxruntime-gpu
+11.1s	38	Installing collected packages: onnxruntime-gpu
+13.5s	39	Successfully installed onnxruntime-gpu-1.26.0
+13.5s	40	Successfully installed onnxruntime-gpu-1.26.0
+13.5s	41	MODE=untrimmed  FPS_SAMPLE=20.0  installed from /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+13.7s	42	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+13.7s	43	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+13.7s	44	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+13.7s	45	  attached  ["behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-toyota-meta (top level: ['toyota_meta'])", "behaviorsense-toyota-shards (top level: ['shards', 'toyota_shard_manifest.json'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "rgb-untrimmed (top level: ['Videos_mp4'])", "toyota-smarthome-rgb (top level: ['mp4'])", 'arc-prize-2026-arc-agi-3']
+13.7s	46	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+13.7s	47	  contract 22/22 - mounted code is current
+13.9s	48	onnxruntime providers: ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
+16.1s	49	meta   /kaggle/input/datasets/krishnagupta02468/behaviorsense-toyota-meta/toyota_meta
+16.1s	50	video  /kaggle/input/datasets/krishnagupta02468/rgb-untrimmed/Videos_mp4  (536 files)
+16.1s	51	rtmo   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx
+19.8s	52	carried forward 27 shard(s) across 1 shard set(s): ['toyota_trimmed_20hz']
+19.8s	53	resuming toyota_untrimmed_20hz: 0 shard(s), 0 clip(s) already extracted
+19.8s	54	185 untrimmed videos on the CS test side
+19.8s	55	185 to do this session
+21.8s	56	[0;93m2026-08-24 13:37:05.842271944 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+21.8s	57	[0;93m2026-08-24 13:37:05.843940184 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+21.8s	58	[0;93m2026-08-24 13:37:05.843946674 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+22.0s	59	[0;93m2026-08-24 13:37:05.842271944 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+22.0s	60	[0;93m2026-08-24 13:37:05.843940184 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+22.0s	61	[0;93m2026-08-24 13:37:05.843946674 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+22.0s	62	
+22.0s	63	[0;93m2026-08-24 13:37:05.842271944 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+22.0s	64	[0;93m2026-08-24 13:37:05.843940184 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+22.0s	65	[0;93m2026-08-24 13:37:05.843946674 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+22.0s	66	load /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx with onnxruntime backend
+1512.2s	67	  shard 0: 8,594 windows
+2670.9s	68	  shard 1: 8,127 windows
+4070.8s	69	  shard 2: 8,553 windows
+6040.4s	70	  shard 3: 8,349 windows
+7467.2s	71	  shard 4: 8,279 windows
+9075.3s	72	  shard 5: 9,287 windows
+10244.6s	73	  shard 6: 8,510 windows
+11194.9s	74	  shard 7: 8,461 windows
+12361.4s	75	  shard 8: 8,943 windows
+13670.1s	76	  shard 9: 8,613 windows
+14519.3s	77	  shard 10: 8,137 windows
+16214.5s	78	  shard 11: 9,604 windows
+17560.2s	79	  shard 12: 8,262 windows
+18388.3s	80	  shard 13: 8,090 windows
+19428.0s	81	  shard 14: 8,265 windows
+20757.2s	82	  shard 15: 8,528 windows
+21778.4s	83	  shard 16: 8,721 windows
+23032.4s	84	  185/185 clips, 185 ok, 0 unusable, 5,256 pending, 383.5 min, eta 0 min
+23032.6s	85	  shard 17: 5,256 windows
+23032.6s	86	
+23032.6s	87	185 clips extracted, 0 unusable, 38,261 windows dropped as gap
+23032.6s	88	source frame rates seen: {25: 185}
+23032.6s	89	effective sample rates: {20.0: 185} Hz   (exact resampling, so a 30-frame window is 1.50s on BOTH halves regardless of container rate)
+23032.6s	90	23011s total
+23036.5s	91	150,579 windows in 18 shard(s), 7 subjects: ['p02', 'p10', 'p11', 'p14', 'p16', 'p18', 'p20']
+23036.5s	92	CS subjects present - train 0, test 7
+23036.5s	93	
+23036.5s	94	fine class                          windows  share%
+23036.5s	95	Read                                 58,007  38.52
+23036.5s	96	Watch_TV                             19,552  12.98
+23036.5s	97	Use_tablet                           12,100   8.04
+23036.5s	98	Use_laptop                           10,532   6.99
+23036.5s	99	Breakfast                             7,502   4.98
+23036.5s	100	Walk                                  5,382   3.57
+23036.5s	101	Use_telephone                         3,953   2.63
+23036.5s	102	Clean_dishes                          3,419   2.27
+23036.5s	103	Drink.From_cup                        3,405   2.26
+23036.5s	104	Cook                                  3,364   2.23
+23036.5s	105	Write                                 3,107   2.06
+23036.5s	106	Make_coffee                           1,846   1.23
+23036.5s	107	Cook.Cut                              1,457   0.97
+23036.5s	108	Use_Drawer                            1,456   0.97
+23036.5s	109	Put_something_on_table                1,396   0.93
+23036.5s	110	  ... and 36 more of 51 fine classes
+23036.5s	111	
+23036.5s	112	coarse class                        windows  share%
+23036.5s	113	reading                              61,114  40.59
+23036.5s	114	using_device                         22,632  15.03
+23036.5s	115	watching_tv                          19,552  12.98
+23036.5s	116	cooking_food_prep                    10,020   6.65
+23036.5s	117	eating                                7,932   5.27
+23036.5s	118	walking                               6,055   4.02
+23036.5s	119	object_interaction                    5,388   3.58
+23036.5s	120	cleaning_housework                    5,113   3.40
+23036.5s	121	drinking                              4,652   3.09
+23036.5s	122	using_phone                           3,953   2.63
+23036.5s	123	sitting_down                          1,249   0.83
+23036.5s	124	taking_medication                     1,227   0.81
+23036.5s	125	standing_up                           1,225   0.81
+23036.5s	126	lying_down                              244   0.16
+23036.5s	127	personal_hygiene                        223   0.15
+23036.5s	128	
+23036.5s	129	other_idle: 0 windows. Zero is intended - every Toyota class is a real activity, which is the opposite of the Charades map where the fallback was largest.
+23036.5s	130	imbalance 8287x over 51/51 fine classes present
+23036.5s	131	
+23036.5s	132	the dataset this Save Version will publish:
+23036.5s	133	  toyota_trimmed_20hz            214,913 windows
+23036.5s	134	  toyota_untrimmed_20hz          150,579 windows
+23036.5s	135	  TOTAL                          365,492 windows in 45 shard(s)
+23036.5s	136	wrote /kaggle/working/toyota_shard_manifest.json
+23036.5s	137	
+23036.5s	138	======================================================================
+23036.5s	139	  Save Version -> create/update PRIVATE dataset behaviorsense-toyota-shards
+23036.5s	140	======================================================================
+23036.5s	141	This run covered the CS test side only. Attach this dataset back as
+23036.5s	142	an input, switch UNTRIMMED_SIDE, and re-run: carried-forward shards are kept and
+23036.5s	143	their clips are skipped.
+23038.8s	144	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+23038.8s	145	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+23038.9s	146	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+23038.9s	147	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+23039.3s	148	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+23039.4s	149	[NbConvertApp] Writing 60234 bytes to __notebook__.ipynb
+23040.6s	150	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+23041.0s	151	[NbConvertApp] Writing 430043 bytes to __results__.html
+
+
+[M01911] 2026-08-25T05:10:06.213Z ASSISTANT (conversation) [C035:1712; copies=3]
+Completed cleanly — 365,492 windows across both halves. Save Version. But I need to flag something I got wrong about what these shards can measure.
+
+
+[M01912] 2026-08-25T05:16:04.158Z ASSISTANT (conversation) [C035:1747; copies=3]
+Found it — a `\n` inside a triple-quoted cell literal became a real newline and split the f-string. The generator caught it and refused to write, which is why the file on disk is still the previous version.
+
+
+[M01913] 2026-08-25T05:21:43.756Z ASSISTANT (conversation) [C035:1761; copies=3]
+**Save Version now** — 365,492 windows is real training data and worth banking. Then one correction I owe you.
+
+## The run
+
+| | |
+|---|---|
+| 185/185 videos, **0 unusable** | every CS test video extracted |
+| `38,261 windows dropped as gap` | the `frame_mask` path fired — this was the number I asked for, and it working means the dense-label logic is correct |
+| `source {25: 185}` → `effective {20.0: 185} Hz` | exact resampling held; **1.50 s window on both halves** |
+| CS subjects | train 0 / test 7 — correctly the test side only |
+| carry-forward | both sets published: **214,913 trimmed + 150,579 untrimmed = 365,492** |
+
+Combined, 15 of 22 coarse classes are covered, and `taking_medication` now has **4,609** windows against the 359 Charades could reach. The 7 absent classes are the ones I said Toyota can't supervise — `standing`, `sitting`, `bending_reaching`, `falling`, `fallen_on_ground`, `interacting_with_person`, `other_idle` — which is what the partial-label mask is for.
+
+## Two problems, one of them mine
+
+**`imbalance 8287×` on the untrimmed half.** The smallest of the 51 fine classes has **6 windows**. Many are far below the `MIN_SUPPORT = 50` floor, so a per-class mean over all 51 would be meaningless. The verify cell now *names* every class below 50 rather than printing one imbalance ratio — that's exactly the trap the Charades run fell into with `bending_reaching` at 26.
+
+**I promised a PDAN comparison these shards cannot support.** I said the untrimmed half would give "f-mAP against PDAN's 32.7%". It won't. PDAN evaluates **per-frame multi-label** mAP over the whole timeline; this extraction collapses each 30-frame window to a **single** label via `counts.argmax()` with a >50% coverage gate. Different task. Worse, the shard stored no window offsets, so the temporal order couldn't be rebuilt either — which would have broken segment/fragmentation metrics too.
+
+Fixed for future runs: shards now store **`starts`**, the window's index within its clip. Eight bytes per window against a seven-hour re-extraction. With it, overlapping window predictions can be averaged back onto a per-frame timeline, which is what makes both the segment metrics and a genuine per-frame mAP possible. The verify cell reports rather than fails when an older shard lacks it, since the trimmed half's clip-level labels need no timeline. N23 pins it.
+
+**I am not asking you to re-extract now.** The right moment is whenever the untrimmed *train* side runs (351 videos, ~14 h, still pending) — do the test side again in the same pass. And whether that comparison is worth 14 h should depend on whether the trained model is any good, which we don't know yet. Even then it's skeleton-only against PDAN's RGB, so it needs caveats rather than being apples-to-apples.
+
+## Next
+
+1. **Save Version → `behaviorsense-toyota-shards`.**
+2. Then I write the training extension against what you have: 31-class fine head on the trimmed half + 22-class coarse via `collapse_matrix`, partial-label masked loss so Toyota abstains on its 7 unsupported classes while Charades and the fall corpora cover them, `MIN_SUPPORT` exclusions named in the output, then τ/T/Viterbi refit.
+
+No `behaviorsense-code` republish — nothing under `src/scripts/configs/weights` changed again this round.
+
+
+[M01914] 2026-08-25T05:57:05.553Z USER (conversation) [C035:1765; copies=1]
+can we test the model how is it working now?
+
+
+[M01915] 2026-08-25T05:58:53.162Z ASSISTANT (conversation) [C035:1769; copies=1]
+There's no Toyota-trained model yet — we extracted shards, training hasn't been written. But there *is* a genuinely useful test we can run right now, and it costs ~20 minutes.
+
+
+[M01916] 2026-08-25T06:01:18.477Z USER (control) [C035:1776; copies=1]
+[Request interrupted by user]
+
+
+[M01917] 2026-08-25T06:01:25.087Z USER (conversation) [C061:1715; copies=2]
+Continue
+
+
+[M01918] 2026-08-25T06:01:48.373Z ASSISTANT (conversation) [C061:1723; copies=2]
+Now the training extension. Starting with the dataset loader that can read both shard families together.
+
+
+[M01919] 2026-08-25T06:09:57.590Z ASSISTANT (conversation) [C061:1744; copies=1]
+The load-bearing property holds: gradient on `sitting` is **exactly 0.0** for a Toyota window and **−0.472** for a Charades one. Locking that in with tests.
+
+
+[M01920] 2026-08-25T06:23:23.451Z ASSISTANT (conversation) [C061:1759; copies=1]
+The partial-label core is built and proven. `188/188` across 13 suites.
+
+## What landed
+
+**[multicorpus.py](src/behaviorsense/data/multicorpus.py)** — the piece that makes training on 365k Toyota windows *alongside* Charades safe rather than actively harmful.
+
+The problem it solves: Toyota covers 15 of 22 coarse classes and structurally cannot cover the rest. It annotates `Sit_down` as a transition and never labels the sustained posture; a third of its frames are unannotated gaps where sitting is most likely. Under plain cross-entropy, every one of those 365,492 windows becomes a statement that the resident is **not** sitting — training the model to suppress exactly the classes Charades is there to teach.
+
+`masked_cross_entropy` masks unsupervisable classes to `-inf` **before** the softmax. That distinction is the whole thing, and it's the tempting wrong implementation to get backwards: zeroing a masked class's loss *afterwards* leaves it in the normaliser, so predicting it is still penalised and the model still learns "Toyota windows aren't sitting."
+
+Measured, in M1:
+
+```
+gradient on `sitting`, Toyota row:   0.000000   ← exactly zero, all 9 unsupervised classes
+gradient on `sitting`, Charades row: -0.472222   ← still supervised
+```
+
+Also in place:
+
+- **`CorpusSpec` per shard tag.** An unknown tag **raises** rather than defaulting to "supervise everything" — that default would silently reintroduce the bug for whichever corpus was added last. Toyota's supervised sets are *derived* from the maps, so adding a class can't leave the mask behind.
+- **Union coverage asserted** (M4): all 22 classes reachable, and `falling` comes only from the fall corpora — never from Toyota, which contains no falls.
+- **Charades trusted narrowly** (M5): postures kept because nothing else covers them, falls excluded, and the v1.1 appendages (`using_device`, `object_interaction`) excluded because those shards predate the classes.
+- **Two separate fine heads** (M6), `tsm31` and `tsu51`. `Readbook`=23 and `Read`=19 are the same activity at different ids; `Cook.Cleanup` has no exact untrimmed counterpart. Merging them needs another hand-written label map — the exact thing that produced macro-F1 0.128 — so they stay separate as *auxiliary* supervision.
+- **`pooled_coarse_logits` uses log-sum-exp** (M7): 11 equal `Cook.*` members pool to `log(11) = 2.398`. A mean would give 0.0 and systematically under-predict every class that happens to be split into many members.
+- **Unsatisfiable targets raise at the call** (M2), instead of `+inf` loss and NaN weights minutes later with nothing in the log pointing at the label.
+
+## Next
+
+The remaining piece is notebook 03's training cells: a 22-wide coarse head under the masked loss, two auxiliary fine heads, and the `activity.py` `N_CLASSES` 20→22 flip — which must land in the same commit as a 22-wide checkpoint, or `EnsembleClassifier` stops loading `best.pt` and the demo goes down for nothing. Test T8 guards that ordering.
+
+Two things I'd want your call on before I write it, because they change what gets built:
+
+**Charades' weakest classes.** `bending_reaching` measured 26 val windows at F1 0.000 and `standing` 123 at 0.005 — the keyword map has no verb for either. They're currently trusted because no other corpus covers them at all. The alternative is dropping them to 20 usable classes and saying so. I've kept them and recorded why, but training on F1-0.000 supervision may be worse than admitting the gap.
+
+**Whether the trimmed and untrimmed halves train together.** They're 214,913 + 150,579 windows of the same activities from the same apartment, but the untrimmed half is the CS **test** side — so using it for training forfeits it as an evaluation set, and with `imbalance 8287×` it's a poor one anyway. My inclination is to train on trimmed only and hold untrimmed back until its train side is extracted. Say if you'd rather use everything now.
+
+
+[M01921] 2026-08-25T06:33:38.714Z USER (conversation) [C061:1765; copies=1]
+what do i have to do next
+
+
+[M01922] 2026-08-25T06:39:00.883Z ASSISTANT (conversation) [C061:1768; copies=1]
+Two things, and I've made the calls you asked about rather than sending them back to you.
+
+## 1. Confirm the Save Version happened
+
+`behaviorsense-toyota-shards` should now hold **45 shards / 365,492 windows** across both sets. Everything downstream attaches it. If that didn't complete, nothing else can start.
+
+## 2. Run notebook 05 and check the demo (~30 min, ONLINE, T4 ×2)
+
+This is the one thing worth GPU time right now, and it's the deliverable your guides and examiner actually see. The whole web stack changed this session — C5 in the verifier, five cells per claim, staged per-agent output — and none of it has been exercised against a real backend.
+
+Attach `behaviorsense-code`, `behaviorsense-runs`, `behaviorsense-results`, `behavioursense-WW`, and the Qwen2.5-7B Kaggle Model. Then:
+
+```bash
+python -m http.server 5173 --directory web
+```
+
+Paste the tunnel address into the page header, upload any short clip, and confirm: four stage cards, the ochre baseline-provenance banner on Agent 3, and **five** cells per claim in the check table. If a claim shows only four, the backend is an older notebook 05.
+
+## What I decided
+
+**Train on the trimmed half only.** The untrimmed half is the CS *test* side — training on it forfeits the only held-out Toyota evaluation set, and at 8287× imbalance it's a poor training set anyway. It stays as evaluation.
+
+**Keep Charades' weak classes, and report them.** `bending_reaching` (26 windows, F1 0.000) and `standing` (123, F1 0.005) are trusted because *no other corpus covers them* — dropping them means Agent 3's `posture_budget` and `flexibility_proxy` are structurally empty forever. Under the masked loss they get gradient only from Charades, so they'll stay weak; that's a measured fact to print below `MIN_SUPPORT`, not a silent corruption.
+
+## And a leak I caught while planning it
+
+The trimmed shards contain **all 18 subjects** — including p02, p10, p11, p14, p16, p18, p20, which are exactly the 7 CS *test* subjects, and exactly the 7 in your untrimmed run. Training on all 214,913 trimmed windows and then evaluating on untrimmed-test would put the same people on both sides. That is the Charades video-id leak again, in a new place.
+
+So the trainer will split by the **official CS subject partition**:
+
+| | source | subjects |
+|---|---|---|
+| train | trimmed | 9 of the 11 CS train subjects |
+| val (early stopping) | trimmed | the other 2 CS train subjects |
+| test | untrimmed + trimmed | the 7 CS test subjects, never touched |
+
+That costs roughly 11/18 of the trimmed windows (~131k instead of 215k) and it's not optional — the alternative is a number I couldn't put in the dissertation.
+
+I'll write the training cells now: 22-wide coarse head under `masked_cross_entropy`, two auxiliary fine heads (`tsm31`, `tsu51`), and the `activity.py` 20→22 flip landing in the same commit as a 22-wide checkpoint, which test T8 enforces. No `behaviorsense-code` republish is needed for step 2.
+
+
+[M01923] 2026-08-25T06:48:57.911Z USER (conversation) [C061:1777; copies=1]
+just these datasets
+
+
+[M01924] 2026-08-25T06:51:03.832Z ASSISTANT (conversation) [C061:1783; copies=1]
+Those four will run, but you're missing one and it silently degrades the demo.
+
+## Add `behaviorsense-results`
+
+It carries `val_logits.npz`, which notebook 05 uses to refit the temperature **for the streams it actually serves**. Without it you get:
+
+```
+WARNING: no val_logits.npz attached - serving UNCALIBRATED (T=1.0). Attach
+behaviorsense-results, or Viterbi and abstention consume meaningless posteriors.
+```
+
+That matters because it isn't cosmetic. Viterbi smoothing and the abstention gate both consume those posteriors — abstention fires below 0.40 on the forward-backward marginal, and at T=1.0 that threshold sits somewhere nobody measured. The recorded value is **T = 0.63**, and it was fitted on the ensemble; the notebook refits it for whatever subset is served. Serving T=1.0 means the demo and `results/evaluation.md` describe different systems, which is exactly what an examiner would be right to ask about.
+
+Your last notebook 04 run wrote it:
+```
+wrote /kaggle/working/results/val_logits.npz
+```
+So if you did the "Save Version → create/update `behaviorsense-results`" step, it exists — attach it. If you skipped that step, the file is still in that run's output; publish it as a dataset now. That also banks `evaluation.md` and `hallucination_qwen.md`, which are your dissertation tables and currently exist only as one run's output.
+
+## Then check three lines in the log
+
+```
+tau   0.25   T 0.63   auth OFF (demo only)
+osnet /kaggle/input/.../weights/osnet_ain_x1_0_msmt17.pth
+serving 1 stream(s) ... bone
+```
+
+- **`T 0.63`**, not `1.0` — confirms the refit ran. It may differ slightly since it's refitted for the served subset rather than the 4-stream ensemble; anything other than exactly 1.0 means it worked.
+- **`osnet` not `ABSENT`** — if it's absent, every track comes back `unknown` and the resident/visitor distinction in the overlay is gone. That's honest behaviour, not a crash, but it's half the "identity-aware" story your title claims.
+- **`serving 1 stream(s)`** — `bone` alone, the macro-F1 choice from the lever table.
+
+Everything else in your four is right: `behaviorsense-runs` has the checkpoints, `behavioursense-WW` has RTMO, and the Qwen model is attached as a Kaggle Model rather than a dataset, which is correct.
+
+
+[M01925] 2026-08-25T06:54:30.347Z USER (conversation) [C132:1727; copies=1]
+just these?
+DATASETS
+
+behaviorsense-results
+
+
+Qwen2.5-7B-Instruct
+
+
+behaviorsense-runs
+
+
+behavioursense-WW
+
+
+behaviorsense-code
+
+
+[M01926] 2026-08-25T07:08:13.681Z ASSISTANT (conversation) [C132:1749; copies=1]
+There's a stray line in `_generate.py` — `write("08_toyota_zeroshot_offline.ipynb", N08)` with no `N08` defined anywhere. It appeared in an external edit to the file (the harness flagged that it had changed outside my context) and it hard-breaks generation. Flagging rather than silently reverting: if you or another session meant to start a notebook 08, its cell list never landed. Removing the dangling call so the generator runs:
+
+
+[M01927] 2026-08-25T07:12:11.894Z ASSISTANT (conversation) [C132:1767; copies=1]
+Yes — those five are exactly right for notebook 05, and nothing else.
+
+| attach | what it supplies | if missing |
+|---|---|---|
+| `behaviorsense-code` | the package | cell 2 fails immediately |
+| `behaviorsense-runs` | `adl_bone/best.pt` (the served stream) | `/health` reports the load error |
+| `behavioursense-WW` | `rtmo-l.onnx`, `osnet_ain_x1_0_msmt17.pth` | no RTMO → the upload panel hides itself; no OSNet → every role is `unknown`, honestly rather than guessed |
+| `behaviorsense-results` | `val_logits.npz` | **serves uncalibrated at T=1.0** with a printed warning — Viterbi and abstention then consume meaningless posteriors |
+| Kaggle Model `Qwen2.5-7B-Instruct` | Agent 4 | stages 1–3 still run; stage 4 reports `skipped` |
+
+Settings: internet **ON**, accelerator **T4 ×2**.
+
+Don't attach the Toyota mounts or the shards — notebook 05 doesn't read them, and 49k+ extra mounted files only slow the resolver.
+
+## One thing I fixed while checking
+
+Notebook 05 was resolving its four assets with `**` globs, including `INPUT.glob("**/config.json")` to find Qwen — which walks every file under `/kaggle/input`, MSMT17's 65,242 crops inside `behaviorsense-code` included, to locate one file in a directory whose name already contains "qwen". Now per-mount: Qwen by slug name, RTMO/OSNet/`val_logits.npz` through the mount-indexed `find_asset`. Startup should be seconds.
+
+Two lines worth checking in the log:
+
+```
+T refitted for bone on 35,698 val windows: 0.6x
+tau   0.25   T 0.6x   auth OFF (demo only)
+```
+
+If it says `WARNING: no val_logits.npz attached - serving UNCALIBRATED (T=1.0)`, then `behaviorsense-results` didn't resolve.
+
+Then leave the last cell running and paste the `trycloudflare.com` address into the page header.
+
+## Also flagged
+
+`_generate.py` had a dangling `write("08_toyota_zeroshot_offline.ipynb", N08)` with no `N08` defined — it arrived in an edit outside this session and hard-broke generation with a `NameError`. I removed the call rather than inventing a notebook 08. If a zero-shot notebook was intended, its cell list never landed and it needs writing.
+
+I also see `src/behaviorsense/data/multicorpus.py` and `tests/test_multicorpus.py` now exist and are wired into `run_tests.py` as "Partial-label multi-corpus" — the suite passes (**188/188 across 13 suites**). That's the partial-label masking layer for training on corpora that each label only part of the taxonomy, which is the next piece the training extension needs. I'll verify its contents against the shard families you actually have before building notebook 03's Toyota path on top of it.
+
+
+[M01928] 2026-08-25T07:45:15.623Z USER (conversation) [C132:1771; copies=1]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 277.0/277.0 MB 6.5 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 114.7/114.7 kB 6.2 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 66.8 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 3.4 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 45.5/45.5 kB 2.7 MB/s eta 0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.1/23.1 MB 60.6 MB/s eta 0:00:00
+cloudflared version 2024.12.2 (built 2024-12-19-1724 UTC)
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+/tmp/ipykernel_58/3902659044.py in <cell line: 0>()
+     26 print(subprocess.run([str(CF), "--version"], capture_output=True, text=True).stdout.strip())
+     27 import onnxruntime
+---> 28 print("onnxruntime", onnxruntime.__version__, onnxruntime.get_available_providers())
+
+AttributeError: module 'onnxruntime' has no attribute '__version__'
+
+
+[M01929] 2026-08-25T07:54:29.084Z ASSISTANT (conversation) [C132:1778; copies=1]
+Found it. Notebook 05 installs `onnxruntime-gpu` and *then* uninstalls the CPU `onnxruntime` — but both packages own the same `onnxruntime/` directory, so the uninstall deletes shared files and leaves a half-gutted module. It imports, but `__version__` is gone. Notebooks 01 and 07 get the order right; 05's comment argues for the wrong one.
+
+
+[M01930] 2026-08-25T07:58:56.462Z ASSISTANT (conversation) [C132:1792; copies=1]
+The four pip calls are in the right order (my earlier regex just merged them). Adding a test so this ordering can't silently flip back:
+
+
+[M01931] 2026-08-25T08:00:55.768Z ASSISTANT (conversation) [C132:1799; copies=1]
+Failed to authenticate. API Error: 403 user quota is not enough (request id: 20260825160053756014295gdf6zLv78Gb90)
+
+
+[M01932] 2026-08-25T08:08:24.819Z USER (context) [C132:1803; copies=1]
+Continue from where you left off.
+
+
+[M01933] 2026-08-25T08:08:24.819Z ASSISTANT (conversation) [C132:1804; copies=1]
+No response requested.
+
+
+[M01934] 2026-08-25T08:09:30.709Z USER (conversation) [C132:1805; copies=1]
+Continue
+
+
+[M01935] 2026-08-25T08:10:01.762Z ASSISTANT (conversation) [C132:1813; copies=1]
+Notebook 00 is a false positive — it `pip download`s the GPU wheel for staging and deliberately `pip install`s the *CPU* build to trigger RTMO's onnx cache download, since it runs without an accelerator. My test conflated download with install.
+
+
+[M01936] 2026-08-25T08:18:03.637Z ASSISTANT (conversation) [C003:8; copies=46]
+Fixed. `189/189`.
+
+## What broke
+
+Notebook 05's dependency cell had the install order backwards:
+
+```python
+pip install ... rtmlib onnxruntime-gpu==1.26.0 ...   # pip pulls CPU onnxruntime in as rtmlib's dep
+pip uninstall onnxruntime                            # ...then deletes files SHARED with the GPU build
+```
+
+Both packages own the same `onnxruntime/` directory. Uninstalling the CPU build *afterwards* guts the GPU one — the module still imports, but `__version__` is gone. That's your `AttributeError`.
+
+The comment in that cell argued for exactly this order, claiming it stopped the GPU build being "shadowed". It was wrong, and notebooks 01 and 07 already did it the right way round — three successful extraction runs prove the correct sequence:
+
+1. `pip uninstall onnxruntime` **first**
+2. `rtmlib` with **`--no-deps`** so it can't drag the CPU build back in
+3. `onnxruntime-gpu` **last**, so nothing overwrites its provider registration
+
+Notebook 05 now follows it. The version check is also no longer a bare `print` — a missing `__version__` raises with the cause named instead of an `AttributeError` six lines into a demo, and the cell asserts `CUDAExecutionProvider` is present rather than trusting it.
+
+## Test added, and one false positive of my own
+
+**N25** now checks this ordering across every notebook that installs `onnxruntime-gpu`. First version failed on notebook 00 — a false positive: notebook 00 `pip download`s the GPU wheel for staging and deliberately installs the *CPU* build, because it runs with no accelerator and only needs rtmlib to pull RTMO's onnx into the cache. The test now parses pip invocations by verb and ignores `download`. 4 notebooks checked, and a negative control confirms it catches the original wrong order.
+
+## Re-run notebook 05
+
+Re-upload `notebooks/05_serve_inference_online.ipynb`. Same five datasets, internet ON, T4 ×2. **Restart the kernel first** if the session is still alive — the current one has the broken `onnxruntime` directory on disk and reinstalling over it may not repair every deleted file.
+
+The dependency cell should now end with:
+
+```
+cloudflared version 2024.12.2 ...
+onnxruntime 1.26.0 ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
+```
+
+Then check the config cell prints a refitted temperature rather than the uncalibrated warning:
+
+```
+T refitted for bone on 35,698 val windows: 0.6x
+```
+
+No `behaviorsense-code` republish — this was all notebook-cell content.
+
+
+[M01937] 2026-08-25T08:26:14.979Z USER (context) [C003:10; copies=36]
+<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+
+
+[M01938] 2026-08-25T08:26:14.979Z USER (control) [C003:11; copies=51]
+<command-name>/compact</command-name>
+            <command-message>compact</command-message>
+            <command-args></command-args>
+
+
+[M01939] 2026-08-25T08:29:34.397Z USER (context) [C003:7; copies=46]
+This session is being continued from a previous conversation that ran out of context. The summary below covers the earlier portion of the conversation.
+
+Summary:
+1. **Primary Request and Intent:**
+
+   **Project**: BehaviorSense AI — "Identity-Aware Multi-Agent Behaviour Monitoring and Explainable Healthcare Assistance System for Elderly Care" (final-year engineering project → dissertation/publication/demo). 4-agent architecture: (1) RTMO pose + tracker + OSNet ReID + role; (2) ST-GCN++ → calibrate → fuse_objects → Viterbi → abstain → segments; (3) robust median/MAD + robust-z + CUSUM → alerts; (4) Qwen2.5-7B constrained → Claims → deterministic C1–C5 verifier (the publishable core).
+
+   **Standing directives (preserve verbatim):**
+   - "Never blindly agree with proposed ideas. If a better architecture exists, explain why. Always justify engineering decisions."
+   - Timeline 1 month max. "Training notebooks have no internet. Therefore: Every required asset must already exist inside Kaggle datasets."
+   - "The LLM MUST NOT perform perception. The LLM receives structured outputs only."
+   - "dont try to read every image, there are many" (re MSMT17)
+   - "Derived Kaggle datasets from Charades / Market-1501 / MSMT17 must be PRIVATE (no redistribution); DukeMTMC-reID must not be used."
+   - "Edit `notebooks/_generate.py`, never the `.ipynb` files directly."
+   - "yes dont keep asking, keep working until its done"
+   - "dont worry about the gpu quota, since this project is in a 3-member team, each has 30hr quota"
+   - "after finishing any edits, always tell me what notebook we have to start from and whether we have to reupload behaviorsense-code or not"
+   - "always tell the steps to take clearly after making changes"
+
+   **This session's explicit requests, in order:**
+   1. Website must show every agent's output stage-by-stage for user-uploaded video (single or multi-person), including C1–C4 individually
+   2. Find the well-known/proven Toyota Smarthome training pipeline ("dont pickup any of the public available code, pick the one that is well known or is proved to be accurate")
+   3. "we are provided with all these datasets in the email, dont leave anything if it improves accuracy even by a tiny bit"
+   4. "if needed redesign and make the changes in the entire workflow, make no accuracy compromisations, goal is to get maximum accuracy"
+   5. Backend on Kaggle, frontend local/hosted, connected via API/link; serving = T4×2/P100 (internet ON), training = Blackwell 96GB (internet OFF)
+   6. "we can just split it on the t4x2 gpu (total 32gb vram)" + "list the steps for me to do after redesigning the workflow"
+   7. "check if any accuracy improvements can be done" / "make whatever changes u want in the codes to improve the accuracy, everything is upto you to decide"
+   8. "do whatever u want and just list what i have to run on kaggle and which notebook after you are done"
+   9. Repeated operational questions: which datasets to attach, whether `behaviorsense-code` needs re-upload, whether previous notebooks need re-running
+
+2. **Key Technical Concepts:**
+   - **Content-based Kaggle asset resolution** — never resolve by dataset name; identify by a file only that asset has
+   - **Kaggle mount nesting** — `/kaggle/input/datasets/<owner>/<slug>/`; Save Version nests `/kaggle/working/` inside the dataset
+   - **Mount-indexed resolution** — enumerate slugs once at depth 2, then `is_file()` stats; `**` globs and even fixed-depth globs (`datasets/*/*/*/x`) scandir every slug child
+   - **Two official trimmed id spaces** — `2s-AGCN` skeleton 0-indexed (0..30) vs `i3d_smarthome` RGB 1-indexed (1..31), with 0 = unmatched-name sentinel
+   - **Frames not seconds** — TSU `duration` and all `[class, start, end]` are frame counts at 25 Hz (videos ship at ×1.25 speed)
+   - **Pre-merge 53-name vocabulary** — README mandates merging `Make_coffee.Get_water`→`Get_water` and `Make_tea.Insert_tea_bag`→`Insert_tea_bag`
+   - **Exact resampling vs integer striding** — `want = int(round(k * src / rate))` holds window duration constant across 20 fps and 25 fps corpora
+   - **Fine→coarse collapse after the loss** — `collapse_matrix` + logsumexp; collapsing before destroys supervision separating members
+   - **Partial-label masked loss** — each corpus supervises only the classes it defines, abstains on the rest
+   - **C5 verifier check** — claim prose must echo `claimed_value` numerically (2% rel tol)
+   - **Train/serve skew** — RTMO COCO-17 2D for training, not Toyota's 15-joint 3D skeletons
+   - Frame-level vs span-level annotation agreement; MIN_SUPPORT=50; effective-number balancing; post-hoc logit adjustment (Menon et al.); Wilson intervals; two-proportion z-test
+
+3. **Files and Code Sections:**
+
+   - **`src/behaviorsense/data/toyota.py`** (NEW, ~700 lines) — the Toyota ingestion library, everything read from official artefacts not memory.
+     - `TSU_CLASSES` (51, index==official id, order load-bearing), `TSM_CLASSES` (31), `TSM_CV_CLASSES` (19)
+     - `TSU_FPS = 25.0`, `TSM_FPS = 20.0` (measured), `TSM_FPS_DOCUMENTED = 30.0` (README's claim)
+     - `CS_TRAIN_SUBJECTS = (3,4,6,7,9,12,13,15,17,19,25)`, `CS_TEST_SUBJECTS = (2,10,11,14,16,18,20)`, `ALL_SUBJECTS` with gaps preserved (no 1,5,8,21-24; includes 25)
+     - `TSU_ALIASES` — the two documented merges plus "Get Water"/"Get water" spellings
+     - `tsm_id(name, *, space="skeleton"|"rgb", cross_view=False)` / `tsm_name(idx, ...)` — forces the id-space choice; refuses RGB id 0
+     - `parse_tsu_name`, `parse_tsu_filename` (searches for the id, refuses two ids), `parse_tsm_name` (tolerates `_pose3d`/`_LCRNet2d` tags via a `(?:_(?P<tag>[A-Za-z0-9+.]+))?
+
+ group)
+     - `read_annotation_csv(path, *, classes, unknown=None)` — sniffs header/index-vs-name/3-vs-4-col/comma-semicolon-tab; `unknown=[]` collects instead of raising
+     - `survey_annotation_csvs(root)` — walks all 536 CSVs, reports complete vocabulary in one pass
+     - `frame_multilabel(video, n_steps, *, official=True)` — reproduces the reference loader's strict inequalities
+     - `frame_mask(video, n_steps)` — 1.0 where annotated; the gaps are what the unified head must mask
+     - `cross_check_annotations(csv_side, json_side, *, n_steps=0)` — span-level AND frame-level agreement
+     - `COARSE_V11` (22 names, 0..19 == `activity.CLASS_NAMES`, appended 20=`using_device`, 21=`object_interaction`), `assert_coarse_parity()`
+     - `TSU_TO_COARSE` (51 entries), `TSM_TO_COARSE` (31 entries), `collapse_matrix()` (raises on unmapped), `supervised_coarse()`, `to_coarse()` (clip not sum)
+     - `load_trimmed_split(path, *, expect=None)` + `TSM_SPLIT_SIZES` (train_CS 8831 / validation_CS 1854 / test_CS 5444)
+
+   - **`notebooks/_generate.py`** — single source of truth for all 8 notebooks. Key changes:
+     - `MOUNT_PRELUDE` (lines ~154-255) now holds `attached_mounts()` (islice, not `sorted()[:6]`), `_SLUGS`, `find_fast` (prefixes `""`, `"EmotionSense-Extended/"`, `"kaggle/working/"` × `""`, `"weights/"`), `find_asset`, `find_dir`
+     - `RESOLVE` adds `find_charades_csv()` + `find_wheel_dir()`; `RESOLVE_CODE` is repo-only
+     - Notebook 04 P1 cell now **refuses** the video-id split:
+       ```python
+       if SPLIT_MODE.startswith("video-id") and not os.environ.get("BS_ALLOW_VIDEO_SPLIT"):
+           raise AssertionError(
+               "P1 would run on the VIDEO-ID split, which leaks actors between train and val "
+               ...
+               "  FIX: attach the `charades-480p` dataset - it carries the CSV.\n"
+               "  To measure the leaky protocol deliberately, set BS_ALLOW_VIDEO_SPLIT=1.")
+       ```
+     - **N06** `06_toyota_preflight_online.ipynb` (9 cells) — bounded-depth `(subdir, pattern, required)` asset table, GitHub JSON fetch, `survey_annotation_csvs` GO/STOP gate, frame-level cross-check verdict, video probes, writes `behaviorsense-toyota-meta`
+     - **N07** `07_toyota_extract_offline.ipynb` (7 cells) — `MODE = "trimmed"|"untrimmed"`, `UNTRIMMED_SIDE`, `FPS_SAMPLE = 20.0`, `PREFIX = f"toyota_{MODE}_{FPS_SAMPLE:g}hz"`; `poses_for` with exact resampling:
+       ```python
+       rate = min(fps_sample, src)          # never invent frames the container does not have
+       if total and int(total * rate / src) < WINDOW_FRAMES: ... return None, src, rate, reason
+       ...
+       if i == want:
+           kp, sc = body(frame)
+           out.append(assign_slots(...)); k += 1; want = int(round(k * src / rate))
+       ```
+       Shard writer records `skeletons` (fp16), `labels` (coarse), `fine_labels`, `subjects`, `datasets`, `clips`, **`starts`**; carry-forward globs `toyota_*.npz` (all sets) but builds `DONE` only from the current `PREFIX`
+     - Notebook 05 install order fixed (uninstall CPU ort → `rtmlib --no-deps` → other deps → `onnxruntime-gpu==1.26.0` last) with a whole-install assertion on `__version__` and a CUDA-provider assertion; four `**` globs replaced with per-mount lookups
+     - Removed a dangling `write("08_toyota_zeroshot_offline.ipynb", N08)` that arrived via an external edit and hard-broke generation with `NameError`
+
+   - **`src/behaviorsense/agents/reasoning/verifier.py`** — C5 added:
+     - `require_prose_quoted_value: bool = True`, `prose_value_rel_tol: float = 0.02`
+     - `_numbers_in_text()` — hand-written tokenizer (a naive regex mis-tokenised "1,800" as 1 then 800)
+     - `_prose_quotes_value()`, wired into `verify_claim`, `failure_breakdown` gains `prose_quoted_value_mismatch`
+
+   - **`src/behaviorsense/schemas.py`** — `VerificationResult.prose_quoted_value: bool = True`; `is_faithful` now requires it
+
+   - **`src/behaviorsense/agents/reasoning/reporter.py`** — `name` derived from checkpoint path (was hardcoded `qwen2.5-7b-instruct`); `max_memory` param for T4×2 sharding; bf16-capability warning; `_assert_finite_logits()` tripwire; `_template_rows()` + FILLED TEMPLATE prompt block; `visitor_count` in `REPORTABLE_FEATURES`; `second_person_active` in payload
+
+   - **`web/scripts/stages.js`** (NEW) — 4 agent cards with status/timing/seam types, per-claim C1–C5 in the ledger's `.slip`/`.gutter` markup, ochre provenance banner above Agent 3's figures
+   - **`web/scripts/upload.js`** — rewritten to render stages; **note: this file has been repeatedly modified on disk by an external process** (now says C1–C5, "all five checks")
+   - **`web/dev_backend.py`** — staged `/video` payload, C5 mirror with matching tokenizer, real arithmetic notes
+   - **`web/index.html`**, **`web/styles/components.css`**, **`web/README.md`** — stage containers, `.stage--live`/`.stage__flag`/`.stage__quote` styles, docs updated
+
+   - **`scripts/audit_toyota_map.py`** (NEW) — deliberately an audit not a generator (a keyword engine would reintroduce the Charades fallback failure)
+   - **`scripts/publish_code_dataset.py`** — warns on restricted corpora in the tree, **refuses** if one reaches the staged copy; `RESTRICTED_AT_ROOT`
+   - **`scripts/eval_hallucination.py`** — C1–C5 breakdown table with a `prose (C5)` column
+   - **`.gitignore`** — refuses `Toyota_Smarthome/`, `toyota_smarthome*/`, `smarthome_C[SV]_51.json`, `TSU_CS.json`, `Annotation/`, `Annotation_v1.0*/`
+   - **`configs/taxonomy.yaml`** — v1.1, `n_classes: 22`, ids 20-21 appended, stale `toyota_smarthome` block replaced with a pointer + `_cannot_supervise` list
+   - **`results/evaluation.md`** — Agent 4 section rewritten (2.8%/3.7%, C5 largest category), P2 dual-column with fall head transferring, new Toyota section
+   - **`docs/07_kaggle_plan.md`** — notebook 05/06 rows, hardware-splits-by-internet section, nine-mount table
+   - **Tests**: `tests/test_toyota.py` (21: T1–T21), `tests/test_web_contract.py` (5: W1–W5), `tests/test_notebooks.py` (37, added N22–N25), `tests/test_verifier.py` (17, added V12–V16). Also present from external edits: `src/behaviorsense/data/multicorpus.py` + `tests/test_multicorpus.py` wired as "Partial-label multi-corpus"
+
+4. **Errors and fixes:**
+
+   - **Notebook 06 v4 failed at 5602s**: `ValueError: 'Make_coffee.Get_water' is neither an integer class id nor one of the 51 known class names`. I had read the README's merge instruction earlier and never implemented it. Fixed with `TSU_ALIASES` + `survey_annotation_csvs()` so one pass reports every unknown name instead of dying on the first.
+   - **78 of those 93 minutes were glob time**: nine `**` patterns over ~130,000 mounted files. Fixed with bounded-depth, then again with mount-indexed stats after notebook 07's v1 still spent 525s.
+   - **Notebook 07 v1**: `assert META is not None` — Save Version nests output to `toyota_meta/`; I looked only at the slug root. Fixed to try `toyota_meta/` first.
+   - **Notebook 07 v2**: `NameError: name 'find_asset' is not defined` — I gave N07 the lighter `RESOLVE_CODE` (repo only) while cell 3 called `find_asset` from the fuller `RESOLVE`. Fixed by switching N07 to `RESOLVE` and using `WEIGHTS / "rtmo-l.onnx"`. Added **N24** (static name resolution across cells) with a negative control proving it catches the reintroduced bug.
+   - **Notebook 07 trimmed run 1**: 6,040/16,115 clips (37.5%) unusable, `sitting_down` 233 / `standing_up` 149. Cause: 20 fps ÷ 12.5 nominal → stride 2 → 10 Hz → 3.0s window → any clip <3s produced nothing, concentrated in short transitions. Fixed to `FPS_SAMPLE = 20.0`; run 2 gave 5.6% unusable, 214,913 windows, transitions up 8-9×.
+   - **Notebook 04 first re-run silently used the leaky split**: `charades-480p` unattached → macro-F1 0.256 vs the recorded 0.128. My fallback had one printed warning line. Fixed with a hard refusal. Memory `p1-refuses-the-video-id-split` records the lesson.
+   - **`results/evaluation.md` said the fall head doesn't transfer — wrong.** P2 was scoring the ADL ensemble's fall-class posterior while `runs/fall/best.pt` sat unloaded. Dual-column P2 shows fall head 0.928–0.991 vs ensemble 0.471–0.603. Corrected the file and the memory entry.
+   - **Notebook 05**: `AttributeError: module 'onnxruntime' has no attribute '__version__'` — installed `onnxruntime-gpu` then uninstalled the CPU `onnxruntime`, which deletes shared files from the same directory. The cell's own comment argued for that wrong order while notebooks 01/07 already did it right. Fixed the order; added **N25** with a negative control.
+   - **N25 first run false-positived on notebook 00**, which `pip download`s the GPU wheel for staging and deliberately installs the *CPU* build (it has no accelerator). Fixed by parsing pip verbs and excluding `download`.
+   - **Generator refused to write notebook 07** — a `\n` inside a triple-quoted cell literal became a real newline and split an f-string. Fixed to `\\n`.
+   - **A blind string replace nearly corrupted notebook 01a** — `_ann_csv = sorted(INPUT.glob(...))` contains notebook 04's `_csv = sorted(...)` as a substring. Caught by an assertion on match count; did line-targeted edits instead.
+   - **Dangling `write(..., N08)`** from an external edit broke generation; removed the call and flagged rather than inventing a notebook 08.
+   - **`_generate.py` originally lost `write("00_stage_assets_online.ipynb", N00)`** during my N06 insertion; restored.
+   - **User feedback on approach**: "can u not think of everything at once, this is the third time we are re-running it, it takes 2hrs each run" (from the pre-compaction session, still governing) — every fix since has been paired with a local test.
+
+5. **Problem Solving:**
+
+   Verified facts (from data, not memory): TSU 51 classes with exact ids; CS split cross-checked two ways; frames-not-seconds; both trimmed id spaces; trimmed = 20 fps on all 16,115 clips; frame-level CSV↔JSON agreement 0.99889 (mean), 0.97828 (worst), 59/536 below 0.999 → decision: train on the JSON for PDAN comparability, quote 0.99889.
+
+   Extraction results banked: **trimmed 214,913 windows** (15,206/16,115 clips, 909 unusable all from the visibility gate, imbalance 358×, smallest fine class ~205 windows) + **untrimmed CS-test 150,579 windows** (185/185 videos, 38,261 dropped as gap, 51/51 classes but imbalance 8287× with the smallest at 6 windows) = **365,492 total**, 15 of 22 coarse classes, `other_idle` = 0, `taking_medication` 4,609.
+
+   Agent 4: hallucination 7.9% → **2.8% constrained / 3.7% free** (p=0.40 unchanged). **C2 went 39/42 → 0** (FILLED TEMPLATE). C5 is now the largest category (9/16 and 13/20); failures sum exactly to the unfaithful totals.
+
+   Honest corrections I made: (a) the PDAN f-mAP comparison I promised is *not* supported by these shards — `counts.argmax()` collapses multi-label frames to single-label windows, and no window offsets were stored; fixed forward with `starts` but the comparison needs re-extraction, deferred to whenever the untrimmed *train* side runs; (b) my 322k window estimate was 50% high (actual 215k); (c) I under-estimated the untrimmed runtime (said 3.5h, computed 7.5h from the annotation durations, actual 6.4h).
+
+6. **All user messages:**
+
+   - "get context from this chat, what we are working on" (session-opening continuation)
+   - "Continue, also i got reply from the owner of toyota smarthome dataset: [credentials + download links for trimmed RGB/skeleton V1.1/V1.2/depth and untrimmed RGB/Pose/Depth/Annotation + loader repo links] also we require our website to be capable of such that users can upload a downloaded video from a camera and cctv so that we can atleast show the project implementation to our project guides and external examiner. the website should have this: when a user uploads a video, it goes to agent 1: the website should show what agent 1 produced and display it on there, then shows that agent 1's output went to agent 2 and what it did should be displayed on the website too, similarly with agent 3 and agent 4. finally when the report is passed to c1 to c4, their individual outputs should be visible too for the user. there should be no compromises on accuracy. see if u can find the training pipeline actually used on toyota smarthome dataset previously if the code is publicly available (dont pickup any of the public available code, pick the one that is well known or is proved to be accurate), we have blackwell rtx pro 6000 96gb vram gpu, we have no excuses to compromise on accuracy. we are provided with all these datasets in the email, dont leave anything if it improves accuracy even by a tiny bit. if needed redesign and make the changes in the entire workflow, make no accuracy compromisations, goal is to get maximum accuracy"
+   - "[Request interrupted by user] Continue, also we have the msmt dataset in our repo too"
+   - "i will upload the datasets on kaggle as private: [direct download URLs] the last 3 links can be accessed by you, check these github links. also remember our backend would be running on kaggle while our frontend is running locally or hosted somewhere, whenever we would need to run our project, we would run our backend notebook on kaggle and use an api or link or something to connect the backend and frontend so video processing requests are carried out on kaggle rather than locally, for inferencing since we would need internet we would have access to t4x2/p100 gpus and not blackwell rtx pro 6000 96gb vram one, however since the training can be carried out offline on kaggle in no internet environment, we still have access to the better 96gb gpu"
+   - "wouldnt we have to retrain for toyota dataset, also shouldnt we use qwen 3.5 9b instead of qwen 2.5 7b?"
+   - "we can just split it on the t4x2 gpu (total 32gb vram) also list the steps for me to do after redesigning the workflow to maximize accuracy according to your research"
+   - "check if this workflow can have any more accuracy improvements and implement them, no compromise on accuracy since we have a very good training gpu (blackwell rtx pro 6000 96gb)"
+   - "make whatever changes u want in the codes to improve the accuracy, everything is upto you to decide"
+   - "we are done with uploading all the datasets to kaggle [+ the `os.walk` output showing nine mounts under krishnagupta02468] what to do next"
+   - "should i reupload the behaviorsense-code first?"
+   - "what should be ran after updating it"
+   - "what datasets for 04?"
+   - "[notebook 06 + notebook 04 logs]" (multiple)
+   - "does notebook06 require rerunning"
+   - "[notebook 06 second run log + notebook 04 second run log]"
+   - "Continue" / "Continue from where you left off" (several)
+   - "get the entire context from this chat"
+   - "do previous notebooks not require rerun? also list what needs to be done next"
+   - "why are we not using toyota smarthome datasets other than rgb trimmed and untrimmed"
+   - "[notebook 07 v1 failure log + screenshot of behaviorsense-toyota-meta/toyota_meta contents]"
+   - "reupload of behaviorsense code required?"
+   - "[notebook 07 v2 NameError log]"
+   - "going fine? [notebook 07 in-progress log at 463.9s]"
+   - "[notebook 07 trimmed run 1 complete log, 12,796s]"
+   - "reupload of behaviorsense code required?"
+   - "[notebook 07 trimmed run 2 complete log, 24,713s]"
+   - "[screenshot of 6 datasets] these datasets for untrimmed run?"
+   - "[notebook 07 untrimmed startup log]"
+   - "[notebook 07 untrimmed complete log, 23,041s]"
+   - "just these? DATASETS behaviorsense-results / Qwen2.5-7B-Instruct / behaviorsense-runs / behavioursense-WW / behaviorsense-code"
+   - "[notebook 05 onnxruntime AttributeError log]"
+
+7. **Pending Tasks:**
+   - **Save Version → `behaviorsense-toyota-shards`** after the untrimmed run (I advised this; unconfirmed whether done)
+   - **Re-upload `notebooks/05_serve_inference_online.ipynb`** with the fixed install order, then run it (internet ON, T4×2) with the five datasets confirmed
+   - **Write the training extension** (notebook 03 Toyota path): 31-class fine head + 22-class coarse via `collapse_matrix`, partial-label masked loss so Toyota abstains on its 7 unsupported classes while Charades/fall corpora cover them, MIN_SUPPORT exclusions named, τ/T/Viterbi refit
+   - **Verify `src/behaviorsense/data/multicorpus.py`** (appeared via external edits, suite passes) against the actual shard families before building on it
+   - Untrimmed CS *train* side extraction (351 videos, ~14h) — do with `starts` stored, and re-extract the test side in the same pass if the PDAN comparison is wanted
+   - Deferred: RT-DETR wiring into `fuse_objects()` (biggest remaining lever — 3 object-dependent classes at F1<0.08, `rtdetr-l.onnx` already staged); Charades `walking` starvation audit; V1.2 skeleton QA/extra-windows lever; Qwen3.5-4B ablation; `behaviorsense-results` update; P3 staged→wild
+
+8. **Current Work:**
+
+   Immediately before this summary I was fixing notebook 05's dependency cell after the user's `AttributeError: module 'onnxruntime' has no attribute '__version__'`. Root cause: the cell installed `onnxruntime-gpu==1.26.0` and *then* ran `pip uninstall onnxruntime`, which deletes files shared between the CPU and GPU packages (they own the same `onnxruntime/` directory), leaving a hollow but importable module. Its comment had argued for that order while notebooks 01 and 07 already did it correctly.
+
+   Fixed order in `_generate.py`'s N05 dependency cell: uninstall CPU ort → `pip install --no-deps rtmlib` → other deps → `onnxruntime-gpu==1.26.0` last, plus:
+   ```python
+   import onnxruntime
+   _ver = getattr(onnxruntime, "__version__", None)
+   assert _ver is not None, (
+       "onnxruntime imported but has no __version__ - the package directory is incomplete, "
+       "which happens when the CPU build is uninstalled AFTER onnxruntime-gpu (they share "
+       "the directory). Restart the kernel and re-run this cell: ...")
+   _prov = onnxruntime.get_available_providers()
+   print("onnxruntime", _ver, _prov)
+   assert any("CUDA" in p for p in _prov), (...)
+   ```
+
+   Added **test N25** (`test_n25_onnxruntime_install_order_in_every_notebook_that_needs_it`) which parses pip invocations as `(verb, packages, position)` and asserts, for every notebook that *installs* onnxruntime-gpu: CPU removal precedes GPU install, rtmlib uses `--no-deps`, rtmlib precedes the GPU install. It first false-positived on notebook 00 (which `pip download`s the wheel and deliberately installs the CPU build, having no accelerator) — fixed by excluding `download`. Negative control confirms it catches the original wrong order: `"05_serve_inference_online.ipynb uninstalls onnxruntime AFTER installing onnxruntime-gpu. They share a director..."`.
+
+   Also in this stretch: converted notebook 05's four `**` globs (`**/config.json` for Qwen, `**/rtmo-l.onnx`, `**/osnet_ain_x1_0_msmt17.pth`, `**/val_logits.npz`) to per-mount lookups, and removed the dangling `write("08_toyota_zeroshot_offline.ipynb", N08)`.
+
+   Final verified state: **189/189 individual tests passed across 13 suites, ALL SUITES PASSED**.
+
+9. **Optional Next Step:**
+
+   Report the notebook 05 fix and re-run instruction, which is the direct answer to the user's last substantive message (the `AttributeError` log) and to their preceding question "just these? DATASETS behaviorsense-results / Qwen2.5-7B-Instruct / behaviorsense-runs / behavioursense-WW / behaviorsense-code" — to which I had already answered yes, those five, internet ON, T4×2, and had said: "Two lines worth checking in the log: `T refitted for bone on 35,698 val windows: 0.6x` ... If it says `WARNING: no val_logits.npz attached - serving UNCALIBRATED (T=1.0)`, then `behaviorsense-results` didn't resolve. Then leave the last cell running and paste the `trycloudflare.com` address into the page header."
+
+   So: tell the user to re-upload `notebooks/05_serve_inference_online.ipynb` (install-order fix is in the notebook cells, so **no `behaviorsense-code` republish is required** — nothing under `src/scripts/configs/weights` changed) and re-run with the same five attachments.
+
+   After that, resume the task I stated I was starting before the notebook 05 failure interrupted: "Then I write the training extension against what you have: 31-class fine head on the trimmed half + 22-class coarse via `collapse_matrix`, partial-label masked loss so Toyota abstains on its 7 unsupported classes while Charades and the fall corpora cover them, `MIN_SUPPORT` exclusions named in the output, then τ/T/Viterbi refit" — beginning by verifying the externally-added `src/behaviorsense/data/multicorpus.py` against the shard families actually produced (`toyota_trimmed_20hz_*`, `toyota_untrimmed_20hz_*`, Charades, fall).
+
+If you need specific details from before compaction (like exact code snippets, error messages, or content you generated), read the full transcript at: C:\Users\Admin\.claude\projects\C--Users-Admin-Desktop-EmotionSense-Extended\932afe01-2a63-4647-8f8a-7eadd7de2186.jsonl
+Continue the conversation from where it left off without asking the user any further questions. Resume directly — do not acknowledge the summary, do not recap what was happening, do not preface with "I'll continue" or similar. Pick up the last task as if the break never happened.
+
+
+[M01940] 2026-08-25T08:29:35.070Z USER (control) [C003:12; copies=47]
+<local-command-stdout>Compacted </local-command-stdout>
+
+
+[M01941] 2026-08-25T08:43:17.425Z USER (conversation) [C003:19; copies=46]
+run the frontend, url: https://hunt-carnival-robot-writes.trycloudflare.com
+
+
+[M01942] 2026-08-25T08:43:28.155Z ASSISTANT (conversation) [C003:22; copies=46]
+I'll get the static server up and check the tunnel is actually answering.
+
+
+[M01943] 2026-08-25T08:45:14.299Z ASSISTANT (conversation) [C003:29; copies=46]
+Backend is live — `Tesla T4`, `ready: true`, reid on, video on. Starting the static server.
+
+
+[M01944] 2026-08-25T08:50:35.291Z ASSISTANT (conversation) [C003:46; copies=46]
+Page loads in Replay. Now connecting it to the tunnel through the dock — the same path you'd use.
+
+
+[M01945] 2026-08-25T08:50:45.212Z USER (conversation) [C003:53; copies=46]
+pose extraction failed: /usr/bin/python3: Error while finding module specification for 'behaviorsense.video' (ModuleNotFoundError: No module named 'behaviorsense')
+
+
+[M01946] 2026-08-25T08:50:54.656Z ASSISTANT (conversation) [C003:56; copies=46]
+The subprocess isn't inheriting the code path. Let me look at how the child is spawned.
+
+
+[M01947] 2026-08-25T08:54:03.598Z ASSISTANT (conversation) [C003:66; copies=46]
+Found it. Let me confirm the parent side and check for an `__init__.py`.
+
+
+[M01948] 2026-08-25T08:54:35.957Z ASSISTANT (conversation) [C003:71; copies=46]
+The pattern is already established in this codebase — every training subprocess does `env={**os.environ, "PYTHONPATH": str(SRC)}`. `extract_isolated` builds no env at all, so the child inherits `os.environ` with no `PYTHONPATH` and the parent's `sys.path.insert` never crosses the boundary.
+
+
+[M01949] 2026-08-25T08:54:41.015Z ASSISTANT (conversation) [C003:75; copies=46]
+Now the fix, in `extract_isolated` where every caller benefits rather than at one call site:
+
+
+[M01950] 2026-08-25T08:56:48.207Z ASSISTANT (conversation) [C003:90; copies=46]
+Now a test that actually proves it — a real child process with `PYTHONPATH` deliberately cleared:
+
+
+[M01951] 2026-08-25T09:01:22.588Z ASSISTANT (conversation) [C003:105; copies=46]
+This is the exact Kaggle situation — `sys.path.insert` with no `PYTHONPATH`. So a child spawned from this suite reproduces the bug faithfully.
+
+
+[M01952] 2026-08-25T09:04:43.895Z ASSISTANT (conversation) [C003:123; copies=46]
+Negative control fired — the child genuinely failed without `PYTHONPATH`, so the fix is doing the work. Now let me check nothing else on the upload path needs the same treatment.
+
+
+[M01953] 2026-08-25T09:06:32.459Z ASSISTANT (conversation) [C003:128; copies=46]
+Only child on that path, so the library fix covers it. But this fails at *upload* time — in front of an examiner. Let me make notebook 05 prove the child works at startup instead.
+
+
+[M01954] 2026-08-25T09:14:45.003Z ASSISTANT (conversation) [C003:152; copies=46]
+Now regenerate the notebooks and run the whole suite.
+
+
+[M01955] 2026-08-25T09:23:04.331Z ASSISTANT (conversation) [C003:160; copies=46]
+190/190. Now finishing the frontend run — connecting it to your tunnel.
+
+
+[M01956] 2026-08-25T09:26:41.380Z ASSISTANT (conversation) [C003:171; copies=46]
+Page reads **Live**. Let me check the console and exercise `/demo` — the live path that works with the currently-loaded backend.
+
+
+[M01957] 2026-08-25T09:29:44.150Z ASSISTANT (conversation) [C003:189; copies=46]
+`/demo` is still in flight (Qwen generating). Let me wait for it.
+
+
+[M01958] 2026-08-25T09:34:04.070Z ASSISTANT (conversation) [C003:200; copies=46]
+HTTP **524** at ~100s — that's Cloudflare's origin-timeout, not a backend error. Let me confirm that's the cap rather than a hang.
+
+
+[M01959] 2026-08-25T09:38:14.636Z ASSISTANT (conversation) [C003:205; copies=46]
+Backend returns **500 after ~108 s** — it's erroring, not just slow. The first 524 was Cloudflare quitting at 100 s while the origin was still working. Two separate problems. Let me look at the dtype path, because a T4 is Turing and has no bf16.
+
+
+[M01960] 2026-08-25T09:40:36.743Z ASSISTANT (conversation) [C003:210; copies=46]
+Model loaded fine (`ready: true, error: null`), so the tripwire didn't fire — not a dtype problem. Let me find a narrower endpoint to bisect where the 500 comes from.
+
+
+[M01961] 2026-08-25T09:41:29.574Z ASSISTANT (conversation) [C003:222; copies=46]
+`_serialise` is pure Python — I can run it locally against real objects and rule it in or out without the GPU.
+
+
+[M01962] 2026-08-25T09:46:08.978Z ASSISTANT (conversation) [C003:233; copies=46]
+`_serialise` and the whole `analyze_day → report() → JSON` path are clean locally with a stub LLM. So the 500 is inside the real Qwen generation on the T4 — and that traceback only exists in your notebook output.
+
+Let me capture proof the frontend itself is running.
+
+
+[M01963] 2026-08-25T09:47:13.420Z ASSISTANT (conversation) [C003:238; copies=46]
+Let me record the tunnel constraint — it's an external limit that shapes the serving design and isn't derivable from the code.
+
+
+[M01964] 2026-08-25T09:50:40.896Z ASSISTANT (conversation) [C003:248; copies=46]
+The frontend is running and connected. Three findings, one fixed.
+
+## Frontend: running
+
+```bash
+python -m http.server 5175 --directory web
+```
+
+http://localhost:5175 — header reads **LIVE**, `/health` returns `Tesla T4`, `ready: true`, `reid: true`, `video: true`, `streams: ["bone"]`, `τ=0.25`. CORS is correct from the real page origin. The replay ledger works fully: 6 claims, 4 shown, 2 withheld, C1–C5 resolving per claim (`C4:fail` on claim 01, `C2:fail C5:fail` on claim 05) — the browser verifier agreeing with the fixtures.
+
+## Fixed: your upload error
+
+`sys.path` does not cross a process boundary. Notebook 05 makes `behaviorsense` importable with `sys.path.insert(0, str(SRC))`, which configures *that* interpreter and says nothing to the decode child. The child is a fresh `python3`, so it had no idea the package existed — while the parent was importing it perfectly well.
+
+The environment is what crosses, so the path goes there. `extract_isolated` now builds the child's env via a new `child_env()`, which derives the package location from `video.py`'s own `__file__` rather than being told by a caller. Fix is in [video.py](src/behaviorsense/video.py) so every caller gets it, not at notebook 05's call site where the next caller would hit the same trap.
+
+Notably, this pattern was **already established** in the codebase — every training subprocess in `_generate.py` does `env={**os.environ, "PYTHONPATH": str(SRC)}`. `extract_isolated` just built no env at all.
+
+Two guards so this can't come back quietly:
+- **P17** in [test_pipeline.py](tests/test_pipeline.py) spawns a real child with `PYTHONPATH` cleared. The negative control fired — the child genuinely raised `ModuleNotFoundError` — so the test proves the fix is doing the work rather than an installed copy satisfying the import.
+- Notebook 05 now **probes the child at startup**, next to where it resolves RTMO. This mattered because of *when* it failed: mid-demo, on someone else's video, as a 422 that read like a bad file. Also added to the mount contract check, so a stale `behaviorsense-code` is named at cell 1 rather than at upload time.
+
+`190/190` across 13 suites.
+
+## Not fixed: `/demo` returns 500 on the backend
+
+Two calls, both ~108 s, both failed — and it never cached, so it never reached the end of the handler. I ruled out what I could locally: I lifted `_serialise` verbatim out of the notebook and ran the full `analyze_day → report() → _serialise → json.dumps` path against real simulator state with the stub LLM. Clean — 6 claims, 6 verifications, 18 evidence rows, JSON-encodable. The dtype tripwire also didn't fire (`ready: true, error: null`), so it isn't a bf16 overflow.
+
+That leaves the real Qwen generation on the T4, and **that traceback only exists in your notebook output** — uvicorn prints it under the cell running the server. Please paste it.
+
+## Also found: the tunnel has a response cap
+
+Independent of the 500, and it will bite the demo. The first `/demo` was cut at **125.8 s with a Cloudflare 524**; the second returned the origin's 500 at **108.8 s** and got through. So the edge drops anything slower than roughly two minutes.
+
+`/demo` needs ~108 s on a T4 — already at the edge — and `/video` is strictly slower: RTMO over up to 900 frames, plus ST-GCN++, plus the same generation. A synchronous JSON response can't carry either reliably.
+
+The fix is not to shorten the report or cut `max_frames`; that trades measured behaviour for a timeout. Cloudflare's cap is on time-to-first-byte, so an NDJSON `StreamingResponse` that emits one line per agent as it finishes defeats it — and per-agent progress is something your stage-by-stage page wants anyway, so it's a feature rather than a workaround. I'll implement that once I know what the 500 is, since there's no point wrapping streaming around a handler that throws.
+
+## Your two steps
+
+1. **Re-upload `behaviorsense-code`** — `src/behaviorsense/video.py` changed:
+```bash
+kaggle datasets version -p . --dir-mode zip -m "child_env: PYTHONPATH for the decode subprocess"
+```
+2. **Re-upload `notebooks/05_serve_inference_online.ipynb`** and re-run it, same five datasets, internet ON, T4 ×2. Restart the kernel first.
+
+Expect a new line in the weights cell:
+
+```
+decode child OK -> /kaggle/input/.../src/behaviorsense/video.py
+```
+
+If that assertion fires instead, the code dataset didn't take. Then paste the `/demo` traceback and I'll fix the 500 and add the streaming.
+
+
+[M01965] 2026-08-25T11:11:58.926Z USER (conversation) [C003:249; copies=46]
+Failed to fetch
+
+
+====================================================================
+  PASTE THIS INTO THE FRONT END HEADER:
+    https://shown-actively-touring-hepatitis.trycloudflare.com
+====================================================================
+
+  /health   readiness + which streams loaded
+  /activity [N,30,2,17,3] windows -> smoothed labels
+  /report   a BehaviourState -> claims + C1-C4 verdicts
+  /video    an uploaded clip -> per-frame skeletons, tracks, roles, segments
+
+Leave this cell running. Weights finish loading in the background - /health
+reports ready=false until then, and the front end says so rather than failing.
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 421, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/uvicorn/middleware/proxy_headers.py", line 56, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/fastapi/applications.py", line 1159, in __call__
+    await super().__call__(scope, receive, send)
+  File "/usr/local/lib/python3.12/dist-packages/starlette/applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/dist-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/usr/local/lib/python3.12/dist-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.12/dist-packages/starlette/middleware/cors.py", line 95, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/usr/local/lib/python3.12/dist-packages/starlette/middleware/cors.py", line 153, in simple_response
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/dist-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.12/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/dist-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/dist-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/dist-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.12/dist-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.12/dist-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.12/dist-packages/fastapi/routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.12/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.12/dist-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.12/dist-packages/fastapi/routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/fastapi/routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/fastapi/routing.py", line 328, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/ipykernel_58/2147279166.py", line 87, in video
+    "role": s.subject_role.value,
+            ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/pydantic/main.py", line 1026, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'ActivitySegment' object has no attribute 'subject_role'
+
+
+[M01966] 2026-08-25T11:12:27.273Z ASSISTANT (conversation) [C003:253; copies=46]
+That's `/video`, not `/demo` — and it's now getting **past pose extraction**, so `child_env` worked. It dies building the segment payload. Let me find the real field name.
+
+
+[M01967] 2026-08-25T11:12:37.404Z ASSISTANT (conversation) [C003:260; copies=46]
+`ActivitySegment` has `role`, not `subject_role` — that's a `BehaviourState` field (used correctly at line 3104). Let me see the whole block, since one wrong name means it never executed.
+
+
+[M01968] 2026-08-25T11:14:13.789Z ASSISTANT (conversation) [C003:269; copies=46]
+There's already a `service` package with its own suite. That's where this logic belongs — the notebook already learned this lesson once for the classifier.
+
+
+[M01969] 2026-08-25T11:15:03.434Z ASSISTANT (conversation) [C003:274; copies=46]
+Let me see the whole `/video` handler — I need to find every other latent attribute error in code that has never executed.
+
+
+[M01970] 2026-08-25T11:15:38.436Z ASSISTANT (conversation) [C003:279; copies=46]
+Everything inside the `try` at 3265 is swallowed into a stage-3 error, but the segment staging at 3234 is outside it — which is why it 500s. Rather than fix one name and hope, let me build a test that **executes** this handler locally, confirm it reproduces your traceback, then fix.
+
+
+[M01971] 2026-08-25T11:15:51.704Z ASSISTANT (conversation) [C003:284; copies=46]
+Cleanly extractable. Now the test harness:
+
+
+[M01972] 2026-08-25T11:16:21.532Z ASSISTANT (conversation) [C003:289; copies=46]
+Reproduced exactly — locally, in two seconds. Now fix and see what's behind it.
+
+
+[M01973] 2026-08-25T11:16:52.064Z ASSISTANT (conversation) [C003:297; copies=46]
+All four stages run now. But `checks: 0` and Agent 4 at `0.0s` — let me look at the payloads rather than trust the statuses.
+
+
+[M01974] 2026-08-25T11:17:13.520Z ASSISTANT (conversation) [C003:306; copies=46]
+This suite compares *keys* by AST — which is exactly why it missed `s.subject_role`: that's an attribute access on a pydantic model, not a key. Let me add an execution test.
+
+
+[M01975] 2026-08-25T11:18:32.061Z ASSISTANT (conversation) [C003:323; copies=46]
+W6 catches a second problem: Agent 4 reports `done` with zero claims. Let me see whether that's a fixture artefact or real.
+
+
+[M01976] 2026-08-25T11:19:54.501Z ASSISTANT (conversation) [C003:328; copies=46]
+"0 features reviewed", `deviations: []`, `alerts: []`. That's the real problem — and it's not a fixture artefact. Let me find why.
+
+
+[M01977] 2026-08-25T11:20:12.648Z ASSISTANT (conversation) [C003:333; copies=46]
+`deviations` only covers names present in `baselines`, and `baselines = self.baseline.compute(before=day_features.day)` — only days *before* this one. Let me check the dates.
+
+
+[M01978] 2026-08-25T11:20:35.170Z ASSISTANT (conversation) [C003:338; copies=46]
+Found it. The video's synthetic day is **2026-01-01** — the *same* date the reference window starts. So `compute(before=2026-01-01)` finds nothing earlier, baselines come back empty, and everything downstream is empty: no deviations, no claims, no C1–C5 table.
+
+
+[M01979] 2026-08-25T11:21:18.552Z ASSISTANT (conversation) [C003:352; copies=46]
+6 claims × 5 checks, 27 features, 4/4 stages. Let me run everything and check your new session.
+
+
+[M01980] 2026-08-25T11:25:17.126Z ASSISTANT (conversation) [C003:359; copies=46]
+191/191, and your new session is live. Let me point the frontend at the new address — that's what "Failed to fetch" was.
+
+
+[M01981] 2026-08-25T11:26:17.643Z ASSISTANT (conversation) [C003:370; copies=46]
+Connected — **Live**, new address, τ=0.25. Now let me settle whether `/demo` is still broken on this session.
+
+
+[M01982] 2026-08-25T11:30:08.219Z ASSISTANT (conversation) [C003:375; copies=46]
+Confirmed: **524 at 125.8 s** on the new session too. So `/demo` genuinely exceeds the tunnel's cap, and `/video` will be slower still — pose extraction plus the same generation. Both fixes I just made are necessary but not sufficient; the demo cannot work over a single synchronous request.
+
+Let me implement the streaming fix so you only re-upload once.
+
+
+[M01983] 2026-08-25T11:33:06.489Z ASSISTANT (conversation) [C003:383; copies=46]
+Now the restructure. I'll keep the final `result` payload byte-identical so `stages.js` and the contract tests don't move.
+
+
+[M01984] 2026-08-25T11:33:17.420Z ASSISTANT (conversation) [C003:387; copies=46]
+Now the edit — `/video` becomes a streaming generator:
+
+
+[M01985] 2026-08-25T11:33:58.526Z ASSISTANT (conversation) [C003:392; copies=46]
+I put the pose lines one level deeper than the rest of the body. Rather than re-indent 170 lines, let me split transport from computation — cleaner anyway, and testable.
+
+
+[M01986] 2026-08-25T11:34:27.632Z ASSISTANT (conversation) [C003:397; copies=46]
+Now the body needs to emit each stage when it's ready. Let me look at what stage 1 depends on — there's a coupling problem.
+
+
+[M01987] 2026-08-25T11:34:42.265Z ASSISTANT (conversation) [C003:402; copies=46]
+Stage 1's payload derives `n_people` from Agent 2's `tracks`, so a person tracked but too occluded to classify was never counted — contradicting the dashed-box "pose unusable" state the page documents. Fixing that also decouples stage 1, which is what allows true progressive emission.
+
+
+[M01988] 2026-08-25T11:35:20.156Z ASSISTANT (conversation) [C003:410; copies=46]
+Now the Agent 3/4 block — and there's another misattribution to fix: a Qwen exception currently renders as *"no reporter loaded (Qwen weights absent)"*, blaming absent weights for a crash.
+
+
+[M01989] 2026-08-25T11:35:41.299Z ASSISTANT (conversation) [C003:414; copies=46]
+Now splitting the two agents into separate try blocks so a Qwen crash is attributed to Agent 4:
+
+
+[M01990] 2026-08-25T11:41:17.341Z ASSISTANT (conversation) [C003:427; copies=46]
+Now replace the trailing block with the stage-4 emission and the final `result`:
+
+
+[M01991] 2026-08-25T11:43:43.811Z ASSISTANT (conversation) [C003:442; copies=46]
+Now `/demo`, which is the endpoint we proved hits the cap:
+
+
+[M01992] 2026-08-25T11:45:15.431Z ASSISTANT (conversation) [C003:450; copies=46]
+Also need the imports in that cell — let me check its header.
+
+
+[M01993] 2026-08-25T11:50:00.422Z ASSISTANT (conversation) [C003:470; copies=46]
+The generator's own validation caught my edit — I removed the newline after that line. (The `.ipynb` on disk is stale; generation aborted.)
+
+
+[M01994] 2026-08-25T11:50:18.769Z ASSISTANT (conversation) [C003:477; copies=46]
+Now update W6 to drive the generator and assert the event envelope:
+
+
+[M01995] 2026-08-25T11:52:02.825Z ASSISTANT (conversation) [C003:485; copies=46]
+W6 passes. W1/W2 now need to find the payload dict in `_video_stages`'s `yield` rather than a `return`:
+
+
+[M01996] 2026-08-25T11:52:35.420Z ASSISTANT (conversation) [C003:495; copies=46]
+Backend done. Now the frontend must read NDJSON. Let me see how `api.js` calls these:
+
+
+[M01997] 2026-08-25T11:53:17.756Z ASSISTANT (conversation) [C003:502; copies=46]
+Now the NDJSON reader in `api.js`:
+
+
+[M01998] 2026-08-25T11:54:01.305Z ASSISTANT (conversation) [C003:510; copies=46]
+Now the callers — `upload.js` and `ledger.js`:
+
+
+[M01999] 2026-08-25T11:55:29.601Z ASSISTANT (conversation) [C003:530; copies=46]
+Now `main.js` for the demo path:
+
+
+[M02000] 2026-08-25T11:56:06.081Z ASSISTANT (conversation) [C003:537; copies=46]
+Now `dev_backend.py` must stream too, or the page gets developed against a shape the GPU never sends.
+
+
+[M02001] 2026-08-25T11:57:12.996Z ASSISTANT (conversation) [C003:554; copies=46]
+Two things to fix in the stub: chunked framing needs HTTP/1.1, and a single-threaded server would block `/health` polling during a stream.
+
+
+[M02002] 2026-08-25T11:57:40.338Z ASSISTANT (conversation) [C003:561; copies=46]
+Now let me verify the whole thing end to end against the stub — this is exactly what it's for.
+
+
+[M02003] 2026-08-25T11:58:06.312Z ASSISTANT (conversation) [C003:566; copies=46]
+The stub streams correctly. Let me add a contract test so the two stream envelopes can't drift, then verify in the browser.
+
+
+[M02004] 2026-08-25T11:58:40.430Z ASSISTANT (conversation) [C003:573; copies=46]
+Now verify the real page against the streaming stub in the browser:
+
+
+[M02005] 2026-08-25T12:00:32.767Z ASSISTANT (conversation) [C003:584; copies=46]
+Cards are empty but status says done — let me look at what actually rendered.
+
+
+[M02006] 2026-08-25T12:00:59.370Z ASSISTANT (conversation) [C003:591; copies=46]
+That's the ES-module cache the README warns about — the page is running the *old* `api.js`, which called `res.json()` on an NDJSON body and swallowed the parse failure into `{}`. Let me force-refresh the modules.
+
+
+[M02007] 2026-08-25T12:01:49.852Z ASSISTANT (conversation) [C003:602; copies=46]
+Rendering works. Let me prove the *progressive* part with a bigger delay and timed sampling.
+
+
+[M02008] 2026-08-25T12:05:51.686Z ASSISTANT (conversation) [C003:621; copies=46]
+Already finished at t=1.0s despite a 1.2 s/line delay — that's the previous run's DOM. The new upload never started; `input.files` doesn't re-fire `change` for an identical file. Let me drive it through the handler directly.
+
+
+[M02009] 2026-08-25T12:06:03.111Z ASSISTANT (conversation) [C003:625; copies=46]
+`drop` fires `analyse` directly — I'll use that path with a fresh clear first.
+
+
+[M02010] 2026-08-25T12:08:02.030Z ASSISTANT (conversation) [C003:636; copies=46]
+Progressive rendering confirmed: at **0.4 s** two cards and `checks=0`, status naming Agent 3 as the current wait; at **1.4 s** all four cards and the four C1–C5 rows with the verdict. Checks correctly stay empty until Agent 4 lands.
+
+
+[M02011] 2026-08-25T12:09:11.715Z ASSISTANT (conversation) [C003:643; copies=46]
+Let me run everything and update the docs.
+
+
+[M02012] 2026-08-25T12:15:57.797Z ASSISTANT (conversation) [C003:657; copies=46]
+Let me record the transferable lesson.
+
+
+[M02013] 2026-08-25T12:17:31.045Z ASSISTANT (conversation) [C003:664; copies=46]
+Your traceback was `/video`, not `/demo` — and it got **past** pose extraction, so `child_env` worked. Three real bugs behind it, all now fixed and verified locally.
+
+## 1. The crash you pasted
+
+`ActivitySegment` has `role`. `subject_role` is a `BehaviourState` field. One wrong attribute, and it sat **outside** the `try/except` that guards Agents 3–4, so it took the whole request instead of degrading to a failed stage.
+
+## 2. A worse bug hiding behind it
+
+With that fixed, all four stages went green — and Agent 4 said **"0 features reviewed"** with zero claims. The C1–C5 table, the entire point of the page, would have rendered blank on every upload.
+
+Cause: an uploaded clip's timestamps start at the decoder's origin, **2026-01-01** — the same date the simulator's reference window starts. Baselines are computed `before=day`, so nothing matched → empty baselines → empty deviations → nothing for Agent 4 to cite. The clip is now dated after the primed window; you get 27 features, 10 deviations, 6 claims × 5 checks.
+
+This is the one that would have embarrassed you in front of an examiner: four green stages and an empty verification table reads as "nothing to report", not "broken".
+
+## 3. Why `/demo` 524s — the one that isn't a code bug
+
+I tested it on both your sessions: **524 at 125.8 s**, twice. `/demo` needs ~108 s on a T4 and the tunnel drops anything slower than roughly two minutes. `/video` is strictly slower.
+
+Shortening the report or cutting `max_frames` would trade measured behaviour for a timeout. The cap is on time-to-first-byte, so both endpoints now stream NDJSON: `accepted` immediately, one line per agent, then the full payload — which is byte-identical to what they returned before, so `stages.js` didn't move. **The workaround and the feature are the same code**: your page already wanted per-agent reveal.
+
+Verified in the browser against the streaming stub — at 0.4 s, two cards and `checks=0` with the status naming Agent 3; at 1.4 s, four cards and the four C1–C5 rows.
+
+## Two more things I fixed while in there
+
+- Agent 1's `n_people` counted Agent **2**'s tracks, so anyone present but too occluded to classify was omitted — contradicting the dashed "pose unusable" box the page draws.
+- A Qwen crash rendered as *"no reporter loaded (Qwen weights absent)"*, blaming missing weights for a crash in weights that had loaded. Agents 3 and 4 now have separate `try` blocks.
+
+## Why the tests didn't catch any of this
+
+W1–W5 compared **key names** via AST. A key spelled correctly says nothing about the expression filling it, and an AST walk can't know which pydantic model a loop variable holds. **W6** now *executes* the notebook's own staging generator against real schema objects — it reproduced your exact traceback in about a second. **W7** checks both backends speak the same event envelope.
+
+`192/192` across 13 suites.
+
+## Your steps
+
+1. **Re-upload `behaviorsense-code`** (`src/behaviorsense/video.py` — `child_env`):
+```bash
+kaggle datasets version -p . --dir-mode zip -m "child_env + streaming /video"
+```
+2. **Re-upload `notebooks/05_serve_inference_online.ipynb`**, restart the kernel, re-run. Same five datasets, internet ON, T4 ×2.
+3. **Hard-reload the page** — `Ctrl+Shift+R`. `api.js` changed, and browsers cache ES modules hard; this bit me during verification and the page will silently keep the old non-streaming fetch.
+
+Then paste the new address and upload a clip. Expect cards appearing one at a time over a minute or two, then the C1–C5 table.
+
+One note on `/demo`: the first call still takes >2 minutes of GPU work, but it's now cached per scenario — the second is instant. If anything still fails, the error arrives in-band with a traceback rather than a bare 500.
+
+
+[M02014] 2026-08-25T14:07:45.298Z USER (conversation) [C003:665; copies=46]
+the granny in the video was cleaning dishes while stationary infront of the sink, video length is 5seconds:
+Agent 1
+done
+15.2s
+
+perception
+Decoded 58 frames at 10.0 Hz and ran RTMO over every one of them. 1 person was tracked. OSNet re-identification is on, so a role is a fitted decision rather than a guess.
+
+Frames kept
+58
+Sample rate
+10.0 Hz
+People tracked
+1
+Execution provider
+CUDA
+Truncated
+no
+unidentified · track 0
+
+hands on
+PersonObservation
+Agent 2 receives one per person per frame
+
+Agent 2
+done
+0.9s
+
+activity
+Each person's windows are classified on their own skeletons, independently — nobody's activity is inferred from anybody else's. The served configuration is the one notebook 04 selected, not the defaults: bone at τ=0.25 and T=0.79.
+
+Streams served
+bone
+Logit adjustment &tau;
+0.25
+Temperature
+0.79
+Segments emitted
+1
+decoding
+calibrate -> object fusion -> Viterbi -> abstain -> segments
+
+unidentified
+track 0 · 1 segment
+
+interacting_with_person 4.4s
+
+hands on
+ActivitySegment
+Agent 3 receives the segments, per identity
+
+Agent 3
+done
+0.1s
+
+behaviour
+Baseline is a declared reference, not this person. 21 reference days primed against 1 real day from this clip. The feature values below are measured from your video and are real; every robust-z is “unlike the reference”, never “this person has declined”.
+
+Agent 3 is statistics, not a model: a robust median and MAD per feature, a z-score against it, and CUSUM for slow drift. It is written that way so a flagged decline can be explained to the person acting on it.
+
+Measured from this clip
+
+walking duration s
+0.00
+walking bouts
+0.00
+mean bout duration s
+0.00
+room transitions
+0.00
+sit to stand count
+0.00
+mean sit to stand duration s
+0.00
+sitting duration s
+0.00
+lying duration s
+0.00
+standing duration s
+0.00
+longest inactive block s
+0.00
+meal events
+0.00
+eating duration s
+0.00
+drinking events
+0.00
+cooking duration s
+0.00
+medication events
+0.00
+tv duration s
+0.00
+reading duration s
+0.00
+phone events
+0.00
+social interaction duration s
+0.00
+visitor count
+0.00
+housework duration s
+0.00
+fall events
+0.00
+max post fall immobility s
+0.00
+observed hours
+0.00
+tracking coverage
+1.00
+mobility index
+0.00
+sedentary ratio
+0.00
+Deviation against the reference (robust‑z)
+
+walking duration s
+-10.00
+walking bouts
+-10.00
+mean bout duration s
+-10.00
+room transitions
+-10.00
+sit to stand count
+-10.00
+mean sit to stand duration s
+-10.00
+No alert rule fired.
+
+hands on
+BehaviourState
+Agent 4 receives numbers only — never pixels
+
+No data from the backend for 90 s. The session may have ended, or the GPU is wedged.
+
+
+
+this "No data from the backend for 90 s. The session may have ended, or the GPU is wedged." happened because the weights were being loaded on the gpu when the notebook received agent 3's ping
+
+
+[M02015] 2026-08-25T14:09:52.073Z ASSISTANT (conversation) [C003:668; copies=46]
+Pipeline runs end to end now. Two problems in that output — one is mine, and the other is worse than the timeout.
+
+The timeout first: I emit a line *after* each agent, so the longest silence is exactly the slowest stage. Agent 3 → Agent 4 spans the whole generation with nothing in between. My own notes said "heartbeat every 10–15 s" and I never implemented it.
+
+But look at Agent 3's figures: every feature `0.00`, all six deviations pinned at the `-10` clamp, while Agent 2 found `interacting_with_person 4.4s`. `social interaction duration s` should be 4.4, not 0. Let me check why.
+
+
+[M02016] 2026-08-25T14:10:51.741Z ASSISTANT (conversation) [C003:676; copies=46]
+Confirmed — `subject = [s for s in segments if s.role is subject_role]` with `subject_role=RESIDENT`. The uploaded clip's only track is `unknown`, so `subject` is empty and every personal feature is 0. Let me see why social is 0 too, since `others` isn't empty.
+
+
+[M02017] 2026-08-25T14:16:19.209Z ASSISTANT (conversation) [C003:681; copies=46]
+Root cause found. `total_duration` iterates `subject`, and `subject` is empty because the only track is `unknown` — so **every** activity-derived feature is 0, including social. On an uploaded clip there is no enrolled gallery, so OSNet can never match anyone to the resident, and Agent 4 then writes a confident report about a person who did nothing. That's worse than the timeout.
+
+Let me check what machinery already exists before deciding the fix.
+
+
+[M02018] 2026-08-25T14:16:42.882Z ASSISTANT (conversation) [C003:686; copies=46]
+`second_person_present` exists and notebook 04's evaluation feeds it — but the serving path doesn't, which is why a lone person got `interacting_with_person`. Let me check the fusion hook.
+
+
+[M02019] 2026-08-25T14:17:17.142Z ASSISTANT (conversation) [C003:695; copies=46]
+`"person": {18: +1.5}` is a *positive* offset when a second person is present, and serving passes empty objects — so nothing ever says "there is only one person here." Before touching this, let me check what notebook 04 actually measured, because diverging from the evaluated configuration is the mistake this code already warns about.
+
+
+[M02020] 2026-08-25T14:18:43.547Z ASSISTANT (conversation) [C003:707; copies=46]
+This is all measured, and it changes my answer on one point. From [results/evaluation.md:128](results/evaluation.md:128):
+
+| class 18 | predicted | correct | precision | recall |
+|---|---|---|---|---|
+| without context | 950 | 37 | 0.039 | 0.060 |
+| with context | 2,549 | 91 | 0.036 | **0.148** |
+
+Class 18 precision is **0.036** — predicting `interacting_with_person` for a lone person at a sink is the *documented* failure mode, not a new bug. And the measured second-person lever is a **positive** boost when a second person is present, so wiring it would make that worse, not better. I'm not adding the converse penalty: it's unmeasured, and putting serving ahead of the evaluation is the exact mistake this code already warns about. More on that below.
+
+Now the two things that *are* bugs.
+
+
+[M02021] 2026-08-25T14:21:19.371Z ASSISTANT (conversation) [C003:714; copies=46]
+Now `/video`'s generation and the pose child, which is the other long silence:
+
+
+[M02022] 2026-08-25T14:26:17.315Z ASSISTANT (conversation) [C003:725; copies=46]
+Now the all-zero features. Let me fix the role gating and the double classification together:
+
+
+[M02023] 2026-08-25T14:27:18.779Z ASSISTANT (conversation) [C003:739; copies=46]
+Relabelling would make Agent 2's card claim "resident" when Agent 1's ReID said `unidentified`. The displayed role must stay honest — let me capture it before the relabel.
+
+
+[M02024] 2026-08-25T14:30:01.902Z ASSISTANT (conversation) [C003:749; copies=46]
+Now surface the assertion on Agent 2's stage and in Agent 3's payload:
+
+
+[M02025] 2026-08-25T14:30:20.031Z ASSISTANT (conversation) [C003:756; copies=46]
+Line 3519 is the double classification — `run_to_features` re-runs the whole ST-GCN pass and would discard the relabel:
+
+
+[M02026] 2026-08-25T14:30:54.741Z ASSISTANT (conversation) [C003:760; copies=46]
+Now `Role` must be imported, and the caveats should state the assertion:
+
+
+[M02027] 2026-08-25T14:31:39.791Z ASSISTANT (conversation) [C003:770; copies=46]
+`_blocking` landed outside the cell literal, so its docstring apostrophes broke the module. Let me put it inside the cell where it belongs.
+
+
+[M02028] 2026-08-25T14:32:19.950Z ASSISTANT (conversation) [C003:775; copies=46]
+Exactly the trap the `_AdjustedClassifier` comment warns about — a `"""` docstring inside a triple-quoted cell literal terminates the cell early. Comments instead:
+
+
+[M02029] 2026-08-25T14:32:57.732Z ASSISTANT (conversation) [C003:779; copies=46]
+`_blocking` is in the endpoints cell but `_video_stages` is in a later one, so let me confirm they share a namespace (notebook cells do, but the tests exec cells in isolation).
+
+
+[M02030] 2026-08-25T14:33:21.562Z ASSISTANT (conversation) [C003:784; copies=46]
+Cell 6 uses `_blocking` from cell 5 — fine in a notebook, but W6 execs only `_video_stages`. Let me pull the real `_blocking` in rather than stubbing it, and test the heartbeat with a deliberately slow reporter.
+
+
+[M02031] 2026-08-25T14:39:00.380Z ASSISTANT (conversation) [C003:792; copies=46]
+The schema enforces its own invariant — `UNKNOWN` can't carry high confidence. Good catch by the model, not the test. And W7 correctly caught the stub missing heartbeats.
+
+
+[M02032] 2026-08-25T14:44:32.693Z ASSISTANT (conversation) [C003:809; copies=46]
+W2 is doing its job — the stub's Agent 3 payload lacks the two new keys. Let me add them there, plus `is_subject` on its tracks.
+
+
+[M02033] 2026-08-25T15:02:13.463Z ASSISTANT (conversation) [C003:819; copies=46]
+Now the frontend must render the identity assertion — otherwise it's declared in the payload and invisible on screen.
+
+
+[M02034] 2026-08-25T15:06:13.195Z ASSISTANT (conversation) [C003:839; copies=46]
+Token exists. Let me regenerate, run everything, and verify in the browser.
+
+
+[M02035] 2026-08-25T15:10:57.653Z ASSISTANT (conversation) [C003:859; copies=46]
+The assertion banner correctly stays hidden (stub is `reid_matched`), but the subject badge is missing on track 0 which is `is_subject: True`. Let me check whether the flag reaches the JS.
+
+
+[M02036] 2026-08-25T15:11:47.298Z ASSISTANT (conversation) [C003:868; copies=46]
+Three processes bound to 8899 — `allow_reuse_address` let them stack and `pkill` can't see them on Windows, so a pre-patch one was answering. Let me kill by PID.
+
+
+[M02037] 2026-08-25T15:12:18.701Z ASSISTANT (conversation) [C003:876; copies=46]
+Keys present, heartbeat lands before Agent 4. The stub is `reid_matched`, so let me verify the *asserted* render path directly.
+
+
+[M02038] 2026-08-25T15:12:59.952Z ASSISTANT (conversation) [C003:880; copies=46]
+Assertion banner shows when needed, track says "unidentified" while the subject badge appears in ochre. Let me take a screenshot for proof and do the final run.
+
+
+[M02039] 2026-08-25T15:19:05.926Z ASSISTANT (conversation) [C003:893; copies=46]
+Rendering confirmed: `rgb(110, 86, 20)` is `--ochre`, dashed border, mono type — asserted, not stated as fact.
+
+
+[M02040] 2026-08-25T15:25:38.955Z ASSISTANT (conversation) [C003:903; copies=46]
+Your diagnosis was close but not quite it — and there's a second, worse bug in that same output.
+
+## The timeout was mine, not the weights
+
+`/health` reports `ready: true` before the tunnel address prints, and Agents 1–3 all ran, so the weights were loaded. The real cause: **I streamed one line per *agent*, which makes the longest silence in the stream equal to the slowest stage.** Agent 3's line went out, then nothing at all for the whole Qwen pass — and the watchdog fires at 90 s.
+
+My own note said "heartbeat every 10–15 s" and I never implemented it. A generator can't yield from inside a blocking call, so the work now runs on a worker thread (`_blocking`) that beats every 10 s. Applied to all three long stages: RTMO decode, `/video`'s generation, and `/demo`'s.
+
+**W6b** drives it with a reporter that sleeps past the beat interval — the only way to observe the mechanism, since the fast stub emits zero heartbeats. It asserts the beats land *between* the Agent 3 and Agent 4 lines, which is the window that was silent.
+
+## Agent 3's figures were all zero, and that's worse
+
+Every feature `0.00`, all six deviations pinned at the `-10` clamp — while Agent 2 reported `interacting_with_person 4.4s`. `social_interaction_duration_s` should have been 4.4.
+
+```python
+subject = [s for s in segments if s.role is subject_role]   # RESIDENT
+```
+
+Agent 1 reported `unidentified · track 0`. OSNet matches against an **enrolled gallery**, and a stranger's clip has none — so `subject` was empty and all 27 features read zero. Agent 4 would then have written a confident report about someone who did nothing, from a video of someone actively working.
+
+Fixed by treating the most-present track as the subject and **declaring it** — same discipline as the simulated baseline. The track still displays **"unidentified"**, because that's what OSNet decided and it's right to; the assertion travels separately and renders as an ochre dashed badge (verified: `rgb(110, 86, 20)`, dashed, mono). Relabelling the track "resident" would have been tidier and would have had the system lie about its own identity layer.
+
+A real ReID match is never overridden.
+
+## Two more found in passing
+
+- `pipe.run_to_features(frames)` re-runs `self.run(frames)` internally, so the handler classified **every window twice** — and would have discarded the relabel, since its segments were a fresh set. Two independent runs also means Agent 2's card could disagree with Agent 3's figures. Now one pass.
+- The generator caught me putting a `"""` docstring inside a triple-quoted cell literal; and three stale `dev_backend` processes were stacked on port 8899 (`allow_reuse_address`), so a pre-patch one answered my verification. Both cost me a wrong reading before I noticed.
+
+## What I did *not* change: the dish-washing label
+
+`interacting_with_person` for a lone person is wrong, and it's the **documented** failure mode, not a new bug — [results/evaluation.md:128](results/evaluation.md:128):
+
+| class 18 | predicted | correct | precision | recall |
+|---|---|---|---|---|
+| without context | 950 | 37 | 0.039 | 0.060 |
+| with context | 2,549 | 91 | 0.036 | **0.148** |
+
+Precision **0.036**. The measured second-person lever is a *positive* +1.5 boost when a second person is present, so wiring it into serving would make your case *more* likely, not less. The fix you'd want is the converse — penalise class 18 when no second track exists — and that is **unmeasured**. Adding it would put serving ahead of the evaluation, which is exactly the mistake the `/video` cell already carries a comment about.
+
+It's cheaply measurable without a GPU: `scripts/rescore_p1.py` replays post-hoc levers off saved `val_logits.npz`. That's the honest next step, and it's your call whether to spend it. `cleaning_housework` needs RT-DETR, which is still the biggest outstanding lever.
+
+`193/193` across 13 suites.
+
+## Your steps
+
+Notebook-only this time — **no `behaviorsense-code` re-upload**, nothing under `src/` changed.
+
+1. Re-upload `notebooks/05_serve_inference_online.ipynb`, restart the kernel, re-run.
+2. **Hard-reload the page** (`Ctrl+Shift+R`) — `api.js`, `upload.js`, `stages.js` and `components.css` all changed. This bit me twice during verification; the page silently keeps the old modules.
+
+On the next upload expect: heartbeats through generation instead of the 90 s abort, an ochre *"Identity is asserted, not re-identified"* banner on Agent 2, a `subject of Agent 3's features` badge on track 0, non-zero features, and a populated C1–C5 table.
+
+
+[M02041] 2026-08-25T15:31:35.138Z USER (context) [C132:2950; copies=1]
+<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+
+
+[M02042] 2026-08-25T15:31:35.138Z USER (control) [C132:2951; copies=1]
+<command-name>/model</command-name>
+            <command-message>model</command-message>
+            <command-args>claude-fable-5</command-args>
+
+
+[M02043] 2026-08-25T15:31:35.138Z USER (control) [C132:2952; copies=1]
+<local-command-stdout>Set model to claude-fable-5</local-command-stdout>
+
+
+[M02044] 2026-08-25T15:31:43.147Z USER (context) [C132:2953; copies=1]
+<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+
+
+[M02045] 2026-08-25T15:31:43.147Z USER (control) [C132:2954; copies=1]
+<command-name>/model</command-name>
+            <command-message>model</command-message>
+            <command-args>claude-fable-5[1m]</command-args>
+
+
+[M02046] 2026-08-25T15:31:43.147Z USER (control) [C132:2955; copies=1]
+<local-command-stdout>Set model to claude-fable-5[1m]</local-command-stdout>
+
+
+[M02047] 2026-08-25T15:32:05.580Z USER (conversation) [C132:2956; copies=1]
+Check if you could make any accuracy improving changes
+
+
+[M02048] 2026-08-25T15:32:45.990Z ASSISTANT (conversation) [C132:2959; copies=1]
+API Error: 402 当前账户暂无生效套餐，请前往钱包页面激活订阅 (request id: 202608251532446863729248268d9d6Juibolh9)
+
+
+[M02049] 2026-08-25T15:33:29.137Z USER (conversation) [C187:904; copies=1]
+Check if you could make any accuracy improving changes
+
+
+[M02050] 2026-08-25T15:33:35.018Z USER (control) [C187:911; copies=1]
+[Request interrupted by user]
+
+
+[M02051] 2026-08-25T15:33:40.318Z USER (conversation) [C089:904; copies=1]
+Check if you could make any accuracy improving changes
+
+
+[M02052] 2026-08-25T15:35:37.012Z ASSISTANT (conversation) [C089:911; copies=1]
+<think>
+The user wants me to check if there are accuracy improvements that can be made. Let me think about what's been done and what the standing directives say:
+
+- "Never blindly agree with proposed ideas. If a better architecture exists, explain why. Always justify engineering decisions."
+- "Training notebooks have no internet. Therefore: Every required asset must already exist inside Kaggle datasets."
+- "The LLM MUST NOT perform perception. The LLM receives structured outputs only."
+- "do whatever u want and just list what i have to run on kaggle and which notebook after you are done"
+- "make whatever changes u want in the codes to improve the accuracy, everything is upto you to decide"
+
+
+- "if needed redesign and make the changes in the entire workflow, make no accuracy compromisations, goal is to get maximum accuracy"
+
+Now I'm reviewing the current state to see where improvements are actually possible. The 193/193 test suite passing is a good sign, but I need to think carefully about what accuracy really means here—the video pipeline produces 0 features when subjects are untracked, the interaction classifier has a known low precision issue, and there are several other known limitations I should account for.
+
+Looking at what's left to work with, the training pipeline for the Toyota dataset hasn't been built yet, which is probably the biggest lever. The RT-DETR object detector would help with those object-dependent classes, but it requires vision models we don't have. RT-DETR would help with object-dependent classes, RT-DETR needs COCO classes and the object priors file is already written for it
+4. **The second-person context fix**: Not adding it because it's unmeasured (would make precision worse for single-person clips)
+5. **Qwen model**: The user asked about Qwen 3.5 9B, but it's not available on Kaggle Models. We have Qwen2.5-7B.
+6. **Charades walking class starvation**: Noted in the summary as deferred
+7. **V1.2 skeleton**: Deferred
+8. **The training pipeline extension**: The summary says "I write the training extension against what you have: 31-class fine head + 22-class coarse via collapse_matrix, partial-label masked loss so Toyota abstains on its 7 unsupported classes while Charades and the fall corpora cover them, MIN_SUPPORT exclusions named, then τ/T/Viterbi refit"
+
+Let me focus on the concrete, measurable accuracy improvements:
+
+1. **Second-person context**: The class has 0.036 precision on lone-person clips. The fix: add a -0.5 log-odds penalty to class 18 when there's only one tracked person. This is measurable offline without GPU using the saved val_logits.npz - I can inject the penalty and check if it helps.
+
+2. **RT-DETR wiring**: The weights are already staged on Kaggle, but the real question is whether the COCO→Toyota object mapping makes sense, since RT-DETR outputs COCO class IDs.
+
+3. **Toyota training**: The extraction is done, but notebook 03 hasn't been extended yet.
+
+4. **Clean up the video pipeline**: The role gating for uploaded clips is already fixed, but there's more to polish there.
+
+Now I'm thinking through the second-person context fix more carefully. The OBJECT_PRIORS file currently has a +1.5 log-odds boost to class 18 when any person is detected, but we actually have richer information about second-person presence. The second_person_present function tells us whether the second person slot has real tracking data, so I can use that as a more targeted signal - boosting class 18 only when that function returns true, and penalizing it with a small negative boost when it returns false.
+
+Looking at the actual per-class F1 scores, class 18 is performing terribly at 0.042, but the overall macro-F1 of 0.128 is actually our best result across all configurations. The second-person lever specifically boosts class 18 recall by 2.5× with minimal precision cost on the 7.5% of windows where it fires, but the global mean-class score dips from 0.156 to 0.152 because that +1.5 boost hurts other classes. The real issue is that class 18 gets boosted even when there's only one person in the frame - the serving path doesn't know about second_person_present, so it applies the boost indiscriminately.
+
+The fix is to check the second person slot directly: apply the +1.5 boost only when there's actually a second person detected, and apply a -0.3 penalty when there's only one person to prevent over-prediction. I can test this offline using the saved logits without needing a GPU.
+
+I'm also reconsidering the Viterbi temperature parameter - the current 0.76 came from fitting on the raw ensemble without logit adjustment, but if the serving path uses logit adjustment with τ=0.25, the optimal temperature might be different. I should re-derive this using the adjusted logits instead.
+
+There's also the possibility of adding a third class to the ensemble, though I need to verify whether that actually improves performance.
+
+Looking at the evaluation results, the `bone` stream alone actually outperforms the full 4-stream ensemble on macro-F1 (0.146 vs 0.128), which is counterintuitive. The reason is that the ensemble averages across streams with different class distributions, and when some streams are missing certain classes entirely, that averaging actually hurts performance on those classes. Looking at the performance metrics across different model configurations, I can see that logit adjustment with τ=0.25 and a single bone stream gives the best macro-F1 score of 0.146, though mean-class performance is slightly better with the full ensemble approach. The temperature parameter was fitted on raw ensemble logits, so I should check whether re-fitting it specifically for the bone stream alone might improve things further. Now I need to systematically review what's been tested versus what's still pending.
+
+The immediate priorities are checking whether the second-person context boost is actually helping, fitting temperature specifically for the bone stream configuration, and deciding if RT-DETR's object detection adds value beyond what's already there. Let me pull up the evaluation results and P1 metrics to see where we stand.
+</think>
+
+Let me look at the actual numbers before proposing changes.
+
+
+[M02053] 2026-08-25T15:35:58.347Z ASSISTANT (conversation) [C089:915; copies=1]
+<think>
+Let me look at the current evaluation results more carefully and understand what's actionable. Let me read the evaluation.md file to get a full picture.
+</think>
+
+
+[M02054] 2026-08-25T15:44:20.742Z ASSISTANT (conversation) [C089:927; copies=1]
+API Error: 400 invalid params, context window exceeds limit (2013) (request id: 202608251544142820742168268d9d6sn7yBTfn)
+
+
+[M02055] 2026-08-25T16:19:11.925Z USER (context) [C089:937; copies=1]
+<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+
+
+[M02056] 2026-08-25T16:19:11.925Z USER (control) [C089:938; copies=1]
+<command-name>/model</command-name>
+            <command-message>model</command-message>
+            <command-args>claude-fable-5[1m]</command-args>
+
+
+[M02057] 2026-08-25T16:19:11.925Z USER (control) [C089:939; copies=1]
+<local-command-stdout>Set model to claude-fable-5[1m]</local-command-stdout>
+
+
+[M02058] 2026-08-25T16:19:21.047Z USER (conversation) [C089:940; copies=1]
+Continue
+
+
+[M02059] 2026-08-25T16:20:46.002Z ASSISTANT (conversation) [C089:942; copies=1]
+API Error: 402 当前账户暂无生效套餐，请前往钱包页面激活订阅 (request id: 202608251620448752622348268d9d6jQ1ogYLW)
+
+
+[M02060] 2026-08-25T16:21:06.818Z USER (conversation) [C055:904; copies=1]
+Continue
+
+
+[M02061] 2026-08-25T16:21:11.584Z USER (control) [C055:911; copies=1]
+[Request interrupted by user]
+
+
+[M02062] 2026-08-25T16:21:31.242Z USER (conversation) [C060:904; copies=1]
+Continue
+
+
+[M02063] 2026-08-25T16:21:41.920Z USER (control) [C060:911; copies=1]
+[Request interrupted by user]
+
+
+[M02064] 2026-08-25T16:22:00.455Z USER (conversation) [C175:904; copies=1]
+check if you can make any accuracy improving changes
+
+
+[M02065] 2026-08-25T16:22:22.398Z ASSISTANT (conversation) [C175:911; copies=1]
+API Error: 402 当前账户暂无生效套餐，请前往钱包页面激活订阅 (request id: 202608251622213738266888268d9d68BR19dVS)
+
+
+[M02066] 2026-08-25T16:22:55.287Z USER (conversation) [C072:904; copies=1]
+check if you can make any accuracy improving changes
+
+
+[M02067] 2026-08-25T16:22:58.783Z ASSISTANT (conversation) [C072:911; copies=1]
+API Error: 402 当前账户暂无生效套餐，请前往钱包页面激活订阅 (request id: 202608251622565574640078268d9d63Jj6MIK5)
+
+
+[M02068] 2026-08-25T16:25:02.128Z USER (conversation) [C155:904; copies=1]
+check if you can make any accuracy improving changes
+
+
+[M02069] 2026-08-25T16:25:02.814Z ASSISTANT (conversation) [C155:911; copies=1]
+API Error: 402 当前账户暂无生效套餐，请前往钱包页面激活订阅 (request id: 202608251625028757115978268d9d6wjxOlRaN)
+
+
+[M02070] 2026-08-25T16:25:11.553Z USER (conversation) [C064:904; copies=1]
+check if you can make any accuracy improving changes
+
+
+[M02071] 2026-08-25T16:25:12.187Z ASSISTANT (conversation) [C064:911; copies=1]
+API Error: 402 当前账户暂无生效套餐，请前往钱包页面激活订阅 (request id: 202608251625122220753468268d9d6JGNiYidb)
+
+
+[M02072] 2026-08-25T16:26:47.783Z USER (conversation) [C057:904; copies=1]
+check if you can make any accuracy improving changes
+
+
+[M02073] 2026-08-25T16:28:09.042Z ASSISTANT (conversation) [C057:911; copies=1]
+<think>
+The user wants me to check for accuracy improvements. Let me think systematically about what's been measured, what's outstanding, and what I can actually verify from the codebase without running experiments.
+
+Let me survey what's been measured and what hasn't, what's been deferred, and what the constraints are.
+
+Key pending items I know about:
+1. **RT-DETR wiring into `fuse_objects()`** — 3 object-dependent classes at F1<0.08 (`taking_medication`, `watching_tv`, `using_phone`)
+2. **Qwen3.5-4B ablation** — deferred
+3. **Toyota training extension** — 31-class fine head + 22-class coarse, partial-label masked loss
+
+
+4. **Second-person converse penalty** — unmeasured, cleanest to measure offline with `scripts/rescore_p1.py`
+5. **Charades `walking` starvation audit** — is `walking` starving any Charades split?
+6. **V1.2 skeleton QA/extra-windows** — extra windows from V1.2's 3D skeleton availability
+7. **`normalise()` erased falls** — S4b was supposed to fix this, but I need to verify the current model actually uses S4b
+
+Now I'm checking what's actually measurable from the current codebase and evaluation results without running new experiments. Let me start by reviewing the current evaluation metrics and pipeline configuration.
+</think>
+
+Let me survey what was measured, what's deferred, and what's actually addressable without a new GPU run.
+
+
+[M02074] 2026-08-25T16:28:20.633Z USER (subagent) [C058:1; copies=1]
+Survey the EmotionSense-Extended codebase for accuracy-relevant decisions, outstanding measured levers, and deferred items. I need to know:
+
+1. **Results/evaluation.md** — what's actually measured and what the numbers say. Summarise the per-class F1 table, the lever table, and what's identified but not yet implemented.
+
+2. **Per-class F1 state** — which classes are below 0.08 F1 and what they need. Specifically: `taking_medication`, `watching_tv`, `using_phone` (need RT-DETR per memory notes), and `interacting_with_person` (needs the second-person converse penalty — measured? unmeasured?).
+
+3. **The `scripts/rescore_p1.py` tool** — what levers does it support? Can I run a lever experiment offline without a GPU? What's the `val_logits.npz` interface?
+
+4. **S4b / `normalise()`** — the memory says `normalise()` erased falls (AUROC 0.466), and S4b was supposed to fix it. What is S4b, what does the current code actually do, and does the eval use it?
+
+5. **What the Charades split looks like** — the memory says the train/test split is `charades-480p` attached to notebook 04. Does notebook 04 currently use `charades-480p`? What classes are in it?
+
+6. **`src/behaviorsense/agents/activity.py`** — what's the `OBJECT_PRIORS` table? What's the `MEDICATION_ABSENT_PENALTY`? Are any of these unmeasured?
+
+7. **Any pending RT-DETR wiring** — is `rtdetr-l.onnx` staged? Is `fuse_objects()` wired to use it for serving?
+
+8. **`src/behaviorsense/eval/activity_eval.py`** — what's in `OBJECT_PRIORS`? Does `second_person_present` actually get used anywhere (notebook 04 uses it for measurement, but does serving use it?)?
+
+Read the relevant files (results/evaluation.md, scripts/rescore_p1.py, src/behaviorsense/agents/activity.py, src/behaviorsense/eval/activity_eval.py, notebooks/_generate.py around the serving cell, and any deferred TODO/FIXME comments). Report what you find, NOT what you think should be done.
+
+Files to read:
+- results/evaluation.md
+- scripts/rescore_p1.py
+- src/behaviorsense/agents/activity.py (focus on OBJECT_PRIORS, fuse_objects, MEDICATION_ABSENT_PENALTY)
+- src/behaviorsense/eval/activity_eval.py (focus on second_person_present, OBJECT_PRIORS)
+- notebooks/_generate.py (around the serving/notebook 04 cells, ~lines 2900-3000 and 2370-2440)
+- src/behaviorsense/pipeline.py (focus on the normalisation step)
+
+
+[M02075] 2026-08-25T16:28:20.954Z ASSISTANT (subagent) [C058:3; copies=1]
+API Error: 402 当前账户暂无生效套餐，请前往钱包页面激活订阅 (request id: 20260825162821355382758268d9d6PfyQonK5)
+
+
+[M02076] 2026-08-25T16:28:22.015Z ASSISTANT (conversation) [C057:915; copies=1]
+API Error: 402 当前账户暂无生效套餐，请前往钱包页面激活订阅 (request id: 202608251628215036741508268d9d6YEJYje7V)
+
+
+[M02077] 2026-08-25T16:28:58.254Z USER (context) [C057:919; copies=1]
+<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+
+
+[M02078] 2026-08-25T16:28:58.254Z USER (control) [C057:920; copies=1]
+<command-name>/model</command-name>
+            <command-message>model</command-message>
+            <command-args>claude-fable-5[1m]</command-args>
+
+
+[M02079] 2026-08-25T16:28:58.254Z USER (control) [C057:921; copies=1]
+<local-command-stdout>Set model to claude-fable-5[1m]</local-command-stdout>
+
+
+[M02080] 2026-08-25T16:29:03.657Z USER (conversation) [C057:922; copies=1]
+Continue
+
+
+[M02081] 2026-08-25T16:29:04.223Z ASSISTANT (conversation) [C057:924; copies=1]
+API Error: 402 当前账户暂无生效套餐，请前往钱包页面激活订阅 (request id: 202608251629042538282678268d9d66JxC0E2x)
+
+
+[M02082] 2026-08-25T16:29:07.403Z USER (conversation) [C034:904; copies=1]
+Continue
+
+
+[M02083] 2026-08-25T16:29:08.148Z ASSISTANT (conversation) [C034:911; copies=1]
+API Error: 402 当前账户暂无生效套餐，请前往钱包页面激活订阅 (request id: 202608251629081761508538268d9d6oUpWW3Px)
+
+
+[M02084] 2026-08-25T16:29:34.138Z USER (conversation) [C013:904; copies=3]
+check if you can make any accuracy improving changes
+
+
+[M02085] 2026-08-25T16:30:01.392Z ASSISTANT (conversation) [C013:911; copies=3]
+<think>
+The user wants me to look for accuracy improvements. Let me think systematically about what's been measured, what's been deferred, and what actually has room to move.
+
+From the summary and memory:
+
+**Measured results:**
+- `bone` alone: macro-F1 0.146 (best)
+- 4-stream ensemble: macro-F1 0.128
+- τ=0.25 logit adjustment: macro-F1 0.135
+- Second-person context: class 18 recall 0.060 → 0.148, global mean-class drops 0.156 → 0.152
+
+**Deferred items from the summary:**
+
+
+I'm reviewing the remaining levers: wiring RT-DETR into the object fusion pipeline (which should help the three object-dependent classes that are currently weak), addressing the Charades walking starvation through an audit, leveraging the V1.2 skeleton data for quality assurance and additional windows, exploring Qwen3.5-4B as an ablation study, and updating the behavior sense results. The Toyota training pipeline also needs to be written, though I should focus on accuracy improvements first.
+
+Now I'm looking at what I can actually measure without a GPU. The `scripts/rescore_p1.py` tool can replay post-hoc adjustments on saved validation logits to test hypotheses like the second-person context change. I'm examining the object-dependent classes that RT-DETR could target: `taking_medication` (class 12) has very limited training examples, `watching_tv` (class 13) uses TV detection, `using_phone` (class 15) relies on phone detection, and `interacting_with_person` (class 18) depends on person detection — all of these need RT-DETR integrated into the pipeline.
+
+Looking at the current architecture, `fuse_objects` applies offsets based on detected objects, but RT-DETR isn't wired up in the serving pipeline yet. The RT-DETR model weights are staged in the codebase, so the main work would be running the detector, connecting it to the serving code, and updating the evaluation to measure the impact.
+
+Beyond that, I'm considering other improvements: calibrating temperature specifically for the bone stream instead of using the 4-stream ensemble's calibration, implementing test-time augmentation which showed a tiny +0.001 gain in the metrics, and exploring RT-DETR wiring as the biggest remaining lever for the three object-dependent classes.
+
+There's also the untrimmed Toyota CS training data sitting unexploited — I could use that to improve the fine head, and I should also explore better skeleton quality control with the Toyota V1.2 data to catch and filter low-quality frames. Let me dig into the current evaluation results and the evaluation code to understand where the biggest gains are actually possible.
+</think>
+
+Let me survey what was measured but not deployed, what was deferred, and what the data still has room for.
+
+
+[M02086] 2026-08-25T16:30:05.169Z ASSISTANT (conversation) [C013:915; copies=3]
+API Error: 402 当前账户暂无生效套餐，请前往钱包页面激活订阅 (request id: 202608251630051652681078268d9d64ZkI86GR)
+
+
+[M02087] 2026-08-25T16:32:20.996Z USER (conversation) [C013:918; copies=1]
+Continue
+
+
+[M02088] 2026-08-25T16:32:21.845Z ASSISTANT (conversation) [C013:920; copies=1]
+API Error: 402 当前账户暂无生效套餐，请前往钱包页面激活订阅 (request id: 202608251632215070031428268d9d6qbHhVGhs)
+
+
+[M02089] 2026-08-25T16:33:17.113Z USER (conversation) [C073:911; copies=1]
+Continue
+
+
+[M02090] 2026-08-25T16:33:18.605Z ASSISTANT (conversation) [C073:918; copies=1]
+API Error: 402 当前账户暂无生效套餐，请前往钱包页面激活订阅 (request id: 202608251633182100175728268d9d6TJFw2wjY)
+
+
+[M02091] 2026-08-25T16:33:21.918Z USER (conversation) [C111:911; copies=1]
+Continue
+
+
+[M02092] 2026-08-25T16:33:38.265Z ASSISTANT (conversation) [C111:918; copies=1]
+<think>
+Let me search more specifically for the per-class results table in results/evaluation.md.
+</think>
+
+
+[M02093] 2026-08-25T16:33:42.516Z ASSISTANT (conversation) [C111:922; copies=1]
+API Error: 402 当前账户暂无生效套餐，请前往钱包页面激活订阅 (request id: 202608251633425786006348268d9d6fQIsOWH3)
+
+
+[M02094] 2026-08-25T16:37:08.883Z USER (conversation) [C003:904; copies=32]
+session metrics on kaggle:
+Draft Session
+GPU T4 x2 On
+Session
+19m
+12 hours
+Disk
+1.1GiB
+Max 57.6GiB
+CPU
+CPU
+0.00%
+RAM
+16.4GiB
+Max 30GiB
+GPU
+GPU
+0.00%
+GPU Memory
+14.6GiB
+Max 15GiB
+GPU
+GPU
+0.00%
+GPU Memory
+3MiB
+Max 15GiB
+
+
+Agent 1
+done
+19.8s
+
+perception
+Decoded 215 frames at 10.0 Hz and ran RTMO over every one of them. 2 people were tracked. OSNet re-identification is on, so a role is a fitted decision rather than a guess.
+
+Frames kept
+215
+Sample rate
+10.0 Hz
+People tracked
+2
+Execution provider
+CUDA
+Truncated
+no
+unidentified · track 0 · unidentified · track 1
+
+hands on
+PersonObservation
+Agent 2 receives one per person per frame
+
+Agent 2
+done
+0.8s
+
+activity
+Each person's windows are classified on their own skeletons, independently — nobody's activity is inferred from anybody else's. The served configuration is the one notebook 04 selected, not the defaults: bone at τ=0.25 and T=0.79.
+
+Streams served
+bone
+Logit adjustment &tau;
+0.25
+Temperature
+0.79
+Segments emitted
+1
+decoding
+calibrate -> object fusion -> Viterbi -> abstain -> segments
+
+unidentified
+track 1 · 1 segment
+
+interacting_with_person 13.4s
+
+hands on
+ActivitySegment
+Agent 3 receives the segments, per identity
+
+Agent 3
+done
+0.1s
+
+behaviour
+Baseline is a declared reference, not this person. 21 reference days primed against 1 real day from this clip. The feature values below are measured from your video and are real; every robust-z is “unlike the reference”, never “this person has declined”.
+
+Agent 3 is statistics, not a model: a robust median and MAD per feature, a z-score against it, and CUSUM for slow drift. It is written that way so a flagged decline can be explained to the person acting on it.
+
+Measured from this clip
+
+walking duration s
+0.00
+walking bouts
+0.00
+mean bout duration s
+0.00
+room transitions
+0.00
+sit to stand count
+0.00
+mean sit to stand duration s
+0.00
+sitting duration s
+0.00
+lying duration s
+0.00
+standing duration s
+0.00
+longest inactive block s
+0.00
+meal events
+0.00
+eating duration s
+0.00
+drinking events
+0.00
+cooking duration s
+0.00
+medication events
+0.00
+tv duration s
+0.00
+reading duration s
+0.00
+phone events
+0.00
+social interaction duration s
+13.40
+visitor count
+0.00
+housework duration s
+0.00
+fall events
+0.00
+max post fall immobility s
+0.00
+observed hours
+0.01
+tracking coverage
+1.00
+mobility index
+0.00
+sedentary ratio
+0.00
+Deviation against the reference (robust‑z)
+
+walking duration s
+-10.00
+walking bouts
+-10.00
+mean bout duration s
+-10.00
+room transitions
+-10.00
+sit to stand count
+-10.00
+mean sit to stand duration s
+-10.00
+No alert rule fired.
+
+hands on
+BehaviourState
+Agent 4 receives numbers only — never pixels
+
+Agent 4
+failed
+317.7s
+
+report
+OutOfMemoryError: CUDA out of memory. Tried to allocate 34.00 MiB. GPU 0 has a total capacity of 14.56 GiB of which 10.81 MiB is free. Including non-PyTorch memory, this process has 14.55 GiB memory in use. Of the allocated memory 14.36 GiB is allocated by PyTorch, and 58.07 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation. See documentation for Memory Management (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+hands on
+CaregiverReport
+every claim goes to C1–C5 before anyone sees it
+
+No claims were produced for this clip, so there is nothing to verify. That is reported rather than shown as a clean bill of health.
+
+Agent 4 failed and the run continued — its card says why.
+
+
+it was 21second video of an old lady moving between the counter and sink and was drying her utensils
+
+
+[M02095] 2026-08-25T16:37:56.317Z ASSISTANT (conversation) [C003:907; copies=32]
+The GPU numbers are the answer: **GPU 0 at 14.6/15 GiB, GPU 1 at 3 MiB.** Qwen loaded entirely onto one T4. Let me confirm how notebook 05 builds it.
+
+
+[M02096] 2026-08-25T16:39:01.787Z USER (conversation) [C087:920; copies=1]
+see this is on one another video, the body points are not being identified correctly
+
+
+[M02097] 2026-08-25T16:39:59.932Z USER (control) [C087:930; copies=1]
+[Request interrupted by user]
+
+
+[M02098] 2026-08-25T16:41:28.318Z USER (conversation) [C003:908; copies=31]
+Continue, also see this screenshot is from another video, the body points are not being identified correctly
+do u think it would be better if we train on the skeleton and depth datasets from toyota smarthome too?
+
+
+[M02099] 2026-08-25T16:43:22.483Z ASSISTANT (conversation) [C003:917; copies=31]
+Two separate things in that output, and the screenshot is the more interesting one. Let me check both.
+
+
+[M02100] 2026-08-25T16:45:40.453Z ASSISTANT (conversation) [C003:928; copies=31]
+Two separate problems, and one of them is a defect I can name precisely. Let me fix the OOM first.
+
+
+[M02101] 2026-08-25T16:49:15.219Z ASSISTANT (conversation) [C003:943; copies=31]
+Now the server side — the coordinate space the keypoints actually live in:
+
+
+[M02102] 2026-08-25T17:07:02.620Z ASSISTANT (conversation) [C003:1000; copies=31]
+Your GPU metrics diagnosed the OOM for me: **GPU 0 at 14.6/15 GiB, GPU 1 at 3 MiB.** The second T4 was never touched.
+
+## The OOM: `device="cuda"` pins every layer to card 0
+
+Qwen2.5-7B in 16-bit is ~15.2 GB of weights against 14.56 GiB usable. It *loaded* with ~200 MB spare, ran 317 s, then died on a 34 MiB KV-cache allocation — the "Tried to allocate 34.00 MiB" in your traceback.
+
+You asked for this split explicitly earlier ("we can just split it on the t4x2 gpu"), and the reporter has taken `max_memory` for it since. Notebook 05's loader simply never passed it. Now `device="auto"` with 11 GiB per card — 22 GiB for a 15.2 GB model, leaving ~4 GiB on card 0 for the ST-GCN ensemble and the RTMO child's own CUDA context, which can't share PyTorch's allocator. Plus `expandable_segments:True`, which the error message itself suggested.
+
+Two things that **did** work: `social_interaction_duration_s` = 13.40 rather than 0.00 (the subject assertion), and Agent 4 ran 317.7 s with no 90 s abort (the heartbeat).
+
+## The skeleton: two defects that produce exactly that picture
+
+I can't confirm from a screenshot which one you hit, so I fixed both and made the residue visible.
+
+**A pose can exist and be entirely below threshold.** `kp` is non-null, so the dashed "pose unusable" branch is skipped — then every edge and joint is skipped by `MIN_SCORE = 0.3`, and it renders *literally nothing*. A person in plain view becomes empty space while a weaker detection elsewhere gets a full skeleton. Absent and unusable were meant to look different; this was an invisible third state. Now drawn as a dashed box labelled `pose below 0.3`.
+
+**The scale factor divided by the container's claim, not the decoded frame.** Keypoints are in `frame.shape` space; `width`/`height` came from `CAP_PROP_FRAME_WIDTH/HEIGHT`, which disagrees on any file with a rotation matrix, non-square pixels, or a wrong header. [overlay.js:5](web/scripts/overlay.js:5) warns about this exact symptom — "plausibly shaped and floating beside the person, and nothing on screen says so" — and then had no way to detect it. Now read from the decoded array, with the container's claim carried alongside and flagged when they differ, plus a browser-side check: if your browser and cv2 decode different sizes, the page says the overlay can't be trusted instead of drawing a confident lie.
+
+Agent 1's card now reports mean keypoint confidence and the share of unusable pose records, with a banner above 25%. On the next run those numbers tell you which failure you have.
+
+## On Toyota's skeleton and depth data: no, and the reason matters
+
+**Train/serve skew.** Toyota ships 15-joint 3D skeletons (LCRNet++) and depth. At serve time you have an RGB upload — no depth sensor, and RTMO gives COCO-17 2D. Training on those modalities builds a model expecting input the deployment cannot produce. That's precisely why notebook 07 ran RTMO over Toyota's *RGB* instead: your 365,492 banked windows are already in the matched representation, from the same model that runs at serve time. Swapping to the provided skeletons would trade a real accuracy gain for an unusable one.
+
+**More to the point, your screenshot is not a classifier problem.** If the skeleton is missing or misplaced, no amount of extra training data fixes it — the pose model is the ceiling. Toyota's skeletons can't help there either, because they're annotations of *their* videos, not a better pose estimator for yours.
+
+Two defensible uses exist, both small: V1.2 skeletons as a QA signal to recover the 909 clips notebook 07's visibility gate dropped (<6% of windows, in classes that already have support), and depth as auxiliary supervision or cross-modal distillation — principled, published, and a substantial build with unproven payoff inside a month.
+
+The levers that would actually change your dish-drying clip, in order:
+
+1. **RT-DETR into `fuse_objects()`** — `rtdetr-l.onnx` is already staged. Three object-dependent classes sit at F1 < 0.08, and `cleaning_housework` is one of them. Biggest outstanding gain.
+2. **A negative second-person prior** — measurable off saved val logits with `scripts/rescore_p1.py`, no GPU. `interacting_with_person` has precision 0.036; your clip fired it because RTMO produced a phantom second track.
+3. **The Toyota training extension on the RGB-derived shards** — already extracted, still pending. Toyota is filmed in a kitchen with an elderly subject on mounted cameras, which is the closest thing to your footage that exists.
+
+`194/194` across 13 suites.
+
+## Your steps
+
+1. **Re-upload `behaviorsense-code`** — `src/behaviorsense/video.py` changed:
+```bash
+kaggle datasets version -p . --dir-mode zip -m "decoded-frame geometry + pose quality counters"
+```
+2. **Re-upload `notebooks/05_serve_inference_online.ipynb`**, restart the kernel, re-run.
+3. **Hard-reload the page** (`Ctrl+Shift+R`) — `overlay.js`, `stages.js`, `upload.js` all changed.
+
+On the next upload, check the loader prints two devices (`devices=[0, 1]`) rather than one, and read Agent 1's new *Mean keypoint confidence* and *Unusable pose records* rows — those are what tell us whether the skeleton problem is geometry or pose quality. Send me both and I'll take it from there.
+
+
+[M02103] 2026-08-25T17:55:15.105Z USER (context) [C188:1039; copies=1]
+<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+
+
+[M02104] 2026-08-25T17:55:15.105Z USER (control) [C188:1040; copies=1]
+<command-name>/model</command-name>
+            <command-message>model</command-message>
+            <command-args>claude-fable-5[1m]</command-args>
+
+
+[M02105] 2026-08-25T17:55:15.105Z USER (control) [C188:1041; copies=1]
+<local-command-stdout>Set model to claude-fable-5[1m]</local-command-stdout>
+
+
+[M02106] 2026-08-25T17:55:29.181Z USER (conversation) [C188:1042; copies=1]
+see if u can make any accuracy improving optimizations
+
+
+[M02107] 2026-08-25T17:55:31.516Z ASSISTANT (conversation) [C188:1045; copies=1]
+API Error: 400 messages[3].role 仅支持 user 或 assistant
+
+
+[M02108] 2026-08-25T17:55:39.536Z USER (conversation) [C098:1001; copies=1]
+see if u can make any accuracy improving optimizations
+
+
+[M02109] 2026-08-25T17:55:42.742Z ASSISTANT (conversation) [C098:1008; copies=1]
+API Error: 400 messages[3].role 仅支持 user 或 assistant
+
+
+[M02110] 2026-08-25T17:57:30.366Z USER (conversation) [C159:1001; copies=1]
+see if u can make any accuracy improving optimizations
+
+
+[M02111] 2026-08-25T17:57:33.442Z ASSISTANT (conversation) [C159:1008; copies=1]
+API Error: 400 messages[3].role 仅支持 user 或 assistant
+
+
+[M02112] 2026-08-25T18:08:57.936Z USER (conversation) [C003:1001; copies=28]
+output again for a 30s cooking video as in screenshot:
+
+Agent 1
+
+done
+
+26.0s
+
+
+
+perception
+
+Decoded 301 frames at 10.0 Hz and ran RTMO over every one of them. 1 person was tracked. OSNet re-identification is on, so a role is a fitted decision rather than a guess.
+
+
+
+Frames kept
+
+301
+
+Sample rate
+
+10.0 Hz
+
+People tracked
+
+1
+
+Execution provider
+
+CUDA
+
+Truncated
+
+no
+
+unidentified · track 0
+
+
+
+hands on
+
+PersonObservation
+
+Agent 2 receives one per person per frame
+
+
+
+Agent 2
+
+done
+
+0.7s
+
+
+
+activity
+
+Each person's windows are classified on their own skeletons, independently — nobody's activity is inferred from anybody else's. The served configuration is the one notebook 04 selected, not the defaults: bone at τ=0.25 and T=0.79.
+
+
+
+Streams served
+
+bone
+
+Logit adjustment &tau;
+
+0.25
+
+Temperature
+
+0.79
+
+Segments emitted
+
+2
+
+decoding
+
+calibrate -> object fusion -> Viterbi -> abstain -> segments
+
+
+
+unidentified
+
+track 0 · 2 segments
+
+
+
+interacting_with_person 25.5s · cleaning_housework 4.4s
+
+
+
+hands on
+
+ActivitySegment
+
+Agent 3 receives the segments, per identity
+
+
+
+Agent 3
+
+done
+
+0.1s
+
+
+
+behaviour
+
+Baseline is a declared reference, not this person. 21 reference days primed against 1 real day from this clip. The feature values below are measured from your video and are real; every robust-z is “unlike the reference”, never “this person has declined”.
+
+
+
+Agent 3 is statistics, not a model: a robust median and MAD per feature, a z-score against it, and CUSUM for slow drift. It is written that way so a flagged decline can be explained to the person acting on it.
+
+
+
+Measured from this clip
+
+
+
+walking duration s
+
+0.00
+
+walking bouts
+
+0.00
+
+mean bout duration s
+
+0.00
+
+room transitions
+
+0.00
+
+sit to stand count
+
+0.00
+
+mean sit to stand duration s
+
+0.00
+
+sitting duration s
+
+0.00
+
+lying duration s
+
+0.00
+
+standing duration s
+
+0.00
+
+longest inactive block s
+
+0.00
+
+meal events
+
+0.00
+
+eating duration s
+
+0.00
+
+drinking events
+
+0.00
+
+cooking duration s
+
+0.00
+
+medication events
+
+0.00
+
+tv duration s
+
+0.00
+
+reading duration s
+
+0.00
+
+phone events
+
+0.00
+
+social interaction duration s
+
+25.50
+
+visitor count
+
+0.00
+
+housework duration s
+
+4.40
+
+fall events
+
+0.00
+
+max post fall immobility s
+
+0.00
+
+observed hours
+
+0.01
+
+tracking coverage
+
+1.00
+
+mobility index
+
+0.00
+
+sedentary ratio
+
+0.00
+
+Deviation against the reference (robust‑z)
+
+
+
+walking duration s
+
+-10.00
+
+walking bouts
+
+-10.00
+
+mean bout duration s
+
+-10.00
+
+room transitions
+
+-10.00
+
+sit to stand count
+
+-10.00
+
+mean sit to stand duration s
+
+-10.00
+
+No alert rule fired.
+
+
+
+hands on
+
+BehaviourState
+
+Agent 4 receives numbers only — never pixels
+
+
+
+Agent 4
+
+done
+
+369.1s
+
+
+
+report
+
+The model receives the numbers above and nothing else — no frames, no skeletons, no pixels. It writes the summary as separate citable claims, and each one is checked before it is shown.
+
+
+
+The resident has significantly decreased social interaction and housework activities, and has not engaged in any walking, mobility, sitting to standing, meal, or medication events today.
+
+Recommendation
+
+Monitor the resident closely and consider reaching out for assistance to ensure their well-being.
+
+
+
+Model
+
+qwen2-5-7b-instruct(constrained)
+
+Constrained decoding
+
+on (JSON grammar)
+
+Claims emitted
+
+6
+
+Schema-valid claims
+
+6
+
+Unfaithful share
+
+50.0%
+
+Escalate
+
+no
+
+hands on
+
+CaregiverReport
+
+every claim goes to C1–C5 before anyone sees it
+
+
+
+overlay.sizeDisagreement is not a function
+
+
+
+
+
+
+
+
+
+the accuracy is very bad
+
+
+[M02113] 2026-08-25T18:09:52.652Z ASSISTANT (conversation) [C003:1009; copies=28]
+Two separate problems, and one of them is mine. Let me check the sampling rate first.
+
+
+[M02114] 2026-08-25T18:10:28.311Z ASSISTANT (conversation) [C003:1014; copies=28]
+Confirmed a real train/serve bug. The ADL shards were built at **15 Hz**; your clip was fed at **10 Hz**.
+
+
+[M02115] 2026-08-25T18:19:04.526Z ASSISTANT (conversation) [C003:1071; copies=28]
+API Error: 524 {"type":"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-524/","title":"Error 524: A timeout occurred","status":524,"detail":"The origin web server did not return a complete response within the 120-second Proxy Read Timeout window. The connection was established, but the origin took too long to respond.","instance":"a30c974bbf0070ef","error_code":524,"error_name":"origin_response_timeout","error_category":"origin","ray_id":"a30c974bbf0070ef","timestamp":"2026-08-25T18:19:04Z","zone":"api.justwoker.icu","cloudflare_error":true,"retryable":true,"retry_after":120,"owner_action_required":true,"what_you_should_do":"**Wait and retry.** Back off for at least 120 seconds. If the error persists, the website operator should check for long-running processes or an overloaded origin.","footer":"This error was generated by Cloudflare on behalf of the website owner."}. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (api.justwoker.icu).
+
+
+[M02116] 2026-08-25T18:20:30.748Z USER (conversation) [C003:1078; copies=196]
+Continue
+
+
+[M02117] 2026-08-25T18:25:59.316Z ASSISTANT (conversation) [C003:1103; copies=28]
+You're right, and I found a concrete cause this time — not just "the model is weak."
+
+## The classifier was fed 3-second windows. It has only ever seen 2-second ones.
+
+Your clip is 20 fps. Serving computed `out_fps = src_fps / 2` → **10 Hz**, and a 30-frame window at 10 Hz is **3.0 s of motion**. The ADL shards were built at `FPS_SAMPLE = 15`, so ST-GCN++ has never seen a window longer than 2.0 s. Every action in your video arrived **stretched 1.5×**.
+
+`out_fps = src_fps / 2` is correct on exactly one input: a 30 fps source. 20 fps → 10 Hz. 25 fps → 12.5 Hz.
+
+This is the same defect notebook 07 already cost you a 12,796 s GPU run for — it strided with `round(src / nominal)`, every trimmed clip was 20 fps, a nominal 12.5 Hz became an effective 10 Hz, and 37.5% of clips came out unusable. The fix there was exact resampling; the serving path never received it. Now it does, with notebook 07's own formula:
+
+```
+20 fps → 15.0 Hz → 2.00 s   ✓
+25 fps → 15.0 Hz → 2.00 s   ✓
+30 fps → 15.0 Hz → 2.00 s   ✓
+10 fps → 10.0 Hz → 3.00 s   declared, not faked
+```
+
+A sub-15 fps camera can't reach the rate, so Agent 1 now says so rather than absorbing it as bad accuracy — verified rendering: *"Its 3.00 s windows carry 1.50× the motion of the 2.0 s windows ST-GCN++ has seen, so Agent 2's labels are outside the conditions any measured number covers."*
+
+I can't promise this alone fixes the labels. It removes a distortion that was guaranteed to be hurting them.
+
+## My regression, and it was the worst possible one
+
+`overlay.sizeDisagreement is not a function` — your browser had the old `overlay.js` cached. But the real fault is mine: I called it **before** `renderStages`, so a missing *diagnostic* threw and the C1–C5 table never rendered. A warning suppressed the entire point of the page. The render now goes first, and the call is `typeof`-guarded — a stale module costs you a diagnostic, never the results.
+
+## What is genuinely the model, not a bug
+
+Sampling doesn't explain everything. `interacting_with_person` is the **second-worst class in the measured table** — [results/evaluation.md:207](results/evaluation.md:207): F1 **0.042**, precision 0.036 on 614 windows. `cleaning_housework` is 0.098, and `cooking_food_prep` — what she was actually doing — is 0.187 on only 419 training windows. Your output is close to what those numbers predict.
+
+Two honest notes on the rest of that output:
+
+`Unfaithful share 50.0%` is the verifier **working**. The summary said "significantly decreased social interaction" when social interaction was the largest measured value — three of six claims were caught and withheld arithmetically. That is the publishable core doing its job on a bad input.
+
+But Agent 4 wrote a confident clinical recommendation from a day flagged `observed_hours 0.01`, `is_reliable` false. Advising someone to "reach out for assistance" off 30 seconds is wrong regardless of the labels, and the reliability flag is computed and then ignored by the reporter. I have not fixed that yet — it's the next thing I'd do, and it's independent of accuracy.
+
+## The accuracy levers, in order
+
+Charades is the problem. macro-F1 0.128–0.146 on held-out actors, and it is web video of young adults acting — not a mounted kitchen camera watching an elderly person cook.
+
+1. **The Toyota training extension** — 365,492 windows already extracted, in the matched RTMO COCO-17 representation, filmed in a kitchen with an elderly subject on mounted cameras. This is the closest data to your footage that exists and it is sitting on Kaggle unused. Still the pending big item.
+2. **RT-DETR into `fuse_objects()`** — `rtdetr-l.onnx` staged. A pot, a hob and a bowl in frame is exactly the evidence that separates `cooking_food_prep` from `interacting_with_person`.
+3. **A negative second-person prior** — measurable off saved val logits with `scripts/rescore_p1.py`, no GPU. One person tracked should suppress class 18 outright.
+
+`195/195` across 13 suites.
+
+## Your steps
+
+1. **Re-upload `behaviorsense-code`** — `src/behaviorsense/video.py` changed (this is the resampling fix, it will not take effect without this):
+```bash
+kaggle datasets version -p . --dir-mode zip -m "exact resampling to the 15 Hz shard rate"
+```
+2. **Re-upload `notebooks/05_serve_inference_online.ipynb`**, restart the kernel, re-run.
+3. **Clear the module cache properly** — plain `Ctrl+Shift+R` demonstrably did not work for you. Open DevTools (F12) → Network → tick **Disable cache**, leave it open, then reload.
+
+On the next run Agent 1 should read `Source rate 20.0 fps · Sample rate 15.0 Hz · Window length 2.00 s`. If it still says 10 Hz, the code dataset didn't take. Send me that card and Agent 2's labels — and tell me whether you want me to start the Toyota training extension, because that is where the real accuracy is.
+
+
+[M02118] 2026-08-25T18:34:40.656Z USER (conversation) [C003:1111; copies=28]
+dont u think we should train the skeleton making agent, it is very bad, also our model is very bad in identifying human activities
+
+
+[M02119] 2026-08-25T18:36:42.275Z ASSISTANT (conversation) [C003:1119; copies=28]
+Staged pose weights are `rtmo-l.onnx` (one-stage, 640×640) and `rtdetr-l.onnx`. No top-down model. That matters for the answer.
+
+
+[M02120] 2026-08-25T18:43:44.579Z ASSISTANT (conversation) [C003:1144; copies=28]
+Two separate questions, and they have opposite answers.
+
+## Training the pose model: no
+
+**You have no keypoint labels.** Training a pose estimator needs per-joint ground truth on your domain — thousands of hand-annotated frames. RTMO-l was trained on *body7*, seven pooled datasets of expertly annotated images.
+
+Toyota does ship poses, but they are **predictions from LCRNet++ (2017)**, not human labels. Fine-tuning RTMO on them means distilling an older, weaker model into a newer, stronger one. That makes pose worse, and I can say so from provenance alone without spending a GPU hour on it.
+
+And the screenshot isn't undertraining. She is distant, her lower body is behind a counter, the scene is cluttered, the light is mixed. Those are **operating conditions**. Weights don't fix them.
+
+## What is actually wrong with Agent 1: topology, not training
+
+RTMO is **one-stage** — it detects and poses in a single 640×640 pass. Your 1280×720 frame gets letterboxed down, so by the time the network sees her she occupies roughly 90×190 pixels in a corner. That is right at the edge of where keypoints are reliable, which is exactly what your screenshot looks like.
+
+**Top-down** inverts it: a detector finds the box, the crop is resized to *fill* the pose model's 256×192 input. Same person, roughly 4× the pixels per joint. It is the standard fix for this precise failure mode — one distant subject rather than a crowd — and it needs no annotation and no training. `rtdetr-l.onnx` is already staged.
+
+**But the pose model is part of the representation.** Your shards were extracted with RTMO. Serving with a different pose model is the same class of bug as the 10 Hz sampling I just fixed — one side of a train/serve pair changed alone. Winning here means re-extracting Toyota (~13 h) *and* Charades, then retraining.
+
+So it gets measured before it gets decided. [scripts/compare_pose_backends.py](scripts/compare_pose_backends.py) runs both backends over the same exact-resampled frames from your own footage and reports the number that matters — frames where Agent 2 can see anything at all — plus mean keypoint confidence, torso completeness, and person height as a fraction of frame. It prints a verdict against a stated threshold (≥10% more usable frames, or ≥0.05 confidence) and writes the JSON, because a printed table is not a recorded one.
+
+## The activity model: you're right, and it's the corpus
+
+macro-F1 **0.128–0.146**. That is bad and I won't dress it up. But the architecture isn't the problem — ST-GCN++ scores ~97% on NTU-60. Charades is the problem:
+
+- web video of young adults *acting*, not elderly people living
+- 157 classes collapsed to 20, multi-label frames flattened to one label
+- an honest subject-disjoint split, which cost 0.152 → 0.128 when we stopped leaking actors between train and val
+- skeleton-only genuinely cannot express object-dependent activity — pose alone does not distinguish taking medication from drinking
+
+**Toyota is the fix and it is already extracted.** 365,492 windows: elderly subjects, a real apartment, mounted cameras, genuine ADL labels including the kitchen classes your clips are full of — in the matched RTMO COCO-17 representation, deliberately, so there is no skew. It has been sitting on Kaggle unused while we fixed the serving path. Expect the largest single gain of anything on the list, because it is the only change that addresses *domain* rather than mechanics.
+
+## Split of work
+
+These two don't block each other, and only one needs things I don't have.
+
+**You** — run the pose comparison. Needs your footage and a GPU, in the notebook 05 session (internet ON, so the top-down weights can download):
+
+```bash
+python scripts/compare_pose_backends.py --video /kaggle/working/clip.mp4 --rtmo $RTMO --out /kaggle/working/pose_backends.json
+```
+
+Send me the table. If top-down wins materially, re-extraction goes on the plan with a number behind it; if it doesn't, we stop blaming the keypoints and I'll say so.
+
+**Me** — the Toyota training extension, starting now: 31-class fine head on the trimmed half plus the 22-class coarse head via `collapse_matrix`, partial-label masked loss so Toyota abstains on the 7 classes it cannot label while Charades and the fall corpora cover them, `MIN_SUPPORT` exclusions named in the output, then τ/T/Viterbi refit. That needs no GPU from you until it's ready to run.
+
+`195/195` across 13 suites. Nothing to re-upload for this turn — the comparison script is standalone, and it'll ride along with the next `behaviorsense-code` version.
+
+
+[M02121] 2026-08-25T18:47:24.165Z USER (conversation) [C003:1148; copies=28]
+what has to be done now? to improve accuracy
+
+
+[M02122] 2026-08-25T18:48:52.566Z ASSISTANT (conversation) [C003:1159; copies=28]
+Four things, ranked by accuracy gained per hour spent. Only one needs a GPU from you.
+
+## 1. Toyota into training — the largest lever, and it's half-built
+
+Your 365,492 extracted windows are still not in the model. I checked: `src/behaviorsense/data/multicorpus.py` has the whole partial-label machinery and 7 passing tests — `supervision_mask`, `masked_cross_entropy`, `collapse_for`, `pooled_coarse_logits`. **Notebook 03 never calls any of it.** The algorithm exists; the wiring doesn't.
+
+This is the only item on the list that closes the *domain* gap rather than a mechanical one. Charades is web video of young adults acting; Toyota is elderly people in a real apartment on mounted cameras, doing kitchen ADLs — your footage, essentially.
+
+- **I write**: notebook 03 loading `toyota_trimmed_20hz_*` and `toyota_untrimmed_20hz_*` beside Charades and the fall shards; 31-class fine head plus the 22-class coarse head via `collapse_matrix`; masked loss; `MIN_SUPPORT` exclusions named in the output. Then notebook 04 refits τ, T and Viterbi on the new head.
+- **You run**: notebook 03 offline on the Blackwell, then 04.
+- The load-bearing guard already exists — M1 proves a class Toyota cannot label receives *exactly zero* gradient. Without it, 365k Toyota windows teach the model that sitting never happens.
+
+## 2. Object context — and it does **not** need a retrain
+
+`fuse_objects()` applies log-odds offsets to the **posterior**, not the logits inside the network. So RT-DETR can be added at serving time against the existing checkpoint. That makes this far cheaper than it looks, and I should have said so earlier.
+
+It attacks the measured floor directly — `cooking_food_prep` 0.187, `cleaning_housework` 0.098, and `taking_medication` / `watching_tv` / `using_phone` untouched at F1 < 0.08. A pot, a hob and a bowl in frame is precisely the evidence separating cooking from `interacting_with_person`. `rtdetr-l.onnx` is already staged.
+
+One GPU pass over the Charades val set to **measure** the gain instead of asserting it — the same discipline the second-person lever got (recall 0.060 → 0.148, global mean-class −0.004, deployed only because the trade was known).
+
+## 3. Two free levers, today, no GPU at all
+
+Both replay off the saved `val_logits.npz` via `scripts/rescore_p1.py`.
+
+- **Negative second-person prior.** One track ⇒ suppress class 18. `interacting_with_person` has precision **0.036**, and it claimed 25.5 s of your 30 s clip with nobody else in frame. This is the single most visible wrong label in your demos. The measured lever is a *positive* +1.5 when a second person is present; the converse is unmeasured, which is exactly why it gets measured rather than shipped on intuition.
+- **Agent 4's reliability gate.** It wrote *"consider reaching out for assistance"* from a day flagged `is_reliable: false`, `observed_hours 0.01`. That's 30 seconds of video. Not classifier accuracy — report accuracy, which is what your examiner actually reads.
+
+## 4. Pose — yours to measure, mine to act on
+
+[scripts/compare_pose_backends.py](scripts/compare_pose_backends.py) on one of your clips, in the notebook 05 session:
+
+```bash
+python scripts/compare_pose_backends.py --video /kaggle/working/clip.mp4 --rtmo $RTMO --out /kaggle/working/pose_backends.json
+```
+
+If top-down wins materially, re-extraction goes on the plan with a number behind it. If it doesn't, we stop blaming the keypoints — and I'll say so plainly.
+
+## What I'm doing next
+
+Starting **#1** (the notebook 03 wiring) and **#3** (both free levers), since neither needs anything from you. #2 after, because it needs a measurement pass you'd have to run anyway.
+
+The order matters for one reason worth stating: #1 changes the class posteriors, so measuring #2 and #3 *before* the retrain would tune levers against a model you're about to replace. I'll build all three but hold the numbers until the Toyota head exists — otherwise we'd be quoting figures that the next training run invalidates, which is the mistake `results/evaluation.md` has already had to correct twice.
+
+
+[M02123] 2026-08-25T18:50:34.319Z USER (conversation) [C003:1163; copies=28]
+do we re run the workflow from the start?
+
+
+[M02124] 2026-08-25T18:53:33.360Z ASSISTANT (conversation) [C003:1185; copies=28]
+No — three notebooks, not the chain. But I found something that has to be settled first, and it's the same bug one layer up.
+
+## What re-runs
+
+| notebook | re-run? | why |
+|---|---|---|
+| 00 stage assets | no | no weights changed |
+| 01a stage Charades | no | CSV unchanged |
+| 01 ADL shards | no | 15 Hz Charades shards still valid |
+| 02 fall shards | no | unchanged |
+| 06 Toyota preflight | no | annotations already surveyed, meta already written |
+| 07 Toyota extract | **probably yes** | see below |
+| **03 train** | **yes** | the whole point — multi-corpus head |
+| **04 evaluate** | **yes** | τ, T and Viterbi must be refit; every number in `evaluation.md` is about the old head |
+| **05 serve** | yes | just to load the new checkpoints |
+
+## The thing I just found: your two corpora have different window durations
+
+`WINDOW_FRAMES = 30` everywhere, but:
+
+- Charades — `FPS_SAMPLE = 15` → **2.00 s** per window
+- Toyota — `FPS_SAMPLE = 20` → **1.50 s** per window
+- Serving, after the fix two turns ago — 15 Hz → **2.00 s**
+
+Toyota's 365,492 windows would outnumber the Charades pool, so the model's dominant temporal prior would be 1.5 s motion at a rate that **never occurs at inference**. That is exactly the skew I fixed in the sampling path, just moved up a level — and I'd be shipping it into the training run if I didn't say so.
+
+The 20 Hz choice was right when it was made: notebook 07's first run used a nominal 12.5 Hz, which rounded to stride 2 on 20 fps clips and gave an effective 10 Hz, and 37.5% of clips came out unusable. Setting 20.0 fixed that. It just wasn't reconciled with Charades.
+
+**Resolution: convert Toyota to 15 Hz — and it should not need the GPU.** The shards store `skeletons` plus `starts`, and notebook 07 asserts `starts` is present, so a clip's windows can be stitched back into a continuous 20 Hz sequence, resampled temporally to 15 Hz by interpolating joint coordinates, and re-windowed at 30 frames. That's a CPU pass over `.npz` files — minutes, not the ~13 h a re-extraction costs. I'll write it as a script with a verification pass, and only fall back to re-running 07 if the offsets don't reconstruct cleanly.
+
+I'm converting Toyota rather than re-extracting Charades at 20 Hz because 2.0 s is what every number in `results/evaluation.md` is measured at, and it's what the deployed checkpoint and the serving path already use. Moving the target would invalidate the measurements as well as the shards.
+
+## Two things to check before you burn a Blackwell session
+
+**1. Were the Toyota shards actually saved as a dataset?** I advised Save Version → `behaviorsense-toyota-shards` after the untrimmed run and never got confirmation. If that didn't happen, 365,492 windows exist only in a finished session's `/kaggle/working` and notebook 07 *is* 13 h to redo. Please confirm the dataset exists and holds `toyota_trimmed_20hz_*.npz` and `toyota_untrimmed_20hz_*.npz`.
+
+**2. Run the pose comparison before 03, not after.** It's minutes, and it gates hours: if top-down wins materially, both corpora need re-extracting and a Toyota-trained head on RTMO keypoints gets thrown away. It's fourth on the accuracy list but first in sequence, because it's the cheapest thing that can invalidate the most expensive step.
+
+```bash
+python scripts/compare_pose_backends.py --video /kaggle/working/clip.mp4 --rtmo $RTMO --out /kaggle/working/pose_backends.json
+```
+
+## Order
+
+1. You: confirm the shard dataset, run the pose comparison, send me the table.
+2. Me: the 20 → 15 Hz conversion script, then the notebook 03 wiring (`shard_paths` currently groups only `adl` and `fall` — Toyota needs a third group and the masked-loss path), then the two free levers.
+3. You: 03 offline on the Blackwell → 04 → re-upload 05.
+
+Nothing to re-upload right now. I'll tell you when `behaviorsense-code` needs a version, which will be before step 3.
+
+
+[M02125] 2026-08-25T18:57:38.244Z USER (conversation) [C003:1189; copies=1]
+i think we should only use the toyota smarthome datasets and skip all the rest, and we can use the exact training pipieline used by inria on toyota smarthome, other datasets are not relevant enough compared to toyota smarthome
+
+
+[M02126] 2026-08-25T18:57:48.599Z USER (control) [C003:1191; copies=1]
+[Request interrupted by user]
+
+
+[M02127] 2026-08-25T18:57:59.197Z USER (context) [C083:1133; copies=1]
+<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+
+
+[M02128] 2026-08-25T18:57:59.197Z USER (control) [C083:1134; copies=1]
+<command-name>/effort</command-name>
+            <command-message>effort</command-message>
+            <command-args>max</command-args>
+
+
+[M02129] 2026-08-25T18:57:59.264Z USER (conversation) [C083:1143; copies=1]
+i think we should only use the toyota smarthome datasets and skip all the rest, and we can use the exact training pipieline used by inria on toyota smarthome, other datasets are not relevant enough compared to toyota smarthome
+
+
+[M02130] 2026-08-25T18:58:03.684Z USER (conversation) [C033:1133; copies=26]
+i think we should only use the toyota smarthome datasets and skip all the rest, and we can use the exact training pipieline used by inria on toyota smarthome, other datasets are not relevant enough compared to toyota smarthome
+
+
+[M02131] 2026-08-25T18:59:58.667Z ASSISTANT (conversation) [C033:1143; copies=26]
+Mostly agreed on Charades — but one part of this would delete the strongest thing you have.
+
+## Toyota has no falls. Not one.
+
+I checked every class name in both id spaces for `fall`, `fell`, `ground`, `collapse`: **zero matches.** Toyota Smarthome is 31/51 ADL classes — Cook, Eat, Drink, Getup, Laydown, Walk, WatchTV, Usetablet. Nobody falls in it, by design.
+
+Drop the fall corpora and you delete:
+
+- the fall head at **0.928–0.991 held-out AUROC** — by far the best-measured component in the system, against 0.13 macro-F1 for ADL
+- `apply_emergency_floor(..., FALLING, ...)` in Viterbi — the asymmetric prior that stops smoothing from erasing a two-second event
+- `fall_events` and `max_post_fall_immobility_s` in `DailyFeatures`
+- the highest-severity alert rule in Agent 3
+
+For an elderly-monitoring dissertation, falls are the clinically load-bearing event and the one place your numbers are genuinely strong. Cutting them to simplify the corpus story would be trading your best result for tidiness. **Keep the fall shards.** They're small, they're already built, and they cost one `--shards` path.
+
+## Charades: agreed in principle, and here is the exact price
+
+Toyota supervises **15 of 22** coarse classes. Dropping Charades leaves these with no positives anywhere:
+
+```
+standing        sitting         bending_reaching      other_idle
+falling         fallen_on_ground                (covered by the fall corpora)
+interacting_with_person
+```
+
+`falling` and `fallen_on_ground` are fine — the fall corpora cover them. That leaves five genuinely orphaned: `standing`, `sitting`, `bending_reaching`, `other_idle`, `interacting_with_person`.
+
+Two of those are worth losing. `interacting_with_person` is precision **0.036** and is the label wrecking your demos — deleting it is a *gain*. `other_idle` already has zero Toyota windows and is a junk class.
+
+But `standing` and `sitting` are static postures that Agent 3 needs by name: `sitting_duration_s`, `standing_duration_s`, `sedentary_ratio`, and `longest_inactive_block_s` all read them. Toyota has `Sitdown` and `Getup` — the *transitions* — but never labels the state of simply sitting. So `sedentary_ratio` would be permanently 0, and that feeds the mobility-decline alert.
+
+My recommendation: **drop Charades, keep the fall corpora, and shrink the taxonomy to what the data actually supports** — deliberately, in `configs/taxonomy.yaml`, rather than leaving five dead classes the model can never predict. That means deriving sitting/standing occupancy from the Toyota transitions plus posture geometry in Agent 3, or dropping `sedentary_ratio` and saying so. Either is honest; a class with no training positives is not.
+
+## INRIA's pipeline: take their protocol, not their model
+
+Worth separating, because "their exact pipeline" bundles four things with very different value.
+
+**Adopt — and three are already done.** The CS subject split (`CS_TRAIN_SUBJECTS`/`CS_TEST_SUBJECTS`, cross-checked two ways), the 53→51 pre-merge vocabulary with the two documented merges, and both trimmed id spaces are already in `toyota.py`. The one genuinely missing piece is **their metrics**: per-class mAP, and f-mAP for the untrimmed side. That's what makes your numbers comparable to published PDAN/MS-TCT results, which matters more for a dissertation than any accuracy delta. I'd add it to notebook 04.
+
+**Decline, with reasons.** Their skeleton baselines are **2s-AGCN on the provided 3D LCRNet++ skeletons**. Both halves fail here:
+
+- The 3D skeletons don't exist at inference. A CCTV upload gives RGB; RTMO gives COCO-17 2D. Training on 3D builds a model whose input your deployment cannot produce — the same skew as the 10 Hz sampling, but unfixable rather than a one-line change.
+- 2s-AGCN (2019) is **older and weaker than ST-GCN++** (PYSKL, 2022), which beats it on NTU with fewer FLOPs. Adopting it is a downgrade that buys only the word "official".
+
+Their RGB baselines (I3D, PDAN, MS-TCT) do run on RGB, so they're serve-able in principle — but they replace the skeleton pipeline entirely, delete the Agent 1 → Agent 2 pixel boundary that makes your agent split auditable, and won't fit a T4 alongside Qwen. That's a different project, not a change to this one.
+
+The defensible framing for your write-up: *"we reproduce INRIA's protocol — their splits, their vocabulary, their metrics — on a representation that is deployable from a single RGB camera, and report the cost of that constraint."* That is a stronger contribution than matching their numbers with their inputs, because it's a claim about a system that can actually run.
+
+## Revised plan
+
+1. `configs/taxonomy.yaml` → the Toyota-supported class set, with the dropped classes and the reason recorded
+2. Notebook 03: Toyota + fall shards, Charades out; masked loss still needed, because the fall corpora supervise only falls and postures
+3. The 20 → 15 Hz Toyota conversion (CPU, from the stored `starts`)
+4. Notebook 04: add per-class mAP and f-mAP alongside macro-F1
+
+One consequence worth flagging now: dropping Charades makes every number in `results/evaluation.md` obsolete, including the P1 split-leakage work and the τ/T selection. That's fine — they were measured on a corpus you're removing — but the file needs a clear "superseded" marker rather than a quiet overwrite, since two of its sections have already had to be corrected once.
+
+Confirm the shard dataset exists and send the pose comparison, and I'll start on 1–4.
+
+
+[M02132] 2026-08-25T19:01:17.106Z USER (conversation) [C033:1145; copies=26]
+we can just use inria's training pipeline for toyota smarthome as it is, and maybe later train it on fall datasets
+
+
+[M02133] 2026-08-25T19:12:39.951Z ASSISTANT (conversation) [C033:1212; copies=26]
+Understood — that's your call, and I'm building it. Falls go in a later pass. Here's what landed and the one thing that gates the rest.
+
+## What "as it is" resolves to
+
+INRIA's Toyota skeleton benchmark is **2s-AGCN on their released 3D poses**, and their loader (`read_xyz`) takes LCR-Net's 13 joints and derives two midpoints — neck from the shoulders, mid-hip from the hips — giving the 15 nodes their published graph is indexed against. Your `toyota.py` already recorded `TSM_SKELETON_JOINTS = 15` from reading their code; it just had no reader.
+
+It has one now: `LCRNET_JOINTS` (13, named, order load-bearing), `AGCN_JOINTS` (15), `derive_agcn_joints()` reproducing their midpoint derivation from *named* joints rather than bare indices, and `read_pose3d()`.
+
+Three pieces of what you already have carry straight over unchanged — the CS subject split, the 53→51 pre-merge vocabulary, and both trimmed id spaces. That part of their protocol was already faithful.
+
+## The reader sniffs, because their format isn't documented
+
+No README specifies `*_pose3d.json`. This project has paid for trusting an unspecified format once — notebook 06 spent 93 minutes before dying on `Make_coffee.Get_water`. So `read_pose3d` handles the plausible layouts and *reports* what it found when it can't. Verified against five: bare list, `frames` key, transposed `[3,J]`, flat 39-vector, and a dict keyed by frame index.
+
+Two behaviours are load-bearing beyond parsing:
+
+- **An empty frame survives as missing, zero-filled, `present=False`.** LCR-Net finding nobody is a fact. Dropping the frame shortens the clip and desynchronises every frame-indexed annotation — the alignment `frame_multilabel` exists to hold.
+- **A frame-index dict sorts numerically.** String order puts `"10"` before `"2"` and shuffles the clip into nonsense that still has the right shape.
+
+It also reports coordinate ranges, which is the cheapest way to tell metres from pixels from normalised units — all three occur in released pose data, and each needs different normalisation.
+
+`196/196` across 13 suites (T22 added).
+
+## What I need before writing the 2s-AGCN training path
+
+I can't verify the reader against the real archive — the skeletons are on your private Kaggle. Notebook 06 already resolves `skel_trimmed_v12` and parses one filename, so the mount works; what's unknown is the JSON's interior.
+
+**Run this in a notebook 06 session** (internet ON, cheap — no GPU needed):
+
+```python
+from behaviorsense.data.toyota import read_pose3d
+import itertools, json
+for p in itertools.islice(RESOLVED["skel_trimmed_v12"].rglob("*_pose3d.json"), 3):
+    raw = json.loads(p.read_text())
+    print(p.name, "| top level:", type(raw).__name__,
+          sorted(raw)[:8] if isinstance(raw, dict) else f"len={len(raw)}")
+    r = read_pose3d(p)
+    print("   ", r["n_frames"], "frames,", r["n_missing"], "with no person, joints",
+          r["joints"], "range", r["coord_min"], "->", r["coord_max"])
+```
+
+Send me that output. If it parses, I write the 2s-AGCN path against measured facts. If it raises, the message names the layout and I extend the sniffer once instead of guessing five times.
+
+## Two things I'm stating once, then dropping
+
+**The demo will not run on the 3D-trained model.** No webcam produces LCR-Net 3D. Nothing is lost, though — your RTMO COCO-17 shards are already extracted and banked, so the live path keeps working off them while the 3D path reproduces INRIA's numbers. Two heads, one corpus, no wasted extraction. That's a stronger dissertation structure than either alone: a reproduction chapter that validates the implementation against published results, and a deployable variant that quantifies what the single-RGB-camera constraint costs.
+
+**2s-AGCN is older than what you already run.** ST-GCN++ (PYSKL, 2022) beats it on NTU with fewer FLOPs. I'll implement 2s-AGCN because reproduction is the point of using their pipeline as-is, but I'd also run ST-GCN++ on the same 15-joint input — same protocol, same splits, one extra training run — so you can report whether the backbone or the input representation is doing the work. That's a result worth having and it costs one Blackwell session.
+
+Nothing to re-upload yet. Send the probe output and the pose comparison, and I'll have the training path ready.
+
+
+[M02134] 2026-08-25T19:19:04.752Z USER (conversation) [C033:1214; copies=26]
+DATASETS
+
+* Annotation_v1.0
+* Depth_untrimmed
+* msmt17
+* Pose_untrimmed
+* RGB_untrimmed
+* toyota_smarthome_depth
+* toyota_smarthome_rgb
+* toyota_smarthome_skeleton
+* toyota_smarthome_skeleton_v1.2
+* behavioursense-WW
+* behaviorsense-code
+
+
+
+just these?
+
+
+[M02135] 2026-08-25T19:20:40.138Z ASSISTANT (conversation) [C033:1221; copies=26]
+Fewer than that, and one important one is missing.
+
+## For the probe: two datasets
+
+```
+behaviorsense-code
+toyota_smarthome_skeleton_v1.2
+```
+
+Run it as a plain snippet in a fresh online notebook — **not inside notebook 06**, which requires `Annotation_v1.0`, `RGB_untrimmed` and `toyota_smarthome_rgb` (three large mounts) that this probe doesn't touch.
+
+## I found a naming discrepancy while checking — three different conventions
+
+Notebook 06's asset table records that your three skeleton sources are named differently:
+
+| source | pattern |
+|---|---|
+| trimmed V1.1 | `<Activity>_p03_r01_v15_c07.json` |
+| trimmed V1.2 | `<Activity>_p03_r01_v15_c07_pose3d.json` |
+| untrimmed | `results_P03T01C07_lcrnet.json` |
+
+So a loader hard-coded to `*_pose3d.json` silently sees an empty V1.1 archive and an empty untrimmed one. Probe all three — the interiors may well differ too, since V1.2 was refined by SSTA-PRS and the untrimmed side came straight from LCR-Net:
+
+```python
+import itertools, json, sys
+sys.path.insert(0, [str(p) for p in __import__("pathlib").Path("/kaggle/input").rglob("src/behaviorsense")][0].parent.as_posix())
+from behaviorsense.data.toyota import read_pose3d
+
+for label, pattern in [("v1.2", "*_pose3d.json"),
+                       ("v1.1", "*_p[0-9][0-9]_r*_c[0-9][0-9].json"),
+                       ("untrimmed", "results_P*T*C*_lcrnet*.json")]:
+    hits = list(itertools.islice(__import__("pathlib").Path("/kaggle/input").rglob(pattern), 2))
+    print(f"\n=== {label}: {len(hits)} sampled")
+    for p in hits:
+        raw = json.loads(p.read_text())
+        print(" ", p.name, "| top:", type(raw).__name__,
+              sorted(raw)[:8] if isinstance(raw, dict) else f"len={len(raw)}")
+        try:
+            r = read_pose3d(p)
+            print("    OK", r["n_frames"], "frames,", r["n_missing"], "empty, joints",
+                  r["joints"], "range", r["coord_min"], "->", r["coord_max"])
+        except Exception as e:
+            print("    ", type(e).__name__, str(e)[:200])
+```
+
+Send me the output. Failures are as useful as successes — the message names the layout and I extend the sniffer once.
+
+## `behaviorsense-toyota-shards` is not in your list
+
+That's the 365,492 extracted windows — **13.3 hours** of Blackwell (24,713 s trimmed + 23,041 s untrimmed). I asked twice whether the Save Version happened after the untrimmed run and haven't had an answer, and now it's absent from your dataset list.
+
+Under your new plan this is no longer a blocker for training — the INRIA path reads their skeletons directly, so the RTMO windows aren't needed for it. But they *are* the only thing the live demo can run on, since no webcam produces LCR-Net 3D. So: does that dataset exist? If not, tell me and I'll stop referring to those windows as available.
+
+Also absent, in case that list was complete: `behaviorsense-runs` (trained checkpoints), `behaviorsense-results` (`val_logits.npz`, which both free levers replay off), and `behaviorsense-toyota-meta`.
+
+## What you can leave detached
+
+`msmt17`, `toyota_smarthome_depth`, `Depth_untrimmed` — none are on the current path. msmt17 is 65,242 crops and was the direct cause of the 78-minute glob; depth isn't consumed by INRIA's skeleton benchmark either. `behavioursense-WW` is only needed where RTMO or torch runs, so not for the probe.
+
+Once the probe comes back I'll write the 2s-AGCN training path against measured facts, and at that point the attachment list becomes: `behaviorsense-code`, `behavioursense-WW`, `toyota_smarthome_skeleton_v1.2`, and `Annotation_v1.0` for the untrimmed labels.
+
+
+[M02136] 2026-08-25T19:25:07.587Z USER (conversation) [C033:1223; copies=26]
+what do i have to do?
+
+
+[M02137] 2026-08-25T19:25:44.388Z ASSISTANT (conversation) [C033:1226; copies=26]
+Two things. The pose comparison is no longer one of them — since you're training on INRIA's own 3D skeletons, RTMO's quality only affects the demo overlay, not the model.
+
+## 1. Answer one question
+
+Does a dataset holding the extracted `.npz` windows exist — the output of notebook 07's two runs? Something like `behaviorsense-toyota-shards`. It wasn't in your list.
+
+Just yes or no. If no, those 13.3 hours are gone and I'll stop planning around them.
+
+## 2. Run this probe
+
+Attach **`behaviorsense-code`** and **`toyota_smarthome_skeleton_v1.2`** only. Internet ON, no GPU, ~1 minute.
+
+```python
+import itertools, json, pathlib, sys
+
+INPUT = pathlib.Path("/kaggle/input")
+init = (list(INPUT.glob("datasets/*/*/src/behaviorsense/__init__.py"))
+        + list(INPUT.glob("datasets/*/*/*/src/behaviorsense/__init__.py"))
+        + list(INPUT.glob("datasets/*/*/kaggle/working/src/behaviorsense/__init__.py")))
+assert init, "behaviorsense-code did not resolve"
+sys.path.insert(0, str(init[0].parents[2]))
+from behaviorsense.data.toyota import read_pose3d
+
+SLUGS = sorted(INPUT.glob("datasets/*/*"))
+print("mounts:", [s.name for s in SLUGS])
+
+for label, pat in [("v1.2", "*_pose3d.json"),
+                   ("v1.1", "*_p[0-9][0-9]_r*_c[0-9][0-9].json"),
+                   ("untrimmed", "results_P*T*C*_lcrnet*.json")]:
+    hits = [h for s in SLUGS
+            for h in itertools.islice(itertools.chain(s.glob(pat), s.glob(f"*/{pat}")), 2)]
+    print(f"\n=== {label}: {len(hits)} sampled")
+    for p in hits:
+        raw = json.loads(p.read_text())
+        print(" ", p.name, "| top:", type(raw).__name__,
+              sorted(raw)[:8] if isinstance(raw, dict) else f"len={len(raw)}")
+        try:
+            r = read_pose3d(p)
+            print("    OK", r["n_frames"], "frames,", r["n_missing"], "empty, joints",
+                  r["joints"], "range", r["coord_min"], "->", r["coord_max"])
+        except Exception as e:
+            print("    ", type(e).__name__, str(e)[:250])
+```
+
+Paste the whole output. A failure is as useful as a success — the error names the layout it found, and I extend the reader once rather than guessing.
+
+That's it. With those two answers I can write the 2s-AGCN training path; nothing else needs your GPU quota until it's ready to run.
+
+
+[M02138] 2026-08-25T19:28:27.204Z USER (conversation) [C033:1228; copies=26]
+behaviorsense-toyota-shards
+
+* shards
+   * toyota_trimmed_20hz_0000.npz
+   * toyota_trimmed_20hz_0001.npz
+   * upto 26
+   * and untrimmed 0 to 17
+
+
+[M02139] 2026-08-25T19:29:37.530Z ASSISTANT (conversation) [C033:1235; copies=26]
+Shards are safe — 27 trimmed + 18 untrimmed files, 365,492 windows, 13.3 hours preserved. Note they sit under a `shards/` subdirectory; notebook 03's resolver groups only on `adl` and `fall` keywords at the moment, so that's a third group plus one extra level of nesting.
+
+And your Toyota-only decision **dissolves the window-duration problem** rather than requiring the conversion script I proposed. That plan only existed to reconcile Charades' 2.0 s windows with Toyota's 1.5 s. Drop Charades and Toyota's 20 Hz is the *only* rate — so serving moves to 20 Hz and both sides match exactly. No CPU pass, no re-extraction, one constant.
+
+But not yet, and that's the part worth getting right: the checkpoint you're serving today was trained on Charades at ~15 Hz. Flipping serving to 20 Hz now would make the current demo *more* mismatched, not less. The rate has to move with the retrain.
+
+So I've made it an explicit serving parameter rather than a hidden default.
+
+
+[M02140] 2026-08-25T19:33:23.517Z ASSISTANT (conversation) [C033:1248; copies=26]
+Good — 45 shard files, all 365,492 windows intact. The 13.3 hours are safe.
+
+## Your Toyota-only decision dissolves the window-mismatch problem
+
+I proposed a 20 → 15 Hz conversion script last turn. That was predicated on keeping Charades. With Charades out, Toyota's 20 Hz is the *only* training rate, so there's nothing to reconcile — serving just moves to 20 Hz. One constant instead of a CPU pass over 45 files.
+
+But **not yet**, and this is the part worth being careful about. `runs/adl_bone/best.pt` was trained on Charades at 15 Hz. Flipping serving to 20 Hz today would stretch every action by 1.33× against the checkpoint you're actually running — the same defect as the old `src_fps / 2` stride, just relocated into a constant.
+
+So the rate is now an explicit serving parameter, declared in notebook 05's config block beside `STREAMS` and `TAU`, because it's a property of the **checkpoint**, not the camera:
+
+```
+Charades (notebook 01)  FPS_SAMPLE = 15  ->  2.00 s   <- what best.pt saw
+fall     (notebook 02)  fps_sample = 15  ->  2.00 s
+Toyota   (notebook 07)  FPS_SAMPLE = 20  ->  1.50 s
+SAMPLE_FPS = 15.0                                     <- flips to 20.0 with the Toyota head
+```
+
+It flips at the same moment the Toyota checkpoint ships. The rate travels in the `/video` payload and Agent 1's card draws a banner when it isn't 15, so a mismatch is visible instead of read as bad accuracy.
+
+One thing to note for when falls come back: notebook 02 samples with `step = round(src / 15)`, so a 25 fps fall clip actually landed at 12.5 Hz, not 15. Those corpora need re-extracting at exactly 20 Hz when you add them — they're a few hundred clips, so it's cheap, but it isn't free and I'd rather flag it now than have it surface as a third rate.
+
+`196/196`.
+
+## Two shard-layout details for the notebook 03 wiring
+
+Your listing shows the files at `behaviorsense-toyota-shards/shards/*.npz` — one level deeper than the ADL and fall datasets. And notebook 03's `shard_paths()` groups by dataset-name keyword, currently only `adl` and `fall`. Both need handling; I have what I need to write it.
+
+## Still outstanding: the probe
+
+The skeleton-format probe from my last message is the only thing blocking the 2s-AGCN path. `behaviorsense-code` + `toyota_smarthome_skeleton_v1.2`, internet ON, no GPU, about a minute. Paste the output and I'll write the loader and training path against measured facts.
+
+Nothing to re-upload — this turn was notebook cells only.

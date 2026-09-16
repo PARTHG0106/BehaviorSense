@@ -1,0 +1,2214 @@
+
+[M01236] 2026-08-11T05:52:45.611Z USER (conversation) [C023:1891; copies=6]
+what are u doing man?
+Version 3 failed to run after 695.2s
+Accelerator
+GPU RTX Pro 6000
+
+Environment
+Latest Container Image
+
+Output
+0 B
+
+Time
+#
+Log Message
+4.4s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.4s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.4s	3	0.00s - to python to disable frozen modules.
+4.4s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.7s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.7s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.7s	7	0.00s - to python to disable frozen modules.
+4.7s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+432.9s	9	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+432.9s	10	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+432.9s	11	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+432.9s	12	  attached  ["behaviorsense-adl-shards (top level: ['charades_map.yaml', 'charades_map_review.tsv', 'shards'])", "behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-fall-shards (top level: ['_decode_probe.py', 'decode_list.txt', 'decode_list_av.txt', 'decode_probe.tsv', 'decode_probe_av.tsv', 'shards'])", "behaviorsense-runs (top level: ['runs', 'train_bone.log', 'train_bone_motion.log', 'train_joint.log', 'train_joint_motion.log'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "charades-480p (top level: ['Charades_annotations', 'Charades_v1_480'])", "qwen2-5-7b-instruct (top level: ['LICENSE', 'README.md', 'config.json', 'generation_config.json', 'gitattributes', 'merges.txt'])", 'arc-prize-2026-arc-agi-3']
+432.9s	13	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+432.9s	14	  contract 13/13 - mounted code is current
+437.0s	15	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+437.0s	16	Requirement already satisfied: transformers in /usr/local/lib/python3.12/dist-packages (5.0.0)
+437.0s	17	Requirement already satisfied: accelerate in /usr/local/lib/python3.12/dist-packages (1.13.0)
+437.1s	18	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines-1.3.3-py3-none-any.whl
+437.1s	19	Requirement already satisfied: safetensors in /usr/local/lib/python3.12/dist-packages (0.7.0)
+437.1s	20	Requirement already satisfied: filelock in /usr/local/lib/python3.12/dist-packages (from transformers) (3.29.0)
+437.1s	21	Requirement already satisfied: huggingface-hub<2.0,>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (1.11.0)
+437.1s	22	Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2.0.2)
+437.1s	23	Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (26.1)
+437.1s	24	Requirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.12/dist-packages (from transformers) (6.0.3)
+437.1s	25	Requirement already satisfied: regex!=2019.12.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2025.11.3)
+437.1s	26	Requirement already satisfied: tokenizers<=0.23.0,>=0.22.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (0.22.2)
+437.1s	27	Requirement already satisfied: typer-slim in /usr/local/lib/python3.12/dist-packages (from transformers) (0.24.0)
+437.1s	28	Requirement already satisfied: tqdm>=4.27 in /usr/local/lib/python3.12/dist-packages (from transformers) (4.67.3)
+437.1s	29	Requirement already satisfied: psutil in /usr/local/lib/python3.12/dist-packages (from accelerate) (5.9.5)
+437.1s	30	Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.12/dist-packages (from accelerate) (2.10.0+cu128)
+437.1s	31	Requirement already satisfied: jinja2 in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.6)
+437.1s	32	Requirement already satisfied: cloudpickle in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.2)
+437.1s	33	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/diskcache-5.6.3-py3-none-any.whl (from outlines)
+437.1s	34	Requirement already satisfied: pydantic>=2.0 in /usr/local/lib/python3.12/dist-packages (from outlines) (2.12.3)
+437.1s	35	Requirement already satisfied: jsonschema in /usr/local/lib/python3.12/dist-packages (from outlines) (4.26.0)
+437.1s	36	Requirement already satisfied: pillow in /usr/local/lib/python3.12/dist-packages (from outlines) (11.3.0)
+437.1s	37	Requirement already satisfied: typing_extensions in /usr/local/lib/python3.12/dist-packages (from outlines) (4.15.0)
+437.1s	38	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from outlines)
+437.2s	39	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/genson-1.4.0-py3-none-any.whl (from outlines)
+437.2s	40	Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (2025.3.0)
+437.2s	41	Requirement already satisfied: hf-xet<2.0.0,>=1.4.3 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (1.4.3)
+437.2s	42	Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.28.1)
+437.2s	43	Requirement already satisfied: typer in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.24.2)
+437.2s	44	Requirement already satisfied: annotated-types>=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.7.0)
+437.2s	45	Requirement already satisfied: pydantic-core==2.41.4 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (2.41.4)
+437.2s	46	Requirement already satisfied: typing-inspection>=0.4.2 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.4.2)
+437.2s	47	Requirement already satisfied: setuptools in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (81.0.0)
+437.2s	48	Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.14.0)
+437.2s	49	Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.1)
+437.2s	50	Requirement already satisfied: cuda-bindings==12.9.4 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.9.4)
+437.2s	51	Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+437.2s	52	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+437.2s	53	Requirement already satisfied: transformers in /usr/local/lib/python3.12/dist-packages (5.0.0)
+437.2s	54	Requirement already satisfied: accelerate in /usr/local/lib/python3.12/dist-packages (1.13.0)
+437.2s	55	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines-1.3.3-py3-none-any.whl
+437.2s	56	Requirement already satisfied: safetensors in /usr/local/lib/python3.12/dist-packages (0.7.0)
+437.2s	57	Requirement already satisfied: filelock in /usr/local/lib/python3.12/dist-packages (from transformers) (3.29.0)
+437.2s	58	Requirement already satisfied: huggingface-hub<2.0,>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (1.11.0)
+437.2s	59	Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2.0.2)
+437.2s	60	Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (26.1)
+437.2s	61	Requirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.12/dist-packages (from transformers) (6.0.3)
+437.2s	62	Requirement already satisfied: regex!=2019.12.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2025.11.3)
+437.2s	63	Requirement already satisfied: tokenizers<=0.23.0,>=0.22.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (0.22.2)
+437.2s	64	Requirement already satisfied: typer-slim in /usr/local/lib/python3.12/dist-packages (from transformers) (0.24.0)
+437.2s	65	Requirement already satisfied: tqdm>=4.27 in /usr/local/lib/python3.12/dist-packages (from transformers) (4.67.3)
+437.2s	66	Requirement already satisfied: psutil in /usr/local/lib/python3.12/dist-packages (from accelerate) (5.9.5)
+437.2s	67	Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.12/dist-packages (from accelerate) (2.10.0+cu128)
+437.2s	68	Requirement already satisfied: jinja2 in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.6)
+437.2s	69	Requirement already satisfied: cloudpickle in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.2)
+437.2s	70	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/diskcache-5.6.3-py3-none-any.whl (from outlines)
+437.2s	71	Requirement already satisfied: pydantic>=2.0 in /usr/local/lib/python3.12/dist-packages (from outlines) (2.12.3)
+437.2s	72	Requirement already satisfied: jsonschema in /usr/local/lib/python3.12/dist-packages (from outlines) (4.26.0)
+437.2s	73	Requirement already satisfied: pillow in /usr/local/lib/python3.12/dist-packages (from outlines) (11.3.0)
+437.2s	74	Requirement already satisfied: typing_extensions in /usr/local/lib/python3.12/dist-packages (from outlines) (4.15.0)
+437.2s	75	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from outlines)
+437.2s	76	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/genson-1.4.0-py3-none-any.whl (from outlines)
+437.2s	77	Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (2025.3.0)
+437.2s	78	Requirement already satisfied: hf-xet<2.0.0,>=1.4.3 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (1.4.3)
+437.2s	79	Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.28.1)
+437.2s	80	Requirement already satisfied: typer in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.24.2)
+437.2s	81	Requirement already satisfied: annotated-types>=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.7.0)
+437.2s	82	Requirement already satisfied: pydantic-core==2.41.4 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (2.41.4)
+437.2s	83	Requirement already satisfied: typing-inspection>=0.4.2 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.4.2)
+437.2s	84	Requirement already satisfied: setuptools in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (81.0.0)
+437.2s	85	Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.14.0)
+437.2s	86	Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.1)
+437.2s	87	Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+437.2s	88	Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+437.2s	89	Requirement already satisfied: nvidia-cudnn-cu12==9.10.2.21 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (9.10.2.21)
+437.2s	90	Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.4.1)
+437.2s	91	Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.3.3.83)
+437.2s	92	Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (10.3.9.90)
+437.2s	93	Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.7.3.90)
+437.2s	94	Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.5.8.93)
+437.2s	95	Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (0.7.1)
+437.2s	96	Requirement already satisfied: nvidia-nccl-cu12==2.27.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (2.27.5)
+437.2s	97	Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.4.5)
+437.2s	98	Requirement already satisfied: nvidia-nvtx-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+437.2s	99	Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+437.2s	100	Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.13.1.3)
+437.2s	101	Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.0)
+437.2s	102	Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.12/dist-packages (from cuda-bindings==12.9.4->torch>=2.0.0->accelerate) (1.5.3)
+437.3s	103	Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2->outlines) (3.0.3)
+437.3s	104	Requirement already satisfied: attrs>=22.2.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (26.1.0)
+437.3s	105	Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (2025.9.1)
+437.3s	106	Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.37.0)
+437.3s	107	Requirement already satisfied: rpds-py>=0.25.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.30.0)
+437.3s	108	Requirement already satisfied: anyio in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (4.13.0)
+437.3s	109	Requirement already satisfied: certifi in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (2026.4.22)
+437.3s	110	Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (1.0.9)
+437.3s	111	Requirement already satisfied: idna in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (3.13)
+437.3s	112	Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.12/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (0.16.0)
+437.3s	113	Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.12/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate) (1.3.0)
+437.3s	114	Requirement already satisfied: click>=8.2.1 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (8.3.3)
+437.3s	115	Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (1.5.4)
+437.3s	116	Requirement already satisfied: rich>=12.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (13.9.4)
+437.3s	117	Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.0.4)
+437.3s	118	Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (4.0.0)
+437.3s	119	Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (2.20.0)
+437.3s	120	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+437.4s	121	Requirement already satisfied: cuda-bindings==12.9.4 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.9.4)
+437.4s	122	Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+437.4s	123	Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+437.4s	124	Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+437.4s	125	Requirement already satisfied: nvidia-cudnn-cu12==9.10.2.21 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (9.10.2.21)
+437.4s	126	Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.4.1)
+437.4s	127	Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.3.3.83)
+437.4s	128	Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (10.3.9.90)
+437.4s	129	Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.7.3.90)
+437.4s	130	Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.5.8.93)
+437.4s	131	Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (0.7.1)
+437.4s	132	Requirement already satisfied: nvidia-nccl-cu12==2.27.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (2.27.5)
+437.4s	133	Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.4.5)
+437.4s	134	Requirement already satisfied: nvidia-nvtx-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+437.4s	135	Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+437.4s	136	Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.13.1.3)
+437.4s	137	Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.0)
+437.4s	138	Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.12/dist-packages (from cuda-bindings==12.9.4->torch>=2.0.0->accelerate) (1.5.3)
+437.4s	139	Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2->outlines) (3.0.3)
+437.4s	140	Requirement already satisfied: attrs>=22.2.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (26.1.0)
+437.4s	141	Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (2025.9.1)
+437.4s	142	Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.37.0)
+437.4s	143	Requirement already satisfied: rpds-py>=0.25.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.30.0)
+437.4s	144	Requirement already satisfied: anyio in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (4.13.0)
+437.4s	145	Requirement already satisfied: certifi in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (2026.4.22)
+437.4s	146	Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (1.0.9)
+437.4s	147	Requirement already satisfied: idna in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (3.13)
+437.4s	148	Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.12/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (0.16.0)
+437.4s	149	Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.12/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate) (1.3.0)
+437.4s	150	Requirement already satisfied: click>=8.2.1 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (8.3.3)
+437.4s	151	Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (1.5.4)
+437.4s	152	Requirement already satisfied: rich>=12.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (13.9.4)
+437.4s	153	Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.0.4)
+437.4s	154	Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (4.0.0)
+437.4s	155	Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (2.20.0)
+437.4s	156	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+438.1s	157	Installing collected packages: outlines_core, genson, diskcache, outlines
+438.2s	158	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+438.3s	159	Installing collected packages: outlines_core, genson, diskcache, outlines
+438.3s	160	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+519.5s	161	P1 val: 24908 windows, 1166 subjects
+606.5s	162	model              top1 mean-class  macro-F1    F1>=50
+606.5s	163	joint             0.337      0.180     0.169     0.179
+606.5s	164	bone              0.331      0.189     0.168     0.177
+606.5s	165	joint_motion      0.331      0.127     0.105     0.112
+606.5s	166	bone_motion       0.325      0.123     0.117     0.123
+611.5s	167	ENSEMBLE          0.375      0.151     0.150     0.158   <- headline P1
+611.5s	168	
+611.5s	169	macro-F1 averages 18 present classes; the last column averages the 17 with >= 50 val windows.
+611.5s	170	1 class(es) starved by the Charades label map (< 50 windows):
+611.5s	171	  class  6 bending_reaching       support    11
+611.5s	172	  Cause: Charades has no verb for these (e.g. 'Putting a box somewhere'),
+611.5s	173	  so build_charades_map.py routes them to other_idle. Report both columns.
+612.7s	174	fitted temperature T=0.77; mean confidence 0.391 vs accuracy 0.375
+612.7s	175	-> set ActivityConfig(temperature=0.77) in deployment
+689.4s	176	held-out          n  fall%  AUROC(fall posterior)
+691.6s	177	Traceback (most recent call last):
+691.6s	178	  File "<string>", line 1, in <module>
+691.6s	179	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 131, in execute_notebook
+691.6s	180	    raise_for_execution_errors(nb, output_path)
+691.6s	181	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+691.6s	182	    raise error
+691.6s	183	papermill.exceptions.PapermillExecutionError: 
+691.6s	184	---------------------------------------------------------------------------
+691.6s	185	Exception encountered at "In [5]":
+691.6s	186	---------------------------------------------------------------------------
+691.6s	187	ValueError                                Traceback (most recent call last)
+691.6s	188	/tmp/ipykernel_65/1756327756.py in <cell line: 0>()
+691.6s	189	     14     idx = np.where(sources == held)[0]
+691.6s	190	     15     Xh = np.stack([fds[i][0] for i in idx])
+691.6s	191	---> 16     post = softmax(clf.logits(Xh))
+691.6s	192	     17     score = post[:, list(FALL_CLASSES)].sum(1)
+691.6s	193	     18     yh = is_fall[idx]
+691.6s	194	
+691.6s	195	/kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended/src/behaviorsense/models/ensemble.py in logits(self, windows)
+691.6s	196	    203             return np.zeros((0, N_CLASSES), dtype=np.float32)
+691.6s	197	    204 
+691.6s	198	--> 205         tensor = windows_to_tensor(x)
+691.6s	199	    206         chunks: list[np.ndarray] = []
+691.6s	200	    207         with torch.no_grad():
+691.6s	201	
+691.6s	202	/kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended/src/behaviorsense/models/ensemble.py in windows_to_tensor(windows)
+691.6s	203	     59     x = np.asarray(windows, dtype=np.float32)
+691.6s	204	     60     if x.ndim != 5 or x.shape[-1] != 3 or x.shape[-2] != 17:
+691.6s	205	---> 61         raise ValueError(
+691.6s	206	     62             f"expected [N,T,M,17,3], got {x.shape}. Windows come from the shard layout; "
+691.6s	207	     63             "the model wants [N,C,T,V,M] and this function is the only place that "
+691.6s	208	
+691.6s	209	ValueError: expected [N,T,M,17,3], got (1159, 3, 30, 17, 2). Windows come from the shard layout; the model wants [N,C,T,V,M] and this function is the only place that conversion should happen.
+691.6s	210	
+692.7s	211	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+692.7s	212	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+692.8s	213	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+692.8s	214	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+693.1s	215	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+693.2s	216	[NbConvertApp] Writing 45495 bytes to __notebook__.ipynb
+694.4s	217	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+694.8s	218	[NbConvertApp] Writing 368645 bytes to __results__.html
+
+
+[M01237] 2026-08-11T05:53:59.479Z ASSISTANT (conversation) [C023:1897; copies=6]
+You're right to be annoyed. This is the *same* bug the test file's own docstring says was already caught — `[i][0]` returns `[C,T,V,M]`, `logits()` wants `[N,T,M,17,3]`. I fixed the P1 cell and never checked the other call sites. Auditing all of them now instead of one more patch:
+
+
+[M01238] 2026-08-11T05:54:29.584Z ASSISTANT (conversation) [C023:1902; copies=6]
+One call site left: line 2114 `fds[i][0]`. Line 2035 uses the correct form. Let me read the P2 cell and check why the test that caught this exact bug in P1 doesn't cover P2:
+
+
+[M01239] 2026-08-11T05:55:17.626Z ASSISTANT (conversation) [C023:1907; copies=6]
+Now I see the real problem. N5 **re-implements** the P1 block instead of executing the notebook's cell — so it validates its own copy, and P2's cell was never exercised at all. Let me fix the bug, then fix the testing gap that let it through:
+
+
+[M01240] 2026-08-11T06:10:39.459Z ASSISTANT (conversation) [C023:1921; copies=6]
+The tool is erroring repeatedly. Let me use a different approach:
+
+
+[M01241] 2026-08-11T06:12:19.432Z ASSISTANT (conversation) [C023:1926; copies=6]
+That's just the comment explaining the old code. The actual fix is clean. Let me verify the notebook compiles and the test runs:
+
+
+[M01242] 2026-08-11T06:13:28.553Z ASSISTANT (conversation) [C023:1930; copies=6]
+Now the test gap that let this through — N5 reimplements the P1 logic in Python instead of executing the notebook's cell, so it validates its own copy. Adding an N6 that exercises the actual P2 cell:
+
+
+[M01243] 2026-08-11T06:15:37.883Z ASSISTANT (conversation) [C023:1937; copies=6]
+I over-complicated that test with a broken `exec` block. Let me replace it with something that actually tests the notebook's cell:
+
+
+[M01244] 2026-08-11T06:17:23.569Z ASSISTANT (conversation) [C023:1941; copies=6]
+N6b passes — 4 call sites checked, the `[C,T,V,M]` guard still catches it. Now the suite and a direct answer.
+
+
+[M01245] 2026-08-11T06:24:58.180Z ASSISTANT (conversation) [C023:1951; copies=6]
+Fair. That was a bad failure and the frustration is warranted.
+
+**What happened:** the P2 cell built its tensor with `fds[i][0]`, which returns `[C,T,V,M]` — the model layout. `logits()` wants the shard layout `[N,T,M,17,3]`. I fixed exactly this in the P1 cell and never checked the other call sites, so P2 died 11 minutes in.
+
+Worse: my own test file's docstring says this bug "was already caught." It was — in P1 only. The reason `N5` missed P2 is that it **re-implements** the P1 logic in Python rather than executing the notebook's cell, so it validated its own copy while P2's code was never exercised at all.
+
+Fixed both. `N6b` now scans *every* `logits()` call site in the notebook source and asserts each tensor is built from `.skeletons[...]`, then proves the two layouts genuinely differ by feeding both to a real classifier. 4 call sites checked, 131/131 fast tests pass.
+
+**Your P1 numbers came through, and one is worth pausing on:**
+
+```
+model              top1  mean-class  macro-F1
+joint             0.337      0.180     0.169
+bone              0.331      0.189     0.168
+joint_motion      0.331      0.127     0.105
+bone_motion       0.325      0.123     0.117
+ENSEMBLE          0.375      0.151     0.150   <- headline
+```
+
+The ensemble beats every stream on **top-1** (0.375 vs 0.337) but is *worse* than joint or bone on **mean-class** (0.151 vs 0.189). I predicted +2 to +4 points and it went down. That's a real result, not noise: averaging pulls predictions toward the classes the weak motion streams are confident about, which helps overall accuracy and hurts the rare classes. Worth reporting honestly — and it means `bone` alone may be the better ADL checkpoint for deployment.
+
+`fitted temperature T=0.77; mean confidence 0.391 vs accuracy 0.375` is a genuinely good sign: the model is nearly calibrated already.
+
+**Next:** re-upload (`python scripts/publish_code_dataset.py -m "P2 layout fix"`) and re-run notebook 04. P1 will reproduce in ~10 min, then P2 gets past the crash to the leave-one-dataset-out folds.
+
+
+[M01246] 2026-08-11T07:25:31.134Z USER (conversation) [C023:1955; copies=6]
+Version 4 failed to run after 731.8s
+Accelerator
+GPU RTX Pro 6000
+
+Environment
+Latest Container Image
+
+Output
+0 B
+
+Time
+#
+Log Message
+4.0s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.0s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.0s	3	0.00s - to python to disable frozen modules.
+4.0s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.3s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.3s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.3s	7	0.00s - to python to disable frozen modules.
+4.3s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+403.5s	9	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+403.5s	10	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+403.5s	11	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+403.5s	12	  attached  ["behaviorsense-adl-shards (top level: ['charades_map.yaml', 'charades_map_review.tsv', 'shards'])", "behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-fall-shards (top level: ['_decode_probe.py', 'decode_list.txt', 'decode_list_av.txt', 'decode_probe.tsv', 'decode_probe_av.tsv', 'shards'])", "behaviorsense-runs (top level: ['runs', 'train_bone.log', 'train_bone_motion.log', 'train_joint.log', 'train_joint_motion.log'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "charades-480p (top level: ['Charades_annotations', 'Charades_v1_480'])", "qwen2-5-7b-instruct (top level: ['LICENSE', 'README.md', 'config.json', 'generation_config.json', 'gitattributes', 'merges.txt'])", 'arc-prize-2026-arc-agi-3']
+403.5s	13	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+403.5s	14	  contract 13/13 - mounted code is current
+407.5s	15	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+407.5s	16	Requirement already satisfied: transformers in /usr/local/lib/python3.12/dist-packages (5.0.0)
+407.5s	17	Requirement already satisfied: accelerate in /usr/local/lib/python3.12/dist-packages (1.13.0)
+407.5s	18	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines-1.3.3-py3-none-any.whl
+407.5s	19	Requirement already satisfied: safetensors in /usr/local/lib/python3.12/dist-packages (0.7.0)
+407.5s	20	Requirement already satisfied: filelock in /usr/local/lib/python3.12/dist-packages (from transformers) (3.29.0)
+407.5s	21	Requirement already satisfied: huggingface-hub<2.0,>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (1.11.0)
+407.5s	22	Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2.0.2)
+407.5s	23	Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (26.1)
+407.5s	24	Requirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.12/dist-packages (from transformers) (6.0.3)
+407.5s	25	Requirement already satisfied: regex!=2019.12.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2025.11.3)
+407.5s	26	Requirement already satisfied: tokenizers<=0.23.0,>=0.22.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (0.22.2)
+407.5s	27	Requirement already satisfied: typer-slim in /usr/local/lib/python3.12/dist-packages (from transformers) (0.24.0)
+407.6s	28	Requirement already satisfied: tqdm>=4.27 in /usr/local/lib/python3.12/dist-packages (from transformers) (4.67.3)
+407.6s	29	Requirement already satisfied: psutil in /usr/local/lib/python3.12/dist-packages (from accelerate) (5.9.5)
+407.6s	30	Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.12/dist-packages (from accelerate) (2.10.0+cu128)
+407.6s	31	Requirement already satisfied: jinja2 in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.6)
+407.6s	32	Requirement already satisfied: cloudpickle in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.2)
+407.6s	33	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/diskcache-5.6.3-py3-none-any.whl (from outlines)
+407.6s	34	Requirement already satisfied: pydantic>=2.0 in /usr/local/lib/python3.12/dist-packages (from outlines) (2.12.3)
+407.6s	35	Requirement already satisfied: jsonschema in /usr/local/lib/python3.12/dist-packages (from outlines) (4.26.0)
+407.6s	36	Requirement already satisfied: pillow in /usr/local/lib/python3.12/dist-packages (from outlines) (11.3.0)
+407.6s	37	Requirement already satisfied: typing_extensions in /usr/local/lib/python3.12/dist-packages (from outlines) (4.15.0)
+407.6s	38	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from outlines)
+407.7s	39	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/genson-1.4.0-py3-none-any.whl (from outlines)
+407.7s	40	Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (2025.3.0)
+407.7s	41	Requirement already satisfied: hf-xet<2.0.0,>=1.4.3 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (1.4.3)
+407.7s	42	Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.28.1)
+407.7s	43	Requirement already satisfied: typer in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.24.2)
+407.7s	44	Requirement already satisfied: annotated-types>=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.7.0)
+407.7s	45	Requirement already satisfied: pydantic-core==2.41.4 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (2.41.4)
+407.7s	46	Requirement already satisfied: typing-inspection>=0.4.2 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.4.2)
+407.7s	47	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+407.7s	48	Requirement already satisfied: transformers in /usr/local/lib/python3.12/dist-packages (5.0.0)
+407.7s	49	Requirement already satisfied: accelerate in /usr/local/lib/python3.12/dist-packages (1.13.0)
+407.7s	50	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines-1.3.3-py3-none-any.whl
+407.7s	51	Requirement already satisfied: safetensors in /usr/local/lib/python3.12/dist-packages (0.7.0)
+407.7s	52	Requirement already satisfied: filelock in /usr/local/lib/python3.12/dist-packages (from transformers) (3.29.0)
+407.7s	53	Requirement already satisfied: huggingface-hub<2.0,>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (1.11.0)
+407.7s	54	Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2.0.2)
+407.7s	55	Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (26.1)
+407.7s	56	Requirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.12/dist-packages (from transformers) (6.0.3)
+407.7s	57	Requirement already satisfied: regex!=2019.12.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2025.11.3)
+407.7s	58	Requirement already satisfied: tokenizers<=0.23.0,>=0.22.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (0.22.2)
+407.7s	59	Requirement already satisfied: typer-slim in /usr/local/lib/python3.12/dist-packages (from transformers) (0.24.0)
+407.7s	60	Requirement already satisfied: tqdm>=4.27 in /usr/local/lib/python3.12/dist-packages (from transformers) (4.67.3)
+407.7s	61	Requirement already satisfied: psutil in /usr/local/lib/python3.12/dist-packages (from accelerate) (5.9.5)
+407.7s	62	Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.12/dist-packages (from accelerate) (2.10.0+cu128)
+407.7s	63	Requirement already satisfied: jinja2 in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.6)
+407.7s	64	Requirement already satisfied: cloudpickle in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.2)
+407.7s	65	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/diskcache-5.6.3-py3-none-any.whl (from outlines)
+407.7s	66	Requirement already satisfied: pydantic>=2.0 in /usr/local/lib/python3.12/dist-packages (from outlines) (2.12.3)
+407.7s	67	Requirement already satisfied: jsonschema in /usr/local/lib/python3.12/dist-packages (from outlines) (4.26.0)
+407.7s	68	Requirement already satisfied: pillow in /usr/local/lib/python3.12/dist-packages (from outlines) (11.3.0)
+407.7s	69	Requirement already satisfied: typing_extensions in /usr/local/lib/python3.12/dist-packages (from outlines) (4.15.0)
+407.7s	70	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from outlines)
+407.7s	71	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/genson-1.4.0-py3-none-any.whl (from outlines)
+407.7s	72	Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (2025.3.0)
+407.7s	73	Requirement already satisfied: hf-xet<2.0.0,>=1.4.3 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (1.4.3)
+407.7s	74	Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.28.1)
+407.7s	75	Requirement already satisfied: typer in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.24.2)
+407.7s	76	Requirement already satisfied: annotated-types>=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.7.0)
+407.7s	77	Requirement already satisfied: pydantic-core==2.41.4 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (2.41.4)
+407.7s	78	Requirement already satisfied: typing-inspection>=0.4.2 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.4.2)
+407.7s	79	Requirement already satisfied: setuptools in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (81.0.0)
+407.7s	80	Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.14.0)
+407.7s	81	Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.1)
+407.7s	82	Requirement already satisfied: cuda-bindings==12.9.4 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.9.4)
+407.7s	83	Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+407.7s	84	Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+407.7s	85	Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+407.7s	86	Requirement already satisfied: nvidia-cudnn-cu12==9.10.2.21 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (9.10.2.21)
+407.7s	87	Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.4.1)
+407.7s	88	Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.3.3.83)
+407.7s	89	Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (10.3.9.90)
+407.7s	90	Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.7.3.90)
+407.7s	91	Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.5.8.93)
+407.7s	92	Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (0.7.1)
+407.7s	93	Requirement already satisfied: nvidia-nccl-cu12==2.27.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (2.27.5)
+407.7s	94	Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.4.5)
+407.7s	95	Requirement already satisfied: nvidia-nvtx-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+407.7s	96	Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+407.7s	97	Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.13.1.3)
+407.7s	98	Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.0)
+407.7s	99	Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.12/dist-packages (from cuda-bindings==12.9.4->torch>=2.0.0->accelerate) (1.5.3)
+407.7s	100	Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2->outlines) (3.0.3)
+407.7s	101	Requirement already satisfied: attrs>=22.2.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (26.1.0)
+407.7s	102	Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (2025.9.1)
+407.7s	103	Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.37.0)
+407.7s	104	Requirement already satisfied: rpds-py>=0.25.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.30.0)
+407.7s	105	Requirement already satisfied: anyio in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (4.13.0)
+407.7s	106	Requirement already satisfied: certifi in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (2026.4.22)
+407.7s	107	Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (1.0.9)
+407.7s	108	Requirement already satisfied: idna in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (3.13)
+407.7s	109	Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.12/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (0.16.0)
+407.7s	110	Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.12/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate) (1.3.0)
+407.7s	111	Requirement already satisfied: click>=8.2.1 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (8.3.3)
+407.7s	112	Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (1.5.4)
+407.7s	113	Requirement already satisfied: rich>=12.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (13.9.4)
+407.7s	114	Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.0.4)
+407.8s	115	Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (4.0.0)
+407.8s	116	Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (2.20.0)
+407.8s	117	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+407.9s	118	Requirement already satisfied: setuptools in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (81.0.0)
+407.9s	119	Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.14.0)
+407.9s	120	Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.1)
+407.9s	121	Requirement already satisfied: cuda-bindings==12.9.4 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.9.4)
+407.9s	122	Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+407.9s	123	Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+407.9s	124	Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+407.9s	125	Requirement already satisfied: nvidia-cudnn-cu12==9.10.2.21 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (9.10.2.21)
+407.9s	126	Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.4.1)
+407.9s	127	Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.3.3.83)
+407.9s	128	Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (10.3.9.90)
+407.9s	129	Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.7.3.90)
+407.9s	130	Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.5.8.93)
+407.9s	131	Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (0.7.1)
+407.9s	132	Requirement already satisfied: nvidia-nccl-cu12==2.27.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (2.27.5)
+407.9s	133	Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.4.5)
+407.9s	134	Requirement already satisfied: nvidia-nvtx-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+407.9s	135	Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+407.9s	136	Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.13.1.3)
+407.9s	137	Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.0)
+407.9s	138	Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.12/dist-packages (from cuda-bindings==12.9.4->torch>=2.0.0->accelerate) (1.5.3)
+407.9s	139	Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2->outlines) (3.0.3)
+407.9s	140	Requirement already satisfied: attrs>=22.2.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (26.1.0)
+407.9s	141	Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (2025.9.1)
+407.9s	142	Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.37.0)
+407.9s	143	Requirement already satisfied: rpds-py>=0.25.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.30.0)
+407.9s	144	Requirement already satisfied: anyio in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (4.13.0)
+407.9s	145	Requirement already satisfied: certifi in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (2026.4.22)
+407.9s	146	Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (1.0.9)
+407.9s	147	Requirement already satisfied: idna in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (3.13)
+407.9s	148	Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.12/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (0.16.0)
+407.9s	149	Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.12/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate) (1.3.0)
+407.9s	150	Requirement already satisfied: click>=8.2.1 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (8.3.3)
+407.9s	151	Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (1.5.4)
+407.9s	152	Requirement already satisfied: rich>=12.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (13.9.4)
+407.9s	153	Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.0.4)
+407.9s	154	Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (4.0.0)
+407.9s	155	Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (2.20.0)
+407.9s	156	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+408.6s	157	Installing collected packages: outlines_core, genson, diskcache, outlines
+408.7s	158	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+408.7s	159	Installing collected packages: outlines_core, genson, diskcache, outlines
+408.7s	160	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+484.9s	161	P1 val: 24908 windows, 1166 subjects
+565.0s	162	model              top1 mean-class  macro-F1    F1>=50
+565.0s	163	joint             0.337      0.180     0.169     0.179
+565.0s	164	bone              0.331      0.189     0.168     0.177
+565.0s	165	joint_motion      0.331      0.127     0.105     0.112
+565.0s	166	bone_motion       0.325      0.123     0.117     0.123
+570.1s	167	ENSEMBLE          0.375      0.151     0.150     0.158   <- headline P1
+570.1s	168	
+570.1s	169	macro-F1 averages 18 present classes; the last column averages the 17 with >= 50 val windows.
+570.1s	170	1 class(es) starved by the Charades label map (< 50 windows):
+570.1s	171	  class  6 bending_reaching       support    11
+570.1s	172	  Cause: Charades has no verb for these (e.g. 'Putting a box somewhere'),
+570.1s	173	  so build_charades_map.py routes them to other_idle. Report both columns.
+571.3s	174	fitted temperature T=0.77; mean confidence 0.391 vs accuracy 0.375
+571.3s	175	-> set ActivityConfig(temperature=0.77) in deployment
+644.9s	176	held-out          n  fall%  AUROC(fall posterior)
+645.3s	177	caucafall      1159  28.8%                  0.734
+645.5s	178	gmdcsa          914  24.5%                  0.545
+645.5s	179	le2i            752  34.7%                  0.586
+645.6s	180	urfd            239  16.3%                  0.722
+728.2s	181	Traceback (most recent call last):
+728.2s	182	  File "<string>", line 1, in <module>
+728.2s	183	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 131, in execute_notebook
+728.2s	184	    raise_for_execution_errors(nb, output_path)
+728.2s	185	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+728.2s	186	    raise error
+728.2s	187	papermill.exceptions.PapermillExecutionError: 
+728.2s	188	---------------------------------------------------------------------------
+728.2s	189	Exception encountered at "In [6]":
+728.2s	190	---------------------------------------------------------------------------
+728.2s	191	ValueError                                Traceback (most recent call last)
+728.2s	192	/tmp/ipykernel_65/316337029.py in <cell line: 0>()
+728.2s	193	      2 alt = EnsembleClassifier.from_run_dir(run_dir(),
+728.2s	194	      3                                       device="cuda", combine="prob")
+728.2s	195	----> 4 t1a, mcaa, f1a = scores(alt.logits(X), y)
+728.2s	196	      5 print(f"logit-average : mca {mca:.3f}  (headline)")
+728.2s	197	      6 print(f"prob-average  : mca {mcaa:.3f}  (mixture ablation)")
+728.2s	198	
+728.2s	199	ValueError: too many values to unpack (expected 3)
+728.2s	200	
+729.3s	201	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+729.3s	202	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+729.4s	203	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+729.4s	204	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+729.7s	205	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+729.9s	206	[NbConvertApp] Writing 42012 bytes to __notebook__.ipynb
+731.0s	207	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+731.4s	208	[NbConvertApp] Writing 365169 bytes to __results__.html
+
+
+[M01247] 2026-08-11T07:26:20.597Z ASSISTANT (conversation) [C023:1960; copies=6]
+P2 completed — you have cross-dataset numbers now. The ablation cell failed on a signature mismatch I introduced: `scores()` returns 4 values since I added the `F1>=50` column, and that call site still unpacks 3.
+
+Rather than patch one line and risk another round trip, let me execute every cell of notebook 04 locally first:
+
+
+[M01248] 2026-08-11T07:26:53.427Z ASSISTANT (conversation) [C023:1963; copies=6]
+Confirmed: cell 5 is the only mismatch. Let me fix it and build a local harness that executes the whole notebook, so remaining errors surface here rather than on Kaggle:
+
+
+[M01249] 2026-08-11T07:27:56.110Z ASSISTANT (conversation) [C023:1966; copies=6]
+All three call sites agree now. Building the harness that actually runs notebook 04 end-to-end — this is what should have existed before you spent four sessions on it:
+
+
+[M01250] 2026-08-11T07:38:03.239Z ASSISTANT (conversation) [C023:1974; copies=6]
+The harness is working — it caught that cell 3 depends on `INPUT` from cell 1, which my patch renamed inconsistently. Fixing the patch:
+
+
+[M01251] 2026-08-11T07:39:27.506Z ASSISTANT (conversation) [C023:1980; copies=6]
+`INPUT` is defined in cell 0, and the harness skipped cell 1 (pip) — but cell 0 must have failed silently. Let me check:
+
+
+[M01252] 2026-08-11T07:41:10.025Z ASSISTANT (conversation) [C023:1983; copies=6]
+The resolver cell (1) is being skipped because it mentions `pip install` in a comment. My skip rule matches comments, not code:
+
+
+[M01253] 2026-08-11T07:42:03.473Z ASSISTANT (conversation) [C023:1988; copies=6]
+The contract guard is doing its job — my fixture code dataset only had `__init__.py`. Making the fixture faithful by copying the real repo files into it:
+
+
+[M01254] 2026-08-11T07:48:55.835Z ASSISTANT (conversation) [C001:8; copies=67]
+All the evaluation cells executed locally. Only cell 8 failed — it tried to write a dissertation results file to `/kaggle/working/results`, which doesn't exist on Windows. That's the final housekeeping cell, not an evaluation cell, so it's harmless. Every actual result cell ran clean: P1 tables, per-class breakdown, P2 leave-one-dataset-out, calibration, ablation.
+
+**Start from: notebook 04.** Re-paste it. Everything else is done.
+
+**Re-upload `behaviorsense-code`: yes** — the ablation fix plus `kaggle_artifacts.py`:
+
+```bash
+python scripts/publish_code_dataset.py -m "P2 layout fix; ablation arity fix"
+```
+
+**Attach:** `behaviorsense-code`, `behavioursense-WW`, `behaviorsense-adl-shards`, `behaviorsense-fall-shards`, `behaviorsense-runs`, `qwen2-5-7b-instruct`.
+
+
+[M01255] 2026-08-11T09:05:49.805Z USER (conversation) [C023:2002; copies=1]
+Time
+#
+Log Message
+4.1s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.1s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.1s	3	0.00s - to python to disable frozen modules.
+4.1s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.4s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.4s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.4s	7	0.00s - to python to disable frozen modules.
+4.4s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+523.8s	9	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+523.8s	10	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+523.8s	11	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+523.8s	12	  attached  ["behaviorsense-adl-shards (top level: ['charades_map.yaml', 'charades_map_review.tsv', 'shards'])", "behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-fall-shards (top level: ['_decode_probe.py', 'decode_list.txt', 'decode_list_av.txt', 'decode_probe.tsv', 'decode_probe_av.tsv', 'shards'])", "behaviorsense-runs (top level: ['runs', 'train_bone.log', 'train_bone_motion.log', 'train_joint.log', 'train_joint_motion.log'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "charades-480p (top level: ['Charades_annotations', 'Charades_v1_480'])", "qwen2-5-7b-instruct (top level: ['LICENSE', 'README.md', 'config.json', 'generation_config.json', 'gitattributes', 'merges.txt'])", 'arc-prize-2026-arc-agi-3']
+523.8s	13	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+523.8s	14	  contract 13/13 - mounted code is current
+528.0s	15	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+528.0s	16	Requirement already satisfied: transformers in /usr/local/lib/python3.12/dist-packages (5.0.0)
+528.0s	17	Requirement already satisfied: accelerate in /usr/local/lib/python3.12/dist-packages (1.13.0)
+528.0s	18	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines-1.3.3-py3-none-any.whl
+528.0s	19	Requirement already satisfied: safetensors in /usr/local/lib/python3.12/dist-packages (0.7.0)
+528.0s	20	Requirement already satisfied: filelock in /usr/local/lib/python3.12/dist-packages (from transformers) (3.29.0)
+528.0s	21	Requirement already satisfied: huggingface-hub<2.0,>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (1.11.0)
+528.0s	22	Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2.0.2)
+528.0s	23	Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (26.1)
+528.0s	24	Requirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.12/dist-packages (from transformers) (6.0.3)
+528.0s	25	Requirement already satisfied: regex!=2019.12.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2025.11.3)
+528.0s	26	Requirement already satisfied: tokenizers<=0.23.0,>=0.22.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (0.22.2)
+528.0s	27	Requirement already satisfied: typer-slim in /usr/local/lib/python3.12/dist-packages (from transformers) (0.24.0)
+528.0s	28	Requirement already satisfied: tqdm>=4.27 in /usr/local/lib/python3.12/dist-packages (from transformers) (4.67.3)
+528.0s	29	Requirement already satisfied: psutil in /usr/local/lib/python3.12/dist-packages (from accelerate) (5.9.5)
+528.0s	30	Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.12/dist-packages (from accelerate) (2.10.0+cu128)
+528.0s	31	Requirement already satisfied: jinja2 in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.6)
+528.0s	32	Requirement already satisfied: cloudpickle in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.2)
+528.0s	33	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/diskcache-5.6.3-py3-none-any.whl (from outlines)
+528.1s	34	Requirement already satisfied: pydantic>=2.0 in /usr/local/lib/python3.12/dist-packages (from outlines) (2.12.3)
+528.1s	35	Requirement already satisfied: jsonschema in /usr/local/lib/python3.12/dist-packages (from outlines) (4.26.0)
+528.1s	36	Requirement already satisfied: pillow in /usr/local/lib/python3.12/dist-packages (from outlines) (11.3.0)
+528.1s	37	Requirement already satisfied: typing_extensions in /usr/local/lib/python3.12/dist-packages (from outlines) (4.15.0)
+528.1s	38	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from outlines)
+528.1s	39	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/genson-1.4.0-py3-none-any.whl (from outlines)
+528.1s	40	Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (2025.3.0)
+528.1s	41	Requirement already satisfied: hf-xet<2.0.0,>=1.4.3 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (1.4.3)
+528.1s	42	Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.28.1)
+528.1s	43	Requirement already satisfied: typer in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.24.2)
+528.1s	44	Requirement already satisfied: annotated-types>=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.7.0)
+528.1s	45	Requirement already satisfied: pydantic-core==2.41.4 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (2.41.4)
+528.1s	46	Requirement already satisfied: typing-inspection>=0.4.2 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.4.2)
+528.2s	47	Requirement already satisfied: setuptools in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (81.0.0)
+528.2s	48	Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.14.0)
+528.2s	49	Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.1)
+528.2s	50	Requirement already satisfied: cuda-bindings==12.9.4 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.9.4)
+528.2s	51	Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+528.2s	52	Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+528.2s	53	Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+528.2s	54	Requirement already satisfied: nvidia-cudnn-cu12==9.10.2.21 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (9.10.2.21)
+528.2s	55	Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.4.1)
+528.2s	56	Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.3.3.83)
+528.2s	57	Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (10.3.9.90)
+528.2s	58	Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.7.3.90)
+528.2s	59	Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.5.8.93)
+528.2s	60	Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (0.7.1)
+528.2s	61	Requirement already satisfied: nvidia-nccl-cu12==2.27.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (2.27.5)
+528.2s	62	Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.4.5)
+528.2s	63	Requirement already satisfied: nvidia-nvtx-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+528.2s	64	Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+528.2s	65	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+528.2s	66	Requirement already satisfied: transformers in /usr/local/lib/python3.12/dist-packages (5.0.0)
+528.2s	67	Requirement already satisfied: accelerate in /usr/local/lib/python3.12/dist-packages (1.13.0)
+528.2s	68	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines-1.3.3-py3-none-any.whl
+528.2s	69	Requirement already satisfied: safetensors in /usr/local/lib/python3.12/dist-packages (0.7.0)
+528.2s	70	Requirement already satisfied: filelock in /usr/local/lib/python3.12/dist-packages (from transformers) (3.29.0)
+528.2s	71	Requirement already satisfied: huggingface-hub<2.0,>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (1.11.0)
+528.2s	72	Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2.0.2)
+528.2s	73	Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (26.1)
+528.2s	74	Requirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.12/dist-packages (from transformers) (6.0.3)
+528.2s	75	Requirement already satisfied: regex!=2019.12.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2025.11.3)
+528.2s	76	Requirement already satisfied: tokenizers<=0.23.0,>=0.22.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (0.22.2)
+528.2s	77	Requirement already satisfied: typer-slim in /usr/local/lib/python3.12/dist-packages (from transformers) (0.24.0)
+528.2s	78	Requirement already satisfied: tqdm>=4.27 in /usr/local/lib/python3.12/dist-packages (from transformers) (4.67.3)
+528.2s	79	Requirement already satisfied: psutil in /usr/local/lib/python3.12/dist-packages (from accelerate) (5.9.5)
+528.2s	80	Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.12/dist-packages (from accelerate) (2.10.0+cu128)
+528.2s	81	Requirement already satisfied: jinja2 in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.6)
+528.2s	82	Requirement already satisfied: cloudpickle in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.2)
+528.2s	83	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/diskcache-5.6.3-py3-none-any.whl (from outlines)
+528.2s	84	Requirement already satisfied: pydantic>=2.0 in /usr/local/lib/python3.12/dist-packages (from outlines) (2.12.3)
+528.2s	85	Requirement already satisfied: jsonschema in /usr/local/lib/python3.12/dist-packages (from outlines) (4.26.0)
+528.2s	86	Requirement already satisfied: pillow in /usr/local/lib/python3.12/dist-packages (from outlines) (11.3.0)
+528.2s	87	Requirement already satisfied: typing_extensions in /usr/local/lib/python3.12/dist-packages (from outlines) (4.15.0)
+528.2s	88	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from outlines)
+528.2s	89	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/genson-1.4.0-py3-none-any.whl (from outlines)
+528.2s	90	Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (2025.3.0)
+528.2s	91	Requirement already satisfied: hf-xet<2.0.0,>=1.4.3 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (1.4.3)
+528.2s	92	Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.28.1)
+528.2s	93	Requirement already satisfied: typer in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.24.2)
+528.2s	94	Requirement already satisfied: annotated-types>=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.7.0)
+528.2s	95	Requirement already satisfied: pydantic-core==2.41.4 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (2.41.4)
+528.2s	96	Requirement already satisfied: typing-inspection>=0.4.2 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.4.2)
+528.2s	97	Requirement already satisfied: setuptools in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (81.0.0)
+528.2s	98	Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.14.0)
+528.2s	99	Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.1)
+528.2s	100	Requirement already satisfied: cuda-bindings==12.9.4 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.9.4)
+528.2s	101	Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+528.2s	102	Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+528.2s	103	Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+528.2s	104	Requirement already satisfied: nvidia-cudnn-cu12==9.10.2.21 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (9.10.2.21)
+528.2s	105	Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.4.1)
+528.2s	106	Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.3.3.83)
+528.2s	107	Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (10.3.9.90)
+528.2s	108	Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.7.3.90)
+528.2s	109	Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.5.8.93)
+528.2s	110	Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (0.7.1)
+528.2s	111	Requirement already satisfied: nvidia-nccl-cu12==2.27.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (2.27.5)
+528.2s	112	Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.13.1.3)
+528.2s	113	Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.0)
+528.2s	114	Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.12/dist-packages (from cuda-bindings==12.9.4->torch>=2.0.0->accelerate) (1.5.3)
+528.2s	115	Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2->outlines) (3.0.3)
+528.2s	116	Requirement already satisfied: attrs>=22.2.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (26.1.0)
+528.2s	117	Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (2025.9.1)
+528.2s	118	Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.37.0)
+528.2s	119	Requirement already satisfied: rpds-py>=0.25.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.30.0)
+528.2s	120	Requirement already satisfied: anyio in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (4.13.0)
+528.2s	121	Requirement already satisfied: certifi in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (2026.4.22)
+528.2s	122	Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (1.0.9)
+528.2s	123	Requirement already satisfied: idna in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (3.13)
+528.2s	124	Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.12/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (0.16.0)
+528.2s	125	Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.12/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate) (1.3.0)
+528.2s	126	Requirement already satisfied: click>=8.2.1 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (8.3.3)
+528.2s	127	Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (1.5.4)
+528.2s	128	Requirement already satisfied: rich>=12.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (13.9.4)
+528.2s	129	Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.0.4)
+528.2s	130	Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (4.0.0)
+528.2s	131	Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (2.20.0)
+528.2s	132	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+528.4s	133	Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.4.5)
+528.4s	134	Requirement already satisfied: nvidia-nvtx-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+528.4s	135	Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+528.4s	136	Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.13.1.3)
+528.4s	137	Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.0)
+528.4s	138	Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.12/dist-packages (from cuda-bindings==12.9.4->torch>=2.0.0->accelerate) (1.5.3)
+528.4s	139	Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2->outlines) (3.0.3)
+528.4s	140	Requirement already satisfied: attrs>=22.2.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (26.1.0)
+528.4s	141	Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (2025.9.1)
+528.4s	142	Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.37.0)
+528.4s	143	Requirement already satisfied: rpds-py>=0.25.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.30.0)
+528.4s	144	Requirement already satisfied: anyio in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (4.13.0)
+528.4s	145	Requirement already satisfied: certifi in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (2026.4.22)
+528.4s	146	Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (1.0.9)
+528.4s	147	Requirement already satisfied: idna in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (3.13)
+528.4s	148	Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.12/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (0.16.0)
+528.4s	149	Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.12/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate) (1.3.0)
+528.4s	150	Requirement already satisfied: click>=8.2.1 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (8.3.3)
+528.4s	151	Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (1.5.4)
+528.4s	152	Requirement already satisfied: rich>=12.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (13.9.4)
+528.4s	153	Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.0.4)
+528.4s	154	Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (4.0.0)
+528.4s	155	Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (2.20.0)
+528.4s	156	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+529.1s	157	Installing collected packages: outlines_core, genson, diskcache, outlines
+529.2s	158	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+529.2s	159	Installing collected packages: outlines_core, genson, diskcache, outlines
+529.2s	160	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+611.9s	161	P1 val: 24908 windows, 1166 subjects
+697.3s	162	model              top1 mean-class  macro-F1    F1>=50
+697.3s	163	joint             0.337      0.180     0.169     0.179
+697.3s	164	bone              0.331      0.189     0.168     0.177
+697.3s	165	joint_motion      0.331      0.127     0.105     0.112
+697.3s	166	bone_motion       0.325      0.123     0.117     0.123
+702.3s	167	ENSEMBLE          0.375      0.151     0.150     0.158   <- headline P1
+702.3s	168	
+702.3s	169	macro-F1 averages 18 present classes; the last column averages the 17 with >= 50 val windows.
+702.3s	170	1 class(es) starved by the Charades label map (< 50 windows):
+702.3s	171	  class  6 bending_reaching       support    11
+702.3s	172	  Cause: Charades has no verb for these (e.g. 'Putting a box somewhere'),
+702.3s	173	  so build_charades_map.py routes them to other_idle. Report both columns.
+703.5s	174	fitted temperature T=0.77; mean confidence 0.391 vs accuracy 0.375
+703.5s	175	-> set ActivityConfig(temperature=0.77) in deployment
+785.3s	176	held-out          n  fall%  AUROC(fall posterior)
+785.6s	177	caucafall      1159  28.8%                  0.734
+785.9s	178	gmdcsa          914  24.5%                  0.545
+786.0s	179	le2i            752  34.7%                  0.586
+786.0s	180	urfd            239  16.3%                  0.722
+874.1s	181	Traceback (most recent call last):
+874.1s	182	  File "<string>", line 1, in <module>
+874.1s	183	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 131, in execute_notebook
+874.1s	184	    raise_for_execution_errors(nb, output_path)
+874.1s	185	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+874.1s	186	    raise error
+874.1s	187	papermill.exceptions.PapermillExecutionError: 
+874.1s	188	---------------------------------------------------------------------------
+874.1s	189	Exception encountered at "In [6]":
+874.1s	190	---------------------------------------------------------------------------
+874.1s	191	ValueError                                Traceback (most recent call last)
+874.1s	192	/tmp/ipykernel_65/316337029.py in <cell line: 0>()
+874.1s	193	      2 alt = EnsembleClassifier.from_run_dir(run_dir(),
+874.1s	194	      3                                       device="cuda", combine="prob")
+874.1s	195	----> 4 t1a, mcaa, f1a = scores(alt.logits(X), y)
+874.1s	196	      5 print(f"logit-average : mca {mca:.3f}  (headline)")
+874.1s	197	      6 print(f"prob-average  : mca {mcaa:.3f}  (mixture ablation)")
+874.1s	198	
+874.1s	199	ValueError: too many values to unpack (expected 3)
+874.1s	200	
+875.2s	201	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+875.2s	202	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+875.3s	203	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+875.3s	204	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+875.7s	205	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+875.8s	206	[NbConvertApp] Writing 42010 bytes to __notebook__.ipynb
+877.0s	207	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+877.4s	208	[NbConvertApp] Writing 365169 bytes to __results__.html
+
+
+[M01256] 2026-08-11T09:09:39.195Z ASSISTANT (conversation) [C023:2007; copies=1]
+Same ablation cell crash — the fix I made to `_generate.py` didn't reach the notebook. Let me verify:
+
+
+[M01257] 2026-08-11T09:10:38.076Z ASSISTANT (conversation) [C023:2011; copies=1]
+The local notebook has the fix — 4 values. But your Kaggle traceback shows the old 3-value line, which means **the Kaggle copy of notebook 04 wasn't re-pasted.** Notebooks live in Kaggle's editor; the code-dataset upload doesn't touch them.
+
+That's on me: my handoff said "re-upload the code dataset" and buried the re-paste. The two are separate, and only the re-paste fixes this.
+
+**Do just this:** open notebook 04 in Kaggle, select all, and replace with the contents of your local `notebooks/04_evaluate_blackwell_offline.ipynb`. No re-upload needed — `contract 13/13` confirms the code dataset is already current.
+
+The tell is in the traceback itself: `t1a, mcaa, f1a = scores(...)` with 3 names. Your local file has 4. If you see 3 in the Kaggle editor, it's the stale copy.
+
+**Meanwhile, your P2 results came through, and they're the interesting part:**
+
+```
+held-out       n     fall%   AUROC
+caucafall    1159    28.8%   0.734
+urfd          239    16.3%   0.722
+le2i          752    34.7%   0.586
+gmdcsa        914    24.5%   0.545
+```
+
+That spread is a genuine finding, not noise. The ADL ensemble's fall posterior transfers reasonably to CAUCAFall and URFD but barely beats chance on GMDCSA. Worth stating plainly in the write-up: **cross-dataset fall transfer is unreliable**, which is exactly the argument for the dedicated binary fall head (AUPRC 0.822, sensitivity 0.951 at 1 FA/hour) rather than reading falls off the 20-class posterior.
+
+Also note P1 reproduced identically across both runs — same numbers to three decimals. Deterministic evaluation, which is what you want for a dissertation table.
+
+After the re-paste, the only cell left is the ablation, then the Qwen hallucination benchmark.
+
+
+[M01258] 2026-08-11T11:39:33.882Z USER (conversation) [C115:1911; copies=1]
+already past 2hrs but no output:
+Time
+#
+Log Message
+4.7s	0	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.7s	1	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.7s	2	0.00s - to python to disable frozen modules.
+4.7s	3	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+5.1s	4	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+5.1s	5	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+5.1s	6	0.00s - to python to disable frozen modules.
+5.1s	7	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+343.6s	8	`torch_dtype` is deprecated! Use `dtype` instead!
+343.8s	9	`torch_dtype` is deprecated! Use `dtype` instead!
+343.8s	10	
+343.8s	11	`torch_dtype` is deprecated! Use `dtype` instead!
+344.6s	12	
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 21845.33it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 11096.04it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 21845.33it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 11096.04it/s, Materializing param=lm_head.weight]
+361.4s	13	
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 21845.33it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 11096.04it/s, Materializing param=lm_head.weight]
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=lm_head.weight]   
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=model.embed_tokens.weight]
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=model.embed_tokens.weight]
+Loading weights:   1%|          | 3/339 [00:16<47:08,  8.42s/it, Materializing param=model.layers.0.input_layernorm.weight]
+Loading weights:   1%|          | 3/339 [00:16<47:08,  8.42s/it, Materializing param=model.layers.0.input_layernorm.weight]
+Loading weights:   1%|          | 4/339 [00:16<46:59,  8.42s/it, Materializing param=model.layers.0.mlp.down_proj.weight]  
+Loading weights:   1%|          | 4/339 [00:16<46:59,  8.42s/it, Materializing param=model.layers.0.mlp.down_proj.weight]
+Loading weights:   1%|▏         | 5/339 [00:16<46:51,  8.42s/it, Materializing param=model.layers.0.mlp.gate_proj.weight]
+Loading weights:   1%|▏         | 5/339 [00:16<46:51,  8.42s/it, Materializing param=model.layers.0.mlp.gate_proj.weight]
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=lm_head.weight]   
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=model.embed_tokens.weight]
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=model.embed_tokens.weight]
+Loading weights:   1%|          | 3/339 [00:16<47:08,  8.42s/it, Materializing param=model.layers.0.input_layernorm.weight]
+Loading weights:   1%|          | 3/339 [00:16<47:08,  8.42s/it, Materializing param=model.layers.0.input_layernorm.weight]
+Loading weights:   1%|          | 4/339 [00:16<46:59,  8.42s/it, Materializing param=model.layers.0.mlp.down_proj.weight]  
+Loading weights:   1%|          | 4/339 [00:16<46:59,  8.42s/it, Materializing param=model.layers.0.mlp.down_proj.weight]
+Loading weights:   1%|▏         | 5/339 [00:16<46:51,  8.42s/it, Materializing param=model.layers.0.mlp.gate_proj.weight]
+Loading weights:   1%|▏         | 5/339 [00:16<46:51,  8.42s/it, Materializing param=model.layers.0.mlp.gate_proj.weight]
+
+....
+449.4s	289	
+Loading weights:  99%|█████████▉| 335/339 [01:44<00:00,  4.56it/s, Materializing param=model.layers.27.self_attn.o_proj.weight]
+Loading weights:  99%|█████████▉| 335/339 [01:44<00:00,  4.56it/s, Materializing param=model.layers.27.self_attn.q_proj.bias]  
+Loading weights:  99%|█████████▉| 335/339 [01:44<00:00,  4.56it/s, Materializing param=model.layers.27.self_attn.q_proj.bias]
+Loading weights:  99%|█████████▉| 336/339 [01:44<00:00,  4.56it/s, Materializing param=model.layers.27.self_attn.q_proj.weight]
+Loading weights:  99%|█████████▉| 336/339 [01:44<00:00,  4.56it/s, Materializing param=model.layers.27.self_attn.q_proj.weight]
+Loading weights:  99%|█████████▉| 337/339 [01:45<00:00,  5.23it/s, Materializing param=model.layers.27.self_attn.q_proj.weight]
+Loading weights:  99%|█████████▉| 337/339 [01:45<00:00,  5.23it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]  
+Loading weights:  99%|█████████▉| 337/339 [01:45<00:00,  5.23it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]
+Loading weights: 100%|█████████▉| 338/339 [01:45<00:00,  5.23it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+Loading weights: 100%|█████████▉| 338/339 [01:45<00:00,  5.23it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+Loading weights: 100%|██████████| 339/339 [01:45<00:00,  5.23it/s, Materializing param=model.norm.weight]                      
+Loading weights: 100%|██████████| 339/339 [01:45<00:00,  5.23it/s, Materializing param=model.norm.weight]
+Loading weights: 100%|██████████| 339/339 [01:45<00:00,  3.23it/s, Materializing param=model.norm.weight]
+
+
+[M01259] 2026-08-11T11:41:20.146Z ASSISTANT (conversation) [C115:1917; copies=1]
+Let me look at what that cell is actually doing, because 2 hours with no output after a 105-second model load is wrong.
+
+
+[M01260] 2026-08-11T11:57:47.961Z ASSISTANT (conversation) [C115:1925; copies=1]
+Found it. `--days 60` × 6 scenarios = **360 states**, run through **two** decoding arms = **720 sequential LLM generations**, with grammar-constrained decoding on the first arm.
+
+The problem is that `run_condition` prints nothing until an arm completes, so you can't tell progress from a hang. Let me check:
+
+
+[M01261] 2026-08-11T13:18:30.068Z USER (conversation) [C036:1911; copies=2]
+Time
+#
+Log Message
+4.7s	0	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.7s	1	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.7s	2	0.00s - to python to disable frozen modules.
+4.7s	3	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+5.1s	4	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+5.1s	5	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+5.1s	6	0.00s - to python to disable frozen modules.
+5.1s	7	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+343.6s	8	`torch_dtype` is deprecated! Use `dtype` instead!
+343.8s	9	`torch_dtype` is deprecated! Use `dtype` instead!
+343.8s	10	
+343.8s	11	`torch_dtype` is deprecated! Use `dtype` instead!
+344.6s	12	
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 21845.33it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 11096.04it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 21845.33it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 11096.04it/s, Materializing param=lm_head.weight]
+361.4s	13	
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 21845.33it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 11096.04it/s, Materializing param=lm_head.weight]
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=lm_head.weight]   
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=model.embed_tokens.weight]
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=model.embed_tokens.weight]
+Loading weights:   1%|          | 3/339 [00:16<47:08,  8.42s/it, Materializing param=model.layers.0.input_layernorm.weight]
+Loading weights:   1%|          | 3/339 [00:16<47:08,  8.42s/it, Materializing param=model.layers.0.input_layernorm.weight]
+Loading weights:   1%|          | 4/339 [00:16<46:59,  8.42s/it, Materializing param=model.layers.0.mlp.down_proj.weight]  
+Loading weights:   1%|          | 4/339 [00:16<46:59,  8.42s/it, Materializing param=model.layers.0.mlp.down_proj.weight]
+Loading weights:   1%|▏         | 5/339 [00:16<46:51,  8.42s/it, Materializing param=model.layers.0.mlp.gate_proj.weight]
+Loading weights:   1%|▏         | 5/339 [00:16<46:51,  8.42s/it, Materializing param=model.layers.0.mlp.gate_proj.weight]
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=lm_head.weight]   
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=model.embed_tokens.weight]
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=model.embed_tokens.weight]
+Loading weights:   1%|          | 3/339 [00:16<47:08,  8.42s/it, Materializing param=model.layers.0.input_layernorm.weight]
+Loading weights:   1%|          | 3/339 [00:16<47:08,  8.42s/it, Materializing param=model.layers.0.input_layernorm.weight]
+Loading weights:   1%|          | 4/339 [00:16<46:59,  8.42s/it, Materializing param=model.layers.0.mlp.down_proj.weight]  
+Loading weights:   1%|          | 4/339 [00:16<46:59,  8.42s/it, Materializing param=model.layers.0.mlp.down_proj.weight]
+Loading weights:   1%|▏         | 5/339 [00:16<46:51,  8.42s/it, Materializing param=model.layers.0.mlp.gate_proj.weight]
+Loading weights:   1%|▏         | 5/339 [00:16<46:51,  8.42s/it, Materializing param=model.layers.0.mlp.gate_proj.weight]
+
+....
+449.4s	289	
+Loading weights:  99%|█████████▉| 335/339 [01:44<00:00,  4.56it/s, Materializing param=model.layers.27.self_attn.o_proj.weight]
+Loading weights:  99%|█████████▉| 335/339 [01:44<00:00,  4.56it/s, Materializing param=model.layers.27.self_attn.q_proj.bias]  
+Loading weights:  99%|█████████▉| 335/339 [01:44<00:00,  4.56it/s, Materializing param=model.layers.27.self_attn.q_proj.bias]
+Loading weights:  99%|█████████▉| 336/339 [01:44<00:00,  4.56it/s, Materializing param=model.layers.27.self_attn.q_proj.weight]
+Loading weights:  99%|█████████▉| 336/339 [01:44<00:00,  4.56it/s, Materializing param=model.layers.27.self_attn.q_proj.weight]
+Loading weights:  99%|█████████▉| 337/339 [01:45<00:00,  5.23it/s, Materializing param=model.layers.27.self_attn.q_proj.weight]
+Loading weights:  99%|█████████▉| 337/339 [01:45<00:00,  5.23it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]  
+Loading weights:  99%|█████████▉| 337/339 [01:45<00:00,  5.23it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]
+Loading weights: 100%|█████████▉| 338/339 [01:45<00:00,  5.23it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+Loading weights: 100%|█████████▉| 338/339 [01:45<00:00,  5.23it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+Loading weights: 100%|██████████| 339/339 [01:45<00:00,  5.23it/s, Materializing param=model.norm.weight]                      
+Loading weights: 100%|██████████| 339/339 [01:45<00:00,  5.23it/s, Materializing param=model.norm.weight]
+Loading weights: 100%|██████████| 339/339 [01:45<00:00,  3.23it/s, Materializing param=model.norm.weight]
+...
+8889.3s	299	The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+8889.5s	300	The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+8889.5s	301	
+8889.5s	302	The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+9507.5s	303	
+9507.5s	304	# Hallucination rate
+9507.5s	305	
+9507.5s	306	- 116 analysed days (58 alerting) from 6 simulator scenarios
+9507.5s	307	- a claim is a hallucination if it fails any of C1-C4 (deterministic, no LLM)
+9507.5s	308	
+9507.5s	309	| condition | model | reports | claims | faithful | hallucination rate | parse fail | schema rejected |
+9507.5s	310	|---|---|---|---|---|---|---|---|
+9507.5s	311	| grammar-constrained | `qwen2.5-7b-instruct(constrained)` | 116 | 439 | 264 | **39.9%** | 9 | 0 |
+9507.5s	312	| unconstrained | `qwen2.5-7b-instruct(free)` | 116 | 0 | 0 | **nan%** | 0 | 245 |
+9507.5s	313	
+9507.5s	314	wrote /kaggle/working/results/hallucination_qwen.md
+9507.7s	315	
+9507.7s	316	# Hallucination rate
+9507.7s	317	
+9507.7s	318	- 116 analysed days (58 alerting) from 6 simulator scenarios
+9507.7s	319	- a claim is a hallucination if it fails any of C1-C4 (deterministic, no LLM)
+9507.7s	320	
+9507.7s	321	| condition | model | reports | claims | faithful | hallucination rate | parse fail | schema rejected |
+9507.7s	322	|---|---|---|---|---|---|---|---|
+9507.7s	323	| grammar-constrained | `qwen2.5-7b-instruct(constrained)` | 116 | 439 | 264 | **39.9%** | 9 | 0 |
+9507.7s	324	| unconstrained | `qwen2.5-7b-instruct(free)` | 116 | 0 | 0 | **nan%** | 0 | 245 |
+9507.7s	325	
+9507.7s	326	wrote /kaggle/working/results/hallucination_qwen.md
+9511.2s	327	- hallucination_qwen.md
+9511.2s	328	
+9511.2s	329	Save Version. Optionally create dataset behaviorsense-results from the output -
+9511.2s	330	these tables are the dissertation numbers.
+9513.1s	331	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+9513.1s	332	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+9513.2s	333	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+9513.2s	334	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+9513.5s	335	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+9513.7s	336	[NbConvertApp] Writing 44738 bytes to __notebook__.ipynb
+9514.8s	337	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+9515.2s	338	[NbConvertApp] Writing 370301 bytes to __results__.html
+
+
+[M01262] 2026-08-11T13:40:06.198Z ASSISTANT (conversation) [C036:1917; copies=2]
+Notebook 04 completed — that's the entire pipeline done. But one number in that table needs care before it goes in your dissertation.
+
+
+[M01263] 2026-08-11T13:54:04.350Z ASSISTANT (conversation) [C036:1923; copies=2]
+Now I understand the `nan`. Let me verify what it means rather than guess:
+
+
+[M01264] 2026-08-11T14:19:17.407Z ASSISTANT (conversation) [C036:1926; copies=2]
+API Error: 504 Gateway Time-out. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (agentrouter.org).
+
+
+[M01265] 2026-08-11T14:29:08.940Z USER (conversation) [C036:1951; copies=2]
+Continue
+
+
+[M01266] 2026-08-11T14:51:20.899Z ASSISTANT (conversation) [C036:1955; copies=2]
+Prompt is too long
+
+
+[M01267] 2026-08-11T15:34:18.307Z USER (context) [C037:1913; copies=1]
+<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+
+
+[M01268] 2026-08-11T15:34:18.307Z USER (control) [C037:1914; copies=1]
+<command-name>/compact</command-name>
+            <command-message>compact</command-message>
+            <command-args>check what is required and dont delete important details</command-args>
+
+
+[M01269] 2026-08-11T15:39:13.494Z USER (context) [C001:6; copies=62]
+This session is being continued from a previous conversation that ran out of context. The summary below covers the earlier portion of the conversation.
+
+Summary:
+1. **Primary Request and Intent:**
+
+   The user is building **BehaviorSense AI** — "Identity-Aware Multi-Agent Behaviour Monitoring and Explainable Healthcare Assistance System for Elderly Care" (Final Year Engineering Project → dissertation/publication/demo). Standing directives, preserved verbatim from prior sessions:
+   - I act as Senior AI Research Scientist / ML Engineer / CV Engineer / Systems Architect / Technical Project Mentor.
+   - **"Never blindly agree with proposed ideas. If a better architecture exists, explain why. Always justify engineering decisions."**
+   - **Timeline: 1 month maximum.** Hardware: NVIDIA RTX PRO 6000 Blackwell (sm_120), 96 GB VRAM, on Kaggle, 12h sessions. **"Training notebooks have no internet. Therefore: Every required asset must already exist inside Kaggle datasets."**
+   - 4-agent architecture; **"The LLM MUST NOT perform perception. The LLM receives structured outputs only."**
+   - **"dont try to read every image, there are many"** (re MSMT17).
+   - Derived Kaggle datasets from Charades / Market-1501 / MSMT17 must be **PRIVATE** (no redistribution); **DukeMTMC-reID must not be used**.
+   - Edit `notebooks/_generate.py`, **never** the `.ipynb` files directly.
+   - **"yes dont keep asking, keep working until its done"** — standing autonomy directive.
+   - GPU quota: 3-member team, 30 h each; user said **"dont worry about the gpu quota... leave the worries for it"**.
+   - Standing reporting directive (saved to memory this session): **"after finishing any edits, always tell me what notebook we have to start from and whether we have to reupload behaviorsense-code or not"**.
+
+   This session's explicit requests, in order: (1) answer whether the code dataset must be re-uploaded every time; (2) **"check the training notebook to see if u could make accuracy improving optimizations, or remove anything that compromises accuracy"**; (3) **"do u think no more accuracy improving optimizations can be made in our current workflow?"**; (4) confirm whether to re-run from notebook 00 and re-upload; (5) **"was 01's markdown not updated?"**; (6) **"for running the notebook01, only these three are required right?"**; (7) diagnose a long series of Kaggle session failures from pasted logs; (8) **"can the notebook not extract the Le2i too automatically?"**; (9) **"will the notebook02 handle these?"** (4 fall corpora); (10) **"wouldnt it be better if we store everything on the gpu vram... arent they?"**; (11) **"its accuracy cant be improved?"**; (12) **"for the rerun do we require to upload the dataset from the previous 2.7hrs run?"**; (13) **"what are u doing man?"** (frustration at repeated notebook-04 failures).
+
+2. **Key Technical Concepts:**
+   - **Content-based asset resolution**: never resolve Kaggle mounts by dataset name. Identify each asset by a file only it has (`**/*.whl`, `**/rtmo-l.onnx`, `**/src/behaviorsense/__init__.py`, `**/last.pt`).
+   - **Kaggle mount nesting**: datasets mount at `/kaggle/input/datasets/<owner>/<name>/`; `INPUT.iterdir()` always yields only `['competitions','datasets']`. Save Version additionally nests `kaggle/working/`. This assumption has now caused four separate bugs.
+   - **Silent-empty-iteration anti-pattern**: a glob over a missing/mislocated dir yields zero iterations → no output, no error. "An empty iteration is not a pass."
+   - **Repo contract**: feature-detection of specific files+tokens the notebooks call, so a stale code-dataset snapshot fails at cell 1 with the fixing command rather than surfacing later. Now 13 tokens.
+   - **onnxruntime CUDA-13 vs CUDA-12**: onnxruntime-gpu ≥1.27 is built against CUDA 13; Kaggle is CUDA 12. Provider is *listed* by `get_available_providers()` but fails to load (`libcublasLt.so.13`). Must assert on `body.session.get_providers()` (providers in effect). Pin `onnxruntime-gpu==1.26.0`.
+   - **rtmlib/onnxruntime clobber**: rtmlib depends on CPU `onnxruntime`; both own the same module dir, so pip's last write wins. Install rtmlib `--no-deps` and uninstall CPU onnxruntime first.
+   - **Native crash isolation**: cv2→ffmpeg SIGSEGV/SIGABRT kills the interpreter; try/except and frame caps are invisible to it. Solution: subprocess decode probe journaling TRY before each decode, restarting past the offending clip; then PyAV (own ffmpeg) as a second-chance backend.
+   - **Skeleton-layout duality**: shard layout `[N,T,M,17,3]` vs model layout `[N,C,T,V,M]`. `ds[i][0]` returns the latter; `EnsembleClassifier.logits()` requires the former.
+   - **Class imbalance metrics**: AUROC flatters at 0.5% positive rate; AUPRC is the honest summary. Operating point fitted at a false-alarms-per-hour budget requires enough negative *hours* to be meaningful (141 negatives = 0.08 h is an artefact; 41,537 = 23.1 h is a decision).
+   - **Focal alpha direction**: `alpha` weights the positive class; correct only when positives are rare.
+   - **Overfitting measured**: all four ADL streams peaked at epoch 8–11 and lost 27.3% over 70 more epochs → budget cut 80→30 with `--patience`.
+   - **Tests that re-implement notebook logic validate the copy, not the notebook** — the root cause of four consecutive Kaggle failures.
+
+3. **Files and Code Sections:**
+
+   - **`notebooks/_generate.py`** — single source of truth for all 6 notebooks; heavily edited throughout. Key additions:
+     - `REPO_CONTRACT` (13 entries) appended to both resolvers, including `("src/behaviorsense/kaggle_artifacts.py", "def find_run_dir", ...)` and `("scripts/train_fall.py", "pos_rate > 0.5 and args.focal_alpha > 0.5", ...)`.
+     - `attached_mounts()` — descends into `datasets/`/`competitions/` and reports each dataset's top-level contents, replacing the useless `['competitions','datasets']` listing.
+     - `find_wheel_dir()` — scores candidate dirs by marker packages `{"torch","rtmlib","onnxruntime-gpu","nvidia-cudnn-cu12","triton"}` because the ARC competition ships its own wheels.
+     - `EPOCH_BUDGET = {"adl": 30, "fall": 60}` and `PATIENCE = {"adl": 8, "fall": 15}` as single source; guard and training cells both read them.
+     - `write()` now compiles every code cell before emitting the `.ipynb`:
+       ```python
+       for i, (kind, src) in enumerate(cells):
+           if kind != "code": continue
+           try: compile(src, f"{name}:cell{i}", "exec")
+           except SyntaxError as exc:
+               raise SystemExit(f"{name} cell {i} is not valid Python: {exc.msg} ...")
+       ```
+     - Notebook 02: 4-corpus acquisition (GMDCSA clone, URFD 70 direct MP4s, CAUCAFall mount, Le2i mount found via `**/Annotation_files` common ancestor with functional annotation check), decode probe + PyAV fallback, incremental `flush()`, `MAX_SAMPLED=3000`, skip reporting.
+     - Notebook 03: preflight `env={**os.environ, "PYTHONPATH": str(SRC)}`; `shard_paths()` via `INPUT.glob("**/*.npz")` with `is_real_artifact()`; checkpoint validation before carry-forward; `FALL_TRAIN = [*FALL, *ADL]`; summary cell with metric inferred from keys present.
+     - Notebook 04: `run_dir()` → `find_run_dir(INPUT)`; P2 tensor `np.stack([normalise(fds.skeletons[i].astype(np.float32)) for i in idx])`; ablation unpacks 4 values.
+
+   - **`src/behaviorsense/kaggle_artifacts.py`** (NEW, ~110 lines) — the single shared rule after patching the same exclusion at four call sites:
+     ```python
+     CODE_MOUNT_MARKERS = ("behaviorsense-code", "behavioursense-code", "emotionsense")
+     FIXTURE_SUFFIXES = frozenset({".npz", ".npy", ".pt", ".pth", ".db"})
+     def is_fixture(path): ...      # name starts "_" or contains "smoke", DATA suffixes only
+     def is_under_code_mount(path): ...
+     def is_real_artifact(path): ...
+     def find_run_dir(root, prefix="adl_"):
+         # picks the dir containing the most <prefix><stream>/ subdirs, skipping code mounts
+     ```
+
+   - **`scripts/prepare_skeletons.py`** — added `assign_slots()` (temporally stable person slots, 3× bbox-diagonal association gate), `subject_from_path()` (directory-derived subject ids), `is_fall_clip()` (token match, ADL checked first), `le2i_fall_frames()`, `label_fall_windows()` (exact-interval and positional regimes), `window_clip(..., with_starts=True)`.
+
+   - **`scripts/train_adl.py`** — `MIN_SUPPORT = 50`; `evaluate()` returns `macro_f1_supported`, `per_class_f1`, `per_class_support`; starved-class report; history continues across resume; `--patience` early stopping.
+
+   - **`scripts/train_fall.py`** — resume hyperparameter guard (incl. `focal_gamma`/`focal_alpha`); alpha/pos-rate refusal:
+     ```python
+     if pos_rate > 0.5 and args.focal_alpha > 0.5:
+         raise SystemExit(f"focal alpha={args.focal_alpha} up-weights the positive class, but this data is {pos_rate:.1%} POSITIVE ...")
+     ```
+     plus operating-point sample-size warning when `val_hours * fa_budget < 5`.
+
+   - **`src/behaviorsense/models/stgcnpp.py`** — `to_bone()` uses `parent.setdefault(max(i,j), min(i,j))` for flip equivariance.
+
+   - **`src/behaviorsense/data/skeleton_dataset.py`** — `augment()` re-zeroes `x[x[..., 2] <= 0] = 0.0`; `normalise()` computes torso/origin from visible frames only.
+
+   - **`src/behaviorsense/service/api.py`** — `connect(path=None)` resolves `DB_PATH` at call time (was a default-arg binding, so tests wrote to the real DB for ~40 runs).
+
+   - **`scripts/publish_code_dataset.py`** (existed but unused) — stages only `src/`, `scripts/`, `configs/`, `weights/` into a temp dir (28.7 MB, 40 files), verifies the repo contract against the *staged* copy, refuses if any `.npz`/`runs/`/fixture is staged. `.kaggleignore` is documentation the Kaggle CLI never reads.
+
+   - **`dataset-metadata.json`** — recreated (was missing, which is why `src/` never reached Kaggle): `{"title": "behaviorsense-code", "id": "krishnagupta02468/behaviorsense-code", "licenses": [{"name": "other"}]}`.
+
+   - **`tests/test_notebook04_e2e.py`** (NEW, most recent work) — executes the REAL notebook 04 cell sources in order against synthetic fixtures on CPU. Docstring records the three Kaggle failures and why existing tests missed them. Skip rule inspects code-only lines (comments mentioning "pip install" had skipped the `INPUT`-defining resolver cell). Fixture code dataset copies the real `src/`/`scripts/`/`configs/` so the repo contract passes.
+
+   - **`tests/test_notebooks.py`** — grew to 31 tests: N1b (subprocess env inherits), N1c (failure names datasets), N2b (headers), N2c (staged ONNX), N2d (Charades layouts), N6b (all `logits()` call sites build shard layout), N10b (nested shard mounts), N10c (smoke artefacts), N10d (`find_run_dir` with negative control), N14 (summary cell), N16 (per-corpus fall labelling), N17/N18/N18b/N19 (flush, probe, PyAV). Helper `_nb_epoch_budget()` parses `EPOCH_BUDGET` from the notebook so fixtures can't drift.
+
+   - **`tests/test_training.py`** — 17 tests incl. S2c (bone flip equivariance), S4c (normalise dropout), S5c (augment zero-joints), S8 (slot tracking), S9 (early stopping).
+
+4. **Errors and fixes:**
+
+   - **Contract needle collisions in tests** (N3, N14, N18, N16, N15): tests matched filenames/strings that also appear in the contract *data*, so cell lookups found 2 matches or scanned comments. Fixed by matching real `[sys.executable, ...]` argv lists, using distinctive needles (`FALL_TRAIN`, `unlabelled[source]`, `label_fall_windows(`), and stripping comment lines before checks.
+   - **Bone stream not flip-equivariant**: measured error 5.93; fixed with `parent.setdefault`; S2c has a negative control replaying the old map.
+   - **Augmentation moved invisible joints**: train/serve skew; fixed by re-zeroing score≤0. My first S5c version was wrong (asserted fixed slots) — the flip permutes slots, so the invariant must be score-anchored.
+   - **First-listed Charades action won the window label** instead of best-covering; unmapped first qualifiers forced `other_idle`.
+   - **Person slots had no memory**; my first fix had a second-order bug (entrants filled `min(free)`, stealing the resident's slot) caught by writing the test.
+   - **`normalise()` diluted by dropout frames** (scale ~1.5× inflated, origin (0,0)).
+   - **Service tests never isolated**: `connect(path=DB_PATH)` bound the default at definition time; 66 rows had accumulated in the committed DB over ~40 runs; surfaced only when a total was compared to `?limit=50`. Fixed both ends and asserted the redirect via `PRAGMA database_list`.
+   - **Kaggle: `CUDAExecutionProvider` missing** — rtmlib pulled CPU onnxruntime after the GPU build.
+   - **Kaggle: `libcublasLt.so.13`** — CUDA-13 onnxruntime-gpu on CUDA-12 image; `get_available_providers()` passed while CUDA was unusable.
+   - **Kaggle: "charades-480p is not attached"** while attached — zip-only reader vs auto-extracted dataset. My earlier claim that this was already fixed was wrong: the patch had aborted on an indentation mismatch and only the CUDA substitutions applied.
+   - **Kaggle: kernel death losing finished corpora** — no incremental flush; native mp3float abort. Fixed with flush + probe + PyAV.
+   - **I misattributed both notebook-02 crashes to URFD**; the probe proved URFD is 70/70 clean and the crashes were Le2i's first clip.
+   - **CAUCAFall "Mendeley walk found no video"** was my error, not a transient failure: that DOI publishes only 9 documentation files.
+   - **Le2i acquired 6 scenes but shipped 3**; 116 clips skipped and the counter never printed.
+   - **Kaggle: preflight "CUDA is not available"** one line after "sm_120 supported" — hand-built `env=` dict. The same lesson was already documented in the test file for Windows/Winsock.
+   - **Kaggle: `ADL shards: 0`** — `shard_paths()` iterated the top level of `/kaggle/input`.
+   - **Smoke contamination**: `_smoke_fall.npz` in the fall corpus; a 25-epoch `smoke=True` checkpoint resumed as prior GPU work; the summary reported it as a result.
+   - **My `WANT_EPOCHS = 80` guard** would have rejected legitimate fall checkpoints (60 epochs) and, after the budget cut, all four ADL streams.
+   - **`best=0.000`** — summary read `mca`; trainer writes `mean_class_acc`.
+   - **Summary printed nothing** in a fresh session (`/kaggle/working` wiped).
+   - **9 runs found instead of 5** and an assert on `smoke_fall` (name-prefix heuristic).
+   - **`run_dir()` picked the code dataset's leftover `runs/`** — the FOURTH site needing the same exclusion.
+   - **P2 `fds[i][0]` layout crash** — same bug already fixed in P1 and documented in the test docstring.
+   - **Ablation unpacked 3 of 4 values.**
+   - **Repeated `\n`-inside-triple-quoted-cell-literal defects** (at least four times), collapsing into real newlines and splitting strings. Fixed each time, then made `write()` compile every cell at generation time and verified with an injected-defect negative control.
+   - **User feedback**: **"what are u doing man?"** — legitimate frustration after four consecutive notebook-04 failures. I acknowledged it directly, stopped patching one call site at a time, and built the end-to-end harness.
+
+5. **Problem Solving:**
+
+   Completed pipeline stages: notebook 00 (assets staged, incl. both OSNet .pth), 01a (Charades staged), 01 (**7,985/7,985 videos, 165,109 windows, 6.26 h**), 02 (**4 corpora, 3,064 windows, 858 fall / 2,206 non-fall**), 03 (4 ADL streams + fall head), 04 (P1 + P2 + calibration succeeded; ablation cell was the last failure).
+
+   Real measured results:
+   - **Fall head: AUPRC 0.822 (best @ep56), sensitivity 0.951 at 0.99 false alarms/hour over 23.2 h of negatives**, threshold 0.7826. ~168× better than chance at a 0.49% positive rate. This is directly attributable to the ADL-negatives fix.
+   - **P1**: joint 0.180 / bone 0.189 / joint_motion 0.127 / bone_motion 0.123 mean-class; **ENSEMBLE top-1 0.375 but mean-class 0.151** — the ensemble beats every stream on top-1 yet is *worse* than joint or bone on mean-class. I had predicted +2 to +4 points; it went down. Flagged for honest reporting, and `bone` alone may be the better deployment checkpoint.
+   - **Calibration**: T=0.77, mean confidence 0.391 vs accuracy 0.375 (nearly calibrated).
+   - **P2 leave-one-dataset-out AUROC**: caucafall 0.734, gmdcsa 0.545, le2i 0.586, urfd 0.722.
+   - **ADL per-class F1** shows a broad low-but-nonzero spread (other_idle 0.509 → bending_reaching 0.000), which diagnoses "genuinely hard task" rather than collapse. The four worst classes (`taking_medication`, `interacting_with_person`, `standing`, `watching_tv`) all lack skeleton-visible evidence — confirming the architecture's RT-DETR object-fusion plan.
+
+   Answered the VRAM question with measurement: the loader takes 36.7 ms/batch amortised vs ~150 ms GPU step, and GPU was 99% busy, so GPU-resident tensors buy nothing; the real levers are the ensemble (already trained), Viterbi temporal smoothing (implemented), and object fusion (implemented, not wired to RT-DETR).
+
+   Test count reached **147 (131 fast + 16 training)**; README updated.
+
+6. **All user messages:**
+   - (Session-opening continuation instruction to resume without acknowledging the summary.)
+   - "do i have to update the behaviorsense-code dataset too everytime?"
+   - "check the training notebook to see if u could make accuracy improving optimizations, or remove anything that compromises accuracy / get the context from the entire chat"
+   - "do u think no more accuracy improving optimizations can be made in our current workflow?"
+   - "if u are not left with anymore accuracy improving optimizations, tell me if i need to re run this pipeline again from the notebook00 and reupload the behavioursense-code dataset?"
+   - "was 01's markdown not updated?"
+   - "for running the notebook01, only these three are required right?" (+ screenshot: charades-480p, behavioursense-WW, behaviorsense-code)
+   - "get the entire context from the previous chats"
+   - Multiple Kaggle log pastes (notebooks 00, 01, 02, 03, 04) with questions: "is this warning safe?", "also the next cell: [traceback]"
+   - "no logs since 386s, its 1100+ now"
+   - "the datasets are present as: /kaggle/input/datasets/krishnagupta02468/..."
+   - "is it going good?"
+   - "when would i see the next line of logs?"
+   - "wouldnt it be better if we use rtx pro 6000 but no internet? because while extracting the videos we are already wasting gpu time"
+   - "dont worry about the gpu quota, since this project is in a 3-member team, each has 30hr quota, leave the worries for it" / "can the notebook not extract the Le2i too automatically?"
+   - "will the notebook02 handle these?" / "from where do i have to upload these copies from: Le2i / CAUCAFall / URFD"
+   - "requires reuploading behaviorsense-code?" / "do we need to update behaviorsense-code?" (asked several times)
+   - "what to be done next?" / "what are u doing man?"
+   - "wouldnt it be better if we store everything on the gpu vram, since we have so much vram, and gpus are faster than cpus, arent they? what do u think"
+   - "its accuracy cant be improved?"
+   - "for the rerun do we require to upload the dataset from the previous 2.7hrs run?"
+   - "why is this running? cd ... python run_tests.py --all"
+   - "yes of course" / "yes"
+   - "after finishing any edits, always tell me what notebook we have to start from and whether we have to reupload behaviorsense-code or not"
+   - "| `behaviorsense-code`, `behaviorsense-wheels`, `behaviorsense-weights` | ... does notebook consider that wheels and weights are the in the same dataset"
+
+7. **Pending Tasks:**
+   - Fix the last E2E harness failure: notebook 04's final bundling cell writes to hardcoded `/kaggle/working/results`, which fails locally (`FileNotFoundError: [WinError 3] ... '\kaggle\working\results'`).
+   - Re-run the full test suite after that fix; update README count if it changes.
+   - Re-upload `behaviorsense-code` via `python scripts/publish_code_dataset.py -m "..."` — **required**, because `kaggle_artifacts.py` is new and both notebooks import it.
+   - Re-paste notebook 04 into Kaggle and re-run to obtain the ablation table (P1 and P2 already succeeded).
+   - Record the P1/P2/calibration numbers in `results/` for the dissertation, including the honest note that the ensemble loses mean-class accuracy versus `bone` alone, and that Le2i contributes 74 of 190 clips (3 of 6 scenes, 116 skipped for missing annotations).
+   - Optional/flagged, not started: wire RT-DETR object context into `fuse_objects()`; measure Viterbi-smoothed segment-level accuracy (the metric Agent 3 actually consumes) versus per-window accuracy.
+
+8. **Current Work:**
+
+   I had just created `tests/test_notebook04_e2e.py` — a harness that executes the real notebook 04 cell sources in order, sharing one namespace, against synthetic shards/checkpoints on CPU — because the existing tests re-implemented each block and therefore validated their own copies (the reason P2's layout bug and the ablation arity mismatch reached Kaggle). Its docstring records all three notebook-04 failures verbatim.
+
+   The harness immediately caught three of its own setup problems, each fixed: (a) the skip rule matched "pip install" in *comments*, skipping the resolver cell that defines `INPUT`, so every later cell raised `NameError` — fixed by filtering comment lines via `code_only = NL.join(L for L in src.splitlines() if not L.lstrip().startswith("#"))`; (b) the fixture code dataset held only `__init__.py` and was correctly rejected by the repo contract — fixed by `shutil.copytree` of the real `src/`, `scripts/`, `configs/`; (c) missing `import shutil`.
+
+   On the latest run the harness executed the resolver, P1, calibration, P2 and the ablation cells successfully (printing the tables, `fitted temperature T=5.00` on random fixtures, four P2 folds, and the new 4-column ablation table), then failed on the final cell:
+
+   ```
+   FAIL cell 8: FileNotFoundError: [WinError 3] The system cannot find the path specified: '\\kaggle\\working\\results'
+   ```
+
+   That is the "Bundle every table written this session" cell, which writes to a hardcoded `/kaggle/working/results` path the harness does not create or redirect. The notebook itself is fine on Kaggle; the harness needs either to create that directory or to patch the path, exactly as it already patches `/kaggle/input` and `device="cuda"`.
+
+9. **Optional Next Step:**
+
+   Fix the harness's handling of notebook 04's final bundling cell so the end-to-end run completes, then run the full suite and report. The failure to address, verbatim from the last run:
+
+   ```
+   FAIL cell 8: FileNotFoundError: [WinError 3] The system cannot find the path specified: '\\kaggle\\working\\results'
+   ```
+
+   The harness already rewrites two paths per cell — `patched = (src.replace('pathlib.Path("/kaggle/input")', f'pathlib.Path(r"{inp}")').replace('device="cuda"', 'device="cpu"'))` — so the consistent fix is to add a `/kaggle/working` redirect to a temp directory (or create it), keeping with the harness's stated purpose: "It cannot verify the numbers are good - only a GPU session on real data does that - but it verifies every cell RUNS, which is the failure mode that has actually cost time."
+
+   After that: `python scripts/publish_code_dataset.py -m "shared kaggle-artifact rule; P2 layout fix; ablation arity"` (required — `kaggle_artifacts.py` is new and imported by both notebooks), then re-paste notebook 04 and re-run for the ablation table.
+
+If you need specific details from before compaction (like exact code snippets, error messages, or content you generated), read the full transcript at: C:\Users\Admin\.claude\projects\C--Users-Admin-Desktop-EmotionSense-Extended\298c1a64-f299-4ae1-9e51-8d093c621e02.jsonl
+Continue the conversation from where it left off without asking the user any further questions. Resume directly — do not acknowledge the summary, do not recap what was happening, do not preface with "I'll continue" or similar. Pick up the last task as if the break never happened.
+
+
+[M01270] 2026-08-11T15:39:14.087Z USER (control) [C037:1915; copies=1]
+<local-command-stdout>Compacted </local-command-stdout>
+
+
+[M01271] 2026-08-11T16:15:45.732Z USER (conversation) [C037:1928; copies=1]
+Continue
+get the context from the chat and check what needs to be done next
+
+
+[M01272] 2026-08-11T16:40:52.299Z ASSISTANT (conversation) [C037:1930; copies=1]
+API Error: 504 Gateway Time-out. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (agentrouter.org).
+
+
+[M01273] 2026-08-11T16:42:58.447Z USER (conversation) [C037:1943; copies=1]
+Continue
+
+
+[M01274] 2026-08-11T17:00:37.515Z ASSISTANT (conversation) [C037:1945; copies=1]
+I'll fix the harness's handling of the final bundling cell. First let me see exactly what path literals notebook 04's cells use.
+
+
+[M01275] 2026-08-11T17:28:56.871Z ASSISTANT (conversation) [C037:1950; copies=1]
+API Error: 504 Gateway Time-out. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (agentrouter.org).
+
+
+[M01276] 2026-08-11T17:37:50.742Z USER (conversation) [C037:1970; copies=1]
+Continue
+
+
+[M01277] 2026-08-11T17:44:15.497Z USER (control) [C037:1974; copies=1]
+[Request interrupted by user]
+
+
+[M01278] 2026-08-11T17:44:18.631Z USER (conversation) [C181:9; copies=1]
+Continue
+
+
+[M01279] 2026-08-11T18:09:30.277Z ASSISTANT (conversation) [C181:16; copies=1]
+API Error: 504 Gateway Time-out. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (agentrouter.org).
+
+
+[M01280] 2026-08-11T18:11:04.087Z USER (conversation) [C104:1911; copies=1]
+Continue
+
+
+[M01281] 2026-08-11T18:23:26.132Z USER (conversation) [C001:9; copies=60]
+get context from this chat, what we are working on
+
+
+[M01282] 2026-08-11T18:23:59.338Z ASSISTANT (conversation) [C001:12; copies=60]
+## The project
+
+**BehaviorSense AI** — "Identity-Aware Multi-Agent Behaviour Monitoring and Explainable Healthcare Assistance System for Elderly Care." Final-year engineering project targeting a dissertation, a publication, and a live demo. Four-agent architecture, with a hard rule that perception stays in the vision agents and the LLM only ever receives structured outputs — it never looks at pixels.
+
+Constraints we've been working inside: 1-month timeline, Kaggle 12h sessions on an RTX PRO 6000 (sm_120, 96 GB), and **no internet in training notebooks** — so every asset has to already exist inside an attached Kaggle dataset. Derived datasets from Charades / Market-1501 / MSMT17 stay private; DukeMTMC-reID is off-limits entirely.
+
+## Pipeline state
+
+| Notebook | Status |
+|---|---|
+| 00 — assets | done (wheels, ONNX, both OSNet checkpoints staged) |
+| 01a / 01 — Charades ADL skeletons | done — 7,985/7,985 videos, 165,109 windows, 6.26 h |
+| 02 — fall corpora | done — 4 corpora, 3,064 windows (858 fall / 2,206 non-fall) |
+| 03 — training | done — 4 ADL streams + fall head |
+| 04 — evaluation | P1, P2, calibration succeeded; **ablation table still outstanding** |
+
+## What the numbers actually say
+
+**Fall head is the strong result.** AUPRC 0.822, sensitivity 0.951 at 0.99 false alarms/hour, measured over 23.2 real hours of negatives, threshold 0.7826. At a 0.49% positive rate that's ~168× chance. This came directly from feeding ADL windows in as negatives — before that the negative pool was 0.08 h, which made any operating point an artefact rather than a decision.
+
+**ADL recognition is honestly weak, and interestingly so.** Per-stream mean-class accuracy: bone 0.189, joint 0.180, joint_motion 0.127, bone_motion 0.123. The ensemble hits top-1 0.375 but mean-class only 0.151 — so it beats every individual stream on top-1 while being *worse* than bone or joint on mean-class. I'd predicted +2 to +4 points and it went the other way. `bone` alone is probably the better deployment checkpoint, and the dissertation should say so plainly.
+
+Per-class F1 spreads from other_idle 0.509 down to bending_reaching 0.000 — a broad low spread, not a collapse, which reads as "genuinely hard task." The four worst classes (`taking_medication`, `interacting_with_person`, `standing`, `watching_tv`) have no skeleton-visible evidence at all. That's an argument *for* the RT-DETR object-fusion branch, not against the model.
+
+Calibration: T=0.77, mean confidence 0.391 vs accuracy 0.375 — nearly calibrated. P2 leave-one-dataset-out AUROC: caucafall 0.734, urfd 0.722, le2i 0.586, gmdcsa 0.545.
+
+## Where I left off
+
+Built `tests/test_notebook04_e2e.py`, which executes the *real* notebook 04 cell sources in order against synthetic fixtures on CPU. The motivation: four consecutive Kaggle failures got through because the old tests re-implemented notebook logic and validated their own copies instead of the notebook. The harness caught the P2 layout bug and the ablation arity mismatch immediately. Suite is at 147 tests (131 fast + 16 training).
+
+Its last remaining failure is cosmetic — cell 8 writes to a hardcoded `/kaggle/working/results`, which doesn't exist on Windows. Every evaluation cell ran clean.
+
+## Next
+
+1. Re-upload the code dataset (required — `kaggle_artifacts.py` is new and both notebooks import it):
+
+```bash
+python scripts/publish_code_dataset.py -m "P2 layout fix; ablation arity fix"
+```
+
+2. Re-paste notebook 04 and run it for the ablation table.
+3. Write P1/P2/calibration into `results/` for the dissertation, including the ensemble caveat and the note that Le2i contributes 74 of 190 clips (3 of 6 scenes; 116 skipped for missing annotations).
+
+Flagged but not started: wiring RT-DETR object context into `fuse_objects()`, and measuring Viterbi-smoothed segment-level accuracy — which is the metric Agent 3 actually consumes, and a fairer number than per-window accuracy.
+
+
+[M01283] 2026-08-11T18:25:13.882Z USER (conversation) [C001:14; copies=60]
+Time
+
+#
+
+Log Message
+
+4.7s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+
+4.7s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+
+4.7s	3	0.00s - to python to disable frozen modules.
+
+4.7s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+
+5.1s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+
+5.1s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+
+5.1s	7	0.00s - to python to disable frozen modules.
+
+5.1s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+
+226.2s	9	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+
+226.2s	10	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+
+226.2s	11	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+
+226.2s	12	  attached  ["behaviorsense-adl-shards (top level: ['charades_map.yaml', 'charades_map_review.tsv', 'shards'])", "behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-fall-shards (top level: ['_decode_probe.py', 'decode_list.txt', 'decode_list_av.txt', 'decode_probe.tsv', 'decode_probe_av.tsv', 'shards'])", "behaviorsense-runs (top level: ['runs', 'train_bone.log', 'train_bone_motion.log', 'train_joint.log', 'train_joint_motion.log'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "charades-480p (top level: ['Charades_annotations', 'Charades_v1_480'])", "qwen2-5-7b-instruct (top level: ['LICENSE', 'README.md', 'config.json', 'generation_config.json', 'gitattributes', 'merges.txt'])", 'arc-prize-2026-arc-agi-3']
+
+226.2s	13	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+
+226.2s	14	  contract 13/13 - mounted code is current
+
+231.1s	15	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+
+231.1s	16	Requirement already satisfied: transformers in /usr/local/lib/python3.12/dist-packages (5.0.0)
+
+231.1s	17	Requirement already satisfied: accelerate in /usr/local/lib/python3.12/dist-packages (1.13.0)
+
+231.1s	18	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines-1.3.3-py3-none-any.whl
+
+231.1s	19	Requirement already satisfied: safetensors in /usr/local/lib/python3.12/dist-packages (0.7.0)
+
+231.1s	20	Requirement already satisfied: filelock in /usr/local/lib/python3.12/dist-packages (from transformers) (3.29.0)
+
+231.1s	21	Requirement already satisfied: huggingface-hub<2.0,>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (1.11.0)
+
+231.1s	22	Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2.0.2)
+
+231.2s	23	Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (26.1)
+
+231.2s	24	Requirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.12/dist-packages (from transformers) (6.0.3)
+
+231.2s	25	Requirement already satisfied: regex!=2019.12.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2025.11.3)
+
+231.2s	26	Requirement already satisfied: tokenizers<=0.23.0,>=0.22.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (0.22.2)
+
+231.2s	27	Requirement already satisfied: typer-slim in /usr/local/lib/python3.12/dist-packages (from transformers) (0.24.0)
+
+231.2s	28	Requirement already satisfied: tqdm>=4.27 in /usr/local/lib/python3.12/dist-packages (from transformers) (4.67.3)
+
+231.2s	29	Requirement already satisfied: psutil in /usr/local/lib/python3.12/dist-packages (from accelerate) (5.9.5)
+
+231.2s	30	Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.12/dist-packages (from accelerate) (2.10.0+cu128)
+
+231.2s	31	Requirement already satisfied: jinja2 in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.6)
+
+231.2s	32	Requirement already satisfied: cloudpickle in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.2)
+
+231.2s	33	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/diskcache-5.6.3-py3-none-any.whl (from outlines)
+
+231.2s	34	Requirement already satisfied: pydantic>=2.0 in /usr/local/lib/python3.12/dist-packages (from outlines) (2.12.3)
+
+231.2s	35	Requirement already satisfied: jsonschema in /usr/local/lib/python3.12/dist-packages (from outlines) (4.26.0)
+
+231.2s	36	Requirement already satisfied: pillow in /usr/local/lib/python3.12/dist-packages (from outlines) (11.3.0)
+
+231.2s	37	Requirement already satisfied: typing_extensions in /usr/local/lib/python3.12/dist-packages (from outlines) (4.15.0)
+
+231.2s	38	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from outlines)
+
+231.2s	39	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/genson-1.4.0-py3-none-any.whl (from outlines)
+
+231.3s	40	Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (2025.3.0)
+
+231.3s	41	Requirement already satisfied: hf-xet<2.0.0,>=1.4.3 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (1.4.3)
+
+231.3s	42	Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.28.1)
+
+231.3s	43	Requirement already satisfied: typer in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.24.2)
+
+231.3s	44	Requirement already satisfied: annotated-types>=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.7.0)
+
+231.3s	45	Requirement already satisfied: pydantic-core==2.41.4 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (2.41.4)
+
+231.3s	46	Requirement already satisfied: typing-inspection>=0.4.2 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.4.2)
+
+231.3s	47	Requirement already satisfied: setuptools in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (81.0.0)
+
+231.3s	48	Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.14.0)
+
+231.3s	49	Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.1)
+
+231.3s	50	Requirement already satisfied: cuda-bindings==12.9.4 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.9.4)
+
+231.3s	51	Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+
+231.3s	52	Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+
+231.3s	53	Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+
+231.3s	54	Requirement already satisfied: nvidia-cudnn-cu12==9.10.2.21 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (9.10.2.21)
+
+231.3s	55	Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.4.1)
+
+231.3s	56	Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.3.3.83)
+
+231.3s	57	Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (10.3.9.90)
+
+231.3s	58	Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.7.3.90)
+
+231.3s	59	Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.5.8.93)
+
+231.3s	60	Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (0.7.1)
+
+231.3s	61	Requirement already satisfied: nvidia-nccl-cu12==2.27.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (2.27.5)
+
+231.3s	62	Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.4.5)
+
+231.3s	63	Requirement already satisfied: nvidia-nvtx-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+
+231.3s	64	Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+
+231.3s	65	Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.13.1.3)
+
+231.3s	66	Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.0)
+
+231.3s	67	Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.12/dist-packages (from cuda-bindings==12.9.4->torch>=2.0.0->accelerate) (1.5.3)
+
+231.3s	68	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+
+231.3s	69	Requirement already satisfied: transformers in /usr/local/lib/python3.12/dist-packages (5.0.0)
+
+231.3s	70	Requirement already satisfied: accelerate in /usr/local/lib/python3.12/dist-packages (1.13.0)
+
+231.3s	71	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines-1.3.3-py3-none-any.whl
+
+231.3s	72	Requirement already satisfied: safetensors in /usr/local/lib/python3.12/dist-packages (0.7.0)
+
+231.3s	73	Requirement already satisfied: filelock in /usr/local/lib/python3.12/dist-packages (from transformers) (3.29.0)
+
+231.3s	74	Requirement already satisfied: huggingface-hub<2.0,>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (1.11.0)
+
+231.3s	75	Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2.0.2)
+
+231.3s	76	Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (26.1)
+
+231.3s	77	Requirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.12/dist-packages (from transformers) (6.0.3)
+
+231.3s	78	Requirement already satisfied: regex!=2019.12.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2025.11.3)
+
+231.3s	79	Requirement already satisfied: tokenizers<=0.23.0,>=0.22.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (0.22.2)
+
+231.3s	80	Requirement already satisfied: typer-slim in /usr/local/lib/python3.12/dist-packages (from transformers) (0.24.0)
+
+231.3s	81	Requirement already satisfied: tqdm>=4.27 in /usr/local/lib/python3.12/dist-packages (from transformers) (4.67.3)
+
+231.3s	82	Requirement already satisfied: psutil in /usr/local/lib/python3.12/dist-packages (from accelerate) (5.9.5)
+
+231.3s	83	Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.12/dist-packages (from accelerate) (2.10.0+cu128)
+
+231.3s	84	Requirement already satisfied: jinja2 in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.6)
+
+231.3s	85	Requirement already satisfied: cloudpickle in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.2)
+
+231.3s	86	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/diskcache-5.6.3-py3-none-any.whl (from outlines)
+
+231.3s	87	Requirement already satisfied: pydantic>=2.0 in /usr/local/lib/python3.12/dist-packages (from outlines) (2.12.3)
+
+231.3s	88	Requirement already satisfied: jsonschema in /usr/local/lib/python3.12/dist-packages (from outlines) (4.26.0)
+
+231.3s	89	Requirement already satisfied: pillow in /usr/local/lib/python3.12/dist-packages (from outlines) (11.3.0)
+
+231.3s	90	Requirement already satisfied: typing_extensions in /usr/local/lib/python3.12/dist-packages (from outlines) (4.15.0)
+
+231.3s	91	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from outlines)
+
+231.3s	92	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/genson-1.4.0-py3-none-any.whl (from outlines)
+
+231.3s	93	Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (2025.3.0)
+
+231.3s	94	Requirement already satisfied: hf-xet<2.0.0,>=1.4.3 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (1.4.3)
+
+231.3s	95	Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.28.1)
+
+231.3s	96	Requirement already satisfied: typer in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.24.2)
+
+231.3s	97	Requirement already satisfied: annotated-types>=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.7.0)
+
+231.3s	98	Requirement already satisfied: pydantic-core==2.41.4 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (2.41.4)
+
+231.3s	99	Requirement already satisfied: typing-inspection>=0.4.2 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.4.2)
+
+231.3s	100	Requirement already satisfied: setuptools in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (81.0.0)
+
+231.3s	101	Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.14.0)
+
+231.3s	102	Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.1)
+
+231.3s	103	Requirement already satisfied: cuda-bindings==12.9.4 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.9.4)
+
+231.3s	104	Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+
+231.3s	105	Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+
+231.3s	106	Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+
+231.3s	107	Requirement already satisfied: nvidia-cudnn-cu12==9.10.2.21 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (9.10.2.21)
+
+231.3s	108	Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.4.1)
+
+231.3s	109	Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.3.3.83)
+
+231.3s	110	Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (10.3.9.90)
+
+231.3s	111	Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.7.3.90)
+
+231.3s	112	Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.5.8.93)
+
+231.3s	113	Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (0.7.1)
+
+231.3s	114	Requirement already satisfied: nvidia-nccl-cu12==2.27.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (2.27.5)
+
+231.3s	115	Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.4.5)
+
+231.3s	116	Requirement already satisfied: nvidia-nvtx-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+
+231.3s	117	Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+
+231.3s	118	Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.13.1.3)
+
+231.3s	119	Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.0)
+
+231.3s	120	Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.12/dist-packages (from cuda-bindings==12.9.4->torch>=2.0.0->accelerate) (1.5.3)
+
+231.3s	121	Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2->outlines) (3.0.3)
+
+231.3s	122	Requirement already satisfied: attrs>=22.2.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (26.1.0)
+
+231.3s	123	Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (2025.9.1)
+
+231.3s	124	Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.37.0)
+
+231.3s	125	Requirement already satisfied: rpds-py>=0.25.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.30.0)
+
+231.3s	126	Requirement already satisfied: anyio in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (4.13.0)
+
+231.3s	127	Requirement already satisfied: certifi in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (2026.4.22)
+
+231.3s	128	Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (1.0.9)
+
+231.3s	129	Requirement already satisfied: idna in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (3.13)
+
+231.3s	130	Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.12/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (0.16.0)
+
+231.3s	131	Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.12/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate) (1.3.0)
+
+231.3s	132	Requirement already satisfied: click>=8.2.1 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (8.3.3)
+
+231.3s	133	Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (1.5.4)
+
+231.3s	134	Requirement already satisfied: rich>=12.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (13.9.4)
+
+231.3s	135	Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.0.4)
+
+231.3s	136	Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (4.0.0)
+
+231.3s	137	Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (2.20.0)
+
+231.3s	138	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+
+231.5s	139	Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2->outlines) (3.0.3)
+
+231.5s	140	Requirement already satisfied: attrs>=22.2.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (26.1.0)
+
+231.5s	141	Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (2025.9.1)
+
+231.5s	142	Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.37.0)
+
+231.5s	143	Requirement already satisfied: rpds-py>=0.25.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.30.0)
+
+231.5s	144	Requirement already satisfied: anyio in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (4.13.0)
+
+231.5s	145	Requirement already satisfied: certifi in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (2026.4.22)
+
+231.5s	146	Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (1.0.9)
+
+231.5s	147	Requirement already satisfied: idna in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (3.13)
+
+231.5s	148	Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.12/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (0.16.0)
+
+231.5s	149	Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.12/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate) (1.3.0)
+
+231.5s	150	Requirement already satisfied: click>=8.2.1 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (8.3.3)
+
+231.5s	151	Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (1.5.4)
+
+231.5s	152	Requirement already satisfied: rich>=12.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (13.9.4)
+
+231.5s	153	Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.0.4)
+
+231.5s	154	Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (4.0.0)
+
+231.5s	155	Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (2.20.0)
+
+231.5s	156	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+
+232.2s	157	Installing collected packages: outlines_core, genson, diskcache, outlines
+
+232.3s	158	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+
+232.3s	159	Installing collected packages: outlines_core, genson, diskcache, outlines
+
+232.3s	160	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+
+272.6s	161	P1 val: 24908 windows, 1166 subjects
+
+288.8s	162	model              top1 mean-class  macro-F1    F1>=50
+
+288.8s	163	joint             0.337      0.180     0.169     0.179
+
+288.8s	164	bone              0.331      0.189     0.168     0.177
+
+288.8s	165	joint_motion      0.331      0.127     0.105     0.112
+
+288.8s	166	bone_motion       0.325      0.123     0.117     0.123
+
+293.8s	167	ENSEMBLE          0.375      0.151     0.150     0.158   <- headline P1
+
+293.8s	168	
+
+293.8s	169	macro-F1 averages 18 present classes; the last column averages the 17 with >= 50 val windows.
+
+293.8s	170	1 class(es) starved by the Charades label map (< 50 windows):
+
+293.8s	171	  class  6 bending_reaching       support    11
+
+293.8s	172	  Cause: Charades has no verb for these (e.g. 'Putting a box somewhere'),
+
+293.8s	173	  so build_charades_map.py routes them to other_idle. Report both columns.
+
+295.0s	174	fitted temperature T=0.77; mean confidence 0.391 vs accuracy 0.375
+
+295.0s	175	-> set ActivityConfig(temperature=0.77) in deployment
+
+310.9s	176	held-out          n  fall%  AUROC(fall posterior)
+
+311.3s	177	caucafall      1159  28.8%                  0.734
+
+311.5s	178	gmdcsa          914  24.5%                  0.545
+
+311.5s	179	le2i            752  34.7%                  0.586
+
+311.6s	180	urfd            239  16.3%                  0.722
+
+321.8s	181	combination        top1 mean-class  macro-F1    F1>=50
+
+321.8s	182	logit-average     0.375      0.151     0.150     0.158   <- headline
+
+321.8s	183	prob-average      0.358      0.167     0.156     0.165
+
+321.8s	184	
+
+321.8s	185	Logit averaging is a product of experts, probability averaging a mixture. The
+
+321.8s	186	headline uses logits; this row is the ablation that justifies that choice rather
+
+321.8s	187	than asserting it.
+
+328.1s	188	Qwen at: /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct
+
+343.6s	189	`torch_dtype` is deprecated! Use `dtype` instead!
+
+343.8s	190	`torch_dtype` is deprecated! Use `dtype` instead!
+
+343.8s	191	
+
+343.8s	192	`torch_dtype` is deprecated! Use `dtype` instead!
+
+344.3s	193	116 analysed days (58 with alerts) from 6 scenarios
+
+344.6s	194	116 analysed days (58 with alerts) from 6 scenarios
+
+344.6s	195	
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+
+Loading weights:   0%|          | 1/339 [00:00<00:00, 21845.33it/s, Materializing param=lm_head.weight]
+
+Loading weights:   0%|          | 1/339 [00:00<00:00, 11096.04it/s, Materializing param=lm_head.weight]
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+
+Loading weights:   0%|          | 1/339 [00:00<00:00, 21845.33it/s, Materializing param=lm_head.weight]
+
+Loading weights:   0%|          | 1/339 [00:00<00:00, 11096.04it/s, Materializing param=lm_head.weight]
+
+361.4s	196	
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+
+Loading weights:   0%|          | 1/339 [00:00<00:00, 21845.33it/s, Materializing param=lm_head.weight]
+
+Loading weights:   0%|          | 1/339 [00:00<00:00, 11096.04it/s, Materializing param=lm_head.weight]
+
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=lm_head.weight]   
+
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=model.embed_tokens.weight]
+
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=model.embed_tokens.weight]
+
+Loading weights:   1%|          | 3/339 [00:16<47:08,  8.42s/it, Materializing param=model.layers.0.input_layernorm.weight]
+
+Loading weights:   1%|          | 3/339 [00:16<47:08,  8.42s/it, Materializing param=model.layers.0.input_layernorm.weight]
+
+Loading weights:   1%|          | 4/339 [00:16<46:59,  8.42s/it, Materializing param=model.layers.0.mlp.down_proj.weight]  
+
+Loading weights:   1%|          | 4/339 [00:16<46:59,  8.42s/it, Materializing param=model.layers.0.mlp.down_proj.weight]
+
+Loading weights:   1%|▏         | 5/339 [00:16<46:51,  8.42s/it, Materializing param=model.layers.0.mlp.gate_proj.weight]
+
+Loading weights:   1%|▏         | 5/339 [00:16<46:51,  8.42s/it, Materializing param=model.layers.0.mlp.gate_proj.weight]
+
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=lm_head.weight]   
+
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=model.embed_tokens.weight]
+
+Loading weights:   1%|          | 2/339 [00:16<47:16,  8.42s/it, Materializing param=model.embed_tokens.weight]
+
+Loading weights:   1%|          | 3/339 [00:16<47:08,  8.42s/it, Materializing param=model.layers.0.input_layernorm.weight]
+
+Loading weights:   1%|          | 3/339 [00:16<47:08,  8.42s/it, Materializing param=model.layers.0.input_layernorm.weight]
+
+Loading weights:   1%|          | 4/339 [00:16<46:59,  8.42s/it, Materializing param=model.layers.0.mlp.down_proj.weight]  
+
+Loading weights:   1%|          | 4/339 [00:16<46:59,  8.42s/it, Materializing param=model.layers.0.mlp.down_proj.weight]
+
+Loading weights:   1%|▏         | 5/339 [00:16<46:51,  8.42s/it, Materializing param=model.layers.0.mlp.gate_proj.weight]
+
+Loading weights:   1%|▏         | 5/339 [00:16<46:51,  8.42s/it, Materializing param=model.layers.0.mlp.gate_proj.weight]
+
+...
+
+8889.2s	298	
+
+Loading weights:  83%|████████▎ | 281/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.mlp.gate_proj.weight]
+
+Loading weights:  83%|████████▎ | 282/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.mlp.up_proj.weight]  
+
+Loading weights:  83%|████████▎ | 282/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.mlp.up_proj.weight]
+
+Loading weights:  83%|████████▎ | 283/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.post_attention_layernorm.weight]
+
+Loading weights:  83%|████████▎ | 283/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.post_attention_layernorm.weight]
+
+Loading weights:  84%|████████▍ | 284/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.self_attn.k_proj.bias]          
+
+Loading weights:  84%|████████▍ | 284/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.self_attn.k_proj.bias]
+
+Loading weights:  84%|████████▍ | 285/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.self_attn.k_proj.weight]
+
+Loading weights:  84%|████████▍ | 285/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.self_attn.k_proj.weight]
+
+Loading weights:  84%|████████▍ | 286/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.self_attn.o_proj.weight]
+
+Loading weights:  84%|████████▍ | 286/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.self_attn.o_proj.weight]
+
+Loading weights:  85%|████████▍ | 287/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.self_attn.q_proj.bias]  
+
+Loading weights:  85%|████████▍ | 287/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.self_attn.q_proj.bias]
+
+Loading weights:  85%|████████▍ | 288/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.self_attn.q_proj.weight]
+
+Loading weights:  85%|████████▍ | 288/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.self_attn.q_proj.weight]
+
+Loading weights:  85%|████████▌ | 289/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.self_attn.v_proj.bias]  
+
+Loading weights:  85%|████████▌ | 289/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.self_attn.v_proj.bias]
+
+Loading weights:  86%|████████▌ | 290/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.self_attn.v_proj.weight]
+
+Loading weights:  86%|████████▌ | 290/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.23.self_attn.v_proj.weight]
+
+Loading weights:  86%|████████▌ | 291/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.24.input_layernorm.weight] 
+
+Loading weights:  86%|████████▌ | 291/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.24.input_layernorm.weight]
+
+Loading weights:  86%|████████▌ | 292/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.24.mlp.down_proj.weight]  
+
+Loading weights:  86%|████████▌ | 292/339 [00:00<00:00, 362.17it/s, Materializing param=model.layers.24.mlp.down_proj.weight]
+
+Loading weights:  86%|████████▋ | 293/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.mlp.down_proj.weight]
+
+Loading weights:  86%|████████▋ | 293/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.mlp.gate_proj.weight]
+
+Loading weights:  86%|████████▋ | 293/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.mlp.gate_proj.weight]
+
+Loading weights:  87%|████████▋ | 294/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.mlp.up_proj.weight]  
+
+Loading weights:  87%|████████▋ | 294/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.mlp.up_proj.weight]
+
+Loading weights:  87%|████████▋ | 295/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.post_attention_layernorm.weight]
+
+Loading weights:  87%|████████▋ | 295/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.post_attention_layernorm.weight]
+
+Loading weights:  87%|████████▋ | 296/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.self_attn.k_proj.bias]          
+
+Loading weights:  87%|████████▋ | 296/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.self_attn.k_proj.bias]
+
+Loading weights:  88%|████████▊ | 297/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.self_attn.k_proj.weight]
+
+Loading weights:  88%|████████▊ | 297/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.self_attn.k_proj.weight]
+
+Loading weights:  88%|████████▊ | 298/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.self_attn.o_proj.weight]
+
+Loading weights:  88%|████████▊ | 298/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.self_attn.o_proj.weight]
+
+Loading weights:  88%|████████▊ | 299/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.self_attn.q_proj.bias]  
+
+Loading weights:  88%|████████▊ | 299/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.self_attn.q_proj.bias]
+
+Loading weights:  88%|████████▊ | 300/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.self_attn.q_proj.weight]
+
+Loading weights:  88%|████████▊ | 300/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.self_attn.q_proj.weight]
+
+Loading weights:  89%|████████▉ | 301/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.self_attn.v_proj.bias]  
+
+Loading weights:  89%|████████▉ | 301/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.self_attn.v_proj.bias]
+
+Loading weights:  89%|████████▉ | 302/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.self_attn.v_proj.weight]
+
+Loading weights:  89%|████████▉ | 302/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.24.self_attn.v_proj.weight]
+
+Loading weights:  89%|████████▉ | 303/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.input_layernorm.weight] 
+
+Loading weights:  89%|████████▉ | 303/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.input_layernorm.weight]
+
+Loading weights:  90%|████████▉ | 304/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.mlp.down_proj.weight]  
+
+Loading weights:  90%|████████▉ | 304/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.mlp.down_proj.weight]
+
+Loading weights:  90%|████████▉ | 305/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.mlp.gate_proj.weight]
+
+Loading weights:  90%|████████▉ | 305/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.mlp.gate_proj.weight]
+
+Loading weights:  90%|█████████ | 306/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.mlp.up_proj.weight]  
+
+Loading weights:  90%|█████████ | 306/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.mlp.up_proj.weight]
+
+Loading weights:  91%|█████████ | 307/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.post_attention_layernorm.weight]
+
+Loading weights:  91%|█████████ | 307/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.post_attention_layernorm.weight]
+
+Loading weights:  91%|█████████ | 308/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.self_attn.k_proj.bias]          
+
+Loading weights:  91%|█████████ | 308/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.self_attn.k_proj.bias]
+
+Loading weights:  91%|█████████ | 309/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.self_attn.k_proj.weight]
+
+Loading weights:  91%|█████████ | 309/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.self_attn.k_proj.weight]
+
+Loading weights:  91%|█████████▏| 310/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.self_attn.o_proj.weight]
+
+Loading weights:  91%|█████████▏| 310/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.self_attn.o_proj.weight]
+
+Loading weights:  92%|█████████▏| 311/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.self_attn.q_proj.bias]  
+
+Loading weights:  92%|█████████▏| 311/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.self_attn.q_proj.bias]
+
+Loading weights:  92%|█████████▏| 312/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.self_attn.q_proj.weight]
+
+Loading weights:  92%|█████████▏| 312/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.self_attn.q_proj.weight]
+
+Loading weights:  92%|█████████▏| 313/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.self_attn.v_proj.bias]  
+
+Loading weights:  92%|█████████▏| 313/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.self_attn.v_proj.bias]
+
+Loading weights:  93%|█████████▎| 314/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.self_attn.v_proj.weight]
+
+Loading weights:  93%|█████████▎| 314/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.25.self_attn.v_proj.weight]
+
+Loading weights:  93%|█████████▎| 315/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.input_layernorm.weight] 
+
+Loading weights:  93%|█████████▎| 315/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.input_layernorm.weight]
+
+Loading weights:  93%|█████████▎| 316/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.mlp.down_proj.weight]  
+
+Loading weights:  93%|█████████▎| 316/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.mlp.down_proj.weight]
+
+Loading weights:  94%|█████████▎| 317/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.mlp.gate_proj.weight]
+
+Loading weights:  94%|█████████▎| 317/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.mlp.gate_proj.weight]
+
+Loading weights:  94%|█████████▍| 318/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.mlp.up_proj.weight]  
+
+Loading weights:  94%|█████████▍| 318/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.mlp.up_proj.weight]
+
+Loading weights:  94%|█████████▍| 319/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.post_attention_layernorm.weight]
+
+Loading weights:  94%|█████████▍| 319/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.post_attention_layernorm.weight]
+
+Loading weights:  94%|█████████▍| 320/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.self_attn.k_proj.bias]          
+
+Loading weights:  94%|█████████▍| 320/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.self_attn.k_proj.bias]
+
+Loading weights:  95%|█████████▍| 321/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.self_attn.k_proj.weight]
+
+Loading weights:  95%|█████████▍| 321/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.self_attn.k_proj.weight]
+
+Loading weights:  95%|█████████▍| 322/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.self_attn.o_proj.weight]
+
+Loading weights:  95%|█████████▍| 322/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.self_attn.o_proj.weight]
+
+Loading weights:  95%|█████████▌| 323/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.self_attn.q_proj.bias]  
+
+Loading weights:  95%|█████████▌| 323/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.self_attn.q_proj.bias]
+
+Loading weights:  96%|█████████▌| 324/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.self_attn.q_proj.weight]
+
+Loading weights:  96%|█████████▌| 324/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.self_attn.q_proj.weight]
+
+Loading weights:  96%|█████████▌| 325/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.self_attn.v_proj.bias]  
+
+Loading weights:  96%|█████████▌| 325/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.self_attn.v_proj.bias]
+
+Loading weights:  96%|█████████▌| 326/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.self_attn.v_proj.weight]
+
+Loading weights:  96%|█████████▌| 326/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.26.self_attn.v_proj.weight]
+
+Loading weights:  96%|█████████▋| 327/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.input_layernorm.weight] 
+
+Loading weights:  96%|█████████▋| 327/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.input_layernorm.weight]
+
+Loading weights:  97%|█████████▋| 328/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.mlp.down_proj.weight]  
+
+Loading weights:  97%|█████████▋| 328/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.mlp.down_proj.weight]
+
+Loading weights:  97%|█████████▋| 329/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.mlp.gate_proj.weight]
+
+Loading weights:  97%|█████████▋| 329/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.mlp.gate_proj.weight]
+
+Loading weights:  97%|█████████▋| 330/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.mlp.up_proj.weight]  
+
+Loading weights:  97%|█████████▋| 330/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.mlp.up_proj.weight]
+
+Loading weights:  98%|█████████▊| 331/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.post_attention_layernorm.weight]
+
+Loading weights:  98%|█████████▊| 331/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.post_attention_layernorm.weight]
+
+Loading weights:  98%|█████████▊| 332/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.self_attn.k_proj.bias]          
+
+Loading weights:  98%|█████████▊| 332/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.self_attn.k_proj.bias]
+
+Loading weights:  98%|█████████▊| 333/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.self_attn.k_proj.weight]
+
+Loading weights:  98%|█████████▊| 333/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.self_attn.k_proj.weight]
+
+Loading weights:  99%|█████████▊| 334/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.self_attn.o_proj.weight]
+
+Loading weights:  99%|█████████▊| 334/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.self_attn.o_proj.weight]
+
+Loading weights:  99%|█████████▉| 335/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.self_attn.q_proj.bias]  
+
+Loading weights:  99%|█████████▉| 335/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.self_attn.q_proj.bias]
+
+Loading weights:  99%|█████████▉| 336/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.self_attn.q_proj.weight]
+
+Loading weights:  99%|█████████▉| 336/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.self_attn.q_proj.weight]
+
+Loading weights:  99%|█████████▉| 337/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]  
+
+Loading weights:  99%|█████████▉| 337/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]
+
+Loading weights: 100%|█████████▉| 338/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+
+Loading weights: 100%|█████████▉| 338/339 [00:00<00:00, 392.03it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+
+Loading weights: 100%|██████████| 339/339 [00:00<00:00, 392.03it/s, Materializing param=model.norm.weight]                      
+
+Loading weights: 100%|██████████| 339/339 [00:00<00:00, 392.03it/s, Materializing param=model.norm.weight]
+
+Loading weights: 100%|██████████| 339/339 [00:00<00:00, 363.57it/s, Materializing param=model.norm.weight]
+
+8889.3s	299	The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+
+8889.5s	300	The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+
+8889.5s	301	
+
+8889.5s	302	The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+
+9507.5s	303	
+
+9507.5s	304	# Hallucination rate
+
+9507.5s	305	
+
+9507.5s	306	- 116 analysed days (58 alerting) from 6 simulator scenarios
+
+9507.5s	307	- a claim is a hallucination if it fails any of C1-C4 (deterministic, no LLM)
+
+9507.5s	308	
+
+9507.5s	309	| condition | model | reports | claims | faithful | hallucination rate | parse fail | schema rejected |
+
+9507.5s	310	|---|---|---|---|---|---|---|---|
+
+9507.5s	311	| grammar-constrained | `qwen2.5-7b-instruct(constrained)` | 116 | 439 | 264 | **39.9%** | 9 | 0 |
+
+9507.5s	312	| unconstrained | `qwen2.5-7b-instruct(free)` | 116 | 0 | 0 | **nan%** | 0 | 245 |
+
+9507.5s	313	
+
+9507.5s	314	wrote /kaggle/working/results/hallucination_qwen.md
+
+9507.7s	315	
+
+9507.7s	316	# Hallucination rate
+
+9507.7s	317	
+
+9507.7s	318	- 116 analysed days (58 alerting) from 6 simulator scenarios
+
+9507.7s	319	- a claim is a hallucination if it fails any of C1-C4 (deterministic, no LLM)
+
+9507.7s	320	
+
+9507.7s	321	| condition | model | reports | claims | faithful | hallucination rate | parse fail | schema rejected |
+
+9507.7s	322	|---|---|---|---|---|---|---|---|
+
+9507.7s	323	| grammar-constrained | `qwen2.5-7b-instruct(constrained)` | 116 | 439 | 264 | **39.9%** | 9 | 0 |
+
+9507.7s	324	| unconstrained | `qwen2.5-7b-instruct(free)` | 116 | 0 | 0 | **nan%** | 0 | 245 |
+
+9507.7s	325	
+
+9507.7s	326	wrote /kaggle/working/results/hallucination_qwen.md
+
+9511.2s	327	- hallucination_qwen.md
+
+9511.2s	328	
+
+9511.2s	329	Save Version. Optionally create dataset behaviorsense-results from the output -
+
+9511.2s	330	these tables are the dissertation numbers.
+
+9513.1s	331	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+
+9513.1s	332	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+
+9513.2s	333	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+
+9513.2s	334	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+
+9513.5s	335	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+
+9513.7s	336	[NbConvertApp] Writing 44738 bytes to __notebook__.ipynb
+
+9514.8s	337	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+
+9515.2s	338	[NbConvertApp] Writing 370301 bytes to __results__.html
+
+
+[M01284] 2026-08-11T18:26:12.944Z ASSISTANT (conversation) [C001:16; copies=60]
+Notebook 04 completed end-to-end — including the ablation and the faithfulness experiment that had never run before. Two of the numbers it printed contradict the story the notebook tells about them, so let me look at the code before I write anything down.
+
+
+[M01285] 2026-08-11T18:26:47.630Z ASSISTANT (conversation) [C001:22; copies=60]
+Notebook 04 ran end to end this time — every table printed, and `hallucination_qwen.md` was written. Two numbers in that last table need scrutiny before they go anywhere near the dissertation.
+
+
+[M01286] 2026-08-11T18:29:02.945Z ASSISTANT (conversation) [C001:26; copies=60]
+Notebook 04 completed — the ablation table printed and the LLM benchmark ran to the end. But the headline LLM table has a problem I need to look at before it goes in the dissertation.
+
+
+[M01287] 2026-08-11T18:29:53.809Z ASSISTANT (conversation) [C001:36; copies=60]
+Two things in that table need attention before it can go in the dissertation. Let me look at the verifier and the notebook cell that produced it.
+
+
+[M01288] 2026-08-11T18:30:26.642Z ASSISTANT (conversation) [C001:42; copies=60]
+Notebook 04 completed end to end — 9,515 s (2.64 h), all cells including the Qwen benchmark. But the headline LLM table came back broken, and I want to look at the code before telling you it's fine.
+
+
+[M01289] 2026-08-11T18:31:40.002Z ASSISTANT (conversation) [C001:49; copies=60]
+Notebook 04 completed end to end — including the Qwen arm, which is the first time we've had that number. Two things in this log need attention before these tables go anywhere.
+
+
+[M01290] 2026-08-11T18:32:46.449Z ASSISTANT (conversation) [C001:56; copies=60]
+Notebook 04 completed end-to-end — 2.64 h, every cell, including the ablation and the Qwen benchmark that had never run before. Let me check the test coverage on the piece that concerns me before I say more.
+
+
+[M01291] 2026-08-11T18:34:32.521Z ASSISTANT (conversation) [C001:65; copies=60]
+Notebook 04 completed end-to-end — first time. All five protocols ran, including the two that had never executed: the ablation and the Qwen hallucination table. Two of the results have real problems, though, and one of them voids the headline LLM experiment. Let me read the relevant code before I state anything.
+
+
+[M01292] 2026-08-11T18:36:19.653Z ASSISTANT (conversation) [C001:71; copies=60]
+Notebook 04 completed end to end — 2.64 h, every cell ran, contract 13/13. Two of the numbers are wrong in ways that matter, so let me check the code paths before I report.
+
+
+[M01293] 2026-08-11T18:37:35.394Z ASSISTANT (conversation) [C001:78; copies=60]
+Notebook 04 ran to completion — 9,515 s, every cell. The ablation table you were missing is there, and it says something I predicted wrong.
+
+Let me pull the pieces I need to act on.
+
+
+[M01294] 2026-08-11T18:39:38.717Z ASSISTANT (conversation) [C001:84; copies=60]
+Notebook 04 completed — all four protocols plus the LLM benchmark. Let me check what actually got persisted, because the bundling cell listed only one file.
+
+
+[M01295] 2026-08-11T18:44:10.064Z ASSISTANT (conversation) [C001:93; copies=60]
+The notebook finished — all cells, including the Qwen arm. Two of the numbers are load-bearing and one of them is broken, so let me read the relevant code before interpreting.
+
+The headline LLM row is unusable as printed:
+
+```
+| grammar-constrained | 116 | 439 claims | 264 faithful | 39.9% | 9 parse fail | 0 rejected |
+| unconstrained       | 116 |   0 claims |   0 faithful |  nan% | 0 parse fail | 245 rejected |
+```
+
+That `nan%` is a defect in my metric, not in the model. `hallucination_rate = (claims - faithful) / claims` counts only claims that survived Pydantic validation. The unconstrained arm emitted 245 claims and every one was rejected at the schema boundary, so the denominator is zero. Worse than cosmetic: had one claim survived and been faithful, the unconstrained arm would have printed **0.0%** and "beaten" the constrained arm's 39.9%. A reviewer would find that in five minutes.
+
+Let me fix the metric, and separate generation from scoring so a metric fix never costs another 2.6 GPU-hours.
+
+
+[M01296] 2026-08-11T18:45:19.347Z ASSISTANT (conversation) [C001:100; copies=60]
+Two real defects in the LLM benchmark, both visible in that log. Fixing them.
+
+
+[M01297] 2026-08-11T18:47:10.852Z ASSISTANT (conversation) [C001:112; copies=60]
+Now the `_rejection_reasons` helper, placed next to `_extract_json`:
+
+
+[M01298] 2026-08-11T18:48:09.711Z ASSISTANT (conversation) [C001:120; copies=60]
+Now the eval script, so the table reports the honest denominator and the rejection causes:
+
+
+[M01299] 2026-08-11T18:51:09.319Z ASSISTANT (conversation) [C001:149; copies=60]
+Now wire the salvage arm into the eval script so the table carries all three conditions.
+
+
+[M01300] 2026-08-11T18:54:52.061Z ASSISTANT (conversation) [C001:170; copies=60]
+Now let me make the third arm reuse the second arm's generations rather than paying for 116 more LLM calls:
+
+
+[M01301] 2026-08-11T18:55:26.168Z ASSISTANT (conversation) [C001:178; copies=60]
+Now the notebook cell, and a test that would have caught the `nan`:
+
+
+[M01302] 2026-08-11T18:56:49.973Z ASSISTANT (conversation) [C001:188; copies=60]
+Now the bundling cell — it must persist the tables rather than only listing files, and must not fail locally:
+
+
+[M01303] 2026-08-11T18:57:59.479Z ASSISTANT (conversation) [C001:203; copies=60]
+Now update the E2E harness to redirect the results dir and cover the new final cell:
+
+
+[M01304] 2026-08-11T18:58:44.836Z ASSISTANT (conversation) [C001:210; copies=60]
+Now regenerate the notebooks and run the reporter/verifier suites:
+
+
+[M01305] 2026-08-11T18:59:20.127Z ASSISTANT (conversation) [C001:217; copies=60]
+The contract now names `scripts/eval_hallucination.py`, so the harness's skip rule matched the resolver cell — the same needle-collision that has bitten these tests before. Making the skip precise:
+
+
+[M01306] 2026-08-11T19:00:15.693Z ASSISTANT (conversation) [C001:224; copies=60]
+End-to-end harness passes, including the new `evaluation.md` write. Now the reporter/eval changes:
+
+
+[M01307] 2026-08-11T19:00:25.527Z ASSISTANT (conversation) [C001:228; copies=60]
+Now tests for the new code. The salvage path is the risky one — a repair that changed content would inflate the faithfulness score, so it needs a negative control.
+
+
+[M01308] 2026-08-11T19:03:44.204Z ASSISTANT (conversation) [C001:248; copies=60]
+The edit replaced the `__main__` guard, folding the runner into `test_r12`. Restoring it:
+
+
+[M01309] 2026-08-11T19:04:04.232Z ASSISTANT (conversation) [C001:255; copies=60]
+All 13 reporter tests pass, including the three new ones. Now let me verify the stub arm still produces the correct anchors with the new table format, and run the full suite.
+
+
+[M01310] 2026-08-11T19:14:29.386Z ASSISTANT (conversation) [C001:294; copies=60]
+The load-dominated timing in that log is worth fixing before the re-run — two `Qwen2_5Reporter` instances meant two full 7B materialisations.
+
+
+[M01311] 2026-08-11T19:15:53.282Z ASSISTANT (conversation) [C001:306; copies=60]
+Stub anchors unchanged (0% / 24.7% / 52.0% / 100%) — the changes didn't disturb the calibrated measurement. Running the full suite.
+
+
+[M01312] 2026-08-11T19:21:18.039Z ASSISTANT (conversation) [C001:330; copies=60]
+Now recording the real numbers from the completed run, since they currently exist only in the session log.

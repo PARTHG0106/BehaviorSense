@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import glob
+import re
 import json
 import random
 import sys
@@ -39,6 +40,8 @@ from behaviorsense.data.skeleton_dataset import (  # noqa: E402
     AugmentConfig,
     SkeletonWindowDataset,
     class_balanced_sampler,
+    load_subject_map,
+    remap_subjects,
     split_by_subject,
 )
 from behaviorsense.models.stgcnpp import STGCNpp, make_stream  # noqa: E402
@@ -66,12 +69,34 @@ def rng_state() -> dict:
     }
 
 
+def _byte_cpu(t):
+    """Coerce a saved RNG-state tensor back to the CPU uint8 tensor torch demands.
+
+    `torch.load(..., map_location="cuda")` moves EVERY tensor in the checkpoint to the GPU,
+    including the RNG state, and `torch.set_rng_state` accepts only a CPU ByteTensor. So
+    resuming with `--device cuda` died with
+
+        TypeError: RNG state must be a torch.ByteTensor
+
+    on all five runs, while the CPU test suite passed - S7 resumes with `--device cpu`,
+    where `map_location` is a no-op and the tensor never leaves the CPU. A test that
+    exercises a different code path than production is not covering production, which is
+    the same lesson the notebook harnesses taught.
+
+    Coercing here rather than changing `map_location` fixes both trainers at once:
+    `train_fall.py` imports this function.
+    """
+    if isinstance(t, torch.Tensor):
+        return t.detach().to(device="cpu", dtype=torch.uint8, copy=False)
+    return t
+
+
 def load_rng_state(state: dict) -> None:
     random.setstate(state["python"])
     np.random.set_state(state["numpy"])
-    torch.set_rng_state(state["torch"])
+    torch.set_rng_state(_byte_cpu(state["torch"]))
     if state.get("cuda") is not None and torch.cuda.is_available():
-        torch.cuda.set_rng_state_all(state["cuda"])
+        torch.cuda.set_rng_state_all([_byte_cpu(s) for s in state["cuda"]])
 
 
 class EMA:
@@ -115,11 +140,57 @@ def cosine_lr(step: int, total: int, warmup: int, base_lr: float) -> float:
     return base_lr * 0.5 * (1 + np.cos(np.pi * min(1.0, progress)))
 
 
+class LogitAdjustedCE(nn.Module):
+    """Cross-entropy with `tau * log(prior)` added to the logits during TRAINING only.
+
+    Why, concretely. The Charades label map leaves `other_idle` at 39.4% of windows and
+    `bending_reaching` at 0.04%, and the reported metric is mean-class accuracy, which
+    weights all 20 classes equally. Plain cross-entropy minimises expected error under the
+    TRAINING prior, so it is optimising a different objective than the one being scored, and
+    the gap is exactly the head/tail imbalance. P1 measured the consequence: 0.375 top-1
+    against 0.151 mean-class for the ensemble.
+
+    Adding `tau * log(prior)` to the logits inside the loss makes the argmax of the trained
+    model the balanced-error decision rule (Menon et al., "Long-tail learning via logit
+    adjustment", ICLR 2021). At serving time nothing is added - the adjustment is baked into
+    the weights - which is the difference from the post-hoc variant in
+    `behaviorsense.eval.activity_eval.logit_adjust`, and the reason both exist: post-hoc
+    needs no retraining and can be swept on saved logits, this one is stronger but costs a
+    training run.
+
+    tau=0 reduces exactly to `CrossEntropyLoss(label_smoothing=...)`, which is what makes it
+    safe to leave in the default path and what test S10 asserts.
+    """
+
+    def __init__(self, prior: np.ndarray, tau: float = 1.0,
+                 label_smoothing: float = 0.0) -> None:
+        super().__init__()
+        self.tau = float(tau)
+        self.label_smoothing = label_smoothing
+        # Registered as a buffer so it moves with .to(device) and is saved with the model
+        # rather than silently living on the CPU while the logits are on the GPU.
+        self.register_buffer(
+            "offset",
+            torch.log(torch.as_tensor(prior, dtype=torch.float32).clamp_min(1e-12)) * self.tau,
+        )
+
+    def forward(self, logits: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
+        return nn.functional.cross_entropy(
+            logits + self.offset, target, label_smoothing=self.label_smoothing)
+
+
+def label_prior(labels: np.ndarray, n_classes: int = N_CLASSES) -> np.ndarray:
+    """Empirical training-label distribution, floored so an absent class is not -inf."""
+    counts = np.bincount(np.asarray(labels), minlength=n_classes).astype(np.float64)
+    return np.maximum(counts, 1.0) / np.maximum(counts, 1.0).sum()
+
+
 @torch.no_grad()
-def evaluate(model: nn.Module, loader: DataLoader, stream: str, device: str) -> dict:
+def evaluate(model: nn.Module, loader: DataLoader, stream: str, device: str,
+             n_classes: int = N_CLASSES) -> dict:
     """Mean-class accuracy and macro-F1 - never top-1 alone, which imbalance flatters."""
     model.eval()
-    n_cls = N_CLASSES
+    n_cls = n_classes
     conf = np.zeros((n_cls, n_cls), dtype=np.int64)
     for x, y in loader:
         x = make_stream(x.to(device), stream)
@@ -215,6 +286,13 @@ def make_smoke_shard(path: Path, n: int = 480, n_classes: int = 6, seed: int = 0
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--shards", nargs="*", default=[])
+    # The head size is a property of the SHARDS, not of this script. Charades shards carry the
+    # 20-class `activity.CLASS_NAMES`; the Toyota RTMO shards carry the 22-class `COARSE_V11`,
+    # whose ids 20 (`using_device`) and 21 (`object_interaction`) are out of range for a
+    # 20-way head. Left hard-coded, that either crashes in the loss or - depending on the
+    # reduction - silently trains as though those two activities never occur.
+    ap.add_argument("--n-classes", type=int, default=N_CLASSES,
+                    help=f"head size; {N_CLASSES} for Charades shards, 22 for Toyota coarse")
     ap.add_argument("--stream", default="joint", choices=["joint", "bone", "joint_motion", "bone_motion"])
     # 80 came from ST-GCN++'s NTU-60 recipe and was wrong for this data. Measured on the
     # real Charades shards (165k windows, 18 classes present): all four streams peaked at
@@ -233,10 +311,21 @@ def main() -> None:
     ap.add_argument("--weight-decay", type=float, default=5e-4)
     ap.add_argument("--warmup-epochs", type=int, default=5)
     ap.add_argument("--label-smoothing", type=float, default=0.1)
+    ap.add_argument("--sampler", choices=("balanced", "natural"), default="balanced",
+                    help="balanced: effective-number class weighting (default). natural: "
+                         "the raw label distribution, for use with --tau-train.")
+    ap.add_argument("--tau-train", type=float, default=0.0,
+                    help="strength of the logit-adjusted loss (Menon et al. 2021). 0 = "
+                         "plain cross-entropy. Requires --sampler natural: stacking it on "
+                         "balanced sampling corrects the imbalance twice.")
     ap.add_argument("--ema-decay", type=float, default=0.999)
     ap.add_argument("--n-frames", type=int, default=30)
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--subject-map", default=None,
+                    help="CSV with id,subject columns (Charades_v1_train.csv). Remaps "
+                         "video ids to ACTOR ids for the train/val split, making P1 "
+                         "person-disjoint instead of video-disjoint.")
     ap.add_argument("--out", default="runs/adl")
     ap.add_argument("--resume", default=None)
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
@@ -266,35 +355,102 @@ def main() -> None:
         if not shards:
             raise SystemExit("no shards matched; pass --shards 'data/shards/*.npz' or --smoke")
 
+    # RECORD THE SAMPLING RATE, here, where the RESOLVED filenames exist.
+    #
+    # `args.shards` is whatever was typed on the command line. Passed as a glob it carries no
+    # rate, and serving then has nothing to read: notebook 05 refused to start with
+    # `cannot determine the sampling rate this checkpoint was trained at`, because the shards are
+    # not attached to a serving session and the pattern alone says nothing. Deriving it from the
+    # expanded names costs nothing and means every future checkpoint describes its own input.
+    #
+    # A 30-frame window is 30/rate seconds of motion and the model sees exactly one duration, so
+    # a serving/training mismatch stretches every action and shows up only as bad accuracy.
+    _rates = {m.group(1) for f in shards
+              if (m := re.search(r"_(\d+(?:\.\d+)?)hz", Path(f).name))}
+    if len(_rates) > 1:
+        raise SystemExit(
+            f"shards mix sampling rates {sorted(_rates)}. A single head cannot serve two window "
+            "durations; extract one corpus at the other's rate, or train them separately.")
+    args.sample_fps = float(_rates.pop()) if _rates else None
+    print(f"{len(shards)} shard(s) | sample rate "
+          + (f"{args.sample_fps:g} Hz ({30 / args.sample_fps:.2f}s windows), recorded in the "
+             "checkpoint" if args.sample_fps else
+             "NOT IN THE FILENAMES - serving will have to be told with SAMPLE_FPS"))
+
     set_seed(args.seed)
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
     lr = args.lr if args.lr is not None else 0.1 * args.batch_size / 128
 
-    probe = SkeletonWindowDataset(shards, n_frames=args.n_frames)
-    train_idx, val_idx = split_by_subject(probe.subjects, val_frac=0.2, seed=args.seed)
+    probe = SkeletonWindowDataset(shards, n_frames=args.n_frames,
+                                  n_classes=args.n_classes)
+    split_subjects = probe.subjects
+    if args.subject_map:
+        # The shards store VIDEO ids ("subject proxy"), on the recorded-and-wrong belief
+        # that Charades publishes no actor ids. Charades_v1_train.csv has a `subject`
+        # column: 267 actors, ~30 videos each. Splitting by video id puts nearly every
+        # actor on both sides, so "subject-disjoint P1" was video-disjoint - the exact
+        # failure subject_from_path prevents in the fall corpora. The map is applied to
+        # the SPLIT only; stored ids stay per-video for sequence reconstruction.
+        mapping = load_subject_map(args.subject_map)
+        split_subjects, coverage = remap_subjects(probe.subjects, mapping)
+        n_before = len(set(probe.subjects))
+        n_after = len(set(split_subjects))
+        print(f"subject map: {coverage:.1%} of windows remapped, "
+              f"{n_before} video ids -> {n_after} split ids")
+        if coverage < 0.5:
+            raise SystemExit(
+                f"--subject-map covered only {coverage:.1%} of windows. Either the wrong "
+                "CSV is attached or these shards are not Charades - refusing to train on "
+                "a split that silently degenerated back to per-video."
+            )
+    train_idx, val_idx = split_by_subject(split_subjects, val_frac=0.2, seed=args.seed)
 
     train_ds = SkeletonWindowDataset(
         shards, n_frames=args.n_frames, augment_cfg=AugmentConfig(enabled=True),
-        indices=train_idx, seed=args.seed,
+        indices=train_idx, seed=args.seed, n_classes=args.n_classes,
     )
     val_ds = SkeletonWindowDataset(
         shards, n_frames=args.n_frames, augment_cfg=AugmentConfig(enabled=False),
-        indices=val_idx, seed=args.seed,
+        indices=val_idx, seed=args.seed, n_classes=args.n_classes,
     )
     # The sampler deliberately gets NO explicit generator: WeightedRandomSampler then
     # draws from the global torch RNG, and load_rng_state() restores that on resume, so
     # the draw order is part of the checkpointed state. An explicit generator would need
     # its own state checkpointed separately or resume would silently replay epoch 0's
     # sampling order.
-    sampler = class_balanced_sampler(train_ds.labels[train_idx])
-    train_ld = DataLoader(train_ds, batch_size=args.batch_size, sampler=sampler,
-                          num_workers=args.workers, pin_memory=args.device == "cuda",
-                          drop_last=len(train_ds) > args.batch_size)
+    #
+    # Balanced sampling and a logit-adjusted loss are two ways to solve the SAME problem,
+    # and stacking them corrects twice. Effective-number weighting already removes ~145x of
+    # the ~942x head/tail ratio; adding tau*log(prior) on top would then over-penalise
+    # `other_idle` and the run would look like a failed experiment rather than a
+    # double-correction. Refused rather than warned, in the style of train_fall.py's focal
+    # alpha guard - a silently wrong training objective costs a GPU session and produces a
+    # plausible number.
+    if args.tau_train > 0 and args.sampler == "balanced":
+        raise SystemExit(
+            f"--tau-train {args.tau_train} with --sampler balanced corrects the class "
+            "imbalance twice. The sampler (effective-number weighting, Cui et al.) already "
+            "rebalances the batch; a logit-adjusted loss rebalances the objective. Pick "
+            "one:\n"
+            "  --sampler natural --tau-train 1.0   (logit-adjusted loss, natural batches)\n"
+            "  --sampler balanced --tau-train 0    (current default)\n"
+            "Then compare the two on mean-class accuracy - post-hoc adjustment of the "
+            "existing checkpoints is free via scripts/rescore_p1.py and worth trying first."
+        )
+    if args.sampler == "balanced":
+        sampler = class_balanced_sampler(train_ds.labels[train_idx])
+        train_ld = DataLoader(train_ds, batch_size=args.batch_size, sampler=sampler,
+                              num_workers=args.workers, pin_memory=args.device == "cuda",
+                              drop_last=len(train_ds) > args.batch_size)
+    else:
+        train_ld = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True,
+                              num_workers=args.workers, pin_memory=args.device == "cuda",
+                              drop_last=len(train_ds) > args.batch_size)
     val_ld = DataLoader(val_ds, batch_size=args.batch_size, shuffle=False,
                         num_workers=args.workers)
 
-    model = STGCNpp(n_classes=N_CLASSES).to(args.device)
+    model = STGCNpp(n_classes=args.n_classes).to(args.device)
     ema = EMA(model, decay=args.ema_decay)
     # No weight decay on norm/bias: decaying them shifts normalisation statistics rather
     # than regularising, and costs accuracy for free.
@@ -306,6 +462,13 @@ def main() -> None:
         lr=lr, momentum=0.9, nesterov=True,
     )
     crit = nn.CrossEntropyLoss(label_smoothing=args.label_smoothing)
+    if args.tau_train > 0:
+        prior = label_prior(train_ds.labels[train_idx], n_classes=args.n_classes)
+        crit = LogitAdjustedCE(prior, tau=args.tau_train,
+                               label_smoothing=args.label_smoothing).to(args.device)
+        head = int(np.argmax(prior))
+        print(f"logit-adjusted loss: tau={args.tau_train}, prior head class {head} "
+              f"({prior[head]:.1%}), tail min {prior.min():.2%}")
     use_amp = args.device == "cuda"
 
     steps_per_epoch = max(1, len(train_ld))
@@ -323,7 +486,8 @@ def main() -> None:
         # than the one it was interrupted on. That is invisible in the loss trace and
         # makes the run unreproducible - refuse it rather than warn.
         prev = ck.get("args", {})
-        for key in ("epochs", "batch_size", "lr", "warmup_epochs", "stream", "seed"):
+        for key in ("epochs", "batch_size", "lr", "warmup_epochs", "stream", "seed",
+                    "subject_map", "sampler", "tau_train"):
             old, new = prev.get(key), getattr(args, key)
             if old is not None and old != new:
                 raise SystemExit(
@@ -378,10 +542,11 @@ def main() -> None:
             seen += len(y)
             gstep += 1
 
-        eval_model = STGCNpp(n_classes=N_CLASSES).to(args.device)
+        eval_model = STGCNpp(n_classes=args.n_classes).to(args.device)
         eval_model.load_state_dict(model.state_dict())
         ema.copy_to(eval_model)
-        metrics = evaluate(eval_model, val_ld, args.stream, args.device)
+        metrics = evaluate(eval_model, val_ld, args.stream, args.device,
+                           n_classes=args.n_classes)
         metrics.update(epoch=epoch, train_loss=run_loss / max(1, seen),
                        lr=opt.param_groups[0]["lr"], secs=time.time() - t0)
         history.append(metrics)
@@ -401,6 +566,23 @@ def main() -> None:
         if metrics["mean_class_acc"] > best:
             best = metrics["mean_class_acc"]
             torch.save(ck, out_dir / "best.pt")
+            # VAL LOGITS FROM THE SELECTED EPOCH. Without them serving cannot fit a temperature,
+            # runs at T=1.0, and Viterbi's self-transition prior (0.9) then collapses a whole
+            # clip into one state - observed: 28 windows of a cooking video became a single
+            # 29.3 s `taking_medication` segment. The notebook already warns that an unfitted
+            # temperature makes Viterbi and abstention "consume meaningless posteriors"; this is
+            # what stops that warning being unavoidable.
+            _lg, _ys = [], []
+            with torch.no_grad():
+                for _x, _y in val_ld:
+                    _lg.append(eval_model(make_stream(_x.to(args.device), args.stream))
+                               .float().cpu().numpy())
+                    _ys.append(_y.numpy())
+            np.savez_compressed(
+                out_dir / "val_logits.npz",
+                **{f"logits_{args.stream}": np.concatenate(_lg)},
+                y=np.concatenate(_ys), n_classes=np.int32(args.n_classes),
+                sample_fps=np.float32(args.sample_fps or 0.0))
         (out_dir / "history.json").write_text(json.dumps(history, indent=2), encoding="utf-8")
 
         if metrics["mean_class_acc"] > best_at_epoch[0]:

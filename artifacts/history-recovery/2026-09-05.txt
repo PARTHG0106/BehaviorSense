@@ -1,0 +1,591 @@
+
+[M02393] 2026-09-05T18:59:45.179Z USER (conversation) [C059:538; copies=4]
+i dont think u did anything other than removing the skeleton overlay from the video after 45s, we dont want to hide the problem, we have to solve it, also the model tracked 3 people in a 1 person video, we have to fix the model's accuracy first, have we trained our model on the large datasets we have got from toyota smarthome? also the report:
+900 frames at 20 Hz · 640×480 · 3 people tracked · pose 34.6s · classify 0.7s · behaviour 1.99s · report 17.84s · re-id off, roles unidentified · τ=0.25 · truncated at 900 frames
+
+Agent 1
+done
+34.6s
+
+perception
+Decoded 900 frames at 20.0 Hz and ran RTMO over every one of them. 3 people were tracked. Re-identification is off — every track is reported as unidentified, which is honest rather than broken.
+
+Frames kept
+900
+Source rate
+25.0 fps
+Sample rate
+20.0 Hz
+Window length
+1.50 s (30 frames)
+People tracked
+3
+Decoded size
+640×480
+Mean keypoint confidence
+0.854
+Unusable pose records
+6 of 623 (1%)
+Execution provider
+CUDA
+Truncated
+yes — clip hit the frame cap
+unidentified · track 0 · unidentified · track 1 · unidentified · track 2
+
+hands on
+PersonObservation
+Agent 2 receives one per person per frame
+
+Agent 2
+done
+0.7s
+
+activity
+Each person's windows are classified on their own skeletons, independently — nobody's activity is inferred from anybody else's. The served configuration is the one notebook 04 selected, not the defaults: bone at τ=0.25 and T=1.00.
+
+Identity is asserted, not re-identified. No resident is enrolled, so track 2 — the most-present one — is treated as the subject for Agent 3's features. Every role below still reads as unidentified because that is what OSNet decided, and it is right to: it has no gallery to match a stranger against. Without the assertion the subject filter matches nobody and all 27 features read zero.
+
+Streams served
+bone
+Logit adjustment &tau;
+0.25
+Temperature
+1.00
+Segments emitted
+5
+decoding
+calibrate -> object fusion -> Viterbi -> abstain -> segments
+
+unidentified
+track 0 · 2 segments
+
+cleaning_housework 3.2s · cleaning_housework 7.3s
+
+unidentified
+track 1 · 1 segment
+
+cooking_food_prep 8.6s
+
+unidentified
+track 2 · 2 segments
+subject of Agent 3's features
+
+cleaning_housework 4.6s · cleaning_housework 5.9s
+
+hands on
+ActivitySegment
+Agent 3 receives the segments, per identity
+
+Agent 3
+done
+2.0s
+
+behaviour
+Baseline is a declared reference, not this person. 21 reference days primed against 1 real day from this clip. The feature values below are measured from your video and are real; every robust-z is “unlike the reference”, never “this person has declined”.
+
+Agent 3 is statistics, not a model: a robust median and MAD per feature, a z-score against it, and CUSUM for slow drift. It is written that way so a flagged decline can be explained to the person acting on it. Observed span is 0.012 h, far below the 8 h a day needs to be called reliable — so the day is marked unreliable rather than quietly averaged in.
+
+Measured from this clip
+
+walking duration s
+0.00
+walking bouts
+0.00
+mean bout duration s
+0.00
+room transitions
+0.00
+sit to stand count
+0.00
+mean sit to stand duration s
+0.00
+sitting duration s
+0.00
+lying duration s
+0.00
+standing duration s
+0.00
+longest inactive block s
+0.00
+meal events
+0.00
+eating duration s
+0.00
+drinking events
+0.00
+cooking duration s
+0.00
+medication events
+0.00
+tv duration s
+0.00
+reading duration s
+0.00
+phone events
+0.00
+social interaction duration s
+0.00
+visitor count
+0.00
+housework duration s
+10.55
+fall events
+0.00
+max post fall immobility s
+0.00
+observed hours
+0.01
+tracking coverage
+1.00
+mobility index
+0.00
+sedentary ratio
+0.00
+Deviation against the reference (robust‑z)
+
+walking duration s
+-10.00
+walking bouts
+-10.00
+mean bout duration s
+-10.00
+room transitions
+-10.00
+sit to stand count
+-10.00
+mean sit to stand duration s
+-10.00
+No alert rule fired.
+
+hands on
+BehaviourState
+Agent 4 receives numbers only — never pixels
+
+Agent 4
+done
+17.8s
+
+report
+The model receives the numbers above and nothing else — no frames, no skeletons, no pixels. It writes the summary as separate citable claims, and each one is checked before it is shown.
+
+Model
+z-ai/glm-5.2:free via nvidia/nemotron-3-super-120b-a12b:free (openrouter, 20 key(s))
+Constrained decoding
+on (JSON grammar)
+Claims emitted
+0
+Schema-valid claims
+0
+Unfaithful share
+0.0%
+Escalate
+no
+The generation did not parse. Reported rather than retried silently — a repaired-until-valid report is not the one the model wrote. unterminated JSON object in response (truncated generation)
+
+hands on
+CaregiverReport
+every claim goes to C1–C5 before anyone sees it
+
+No claims were produced for this clip, so there is nothing to verify. That is reported rather than shown as a clean bill of health.
+
+Done. Every claim passed all five checks.
+
+
+[M02394] 2026-09-05T19:00:45.086Z ASSISTANT (conversation) [C059:543; copies=4]
+You're right — I diagnosed and fixed a rendering bug, not the tracking. Let me correct one thing first, then fix the real one.
+
+**The 3 tracks are not the trained model's accuracy.** ST-GCN++ never sees a person count — it receives one skeleton window per track and classifies it. The count comes from RTMO detection plus the IoU tracker in `perception.py`. Training on more Toyota data would not change it by one track. What it *does* affect is the labels (`cleaning_housework`, `cooking_food_prep`), and those look right for that footage.
+
+And yes, we trained on Toyota Smarthome — the `notes` fix also just paid off: your Agent 4 card now says **`unterminated JSON object in response (truncated generation)`**, which is the budget failure, not a compliance one. Let me get the facts and fix both.
+
+
+[M02395] 2026-09-05T19:02:24.038Z ASSISTANT (conversation) [C059:561; copies=4]
+You're right — I diagnosed and papered over. Let me fix the actual defects. And your output just confirmed the Agent 4 diagnosis: **`unterminated JSON object (truncated generation)`** — that's the budget, exactly what surfacing the reason was for.
+
+First, the training question, because it's the one place where nothing is broken:
+
+
+[M02396] 2026-09-05T19:02:42.882Z ASSISTANT (conversation) [C059:570; copies=4]
+Correcting one thing first, because it changes what to fix: **the person count has nothing to do with the trained model.** Track ids come from RTMO detection plus an IoU tracker. Retraining on more Toyota data cannot change "3 people" — no amount of activity-model accuracy affects how many track ids get minted. Let me fix the thing that actually causes it.
+
+
+[M02397] 2026-09-05T19:04:22.901Z ASSISTANT (conversation) [C059:590; copies=4]
+Now the local backend, which must consume the spans coming over the wire:
+
+
+[M02398] 2026-09-05T19:04:50.358Z ASSISTANT (conversation) [C059:597; copies=4]
+Now the notebook — replacing its inline subject logic with the shared function so both halves merge identically:
+
+
+[M02399] 2026-09-05T19:25:12.442Z ASSISTANT (conversation) [C059:789; copies=4]
+Fair — last turn was diagnosis plus a display fix. The fragmentation is actually fixed now. 207/207 pass, including a new test that reproduces your exact numbers.
+
+But one premise needs correcting first, because it changes what to work on.
+
+## The person count is not the trained model
+
+Three separate models run in sequence. The "3 people" comes from **RTMO detection + the IoU tracker** in Agent 1. The ST-GCN++ classifier you trained on Toyota never sees a person count — it receives whatever windows the tracker hands it. Training it on more Toyota data cannot change how many track IDs RTMO's detections produce. Different stage, different failure.
+
+What actually produces the count: `max_age_frames = 30`, which at 20 Hz is **1.5 s**. RTMO detected your lady in 623 of 900 frames (69%); every gap longer than 1.5 s retires her ID and re-detection mints a new one. Three fragments of one person.
+
+## Yes, we trained on Toyota — and it's what's being served
+
+`ADL_PREFER = "toyota"` selects `adl_toyota_bone`: 22 classes, 20 Hz, trained on the Toyota RTMO shards. From your runs: fine 31-class top-1 **0.6779** / mean-class **0.5935**; collapsed to coarse, argmax **0.7694** / mean-class **0.7363** over 13 of 22 classes; the served COCO-17 arm **mca 0.6000** / macro-F1 **0.5854** over the 15 present classes — against Charades' 0.128–0.146, roughly 4×.
+
+**But `results/evaluation.md:445` still reads "Toyota Smarthome — ingestion verified, not yet trained on."** Those numbers exist only in Kaggle scrollback and this conversation. Your dissertation's results file currently contradicts the system you're demoing. That needs writing down and I'd do it next.
+
+## The fragmentation fix
+
+`assert_subject` now merges tracks whose **frame spans never overlap**. This isn't a heuristic: two tracks in the same frame *are* two people, so an overlap is decisive against merging; tracks that never co-occur can't be separated without a gallery, and re-id is off. It's weighted interval scheduling over the spans, weighted by frames observed, so it keeps the most evidence rather than the most fragments.
+
+Replaying your video 1 exactly:
+
+| | subject | housework | cooking |
+|---|---|---|---|
+| before | track 2 only | 10.50 s | **0.00 s** |
+| after | tracks 0, 1, 2 merged | **21.00 s** | **8.60 s** |
+
+The 8.6 s cooking segment Agent 2 detected now reaches Agent 3 instead of being deleted. W8 also pins the opposite direction, which matters more: three genuinely co-present tracks are **not** merged, and where track 1 overlaps track 0 only tracks 0 and 2 merge. A merge that fired on two real people would corrupt every feature in the worse direction.
+
+The merge is declared in the caveats and on Agent 2's card, same as the asserted subject and the simulated baseline. Agent 1 now says "3 tracks were produced… that is track IDs, not people" rather than "3 people were tracked" — the count was never wrong, the word was.
+
+## Agent 4: your log diagnosed it
+
+```
+unterminated JSON object in response (truncated generation)
+```
+
+That's the `notes` fix from last turn paying off immediately — truncation, not non-compliance. Nemotron Super is a reasoning model: it spends part of its budget thinking before emitting the object, and it was being handed `cfg.max_new_tokens = 1600`, which is the **local Qwen arm's** budget. A 6-claim report is ~800 tokens, so there was no room. Now `HOSTED_MAX_TOKENS = 4096`, applied only to the hosted path — `ReporterConfig.max_new_tokens` stays 1600 because every figure in `results/evaluation.md` was measured under it. At the ~90 tok/s these endpoints served, 4096 lands around 45 s, inside the 75 s deadline; 8k would time out instead.
+
+## On the 45 seconds — you're right that I didn't solve it
+
+I stopped the overlay lying (it was redrawing frame 899 for nine minutes). I did not make it analyse more, and that's a separate cost: pose ran 34.6 s for 900 frames, so your 9:56 clip is ~11,900 frames ≈ **7.6 minutes of RTMO**. That cannot be a synchronous HTTP request — whole-video analysis needs a job queue and polling, which is real architectural work.
+
+The cheap honest step is raising `MAX_FRAMES` from 900 to **2400** — 2 minutes of video, ~92 s of pose, which the streaming and heartbeat plumbing already handles. Say the word and I'll do that; the async redesign I'd rather scope separately.
+
+## Steps
+
+```bash
+python scripts/publish_code_dataset.py
+```
+
+Restart notebook 05's kernel, re-run for a fresh tunnel, restart the local backend, and **hard-refresh the page** (Ctrl+Shift+R) — `stages.js` and `overlay.js` both changed.
+
+On the same clip you should now see: 3 tracks, "tracks 0, 1, 2 merged into one subject", `cooking_duration_s 8.60`, `housework_duration_s 21.00`, and a report that parses.
+
+
+[M02400] 2026-09-05T20:11:25.698Z USER (conversation) [C059:796; copies=4]
+cant we get a better accuracy score using the dataset, i have seen a demo video from toyota smarthome, in that the model was perfectly identifying the activities, also the skeleton overlay was very good, it wasnt flickering too much like our does, sometimes the overlay is not shown on the same person, check the report of a 9min 56s video of one old lady coming into a kitchen and doing some cooking and utensil cleaning, watching television while standing beside the kitchen counter and drinking from her mug at 8min 1s, the report:
+900 frames at 20 Hz · 640×480 · 3 people tracked · pose 35.3s · classify 0.7s · behaviour 0.43s · report 9.8s · re-id off, roles unidentified · τ=0.25 · truncated at 900 frames
+
+Agent 1
+done
+35.3s
+
+perception
+Decoded 900 frames at 20.0 Hz and ran RTMO over every one of them. 3 tracks were produced. That is track IDs, not people: whenever detection drops for more than 1.5 s the tracker retires an ID and mints a new one, so one person walking behind furniture arrives here as several. Agent 2 says which of them were merged into one subject. Re-identification is off — every track is reported as unidentified, which is honest rather than broken.
+
+Frames kept
+900
+Source rate
+25.0 fps
+Sample rate
+20.0 Hz
+Window length
+1.50 s (30 frames)
+Track IDs produced
+3
+Decoded size
+640×480
+Mean keypoint confidence
+0.854
+Unusable pose records
+6 of 623 (1%)
+Execution provider
+CUDA
+Truncated
+yes — clip hit the frame cap
+unidentified · track 0 · unidentified · track 1 · unidentified · track 2
+
+hands on
+PersonObservation
+Agent 2 receives one per person per frame
+
+Agent 2
+done
+0.7s
+
+activity
+Each person's windows are classified on their own skeletons, independently — nobody's activity is inferred from anybody else's. The served configuration is the one notebook 04 selected, not the defaults: bone at τ=0.25 and T=1.00.
+
+Identity is asserted, not re-identified. No resident is enrolled, and one person leaving detection for more than 1.5 s comes back with a new track id — so tracks 0, 1, 2, whose frame spans never overlap, are treated as one subject. Two tracks seen in the same frame are two people and are never merged. Counting only the most-present fragment discarded the rest of the same person's activity. Every role below still reads as unidentified because that is what OSNet decided, and it is right to: it has no gallery to match a stranger against. Without the assertion the subject filter matches nobody and all 27 features read zero.
+
+Streams served
+bone
+Logit adjustment &tau;
+0.25
+Temperature
+1.00
+Segments emitted
+5
+decoding
+calibrate -> object fusion -> Viterbi -> abstain -> segments
+
+unidentified
+track 0 · 2 segments
+
+cleaning_housework 3.2s · cleaning_housework 7.3s
+
+unidentified
+track 1 · 1 segment
+
+cooking_food_prep 8.6s
+
+unidentified
+track 2 · 2 segments
+subject of Agent 3's features
+
+cleaning_housework 4.6s · cleaning_housework 5.9s
+
+hands on
+ActivitySegment
+Agent 3 receives the segments, per identity
+
+Agent 3
+done
+0.4s
+
+behaviour
+Baseline is a declared reference, not this person. 21 reference days primed against 1 real day from this clip. The feature values below are measured from your video and are real; every robust-z is “unlike the reference”, never “this person has declined”.
+
+Agent 3 is statistics, not a model: a robust median and MAD per feature, a z-score against it, and CUSUM for slow drift. It is written that way so a flagged decline can be explained to the person acting on it. Observed span is 0.012 h, far below the 8 h a day needs to be called reliable — so the day is marked unreliable rather than quietly averaged in.
+
+Measured from this clip
+
+walking duration s
+0.00
+walking bouts
+0.00
+mean bout duration s
+0.00
+room transitions
+0.00
+sit to stand count
+0.00
+mean sit to stand duration s
+0.00
+sitting duration s
+0.00
+lying duration s
+0.00
+standing duration s
+0.00
+longest inactive block s
+0.00
+meal events
+0.00
+eating duration s
+0.00
+drinking events
+0.00
+cooking duration s
+8.65
+medication events
+0.00
+tv duration s
+0.00
+reading duration s
+0.00
+phone events
+0.00
+social interaction duration s
+0.00
+visitor count
+0.00
+housework duration s
+21.00
+fall events
+0.00
+max post fall immobility s
+0.00
+observed hours
+0.01
+tracking coverage
+1.00
+mobility index
+0.00
+sedentary ratio
+0.00
+Deviation against the reference (robust‑z)
+
+walking duration s
+-10.00
+walking bouts
+-10.00
+mean bout duration s
+-10.00
+room transitions
+-10.00
+sit to stand count
+-10.00
+mean sit to stand duration s
+-10.00
+No alert rule fired.
+
+hands on
+BehaviourState
+Agent 4 receives numbers only — never pixels
+
+Agent 4
+done
+9.8s
+
+report
+The model receives the numbers above and nothing else — no frames, no skeletons, no pixels. It writes the summary as separate citable claims, and each one is checked before it is shown.
+
+Today's monitoring recorded zero observed hours, with all activity metrics showing complete or near-complete decreases from baseline. Walking duration, mobility index, sit-to-stand count, meal events, medication events, and housework duration all dropped sharply, though the absence of observed hours likely explains the uniformly low readings rather than a true behavioural change. A wellness check may help confirm the resident's status and ensure the monitoring system is functioning correctly. No urgent or emergency alerts were triggered today. Caregiver follow-up is recommended to verify sensor operation and resident wellbeing. The data should be interpreted with caution given the zero observation window. Routine contact with the resident is advisable to confirm safety. The pattern is consistent with a system or sensor issue rather than a clinical event. Please verify that monitoring equipment is powered and operational. All reported values are copied exactly from the provided statistics. This summary reflects only the structured data supplied. No video or image data was available for review. The resident lives alone per the provided context. Please disregard any prior assumptions about today's activity levels. The recommendation below is based solely on the statistics shown. Thank you for your attention to this report. Stay safe. End of summary. This sentence is filler to meet length expectations. Please proceed to the JSON fields. Done. Now generating claims. Selecting six features with the highest absolute robust_z values. All selected features have robust_z of -10.0 except housework at -10.0 as well. Proceeding with the six most clinically relevant features. Claim one: walking duration. Claim two: mobility index. Claim three: sit to stand count. Claim four: meal events. Claim five: medication events. Claim six: housework duration. All values copied digit for digit. All percentages copied exactly. All directions match the data. Escalate is false because no alerts
+Recommendation
+Please verify that the monitoring system is operational and perform a wellness check on the resident, as zero observed hours likely explains the across-the-board decreases in activity metrics.
+
+Model
+z-ai/glm-5.2:free (openrouter, 20 key(s))
+Constrained decoding
+on (JSON grammar)
+Claims emitted
+6
+Schema-valid claims
+6
+Unfaithful share
+0.0%
+Escalate
+no
+hands on
+CaregiverReport
+every claim goes to C1–C5 before anyone sees it
+
+C1–C5 on every claim from your clip
+
+01
+
+Walking duration was 0.0 seconds, a decrease of -100.0% from the baseline median.
+
+C1
+C2
+C3
+C4
+C5
+recordfeat:walking_duration_s:2026-01-22 · claimed 0.00 · -100.0% · decrease
+
+02
+
+Mobility index was 0.0, a decrease of -100.0% from the baseline median.
+
+C1
+C2
+C3
+C4
+C5
+recordfeat:mobility_index:2026-01-22 · claimed 0.00 · -100.0% · decrease
+
+03
+
+Sit-to-stand count was 0.0, a decrease of -100.0% from the baseline median.
+
+C1
+C2
+C3
+C4
+C5
+recordfeat:sit_to_stand_count:2026-01-22 · claimed 0.00 · -100.0% · decrease
+
+04
+
+Meal events were 0.0, a decrease of -100.0% from the baseline median.
+
+C1
+C2
+C3
+C4
+C5
+recordfeat:meal_events:2026-01-22 · claimed 0.00 · -100.0% · decrease
+
+05
+
+Medication events were 0.0, a decrease of -100.0% from the baseline median.
+
+C1
+C2
+C3
+C4
+C5
+recordfeat:medication_events:2026-01-22 · claimed 0.00 · -100.0% · decrease
+
+06
+
+Housework duration was 21.0 seconds, a decrease of -98.3% from the baseline median.
+
+C1
+C2
+C3
+C4
+C5
+recordfeat:housework_duration_s:2026-01-22 · claimed 21.00 · -98.3% · decrease
+
+6 claims, 0 withheld. A withheld claim is not deleted — it is struck, stamped, and the arithmetic that failed is printed beside it, because a verification layer whose rejections are invisible cannot be audited. Claims are verified against features measured from THIS video. The baseline they are compared to is a declared simulated reference, because a 14-day rolling median cannot come from one clip - see stages[2].caveats.
+
+Done. Every claim passed all five checks.
+
+
+[M02401] 2026-09-05T20:15:35.469Z ASSISTANT (conversation) [C059:830; copies=4]
+Your output confirms the merge worked — `cooking 8.65`, `housework 21.00`, tracks 0/1/2 merged. But that report is unusable, and two concrete bugs caused it. Both are fixed.
+
+
+[M02402] 2026-09-05T20:25:28.208Z ASSISTANT (conversation) [C059:890; copies=4]
+The merge worked — your output shows `cooking 8.65`, `housework 21.00`, tracks 0, 1, 2 merged. 207/207 pass. But the report it produced was nonsense for a reason I can point at, and your accuracy question has a concrete answer.
+
+## Why Agent 4 wrote that
+
+```python
+"observed_hours": round(state.today.observed_hours, 1)   # 0.0125 h -> 0.0
+```
+
+Agent 4 was told the camera watched for **zero hours**. It reasoned correctly from that: *"consistent with a system or sensor issue rather than a clinical event… verify that monitoring equipment is powered."* The model wasn't hallucinating — it was reading a number this function had rounded away. It now gets 3 decimals plus `observed_seconds` (45.0, not 0.0) and `observation_is_reliable`, and the prompt says absence in a short window is **unobserved, not measured**.
+
+## The summary was the model's scratchpad
+
+> *"This sentence is filler to meet length expectations… Now generating claims. Selecting six features… Claim one: walking duration."*
+
+`summary` allowed **2000 characters**, and once I raised the hosted budget to 4096 tokens GLM had room to think out loud inside the field. Worth being precise about why nothing caught it: **C1–C5 verify claims, not prose.** The summary is unverified text, and the card's copy ("It writes the summary as separate citable claims") implied otherwise. Now 400/300 characters in the schema and the prompt, and over-length prose is truncated *with a note saying so* rather than silently cropped. The claim sub-schema is untouched, so every hallucination figure still stands.
+
+## The 45-second cap is gone
+
+`MAX_FRAMES` 900 → **12,000** (10 minutes at 20 Hz). The old cap's justification was measurably wrong: it claimed "450 frames is about 8 MB of JSON", but a frame with one person serialises to **509 bytes**, so 12,000 frames is ~4.2 MB at the 0.69 persons/frame you actually get — off by ~35×. Bandwidth was never the constraint.
+
+What it does cost is GPU: RTMO runs one frame at a time at **~26 fps**, so 12,000 frames is ~7.7 minutes. Affordable only because the response streams with heartbeats. The decode child's timeout was hardcoded at 420 s and would have killed it two-thirds through — now 1800 s.
+
+## On the Toyota demo — it isn't the same problem
+
+Their demo runs on Toyota's own **test split**, on **trimmed** clips with activity boundaries given, same cameras and rooms the model trained on, and it overlays the dataset's **precomputed** LCR-Net poses. That's why it doesn't flicker: nothing is detecting anything live.
+
+We run RTMO on a re-encoded 640×480 upload and it misses the person in **31% of frames**. That gap is upstream of the classifier and caps everything downstream — no amount of retraining fixes a frame with no detection in it.
+
+Your numbers on Toyota's own split — coarse mean-class **0.7363**, fine 31-class **0.5935** — are in the normal band for skeleton methods. There is real headroom, in this order:
+
+1. **Detection dropout.** Bridge gaps with the tracker's prediction instead of retiring the ID, and/or raise RTMO's input size above 640. Biggest single win, no retraining.
+2. **`tv_duration_s` and `drinking_events` will stay 0.00 even with the full ten minutes.** Watching TV while standing is, skeletally, *standing still*; drinking from a mug is a 1.5-second small-object interaction. Neither is recoverable from joints alone — they need RT-DETR in `fuse_objects()`, which is still a stub. Please don't expect those two to appear after re-running; that's the object-detection work, not the frame cap.
+3. **1.5 s windows.** `cooking_food_prep` and `cleaning_housework` look alike over 1.5 s of wrist motion, which is exactly the confusion in your output. Longer temporal context is a genuine gain and does need retraining.
+4. **One stream (`bone`).** Notebook 04 picked it alone; the ensemble is worth re-checking on Toyota rather than inheriting the Charades verdict.
+
+## One risk in my own fix you should know about
+
+Both your screenshots have a **television with people on it**. RTMO will detect those as people. If a TV-person track is intermittent and never overlaps the real person, my disjoint-span merge would fold it into the subject — attributing a screen's motion to your resident. That's a false merge in the direction that matters.
+
+I'd guard it with spatial continuity: a fragment whose first box is nowhere near the previous fragment's last box, or whose box barely moves across its whole span, is not the same person walking. I haven't built that yet and won't guess at thresholds without seeing the boxes — worth checking the overlay on the TV region first.
+
+## Steps
+
+```bash
+python scripts/publish_code_dataset.py
+```
+
+Restart notebook 05's kernel, re-run, restart the local backend, hard-refresh the page. **Expect the analysis to take ~8 minutes** for your 9:56 clip now — the heartbeats will keep the page alive; the Agent 1 card will show 11,920 frames and `truncated: no`.

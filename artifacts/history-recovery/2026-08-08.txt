@@ -1,0 +1,1552 @@
+
+[M00925] 2026-08-08T05:48:13.013Z USER (conversation) [C007:996; copies=13]
+Time
+#
+Log Message
+6.0s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.0s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.0s	3	0.00s - to python to disable frozen modules.
+6.0s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+6.6s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.6s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.6s	7	0.00s - to python to disable frozen modules.
+6.6s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.2s	9	WARNING: Skipping onnxruntime as it is not installed.
+9.4s	10	WARNING: Skipping onnxruntime as it is not installed.
+9.4s	11	
+9.4s	12	WARNING: Skipping onnxruntime as it is not installed.
+11.0s	13	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 1.2 MB/s eta 0:00:00
+11.2s	14	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 1.2 MB/s eta 0:00:00
+17.6s	15	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 277.0/277.0 MB 6.4 MB/s eta 0:00:00
+17.8s	16	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 277.0/277.0 MB 6.4 MB/s eta 0:00:00
+179.7s	17	  code /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+179.7s	18	  attached ['datasets']
+179.7s	19	  contract 9/9 - mounted code is current
+211.6s	20	[0;93m2026-08-07 21:29:04.812992730 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+211.6s	21	[0;93m2026-08-07 21:29:04.816907742 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+211.6s	22	[0;93m2026-08-07 21:29:04.816924061 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+211.6s	23	load /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx with onnxruntime backend
+211.6s	24	pose model: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx  provider: CUDAExecutionProvider
+211.6s	25	[0;93m2026-08-07 21:29:04.812992730 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+211.6s	26	
+211.6s	27	[0;93m2026-08-07 21:29:04.812992730 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+211.7s	28	[0;93m2026-08-07 21:29:04.816907742 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+211.7s	29	[0;93m2026-08-07 21:29:04.816924061 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+211.7s	30	
+211.7s	31	[0;93m2026-08-07 21:29:04.816907742 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+211.7s	32	[0;93m2026-08-07 21:29:04.816924061 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+486.3s	33	  gmdcsa     OK     160 videos  /tmp/falls/gmdcsa
+486.3s	34	  urfd       OK      70 videos  /tmp/falls/urfd
+486.3s	35	  caucafall  ABSENT      HTTP Error 403: Forbidden
+490.6s	36	  le2i       OK     190 videos  /kaggle/input/datasets
+490.6s	37	
+490.6s	38	3/4 corpora - P2 leave-one-dataset-out needs >=2 to mean anything
+490.8s	39	gmdcsa: 160 clips
+1331.3s	40	urfd: 70 clips
+1659.6s	41	[mp3float @ 0x8ffb9c0] Header missing
+1659.6s	42	[mp3float @ 0x8ffb9c0] Header missing
+1659.6s	43	[mp3float @ 0x8ffb9c0] Header missing
+1659.9s	44	Kernel died while waiting for execute reply.
+1659.9s	45	Traceback (most recent call last):
+1659.9s	46	  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 949, in async_execute_cell
+1659.9s	47	    exec_reply = await self.task_poll_for_reply
+1659.9s	48	                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1659.9s	49	  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 730, in _async_poll_for_reply
+1659.9s	50	    msg = await ensure_async(self.kc.shell_channel.get_msg(timeout=new_timeout))
+1659.9s	51	          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1659.9s	52	  File "/usr/local/lib/python3.12/dist-packages/nbclient/util.py", line 96, in ensure_async
+1659.9s	53	    result = await obj
+1659.9s	54	             ^^^^^^^^^
+1659.9s	55	  File "/usr/local/lib/python3.12/dist-packages/jupyter_client/channels.py", line 224, in get_msg
+1659.9s	56	    ready = await self.socket.poll(timeout)
+1659.9s	57	            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1659.9s	58	asyncio.exceptions.CancelledError
+1659.9s	59	
+1659.9s	60	During handling of the above exception, another exception occurred:
+1659.9s	61	
+1659.9s	62	Traceback (most recent call last):
+1659.9s	63	  File "<string>", line 1, in <module>
+1659.9s	64	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 116, in execute_notebook
+1659.9s	65	    nb = papermill_engines.execute_notebook_with_engine(
+1659.9s	66	         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1659.9s	67	  File "/usr/local/lib/python3.12/dist-packages/papermill/engines.py", line 49, in execute_notebook_with_engine
+1659.9s	68	    return self.get_engine(engine_name).execute_notebook(nb, kernel_name, **kwargs)
+1659.9s	69	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1659.9s	70	  File "/usr/local/lib/python3.12/dist-packages/papermill/engines.py", line 371, in execute_notebook
+1659.9s	71	    cls.execute_managed_notebook(nb_man, kernel_name, log_output=log_output, **kwargs)
+1659.9s	72	  File "/usr/local/lib/python3.12/dist-packages/papermill/engines.py", line 443, in execute_managed_notebook
+1659.9s	73	    return PapermillNotebookClient(nb_man, **final_kwargs).execute()
+1659.9s	74	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1659.9s	75	  File "/usr/local/lib/python3.12/dist-packages/papermill/clientwrap.py", line 45, in execute
+1659.9s	76	    self.papermill_execute_cells()
+1659.9s	77	  File "/usr/local/lib/python3.12/dist-packages/papermill/clientwrap.py", line 72, in papermill_execute_cells
+1659.9s	78	    self.execute_cell(cell, index)
+1659.9s	79	  File "/usr/local/lib/python3.12/dist-packages/nbclient/util.py", line 84, in wrapped
+1659.9s	80	    return just_run(coro(*args, **kwargs))
+1659.9s	81	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1659.9s	82	  File "/usr/local/lib/python3.12/dist-packages/nbclient/util.py", line 62, in just_run
+1659.9s	83	    return loop.run_until_complete(coro)
+1659.9s	84	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1659.9s	85	  File "/usr/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+1659.9s	86	    return future.result()
+1659.9s	87	           ^^^^^^^^^^^^^^^
+1659.9s	88	  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 953, in async_execute_cell
+1659.9s	89	    raise DeadKernelError("Kernel died")
+1659.9s	90	nbclient.exceptions.DeadKernelError: Kernel died
+1661.9s	91	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+1661.9s	92	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+1662.1s	93	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+1662.1s	94	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+1662.7s	95	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+1663.0s	96	[NbConvertApp] Writing 30900 bytes to __notebook__.ipynb
+1665.3s	97	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+1665.7s	98	[NbConvertApp] Writing 358931 bytes to __results__.html
+
+
+[M00926] 2026-08-08T05:49:35.810Z ASSISTANT (conversation) [C007:999; copies=13]
+Kernel died at 1660s — and it took gmdcsa + urfd with it, because notebook 02 holds everything in memory and writes once at the end. Three defects; let me confirm each:
+
+
+[M00927] 2026-08-08T05:50:30.939Z ASSISTANT (conversation) [C007:1005; copies=13]
+All three confirmed. Fixing the acquisition cell first — Le2i root by annotation location, and CAUCAFall's 403:
+
+
+[M00928] 2026-08-08T05:51:12.055Z ASSISTANT (conversation) [C007:1009; copies=13]
+Now the crash-loss defect — incremental flush, per-video isolation, and a frame cap for the malformed AVIs that preceded the death:
+
+
+[M00929] 2026-08-08T05:52:33.684Z ASSISTANT (conversation) [C007:1015; copies=13]
+Now I can see the real text. Targeted edits:
+
+
+[M00930] 2026-08-08T05:53:52.014Z ASSISTANT (conversation) [C007:1025; copies=13]
+Found a worse defect than the crash — my labelling edit left the old heuristic block reachable:
+
+
+[M00931] 2026-08-08T05:54:28.261Z ASSISTANT (conversation) [C007:1029; copies=13]
+`with_starts` returns a flat list — good. But I introduced a serious bug: the old heuristic block is still reachable, so **every window gets appended twice**, the second copy labelled by the old rule. ADL clips would contribute fall-labelled windows:
+
+
+[M00932] 2026-08-08T05:54:49.880Z ASSISTANT (conversation) [C007:1032; copies=13]
+The final save cell still assumes one in-memory batch. Let me align it with the flush model:
+
+
+[M00933] 2026-08-08T05:55:18.834Z ASSISTANT (conversation) [C007:1036; copies=13]
+The gate reads the in-memory lists, which the final flush now empties — every assert would fire spuriously. Pointing it at the written shards:
+
+
+[M00934] 2026-08-08T05:56:17.522Z ASSISTANT (conversation) [C007:1044; copies=13]
+That trailing `savez` would crash on the now-empty lists and clobber shard 0. Replacing it:
+
+
+[M00935] 2026-08-08T05:57:54.027Z ASSISTANT (conversation) [C007:1051; copies=13]
+Now let me actually execute the extraction logic against synthetic corpora, since reading it clearly wasn't enough:
+
+
+[M00936] 2026-08-08T05:59:28.441Z ASSISTANT (conversation) [C007:1055; copies=13]
+My assertion arithmetic was wrong — 7 clips give 7 subjects, not 6. The code results are right (63 == 63, no duplicates). Re-running with the correct expectation:
+
+
+[M00937] 2026-08-08T05:59:56.067Z ASSISTANT (conversation) [C007:1059; copies=13]
+Verified end-to-end. Let me lock the duplicate-append bug in a test, since it nearly shipped:
+
+
+[M00938] 2026-08-08T06:00:59.750Z ASSISTANT (conversation) [C007:1067; copies=13]
+The gate lives in the same cell as `flush()`, and the acquisition cell is a different one. Fixing the test's cell selection:
+
+
+[M00939] 2026-08-08T06:03:52.215Z ASSISTANT (conversation) [C007:1075; copies=13]
+Two tests keyed on text I moved. Let me find and fix them:
+
+
+[M00940] 2026-08-08T06:05:02.789Z ASSISTANT (conversation) [C007:1084; copies=13]
+N15 reimplements the labelling inline — exactly the "copy of tested code" trap. Rewriting it to exercise the shared function, and disambiguating N16's needle:
+
+
+[M00941] 2026-08-08T06:07:35.419Z ASSISTANT (conversation) [C007:1089; copies=13]
+N15 asserts on `assert skels`, which the flush refactor deliberately replaced with the disk-based gate. Updating that expectation:
+
+
+[M00942] 2026-08-08T06:18:37.223Z ASSISTANT (conversation) [C007:1101; copies=13]
+The notebook now imports two functions a stale snapshot wouldn't have. Let me check the contract covers them:
+
+
+[M00943] 2026-08-08T06:18:56.785Z ASSISTANT (conversation) [C007:1105; copies=13]
+`le2i_fall_frames` and `label_fall_windows` aren't covered — a stale code dataset would ImportError at cell 5, after the wheels install. Adding them:
+
+
+[M00944] 2026-08-08T06:23:18.626Z ASSISTANT (conversation) [C007:1109; copies=13]
+All green. Two things left: the plan doc doesn't mention what notebook 02 now needs, and the Kaggle path nesting has now caused two separate bugs — worth recording.
+
+
+[M00945] 2026-08-08T06:27:22.536Z ASSISTANT (conversation) [C007:1120; copies=13]
+Two distinct bugs have now come from Kaggle's mount nesting. Recording it so it doesn't cost a third:
+
+
+[M00946] 2026-08-08T06:43:22.657Z ASSISTANT (conversation) [C007:1131; copies=13]
+The kernel death cost 27 minutes of finished work, and that loss was a defect in my notebook, not in your run. Four fixes, plus one the fixes themselves introduced.
+
+**Why the loss was avoidable.** Notebook 01 flushes every 400 MB; notebook 02 accumulated all four corpora and wrote one file at the end. gmdcsa (160 clips) and urfd (70) had extracted cleanly and were discarded. It now flushes on the same trigger *and* at every corpus boundary, so a crash in corpus N+1 can't cost corpus N.
+
+**Why the kernel died.** The three `[mp3float] Header missing` lines are the tell — a malformed container hands back frames from a corrupt index indefinitely, and `poses` grows until RAM is gone. Capped at 3000 sampled frames (200 s at 15 fps; nothing in these corpora is close), and each clip is now isolated so one bad file is reported rather than fatal.
+
+**Two acquisition bugs.** Le2i's root resolved to `/kaggle/input/datasets` — the whole mount — because Kaggle nests datasets one level deeper than my glob assumed. Every Le2i subject id became the *owner name*, collapsing 190 videos onto one id. That's the same P1-defeating collapse I fixed for GMDCSA yesterday, arriving by a different route, so I've written it to memory rather than fixing it a third time. The root is now anchored on `Annotation_files` and accepted only if annotations actually resolve for half a sampled 20 clips — a functional check, not a shape check. CAUCAFall's 403 was Mendeley rejecting urllib's default User-Agent from a Kaggle IP; it serves the same URL to a laptop.
+
+**And one I introduced.** Rewriting the labelling left the old positional block reachable, so every window was appended **twice** — the second copy labelled by the superseded rule, which would have given **ADL clips fall labels**. Reading the cell didn't reveal it; executing it over four synthetic corpus layouts did:
+
+```
+windows : 63  (7 clips x 9 = 63)
+PASS  no duplicate appends | ADL clips -> other_idle only | fall clips -> falling present
+```
+
+Two tests had to change, and both failures were the useful kind. `N15` keyed on `mids = [` and re-implemented the mid-point maths inline — it would have kept passing against its own arithmetic after the notebook moved to the shared function. It now calls `label_fall_windows` directly. Its gate check also demanded `assert skels`, which is precisely the pre-flush behaviour being removed.
+
+136/136 pass. The contract gained `le2i_fall_frames` and `label_fall_windows`, so a stale code dataset now fails at cell 1 instead of ImportError-ing at cell 5.
+
+**Start from: notebook 02** — re-paste it, attach `behaviorsense-code` + `tuyenldvn/falldataset-imvia`, T4 x2, internet ON.
+
+**Re-upload `behaviorsense-code`: YES, first** — `prepare_skeletons.py` gained both new functions and `is_fall_clip` changed:
+
+```bash
+kaggle datasets version -p . --dir-mode zip -m "le2i annotations, shared fall labelling"
+```
+
+Expect `contract 11/11`, then per-corpus counts, then `wrote falls_0000.npz` lines *during* extraction rather than only at the end — that's the change that makes a rerun cheap if anything else dies.
+
+
+[M00947] 2026-08-08T07:37:28.090Z USER (conversation) [C007:1132; copies=13]
+what is to be done now?
+
+
+[M00948] 2026-08-08T07:40:03.461Z ASSISTANT (conversation) [C007:1134; copies=13]
+**Two things, in this order.**
+
+**1. Re-upload the code dataset** — required, because `prepare_skeletons.py` gained `le2i_fall_frames` and `label_fall_windows`, and `is_fall_clip` changed to token matching. Notebook 02 imports all three:
+
+```bash
+kaggle datasets version -p . --dir-mode zip -m "le2i annotations, shared fall labelling"
+```
+
+**2. Re-paste and run notebook 02** — Kaggle's copy is several fixes behind, and it's a snapshot, so nothing reaches the session until you copy it in.
+
+- **T4 x2, internet ON**
+- Attach: `behaviorsense-code` + `tuyenldvn/falldataset-imvia`
+- ~15–20 min
+
+What tells you it's working, in order:
+
+```
+contract 11/11 - mounted code is current
+provider IN USE: CUDAExecutionProvider
+gmdcsa OK / urfd OK / caucafall OK / le2i OK — 4/4 corpora
+  le2i  annotations resolve for N/20 sampled clips
+    wrote falls_0000.npz (... windows, ... banked)   ← during extraction, not after
+```
+
+That last line is the one I'd watch. It's the difference between this run and the one that died: shards are banked as it goes, so a crash costs minutes rather than everything.
+
+Then the gate prints the label balance, the subject ids with window counts, and whether P2 is viable. **Quick Save** → create `behaviorsense-fall-shards`.
+
+**Two things worth knowing before you start.** CAUCAFall's fix is the one I'm least certain of — I verified the 403 and that a browser UA is the standard cause, but couldn't confirm the fetch succeeds from a Kaggle IP. If it fails again you'll get `caucafall ABSENT` with the reason, and the other three still complete; three corpora is enough for P2. Second, if Le2i's mirror layout differs from the published structure, you'll see `le2i ABSENT` naming how many candidate roots it checked — that's the functional check refusing rather than silently mislabelling 190 videos.
+
+After that: **notebook 03**, offline on the Blackwell, which is the first session that produces actual model results.
+
+
+[M00949] 2026-08-08T10:44:42.401Z USER (conversation) [C007:1135; copies=13]
+Time
+#
+Log Message
+12.3s	0	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+12.3s	1	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+12.3s	2	0.00s - to python to disable frozen modules.
+12.3s	3	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+13.0s	4	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+13.0s	5	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+13.0s	6	0.00s - to python to disable frozen modules.
+13.0s	7	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+17.7s	8	WARNING: Skipping onnxruntime as it is not installed.
+17.9s	9	WARNING: Skipping onnxruntime as it is not installed.
+17.9s	10	
+17.9s	11	WARNING: Skipping onnxruntime as it is not installed.
+865.2s	12	[0;93m2026-08-08 10:29:56.941430712 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+865.2s	13	[0;93m2026-08-08 10:29:56.945191568 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+865.2s	14	[0;93m2026-08-08 10:29:56.945205973 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+865.2s	15	[0;93m2026-08-08 10:29:56.941430712 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+865.2s	16	
+865.2s	17	[0;93m2026-08-08 10:29:56.941430712 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+865.2s	18	[0;93m2026-08-08 10:29:56.945191568 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+865.2s	19	[0;93m2026-08-08 10:29:56.945205973 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+865.2s	20	
+865.2s	21	[0;93m2026-08-08 10:29:56.945191568 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+865.2s	22	[0;93m2026-08-08 10:29:56.945205973 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+19.1s	23	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 1.8 MB/s eta 0:00:00
+19.3s	24	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 1.8 MB/s eta 0:00:00
+23.3s	25	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 277.0/277.0 MB 6.8 MB/s eta 0:00:00
+23.5s	26	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 277.0/277.0 MB 6.8 MB/s eta 0:00:00
+666.9s	27	  code /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+666.9s	28	  attached ['datasets']
+666.9s	29	  contract 11/11 - mounted code is current
+865.2s	30	load /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx with onnxruntime backend
+865.2s	31	pose model: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx  provider: CUDAExecutionProvider
+1235.3s	32	  le2i      annotations resolve for 19/20 sampled clips
+1235.3s	33	  gmdcsa     OK     160 videos  /tmp/falls/gmdcsa
+1235.3s	34	  urfd       OK      70 videos  /tmp/falls/urfd
+1235.3s	35	  caucafall  ABSENT      Mendeley walk found no video
+1235.3s	36	  le2i       OK      48 videos  /kaggle/input/datasets/tuyenldvn/falldataset-imvia/Coffee_room_01
+1235.3s	37	
+1235.3s	38	3/4 corpora - P2 leave-one-dataset-out needs >=2 to mean anything
+1235.5s	39	gmdcsa: 160 clips
+
+
+[M00950] 2026-08-08T10:45:41.780Z ASSISTANT (conversation) [C007:1137; copies=13]
+Good news first: `contract 11/11`, CUDA in use, and the Le2i functional check did its job — `annotations resolve for 19/20`. But two things in that log need fixing:
+
+
+[M00951] 2026-08-08T10:46:09.992Z ASSISTANT (conversation) [C007:1141; copies=13]
+No folder concept at all — 9 flat entries. Let me see what they actually are:
+
+
+[M00952] 2026-08-08T10:46:28.820Z ASSISTANT (conversation) [C007:1145; copies=13]
+CAUCAFall's Mendeley record contains **only documentation** — 9 files, ~1.2 MB, all xlsx/jpeg. No video. Let me check whether another version holds it:
+
+
+[M00953] 2026-08-08T10:47:06.441Z ASSISTANT (conversation) [C007:1150; copies=13]
+CAUCAFall's Mendeley record has **no video at all** — 9 documentation files, 1.1 MB, and older versions return 451. I assumed the videos were nested when I saw only figures at root; that was wrong, and my "fetches itself" claim for CAUCAFall was unverified. Let me find where the video actually lives:
+
+
+[M00954] 2026-08-08T10:48:01.871Z ASSISTANT (conversation) [C007:1154; copies=13]
+CAUCAFall is on Kaggle as `tuyenldvn/caucafall` (8.33 GB) — same owner as your Le2i mirror. S3 is 403 regardless of headers, so the Mendeley route can't work and should go. Let me read the acquisition cell before editing:
+
+
+[M00955] 2026-08-08T10:48:44.243Z ASSISTANT (conversation) [C007:1159; copies=13]
+Replacing the dead Mendeley walk with a mount, and fixing Le2i to cover all scenes:
+
+
+[M00956] 2026-08-08T10:49:26.428Z ASSISTANT (conversation) [C007:1164; copies=13]
+Now the Le2i scene bug — it stopped at the first scene, taking 48 of ~190 videos:
+
+
+[M00957] 2026-08-08T10:49:57.801Z ASSISTANT (conversation) [C007:1169; copies=13]
+The `break` took the first scene only. Fixing it to span all scenes via common ancestor:
+
+
+[M00958] 2026-08-08T10:50:25.828Z ASSISTANT (conversation) [C007:1172; copies=13]
+Testing the scene-spanning logic against the mirror's actual nesting:
+
+
+[M00959] 2026-08-08T10:51:14.853Z ASSISTANT (conversation) [C007:1175; copies=13]
+Both layouts resolve to the full corpus with distinct per-scene subjects. Locking it, then running the suite:
+
+
+[M00960] 2026-08-08T10:53:10.554Z ASSISTANT (conversation) [C007:1179; copies=13]
+**Let the current run finish** — it's banking shards incrementally now, so it costs you nothing and gives a working 3-corpus fallback. But it's under-collecting, and I've fixed both causes for the rerun.
+
+**What went right:** `contract 11/11`, CUDA in use, and the Le2i functional check earned its keep — `annotations resolve for 19/20 sampled clips`. That's the check refusing to accept a mount on shape alone.
+
+**Two things it got wrong.**
+
+`le2i OK 48 videos .../falldataset-imvia/Coffee_room_01` — that's **one scene**, not the corpus. My anchor took the first annotation folder's grandparent and stopped. Two consequences: 48 of ~190 videos, and since subject ids are derived relative to the root, all 48 collapse onto the single id `le2i_Coffee_room_01`. Now uses the **common ancestor** of every annotation folder, and samples across the tree rather than the first 20 (a head sample sits entirely inside one scene and tells you nothing about the rest). Verified against both flat and Kaggle's duplicate-nested layouts — 4 scenes, 4 distinct subject ids in each.
+
+`caucafall ABSENT — Mendeley walk found no video` was **my error, not a transient failure.** I checked that the API returned entries and assumed the videos were nested deeper. They aren't: that DOI publishes **nine documentation files** — one xlsx, eight jpegs, 1.1 MB total — and no video in any reachable version. Versions 1–3 return 451; the S3 bulk zip is 403 under any User-Agent. The walk could only ever have found figures. It's now a mount, and there's a Kaggle mirror from the same publisher as your Le2i one: **`tuyenldvn/caucafall`** (8.33 GB).
+
+**So, in order:**
+
+1. Let the run finish and Quick Save. You get gmdcsa 160 + urfd 70 + le2i 48 — valid shards, P2 works with 3 corpora.
+2. Re-upload `behaviorsense-code`? **No** — both fixes are notebook-side.
+3. Attach **`tuyenldvn/caucafall`** alongside the Le2i mirror, re-paste notebook 02, run again (~20 min). Expect `4/4 corpora` and a Le2i line naming several scenes.
+
+That second run replaces the dataset with the full set. If you'd rather move on, the current shards are genuinely usable and CAUCAFall can be added later — but Le2i at 48/190 with one subject id is the weaker half of your fall data, so I'd spend the 20 minutes.
+
+120/120 tests pass.
+
+
+[M00961] 2026-08-08T12:41:08.603Z USER (conversation) [C007:1180; copies=13]
+how can i give a reply inna save and run all session?
+Version 3 failed to run after 2373.9s
+Accelerator
+GPU T4 x2
+
+Environment
+Latest Container Image
+
+Output
+1.7 MB
+
+Time
+#
+Log Message
+12.3s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+12.3s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+12.3s	3	0.00s - to python to disable frozen modules.
+12.3s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+13.0s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+13.0s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+13.0s	7	0.00s - to python to disable frozen modules.
+13.0s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+17.7s	9	WARNING: Skipping onnxruntime as it is not installed.
+17.9s	10	WARNING: Skipping onnxruntime as it is not installed.
+17.9s	11	
+17.9s	12	WARNING: Skipping onnxruntime as it is not installed.
+19.1s	13	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 1.8 MB/s eta 0:00:00
+19.3s	14	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 1.8 MB/s eta 0:00:00
+23.3s	15	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 277.0/277.0 MB 6.8 MB/s eta 0:00:00
+23.5s	16	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 277.0/277.0 MB 6.8 MB/s eta 0:00:00
+666.9s	17	  code /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+666.9s	18	  attached ['datasets']
+666.9s	19	  contract 11/11 - mounted code is current
+865.2s	20	[0;93m2026-08-08 10:29:56.941430712 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+865.2s	21	[0;93m2026-08-08 10:29:56.945191568 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+865.2s	22	[0;93m2026-08-08 10:29:56.945205973 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+865.2s	23	load /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx with onnxruntime backend
+865.2s	24	pose model: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx  provider: CUDAExecutionProvider
+865.2s	25	[0;93m2026-08-08 10:29:56.941430712 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+865.2s	26	
+865.2s	27	[0;93m2026-08-08 10:29:56.941430712 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+865.2s	28	[0;93m2026-08-08 10:29:56.945191568 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+865.2s	29	[0;93m2026-08-08 10:29:56.945205973 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+865.2s	30	
+865.2s	31	[0;93m2026-08-08 10:29:56.945191568 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+865.2s	32	[0;93m2026-08-08 10:29:56.945205973 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+1235.3s	33	  le2i      annotations resolve for 19/20 sampled clips
+1235.3s	34	  gmdcsa     OK     160 videos  /tmp/falls/gmdcsa
+1235.3s	35	  urfd       OK      70 videos  /tmp/falls/urfd
+1235.3s	36	  caucafall  ABSENT      Mendeley walk found no video
+1235.3s	37	  le2i       OK      48 videos  /kaggle/input/datasets/tuyenldvn/falldataset-imvia/Coffee_room_01
+1235.3s	38	
+1235.3s	39	3/4 corpora - P2 leave-one-dataset-out needs >=2 to mean anything
+1235.5s	40	gmdcsa: 160 clips
+2107.7s	41	    wrote falls_0000.npz (914 windows, 914 banked)
+2107.7s	42	  gmdcsa done - 914 windows on disk
+2107.7s	43	urfd: 70 clips
+2366.2s	44	[mp3float @ 0x20068e80] Header missing
+2366.2s	45	[mp3float @ 0x20068e80] Header missing
+2366.2s	46	[mp3float @ 0x20068e80] Header missing
+2366.6s	47	Kernel died while waiting for execute reply.
+2366.6s	48	Traceback (most recent call last):
+2366.6s	49	  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 949, in async_execute_cell
+2366.6s	50	    exec_reply = await self.task_poll_for_reply
+2366.6s	51	                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2366.6s	52	  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 730, in _async_poll_for_reply
+2366.6s	53	    msg = await ensure_async(self.kc.shell_channel.get_msg(timeout=new_timeout))
+2366.6s	54	          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2366.6s	55	  File "/usr/local/lib/python3.12/dist-packages/nbclient/util.py", line 96, in ensure_async
+2366.6s	56	    result = await obj
+2366.6s	57	             ^^^^^^^^^
+2366.6s	58	  File "/usr/local/lib/python3.12/dist-packages/jupyter_client/channels.py", line 224, in get_msg
+2366.6s	59	    ready = await self.socket.poll(timeout)
+2366.6s	60	            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2366.6s	61	asyncio.exceptions.CancelledError
+2366.6s	62	
+2366.6s	63	During handling of the above exception, another exception occurred:
+2366.6s	64	
+2366.6s	65	Traceback (most recent call last):
+2366.6s	66	  File "<string>", line 1, in <module>
+2366.6s	67	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 116, in execute_notebook
+2366.6s	68	    nb = papermill_engines.execute_notebook_with_engine(
+2366.6s	69	         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2366.6s	70	  File "/usr/local/lib/python3.12/dist-packages/papermill/engines.py", line 49, in execute_notebook_with_engine
+2366.6s	71	    return self.get_engine(engine_name).execute_notebook(nb, kernel_name, **kwargs)
+2366.6s	72	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2366.6s	73	  File "/usr/local/lib/python3.12/dist-packages/papermill/engines.py", line 371, in execute_notebook
+2366.6s	74	    cls.execute_managed_notebook(nb_man, kernel_name, log_output=log_output, **kwargs)
+2366.6s	75	  File "/usr/local/lib/python3.12/dist-packages/papermill/engines.py", line 443, in execute_managed_notebook
+2366.6s	76	    return PapermillNotebookClient(nb_man, **final_kwargs).execute()
+2366.6s	77	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2366.6s	78	  File "/usr/local/lib/python3.12/dist-packages/papermill/clientwrap.py", line 45, in execute
+2366.6s	79	    self.papermill_execute_cells()
+2366.6s	80	  File "/usr/local/lib/python3.12/dist-packages/papermill/clientwrap.py", line 72, in papermill_execute_cells
+2366.6s	81	    self.execute_cell(cell, index)
+2366.6s	82	  File "/usr/local/lib/python3.12/dist-packages/nbclient/util.py", line 84, in wrapped
+2366.6s	83	    return just_run(coro(*args, **kwargs))
+2366.6s	84	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2366.6s	85	  File "/usr/local/lib/python3.12/dist-packages/nbclient/util.py", line 62, in just_run
+2366.6s	86	    return loop.run_until_complete(coro)
+2366.6s	87	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2366.6s	88	  File "/usr/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+2366.6s	89	    return future.result()
+2366.6s	90	           ^^^^^^^^^^^^^^^
+2366.6s	91	  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 953, in async_execute_cell
+2366.6s	92	    raise DeadKernelError("Kernel died")
+2366.6s	93	nbclient.exceptions.DeadKernelError: Kernel died
+2369.1s	94	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+2369.1s	95	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+2369.3s	96	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+2369.3s	97	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+2370.0s	98	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+2370.3s	99	[NbConvertApp] Writing 35941 bytes to __notebook__.ipynb
+2372.6s	100	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+2373.1s	101	[NbConvertApp] Writing 373308 bytes to __results__.html
+
+
+[M00962] 2026-08-08T12:43:26.565Z ASSISTANT (conversation) [C007:1182; copies=13]
+Two things — and one correction to what I told you earlier.
+
+**You can't reply to a Save & Run All session.** It's headless papermill: no stdin, no prompts, no intervention. That's precisely why the notebook has to be self-sufficient. (Interactive sessions let you re-run cells, but they don't persist output to a dataset.)
+
+**The flush fix worked** — that's the important line:
+
+```
+2107.7s  wrote falls_0000.npz (914 windows, 914 banked)
+2107.7s  gmdcsa done - 914 windows on disk
+```
+
+gmdcsa survived the crash this time. Last run, that work was lost.
+
+**My correction:** I said the first crash was on a Le2i clip. It wasn't. Both crashes are in **URFD**, at the same point:
+
+
+[M00963] 2026-08-08T12:45:31.978Z ASSISTANT (conversation) [C007:1186; copies=13]
+The frame cap didn't help because the fault is in **native** code — `cv2 → ffmpeg → mp3float`. A segfault there kills the interpreter outright; Python guards can't see it. Let me verify against the real files rather than reason about it:
+
+
+[M00964] 2026-08-08T12:46:13.421Z ASSISTANT (conversation) [C007:1190; copies=13]
+The video files contain only video tracks—no audio streams at all. Yet mp3float errors are appearing, which means ffmpeg is misinterpreting the file structure and attempting to decode video data as MP3 audio. This points to a corrupted or truncated file where the container structure is damaged, causing ffmpeg to lose sync and misidentify stream types. The next step is to identify which specific file is triggering this by checking all 70 files for size anomalies or download issues.
+
+
+[M00965] 2026-08-08T12:48:48.734Z ASSISTANT (conversation) [C007:1195; copies=13]
+API Error: API returned an empty or malformed response (HTTP 200) — check for a proxy or gateway intercepting the request
+
+
+[M00966] 2026-08-08T13:10:09.358Z USER (context) [C007:1196; copies=13]
+Continue from where you left off.
+
+
+[M00967] 2026-08-08T13:10:09.358Z ASSISTANT (conversation) [C007:1197; copies=13]
+No response requested.
+
+
+[M00968] 2026-08-08T13:16:40.459Z USER (conversation) [C007:1198; copies=13]
+Continue
+
+
+[M00969] 2026-08-08T13:17:41.868Z ASSISTANT (conversation) [C007:1200; copies=13]
+All 70 URFD files are well-formed `mp42`, video-only, none truncated — so it isn't an obviously corrupt download, and I can't reproduce the crash without the GPU environment. The engineering answer doesn't depend on finding the exact file, though: **a native crash can't be caught in-process, so the decode has to happen somewhere the kernel can afford to lose.**
+
+
+[M00970] 2026-08-08T13:18:30.275Z ASSISTANT (conversation) [C022:1492; copies=1]
+`textwrap.dedent` didn't strip the leading newline's indentation. Fixing the fixture:
+
+
+[M00971] 2026-08-08T13:20:21.352Z ASSISTANT (conversation) [C022:1498; copies=1]
+API Error: API returned an empty or malformed response (HTTP 200) — check for a proxy or gateway intercepting the request
+
+
+[M00972] 2026-08-08T13:28:10.173Z USER (conversation) [C007:1204; copies=13]
+Continue
+
+
+[M00973] 2026-08-08T13:30:30.602Z ASSISTANT (conversation) [C022:1504; copies=1]
+`/tmp` resolves differently between the shell and Python here. Writing the prototype to a real path:
+
+
+[M00974] 2026-08-08T13:31:18.272Z ASSISTANT (conversation) [C022:1508; copies=1]
+Converges in 1+n_poison runs, each crash costing one file. Wiring it into notebook 02 as a pre-pass:
+
+
+[M00975] 2026-08-08T13:32:18.951Z ASSISTANT (conversation) [C022:1511; copies=1]
+My inserted cell left an unbalanced quote, so the parser ran into notebook 03's markdown. Let me find it:
+
+
+[M00976] 2026-08-08T13:33:06.689Z ASSISTANT (conversation) [C022:1514; copies=1]
+The probe cell never gets closed — my `'''` terminator was consumed by the outer heredoc. Adding it:
+
+
+[M00977] 2026-08-08T13:33:38.758Z ASSISTANT (conversation) [C022:1520; copies=1]
+Now verifying the generated probe actually isolates a crash, running the real cell code against a synthetic poison file:
+
+
+[M00978] 2026-08-08T13:34:11.978Z ASSISTANT (conversation) [C022:1524; copies=1]
+My regex split the CHILD list on a `]` inside the code. Extracting by exec instead:
+
+
+[M00979] 2026-08-08T13:34:46.139Z ASSISTANT (conversation) [C022:1527; copies=1]
+The notebook's own child script isolates both poison clips. Locking it as a regression test and running the suite:
+
+
+[M00980] 2026-08-08T13:36:21.323Z ASSISTANT (conversation) [C022:1533; copies=1]
+The heredoc collapsed `\\n` again. Repairing that line:
+
+
+[M00981] 2026-08-08T13:36:52.253Z ASSISTANT (conversation) [C022:1539; copies=1]
+Same collapse two more places. Fixing all remaining ones by parsing until clean:
+
+
+[M00982] 2026-08-08T13:37:36.940Z ASSISTANT (conversation) [C022:1542; copies=1]
+This heredoc escaping keeps corrupting the test file — three separate collapses now. Let me stop patching line-by-line and rewrite the two tests as a file:(tool_use) name=Bash id=toolu_01LFmWNBGtLZUeSSw6yfKHDp input={"command":"cd \"C:/Users/Admin/Desktop/EmotionSense-Extended\" \u0026\u0026 python - \u003c\u003c'PYEOF'\nimport pathlib\np = pathlib.Path(\"tests/test_notebooks.py\")\nlines = p.read_text(encoding=\"utf-8\").splitlines()\ni = next(k for k, L in enumerate(lines) if L.startswith(\"def test_n18_\"))\nj = next(k for k, L in enumerate(lines) if L.startswith(\"def test_n19_\"))\nend = next(k for k, L in enumerate(lines[j:], j) if L.startswith(\"# ---\"))\nprint(f\"excising lines {i+1}..{end} (n18+n19)\")\ndel lines[i:end]\np.write_text(\"\\n\".join(lines) + \"\\n\", encoding=\"utf-8\")\nimport ast; ast.parse(p.read_text(encoding=\"utf-8\"))\nprint(\"file parses again\")\nPYEOF","description":"Excise the corrupted tests to restore a parsing file"}
+
+
+[M00983] 2026-08-08T13:39:16.530Z ASSISTANT (conversation) [C022:1550; copies=1]
+Clean at 20/20. Now re-adding both tests with `Write`, which doesn't go through shell escaping:
+
+
+[M00984] 2026-08-08T13:41:50.749Z ASSISTANT (conversation) [C022:1555; copies=1]
+(tool_use) name=Edit id=toolu_01UYCHVqmBw94NnHrKPtszad input={"file_path":"C:\\Users\\Admin\\Desktop\\EmotionSense-Extended\\tests\\test_notebooks.py","new_string":"    print(f\"  N15 fall labels track frame position (occluded descent within \"\n          f\"{err:.0f} frames), every 3-15 s clip yields a `falling` window, shard gate \"\n          f\"refuses degenerate corpora\")\n\n\ndef test_n18_decode_probe_isolates_a_native_crash():\n    \"\"\"A clip that segfaults ffmpeg must cost one clip, not the corpus.\n\n    Two notebook-02 sessions died inside URFD ~0.4 s after \"[mp3float] Header missing\".\n    Neither the per-video try/except nor the 3000-frame cap fired, because the fault is\n    in cv2 -\u003e ffmpeg native code and a SIGSEGV there takes the interpreter with it. No\n    in-process guard can catch that, so the decode happens in a child process that\n    journals each attempt BEFORE trying it: a crash leaves its last TRY line unmatched,\n    naming the poison clip, and the parent restarts past it.\n\n    This runs the notebook's OWN child script - extracted, not retyped - with the decode\n    swapped for a stub that _exit(139)s on marked files. Retyping the protocol here would\n    test the copy, which is how a guard silently stops matching the notebook it guards.\n    \"\"\"\n    cell = _cell_containing(\"02_prepare_fall_shards_online.ipynb\", \"decode_probe\")\n    head = cell.index(\"TAB, NL = \")\n    ns: dict = {}\n    exec(compile(cell[head:cell.index(\"(WORK /\", head)], \"\u003cchild\u003e\", \"exec\"), ns)\n\n    assert \"buffering=1\" in ns[\"CHILD\"], (\n        \"probe journal is buffered; on a crash the TRY line naming the poison clip is \"\n        \"still in the child's buffer and the failure becomes anonymous\")\n\n    stub = (ns[\"CHILD\"]\n            .replace(\"import sys, os, cv2\", \"import sys, os\")\n            .replace(\"    cap = cv2.VideoCapture(p)\",\n                     \"    if 'POISON' in p:\" + chr(10) + \"        os._exit(139)\")\n            .replace(\"    n = 0\", \"    n = 7\"))\n    kept, skipping = [], False\n    for line in stub.splitlines():\n        if line.startswith(\"    while True:\"):\n            skipping = True\n        if skipping and line.startswith(\"    cap.release()\"):\n            skipping = False\n            continue\n        if not skipping:\n            kept.append(line)\n    stub = chr(10).join(kept)\n\n    with tempfile.TemporaryDirectory() as td:\n        tmp = Path(td)\n        vids = [f\"c{i}.mp4\" for i in range(6)]\n        vids[1], vids[3] = \"c_POISON_1.mp4\", \"c_POISON_3.mp4\"\n        (tmp / \"list.txt\").write_text(chr(10).join(vids) + chr(10), encoding=\"utf-8\")\n        (tmp / \"child.py\").write_text(stub, encoding=\"utf-8\")\n        journal = tmp / \"journal.tsv\"\n        attempt = 0\n        for attempt in range(1, 12):\n            r = subprocess.run(\n                [sys.executable, str(tmp / \"child.py\"), str(tmp / \"list.txt\"),\n                 str(journal)], capture_output=True, text=True)\n            if r.returncode == 0:\n                break\n        rows = [ln.split(chr(9)) for ln\n                in journal.read_text(encoding=\"utf-8\").splitlines() if ln.strip()]\n\n    usable = {r[1] for r in rows if r[0] == \"OK\"}\n    poison = sorted({r[1] for r in rows if r[0] == \"TRY\"} - usable)\n    assert poison == [\"c_POISON_1.mp4\", \"c_POISON_3.mp4\"], poison\n    assert len(usable) == 4, f\"{len(usable)} clips survived, want 4\"\n    assert attempt == 3, f\"converged in {attempt} runs, want 1 + 2 poison\"\n    print(f\"  N18 decode probe: {len(usable)}/6 clips kept, 2 poison clips named, \"\n          f\"converged in {attempt} runs\")\n\n\ndef test_n19_extraction_only_consumes_probe_cleared_clips():\n    \"\"\"The probe is pointless if extraction still globs the raw directory.\"\"\"\n    ext = _cell_containing(\"02_prepare_fall_shards_online.ipynb\",\n                           \"for source, root in SOURCES\")\n    assert \"USABLE\" in ext, (\n        \"extraction does not filter on USABLE - the probe would name the poison clip \"\n        \"and extraction would then decode it anyway, killing the kernel\")\n    assert \"probe-cleared\" in ext, \"extraction does not report that its list is filtered\"\n    print(\"  N19 extraction consumes only probe-cleared clips\")\n\n","old_string":"    print(f\"  N15 fall labels track frame position (occluded descent within \"\n          f\"{err:.0f} frames), every 3-15 s clip yields a `falling` window, shard gate \"\n          f\"refuses degenerate corpora\")\n","replace_all":false}
+
+
+[M00985] 2026-08-08T13:41:51.595Z USER (context) [C022:1559; copies=1]
+Your tool call was malformed and could not be parsed. Please retry.
+
+
+[M00986] 2026-08-08T13:45:57.209Z ASSISTANT (conversation) [C022:1567; copies=1]
+**You can't reply to a Save & Run All session** — it's headless papermill. No stdin, no prompts, no intervention. Interactive sessions let you re-run cells but don't persist output to a dataset. That constraint is exactly why the notebook has to survive a bad file on its own.
+
+**The flush fix worked** — that's the win in this log:
+
+```
+2107.7s  wrote falls_0000.npz (914 windows, 914 banked)
+2107.7s  gmdcsa done - 914 windows on disk
+```
+
+gmdcsa survived. Last run it was lost.
+
+**A correction to what I told you earlier:** I said the first crash was on a Le2i clip. It wasn't — checking timestamps against corpus order, **both crashes are inside URFD**, both ~0.4s after three `mp3float` lines.
+
+**Why my frame cap and try/except didn't help.** Neither fired, and that's the diagnostic: the fault isn't in Python. It's `cv2 → ffmpeg → mp3float`, and a SIGSEGV there kills the interpreter — `except Exception` can't see it, and capping the loop doesn't matter when the crash is *inside* `cap.read()`.
+
+I checked all 70 URFD files by HTTP range probe before designing around it: well-formed `mp42`, video-only, none truncated. So it isn't a bad download and can't be screened by inspection. (URFD's page calls the mp4s playback previews — zipped PNG sequences are the primary distribution — which fits a container ffmpeg mishandles.)
+
+**The fix: decode every clip once in a child process first.** The child journals each attempt *before* trying it, unbuffered. If it dies, its last unmatched `TRY` names the poison clip; the parent restarts and the child skips what's already journalled. Verified against the notebook's own child script:
+
+```
+N18 decode probe: 4/6 clips kept, 2 poison clips named, converged in 3 runs
+```
+
+Each crash costs one clip instead of a corpus. Costs one decode pass (~5–8 min) and buys a session that finishes — which is the whole point when you can't intervene.
+
+Two other things fixed this round: **CAUCAFall's Mendeley DOI has no video at all** (9 documentation files, 1.1 MB; versions 1–3 are 451, S3 zip 403) — that `Mendeley walk found no video` was accurate and my "fetches itself" claim wasn't; it's now the Kaggle mirror `tuyenldvn/caucafall`. And **Le2i took one scene** — 48 of ~190 videos, all collapsing to one subject id — now the common ancestor of all annotation folders.
+
+138/138 tests pass.
+
+**Start from: notebook 02** — re-paste, attach `behaviorsense-code` + `tuyenldvn/falldataset-imvia` + **`tuyenldvn/caucafall`** (new), T4 x2, internet ON.
+
+**Re-upload `behaviorsense-code`: no** — all three fixes are notebook-side; the contract is unchanged at 11 tokens.
+
+Expect `probing N clips for decoder crashes`, possibly a `probe crashed — restarting` line or two naming the URFD file, then `4/4 corpora` and extraction running to completion.
+
+
+[M00987] 2026-08-08T13:58:47.685Z USER (conversation) [C007:1208; copies=13]
+do we need to update behaviorsense-code?
+
+
+[M00988] 2026-08-08T14:00:05.283Z ASSISTANT (conversation) [C007:1211; copies=13]
+Let me verify that rather than repeat it — the contract only covers the 11 tokens I chose, so a change outside them wouldn't be caught.
+
+
+[M00989] 2026-08-08T14:00:40.821Z ASSISTANT (conversation) [C007:1214; copies=13]
+**No.** Verified rather than assumed: nothing under `src/`, `scripts/`, `configs/`, or `weights/` has been modified since your run at 10:29 UTC that printed `contract 11/11 - mounted code is current`. All 39 files predate it.
+
+Everything I changed this round (13:33–13:45) is outside the dataset — the generator, the notebook JSON, tests, and docs.
+
+That's a stronger check than the contract alone, incidentally. The contract only verifies the 11 tokens I picked; a change to some other function in `prepare_skeletons.py` would pass it while still being stale. Comparing modification times against the verified run catches that whole class.
+
+So: **re-paste notebook 02 into Kaggle, attach `tuyenldvn/caucafall` as a third dataset, and run.** No upload.
+
+
+[M00990] 2026-08-08T14:29:22.854Z USER (conversation) [C007:1216; copies=13]
+Time
+#
+Log Message
+8.4s	0	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+8.4s	1	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+8.4s	2	0.00s - to python to disable frozen modules.
+8.4s	3	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.1s	4	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+9.1s	5	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+9.1s	6	0.00s - to python to disable frozen modules.
+9.1s	7	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+12.6s	8	WARNING: Skipping onnxruntime as it is not installed.
+12.8s	9	WARNING: Skipping onnxruntime as it is not installed.
+12.8s	10	
+12.8s	11	WARNING: Skipping onnxruntime as it is not installed.
+14.0s	12	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 3.4 MB/s eta 0:00:00
+14.3s	13	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 3.4 MB/s eta 0:00:00
+18.6s	14	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 277.0/277.0 MB 6.6 MB/s eta 0:00:00
+18.8s	15	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 277.0/277.0 MB 6.6 MB/s eta 0:00:00
+245.8s	16	  code /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+245.8s	17	  attached ['datasets']
+245.8s	18	  contract 11/11 - mounted code is current
+8.4s	19	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+8.4s	20	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+8.4s	21	0.00s - to python to disable frozen modules.
+8.4s	22	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.1s	23	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+9.1s	24	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+9.1s	25	0.00s - to python to disable frozen modules.
+9.1s	26	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+12.6s	27	WARNING: Skipping onnxruntime as it is not installed.
+12.8s	28	WARNING: Skipping onnxruntime as it is not installed.
+12.8s	29	
+12.8s	30	WARNING: Skipping onnxruntime as it is not installed.
+282.6s	31	[0;93m2026-08-08 14:19:35.671045368 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+282.6s	32	[0;93m2026-08-08 14:19:35.675338546 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+282.6s	33	[0;93m2026-08-08 14:19:35.675356698 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+282.6s	34	[0;93m2026-08-08 14:19:35.671045368 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+282.6s	35	[0;93m2026-08-08 14:19:35.675338546 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+282.6s	36	[0;93m2026-08-08 14:19:35.675356698 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+282.6s	37	
+282.6s	38	[0;93m2026-08-08 14:19:35.671045368 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+282.6s	39	[0;93m2026-08-08 14:19:35.675338546 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+282.6s	40	[0;93m2026-08-08 14:19:35.675356698 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+14.0s	41	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 3.4 MB/s eta 0:00:00
+14.3s	42	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 3.4 MB/s eta 0:00:00
+18.6s	43	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 277.0/277.0 MB 6.6 MB/s eta 0:00:00
+18.8s	44	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 277.0/277.0 MB 6.6 MB/s eta 0:00:00
+245.8s	45	  code /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+245.8s	46	  attached ['datasets']
+245.8s	47	  contract 11/11 - mounted code is current
+282.6s	48	load /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx with onnxruntime backend
+282.6s	49	pose model: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx  provider: CUDAExecutionProvider
+535.2s	50	  le2i      annotations resolve for 12/20 sampled clips across 6 scene(s): ['Coffee_room_01', 'Coffee_room_02', 'Home_01', 'Home_02', 'Lecture_room', 'Office']
+535.2s	51	  gmdcsa     OK     160 videos  /tmp/falls/gmdcsa
+535.2s	52	  urfd       OK      70 videos  /tmp/falls/urfd
+535.2s	53	  caucafall  ABSENT      not attached - add the Kaggle dataset tuyenldvn/caucafall (8.33 GB). Mendeley publishes only figures for this DOI.
+535.2s	54	  le2i       OK     190 videos  /kaggle/input/datasets/tuyenldvn/falldataset-imvia
+535.2s	55	
+535.2s	56	3/4 corpora - P2 leave-one-dataset-out needs >=2 to mean anything
+535.4s	57	probing 420 clips for decoder crashes
+660.7s	58	  probe crashed (exit -6) - restarting past the offending clip
+660.9s	59	  probe crashed (exit -11) - restarting past the offending clip
+661.2s	60	  probe crashed (exit -11) - restarting past the offending clip
+661.6s	61	  probe crashed (exit -11) - restarting past the offending clip
+661.8s	62	  probe crashed (exit -11) - restarting past the offending clip
+662.2s	63	  probe crashed (exit -11) - restarting past the offending clip
+662.4s	64	  probe crashed (exit -11) - restarting past the offending clip
+662.7s	65	  probe crashed (exit -11) - restarting past the offending clip
+662.9s	66	  probe crashed (exit -11) - restarting past the offending clip
+663.2s	67	  probe crashed (exit -11) - restarting past the offending clip
+663.2s	68	  probe crashed (exit -11) - restarting past the offending clip
+663.2s	69	  WARNING: probe still crashing after 11 restarts; continuing with what passed
+663.2s	70	  230/420 clips decode cleanly
+663.2s	71	  11 clip(s) crash the decoder and are EXCLUDED:
+663.2s	72	    /kaggle/input/datasets/tuyenldvn/falldataset-imvia/Coffee_room_01/Coffee_room_01/Videos/video (1).avi
+663.2s	73	    /kaggle/input/datasets/tuyenldvn/falldataset-imvia/Coffee_room_01/Coffee_room_01/Videos/video (10).avi
+663.2s	74	    /kaggle/input/datasets/tuyenldvn/falldataset-imvia/Coffee_room_01/Coffee_room_01/Videos/video (11).avi
+663.2s	75	    /kaggle/input/datasets/tuyenldvn/falldataset-imvia/Coffee_room_01/Coffee_room_01/Videos/video (12).avi
+663.2s	76	    /kaggle/input/datasets/tuyenldvn/falldataset-imvia/Coffee_room_01/Coffee_room_01/Videos/video (13).avi
+663.2s	77	    /kaggle/input/datasets/tuyenldvn/falldataset-imvia/Coffee_room_01/Coffee_room_01/Videos/video (14).avi
+663.2s	78	    /kaggle/input/datasets/tuyenldvn/falldataset-imvia/Coffee_room_01/Coffee_room_01/Videos/video (15).avi
+663.2s	79	    /kaggle/input/datasets/tuyenldvn/falldataset-imvia/Coffee_room_01/Coffee_room_01/Videos/video (16).avi
+663.2s	80	    /kaggle/input/datasets/tuyenldvn/falldataset-imvia/Coffee_room_01/Coffee_room_01/Videos/video (17).avi
+663.2s	81	    /kaggle/input/datasets/tuyenldvn/falldataset-imvia/Coffee_room_01/Coffee_room_01/Videos/video (18).avi
+663.2s	82	    /kaggle/input/datasets/tuyenldvn/falldataset-imvia/Coffee_room_01/Coffee_room_01/Videos/video (19).avi
+663.4s	83	gmdcsa: 160 clips (probe-cleared)
+
+
+[M00991] 2026-08-08T14:30:41.879Z ASSISTANT (conversation) [C007:1218; copies=13]
+Real progress, and a finding that overturns my earlier attribution. Le2i now spans **6 scenes, 190 videos** — the common-ancestor fix worked. But the probe hit its retry cap, and that's costing you data silently:
+
+
+[M00992] 2026-08-08T14:31:30.860Z ASSISTANT (conversation) [C007:1222; copies=13]
+Two fixes needed, and one opportunity. Let me address all three — starting with the cap and the silent exclusion:
+
+
+[M00993] 2026-08-08T14:32:16.430Z ASSISTANT (conversation) [C007:1225; copies=13]
+Now the opportunity: `av` is already a declared dependency, and PyAV uses its own ffmpeg build. Adding it as a second-chance backend for the clips cv2 aborts on:
+
+
+[M00994] 2026-08-08T14:32:46.844Z ASSISTANT (conversation) [C007:1228; copies=13]
+Now `extract()` must honour the per-clip backend, and `av` must be installed:
+
+
+[M00995] 2026-08-08T14:37:17.381Z ASSISTANT (conversation) [C022:1612; copies=1]
+My stub patching left invalid indentation in the av branch — the real child is fine. Building a clean stub instead:
+
+
+[M00996] 2026-08-08T14:37:55.869Z ASSISTANT (conversation) [C022:1615; copies=1]
+The two-backend flow works end to end. Updating N18 to cover it, then running everything:
+
+
+[M00997] 2026-08-08T14:48:57.136Z ASSISTANT (conversation) [C022:1628; copies=1]
+N18's stub patches the real child by string-replacement, and the child changed underneath it. Rewriting N18 to build its stub from scratch — protocol behaviour there, structural checks in N18b:
+
+
+[M00998] 2026-08-08T15:04:53.806Z ASSISTANT (conversation) [C022:1638; copies=1]
+The probe worked — it converted an anonymous kernel death into a named list, and that list overturns what I told you.
+
+**Le2i is the culprit, not URFD.** I said both earlier crashes were in URFD. The arithmetic says otherwise:
+
+```
+230 clips decode cleanly   = gmdcsa 160 + urfd 70, exactly
+ 11 crash                   all Coffee_room_01/video (N).avi
+179 never probed            budget exhausted
+```
+
+URFD probes **70/70 clean**. The failures are Le2i's, in alphabetical order — `video (1)`, `(10)`, `(11)`…`(19)` — which is the whole mirror's AVI codec being unreadable, not per-file corruption. Re-reading run 3 with that in hand: it printed `urfd: 70 clips` at 2107.7s and died 259s later, exactly where URFD ends and Le2i's first clip begins, before Le2i's own print. I'd matched the crash to the last thing printed rather than to what ran next.
+
+**Your `le2i OK 190 videos` across 6 scenes confirms the common-ancestor fix worked** — up from 48 in one scene.
+
+Three fixes:
+
+**The restart budget was a guess, and it silently cost you 179 clips.** I sized 11 for "a couple of bad files"; Le2i crashes on every one. It ran out, and the remaining 179 were never probed — dropped from extraction while the log said only "continuing with what passed". Now one restart per clip (each run advances at least one, since TRY is journalled before decoding), and never-probed clips are counted **separately** from poison. "We tried and it crashed" and "we never tried" are different facts; merging them hid the failure.
+
+**PyAV as a second chance.** cv2 aborting proves one decoder failed, not that a clip is unreadable — and Le2i is the only corpus with *exact frame-level fall annotations*, the ones that beat the positional heuristic. PyAV links its own ffmpeg, and `av>=12.0` was already a declared dependency. Clips that fail cv2 get retried; survivors are tagged per-clip and decoded that way, RGB→BGR to match every other corpus. Self-verifying: if PyAV also dies, they stay excluded.
+
+```
+N18 decode probe: 4/5 clips kept (2 rescued by PyAV), 1 true poison excluded
+```
+
+Writing that test also caught a live instance of the vacuous-test pattern: N18's old stub was string-patched out of the real child, the child grew a backend branch, the patch stopped matching, and the test **errored instead of testing**. It now builds its stub from scratch, with structural checks against the real child split into N18b.
+
+139/139 tests pass (full suite running in background).
+
+**Start from: notebook 02** — re-paste, same three datasets plus `tuyenldvn/caucafall`.
+**Re-upload `behaviorsense-code`: no** — all notebook-side; `contract 11/11` still holds.
+
+Expect the probe to take ~10-15 min now (it retries far more), then a `PyAV rescued N/190` line. That number is the one to watch: if PyAV reads Le2i, you get all four corpora with the best-annotated one included.
+
+
+[M00999] 2026-08-08T15:15:24.775Z USER (conversation) [C007:1239; copies=13]
+<task-notification>
+<task-id>b966t9zv6</task-id>
+<tool-use-id>toolu_017W4GuiwdDZR2tw9hieSFSz</tool-use-id>
+<output-file>C:\Users\Admin\AppData\Local\Temp\claude\C--Users-Admin-Desktop-EmotionSense-Extended\1ab0634f-91db-49a7-ba6e-a0db6a059811\tasks\b966t9zv6.output</output-file>
+<status>completed</status>
+<summary>Background command "Run the complete suite in the background" completed (exit code 0)</summary>
+</task-notification>
+
+
+[M01000] 2026-08-08T15:16:27.215Z ASSISTANT (conversation) [C007:1242; copies=13]
+Full suite confirms green: **139/139 across 10 suites**, including the 16 training tests that take ~10 minutes.
+
+Everything from this round is in place and verified:
+
+| fix | verified by |
+|---|---|
+| Probe budget = one restart per clip | N18b asserts `budget = len(all_vids)` |
+| Never-probed reported separately from poison | N18b asserts the distinct label exists |
+| PyAV second chance for cv2 failures | N18 runs the full two-backend sweep |
+| Rescued clips decoded in BGR | N18b asserts `bgr24` in the extraction cell |
+| Poison grouped by directory | visible in the probe report |
+
+**Start from: notebook 02.** Re-paste it, attach `behaviorsense-code` + `tuyenldvn/falldataset-imvia` + `tuyenldvn/caucafall`, T4 x2, internet ON.
+
+**Re-upload `behaviorsense-code`: no.** Everything changed this round is notebook-side — `_generate.py`, the notebook JSON, tests, docs. Your last run's `contract 11/11 - mounted code is current` still holds, and I checked the repo mtimes directly: nothing under `src/`, `scripts/`, `configs/`, `weights/` has been touched since.
+
+The line worth watching is `PyAV rescued N/190`. If PyAV reads the Le2i mirror, you get four corpora including the only one with exact frame-level fall annotations. If it doesn't, those clips are excluded by name rather than killing the session — and you still have three corpora, which is enough for P2.
+
+
+[M01001] 2026-08-08T16:48:45.928Z USER (conversation) [C007:1243; copies=13]
+Time
+#
+Log Message
+6.3s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.3s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.3s	3	0.00s - to python to disable frozen modules.
+6.3s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+6.9s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.9s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.9s	7	0.00s - to python to disable frozen modules.
+6.9s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.6s	9	WARNING: Skipping onnxruntime as it is not installed.
+9.8s	10	WARNING: Skipping onnxruntime as it is not installed.
+9.8s	11	
+9.8s	12	WARNING: Skipping onnxruntime as it is not installed.
+10.8s	13	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 5.2 MB/s eta 0:00:00
+11.0s	14	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 5.2 MB/s eta 0:00:00
+15.4s	15	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 277.0/277.0 MB 6.8 MB/s eta 0:00:00
+15.6s	16	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 277.0/277.0 MB 6.8 MB/s eta 0:00:00
+15.7s	17	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.5/35.5 MB 53.9 MB/s eta 0:00:00
+15.9s	18	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.5/35.5 MB 53.9 MB/s eta 0:00:00
+465.1s	19	  code /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+465.1s	20	  attached ['datasets']
+465.1s	21	  contract 11/11 - mounted code is current
+622.8s	22	[0;93m2026-08-08 15:35:34.335492659 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+622.8s	23	[0;93m2026-08-08 15:35:34.339256425 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+622.8s	24	[0;93m2026-08-08 15:35:34.339271708 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+622.8s	25	load /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx with onnxruntime backend
+622.8s	26	pose model: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx  provider: CUDAExecutionProvider
+622.8s	27	[0;93m2026-08-08 15:35:34.335492659 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+622.8s	28	
+622.8s	29	[0;93m2026-08-08 15:35:34.335492659 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+622.8s	30	[0;93m2026-08-08 15:35:34.339256425 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+622.8s	31	[0;93m2026-08-08 15:35:34.339271708 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+622.8s	32	
+622.8s	33	[0;93m2026-08-08 15:35:34.339256425 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+622.8s	34	[0;93m2026-08-08 15:35:34.339271708 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+910.1s	35	  le2i      annotations resolve for 12/20 sampled clips across 6 scene(s): ['Coffee_room_01', 'Coffee_room_02', 'Home_01', 'Home_02', 'Lecture_room', 'Office']
+910.1s	36	  gmdcsa     OK     160 videos  /tmp/falls/gmdcsa
+910.1s	37	  urfd       OK      70 videos  /tmp/falls/urfd
+938.3s	38	  caucafall  OK     100 videos  /kaggle/input/datasets/tuyenldvn/caucafall/Dataset CAUCAFall/CAUCAFall
+938.3s	39	  le2i       OK     190 videos  /kaggle/input/datasets/tuyenldvn/falldataset-imvia
+938.3s	40	
+938.3s	41	4/4 corpora - P2 leave-one-dataset-out needs >=2 to mean anything
+939.0s	42	probing 520 clips for decoder crashes
+1060.0s	43	  probe crashed (exit -6) - restart 1/525
+1060.3s	44	  probe crashed (exit -11) - restart 2/525
+1060.5s	45	  probe crashed (exit -11) - restart 3/525
+1065.1s	46	  probe crashed (exit -11) - restart 25/525
+1070.4s	47	  probe crashed (exit -11) - restart 50/525
+1075.6s	48	  probe crashed (exit -6) - restart 75/525
+1080.8s	49	  probe crashed (exit -11) - restart 100/525
+1086.2s	50	  probe crashed (exit -11) - restart 125/525
+1091.4s	51	  probe crashed (exit -11) - restart 150/525
+1096.7s	52	  probe crashed (exit -11) - restart 175/525
+1100.0s	53	  retrying 190 cv2-failed clip(s) with PyAV
+1238.6s	54	  PyAV rescued 190/190
+1238.6s	55	  520/520 clips decode cleanly
+1238.8s	56	gmdcsa: 160 clips (probe-cleared)
+2070.1s	57	    wrote falls_0000.npz (914 windows, 914 banked)
+2070.1s	58	  gmdcsa done - 914 windows on disk
+2070.1s	59	urfd: 70 clips (probe-cleared)
+2315.2s	60	    wrote falls_0001.npz (239 windows, 1153 banked)
+2315.2s	61	  urfd done - 1153 windows on disk
+2382.4s	62	caucafall: 100 clips (probe-cleared)
+3213.7s	63	    wrote falls_0002.npz (1159 windows, 2312 banked)
+3213.7s	64	  caucafall done - 2312 windows on disk
+3213.7s	65	le2i: 190 clips (probe-cleared)
+4791.1s	66	    wrote falls_0003.npz (752 windows, 3064 banked)
+4791.1s	67	  le2i done - 3064 windows on disk
+4791.1s	68	4 shard(s) on disk, 3064 windows total
+4791.1s	69	3064 windows from 4 source(s):
+4791.1s	70	   1 standing              704
+4791.1s	71	   7 falling               408
+4791.1s	72	   8 fallen_on_ground      450
+4791.1s	73	  19 other_idle           1502
+4791.1s	74	  balance: 858 fall / 2206 non-fall
+4791.1s	75	  79 subject id(s):
+4791.1s	76	    caucafall_Subject.1              95 windows
+4791.1s	77	    caucafall_Subject.10            149 windows
+4791.1s	78	    caucafall_Subject.2              83 windows
+4791.1s	79	    caucafall_Subject.3             107 windows
+4791.1s	80	    caucafall_Subject.4             109 windows
+4791.1s	81	    caucafall_Subject.5             132 windows
+4791.1s	82	    caucafall_Subject.6             128 windows
+4791.1s	83	    caucafall_Subject.7             107 windows
+4791.1s	84	    caucafall_Subject.8             125 windows
+4791.1s	85	    caucafall_Subject.9             124 windows
+4791.1s	86	    gmdcsa_Subject1                 138 windows
+4791.1s	87	    gmdcsa_Subject2                 336 windows
+4791.1s	88	    gmdcsa_Subject3                 244 windows
+4791.1s	89	    gmdcsa_Subject4                 196 windows
+4791.1s	90	    le2i_Coffee_room_01             372 windows
+4791.1s	91	    le2i_Home_01                    184 windows
+4791.1s	92	    le2i_Home_02                    196 windows
+4791.1s	93	    urfd_adl-01                       4 windows
+4791.1s	94	    urfd_adl-02                       4 windows
+4791.1s	95	    urfd_adl-03                       5 windows
+4791.1s	96	    urfd_adl-04                       4 windows
+4791.1s	97	    urfd_adl-05                       5 windows
+4791.1s	98	    urfd_adl-06                       6 windows
+4791.1s	99	    urfd_adl-07                       5 windows
+4791.1s	100	    urfd_adl-08                       5 windows
+4791.1s	101	    urfd_adl-09                       4 windows
+4791.1s	102	    urfd_adl-10                       9 windows
+4791.1s	103	    urfd_adl-11                       7 windows
+4791.1s	104	    urfd_adl-12                       6 windows
+4791.1s	105	    urfd_adl-13                       6 windows
+4791.1s	106	    urfd_adl-14                       5 windows
+4791.1s	107	    urfd_adl-15                       6 windows
+4791.1s	108	    urfd_adl-16                       5 windows
+4791.1s	109	    urfd_adl-17                       5 windows
+4791.1s	110	    urfd_adl-18                       5 windows
+4791.1s	111	    urfd_adl-19                       5 windows
+4791.1s	112	    urfd_adl-20                       7 windows
+4791.1s	113	    urfd_adl-21                       5 windows
+4791.1s	114	    urfd_adl-22                       4 windows
+4791.1s	115	    urfd_adl-23                       4 windows
+4791.1s	116	    urfd_adl-24                       1 windows
+4791.1s	117	    urfd_adl-25                       1 windows
+4791.1s	118	    urfd_adl-26                       1 windows
+4791.1s	119	    urfd_adl-29                       3 windows
+4791.1s	120	    urfd_adl-30                       7 windows
+4791.1s	121	    urfd_adl-31                       6 windows
+4791.1s	122	    urfd_adl-32                       4 windows
+4791.1s	123	    urfd_adl-33                       3 windows
+4791.1s	124	    urfd_adl-34                       1 windows
+4791.1s	125	    urfd_adl-35                       6 windows
+4791.1s	126	    urfd_adl-36                       8 windows
+4791.1s	127	    urfd_adl-37                       8 windows
+4791.1s	128	    urfd_adl-38                       7 windows
+4791.1s	129	    urfd_adl-39                       6 windows
+4791.1s	130	    urfd_adl-40                       7 windows
+4791.1s	131	    urfd_fall-01                      3 windows
+4791.1s	132	    urfd_fall-02                      2 windows
+4791.1s	133	    urfd_fall-03                      6 windows
+4791.1s	134	    urfd_fall-04                      2 windows
+4791.1s	135	    urfd_fall-05                      4 windows
+4791.1s	136	    urfd_fall-06                      2 windows
+4791.1s	137	    urfd_fall-07                      4 windows
+4791.1s	138	    urfd_fall-08                      1 windows
+4791.1s	139	    urfd_fall-09                      5 windows
+4791.1s	140	    urfd_fall-10                      3 windows
+4791.1s	141	    urfd_fall-11                      1 windows
+4791.1s	142	    urfd_fall-13                      1 windows
+4791.1s	143	    urfd_fall-14                      1 windows
+4791.1s	144	    urfd_fall-15                      1 windows
+4791.1s	145	    urfd_fall-17                      1 windows
+4791.1s	146	    urfd_fall-18                      1 windows
+4791.1s	147	    urfd_fall-19                      1 windows
+4791.1s	148	    urfd_fall-20                      2 windows
+4791.1s	149	    urfd_fall-24                      1 windows
+4791.1s	150	    urfd_fall-25                      1 windows
+4791.1s	151	    urfd_fall-27                      2 windows
+4791.1s	152	    urfd_fall-28                      1 windows
+4791.1s	153	    urfd_fall-29                      2 windows
+4791.1s	154	    urfd_fall-30                      1 windows
+4791.1s	155	  NOTE: 56 subject(s) have only one clip type (['urfd_adl-01', 'urfd_adl-02', 'urfd_adl-03', 'urfd_adl-04']) - a split isolating them yields a fold with no positives.
+4791.1s	156	
+4791.1s	157	  P2 viable: 4 datasets -> 4 leave-one-out folds (['caucafall', 'gmdcsa', 'le2i', 'urfd'])
+4791.1s	158	
+4791.1s	159	4 shard(s), 4.3 MB total:
+4791.1s	160	  falls_0000.npz      1.3 MB
+4791.1s	161	  falls_0001.npz      0.4 MB
+4791.1s	162	  falls_0002.npz      1.5 MB
+4791.1s	163	  falls_0003.npz      1.0 MB
+4791.1s	164	
+4791.1s	165	Save Version -> create dataset behaviorsense-fall-shards.
+4795.3s	166	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+4795.3s	167	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+4795.4s	168	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+4795.4s	169	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+4796.0s	170	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+4796.3s	171	[NbConvertApp] Writing 54050 bytes to __notebook__.ipynb
+4798.6s	172	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+4799.4s	173	[NbConvertApp] Writing 410212 bytes to __results__.html
+
+
+[M01002] 2026-08-08T16:51:15.378Z ASSISTANT (conversation) [C007:1244; copies=13]
+It completed — `520/520 clips decode cleanly`, `PyAV rescued 190/190`, four corpora, 3,064 windows. But three numbers in that output don't hold up, and one is a data-loss bug. Let me check before you Save Version.
+
+
+[M01003] 2026-08-08T16:54:19.798Z ASSISTANT (conversation) [C007:1248; copies=13]
+Let me verify the reporting gap rather than assert it:
+
+
+[M01004] 2026-08-08T16:55:16.933Z ASSISTANT (conversation) [C007:1251; copies=13]
+Confirmed — silent data loss. Fixing the reporting first, since without it you can't see what's happening:
+
+
+[M01005] 2026-08-08T16:55:47.345Z ASSISTANT (conversation) [C007:1254; copies=13]
+Now the URFD subject bug. Let me check whether the corpus publishes a person mapping before inventing one:
+
+
+[M01006] 2026-08-08T16:56:26.464Z ASSISTANT (conversation) [C007:1259; copies=13]
+URFD publishes no person mapping — only per-frame posture labels. So per-clip ids are the only honest option, but they must be *declared* as a proxy, not treated as people. Let me check where the harm actually lands:
+
+
+[M01007] 2026-08-08T16:57:38.587Z ASSISTANT (conversation) [C007:1262; copies=13]
+Less severe than I estimated — 1/12 seeds, not most. The real risk is variance: val folds swing 160–1406 windows, so P2 numbers depend heavily on seed. That's worth a guard rather than a redesign:
+
+
+[M01008] 2026-08-08T16:58:10.415Z ASSISTANT (conversation) [C007:1265; copies=13]
+The `\n` collapsed again — same escaping trap as before. Fixing by line:
+
+
+[M01009] 2026-08-08T17:01:24.856Z ASSISTANT (conversation) [C007:1272; copies=13]
+Same collapse in the skip-report block I added. Fixing it:
+
+
+[M01010] 2026-08-08T17:05:03.761Z ASSISTANT (conversation) [C007:1276; copies=13]
+It ran to completion, and the two headline numbers are real wins:
+
+```
+PyAV rescued 190/190          ← the entire Le2i corpus, unreadable by cv2
+520/520 clips decode cleanly  ← 4/4 corpora, 3,064 windows
+```
+
+The PyAV fallback was worth adding — cv2 SIGSEGVs on every Le2i clip, and PyAV read all 190. That also **corrects my earlier diagnosis**: I told you both crashes were in URFD. They weren't. URFD probes 70/70 clean; the deaths were Le2i's first clip, which starts immediately after URFD's last. The probe named the file and settled it.
+
+**But don't Save Version yet — one silent loss.** Le2i acquired 190 clips across 6 scenes; the shards contain **3**:
+
+```
+acquired: Coffee_room_01, Coffee_room_02, Home_01, Home_02, Lecture_room, Office
+in shards: Coffee_room_01, Home_01, Home_02
+```
+
+Lecture_room and Office ship no `Annotation_files`, so skipping them is *correct* — guessing would put real falls in the negatives. Coffee_room_02's absence isn't explained by that. Either way, the skip counter was incremented and **never printed**: 2 write sites, 0 print sites. The loss was invisible in a log that otherwise looked healthy. Now reported per corpus and per run.
+
+**Second issue, less severe than it looks.** URFD contributes ~64 subject ids for 70 clips because the corpus is flat and publishes no clip→volunteer mapping — I checked its page, it only gives per-frame posture labels. So each clip becomes its own "subject", and P1 is optimistic for that portion. I measured the consequence rather than guessing:
+
+```
+val-fold size across 12 seeds: 160 to 1406 windows
+1/12 seeds degenerate
+```
+
+Not the disaster I first suspected, but an 8× swing means P2 numbers depend on the seed. The notebook now prints the spread and warns when a seed yields under 200 windows.
+
+**Your options.** The current shards are usable — 3,064 windows, 858 fall / 2,206 non-fall, 4 corpora, P2 viable with 4 folds. If you Save Version now, you can proceed to notebook 03 and the only cost is Le2i under-represented.
+
+I'd rerun (~80 min): the reporting fix will show exactly how many Le2i clips were skipped and why, and if Coffee_room_02 turns out to be recoverable that's ~370 more windows from the only corpus with exact frame-level annotations.
+
+**Start from: notebook 02** (re-paste). **Re-upload `behaviorsense-code`: no** — all changes were notebook-side; your `contract 11/11` still holds.
+
+123/123 fast tests pass.
+
+
+[M01011] 2026-08-08T18:03:33.203Z USER (context) [C007:1277; copies=13]
+<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+
+
+[M01012] 2026-08-08T18:03:33.203Z USER (control) [C007:1278; copies=13]
+<command-name>/model</command-name>
+            <command-message>model</command-message>
+            <command-args>agentrouter/claude-opus-5-xhigh</command-args>
+
+
+[M01013] 2026-08-08T18:03:33.203Z USER (control) [C007:1279; copies=13]
+<local-command-stdout>Set model to agentrouter/claude-opus-5-xhigh</local-command-stdout>
+
+
+[M01014] 2026-08-08T18:03:40.507Z USER (context) [C007:1280; copies=13]
+<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+
+
+[M01015] 2026-08-08T18:03:40.507Z USER (control) [C007:1281; copies=13]
+<command-name>/model</command-name>
+            <command-message>model</command-message>
+            <command-args>claude-opus-5[1m]</command-args>
+
+
+[M01016] 2026-08-08T18:03:40.507Z USER (control) [C007:1282; copies=13]
+<local-command-stdout>Set model to claude-opus-5[1m]</local-command-stdout>
+
+
+[M01017] 2026-08-08T18:03:58.039Z USER (control) [C007:1284; copies=13]
+<command-name>/effort</command-name>
+            <command-message>effort</command-message>
+            <command-args>max</command-args>
+
+
+[M01018] 2026-08-08T18:03:58.043Z USER (context) [C007:1283; copies=13]
+<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+
+
+[M01019] 2026-08-08T19:22:26.197Z ASSISTANT (conversation) [C007:1285; copies=13]
+No response requested.
+
+
+[M01020] 2026-08-08T19:22:29.788Z USER (conversation) [C007:1286; copies=13]
+Time
+#
+Log Message
+8.7s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+8.7s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+8.7s	3	0.00s - to python to disable frozen modules.
+8.7s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.4s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+9.4s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+9.4s	7	0.00s - to python to disable frozen modules.
+9.4s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+13.1s	9	WARNING: Skipping onnxruntime as it is not installed.
+13.3s	10	WARNING: Skipping onnxruntime as it is not installed.
+13.3s	11	
+13.3s	12	WARNING: Skipping onnxruntime as it is not installed.
+14.6s	13	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 2.2 MB/s eta 0:00:00
+14.8s	14	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 2.2 MB/s eta 0:00:00
+19.7s	15	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 277.0/277.0 MB 6.6 MB/s eta 0:00:00
+19.9s	16	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 277.0/277.0 MB 6.6 MB/s eta 0:00:00
+20.0s	17	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.5/35.5 MB 55.6 MB/s eta 0:00:00
+20.2s	18	   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.5/35.5 MB 55.6 MB/s eta 0:00:00
+419.9s	19	  code /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+419.9s	20	  attached ['datasets']
+419.9s	21	  contract 11/11 - mounted code is current
+494.7s	22	[0;93m2026-08-08 17:59:19.649204250 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+494.7s	23	[0;93m2026-08-08 17:59:19.653404266 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+494.7s	24	[0;93m2026-08-08 17:59:19.653420133 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+494.7s	25	load /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx with onnxruntime backend
+494.7s	26	pose model: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx  provider: CUDAExecutionProvider
+494.7s	27	[0;93m2026-08-08 17:59:19.649204250 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+494.7s	28	[0;93m2026-08-08 17:59:19.653404266 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+494.7s	29	[0;93m2026-08-08 17:59:19.653420133 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+494.7s	30	
+494.7s	31	[0;93m2026-08-08 17:59:19.649204250 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+494.7s	32	[0;93m2026-08-08 17:59:19.653404266 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+494.7s	33	[0;93m2026-08-08 17:59:19.653420133 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+775.8s	34	  le2i      annotations resolve for 12/20 sampled clips across 6 scene(s): ['Coffee_room_01', 'Coffee_room_02', 'Home_01', 'Home_02', 'Lecture_room', 'Office']
+775.8s	35	  gmdcsa     OK     160 videos  /tmp/falls/gmdcsa
+775.8s	36	  urfd       OK      70 videos  /tmp/falls/urfd
+777.2s	37	  caucafall  OK     100 videos  /kaggle/input/datasets/tuyenldvn/caucafall/Dataset CAUCAFall/CAUCAFall
+777.2s	38	  le2i       OK     190 videos  /kaggle/input/datasets/tuyenldvn/falldataset-imvia
+777.2s	39	
+777.2s	40	4/4 corpora - P2 leave-one-dataset-out needs >=2 to mean anything
+778.0s	41	probing 520 clips for decoder crashes
+915.0s	42	  probe crashed (exit -6) - restart 1/525
+915.2s	43	  probe crashed (exit -11) - restart 2/525
+915.5s	44	  probe crashed (exit -11) - restart 3/525
+921.0s	45	  probe crashed (exit -11) - restart 25/525
+927.3s	46	  probe crashed (exit -11) - restart 50/525
+933.4s	47	  probe crashed (exit -6) - restart 75/525
+939.3s	48	  probe crashed (exit -11) - restart 100/525
+945.4s	49	  probe crashed (exit -11) - restart 125/525
+951.5s	50	  probe crashed (exit -11) - restart 150/525
+957.5s	51	  probe crashed (exit -11) - restart 175/525
+961.4s	52	  retrying 190 cv2-failed clip(s) with PyAV
+1106.6s	53	  PyAV rescued 190/190
+1106.6s	54	  520/520 clips decode cleanly
+1106.7s	55	gmdcsa: 160 clips (probe-cleared)
+1993.9s	56	    wrote falls_0000.npz (914 windows, 914 banked)
+1993.9s	57	  gmdcsa done - 914 windows on disk | 160/160 clips decodable, 0 skipped, 4 subject id(s) contributed
+1993.9s	58	urfd: 70 clips (probe-cleared)
+2253.8s	59	    wrote falls_0001.npz (239 windows, 1153 banked)
+2253.8s	60	  urfd done - 1153 windows on disk | 70/70 clips decodable, 0 skipped, 70 subject id(s) contributed
+2299.1s	61	caucafall: 100 clips (probe-cleared)
+3174.8s	62	    wrote falls_0002.npz (1159 windows, 2312 banked)
+3174.8s	63	  caucafall done - 2312 windows on disk | 100/100 clips decodable, 0 skipped, 10 subject id(s) contributed
+3174.8s	64	le2i: 190 clips (probe-cleared)
+4845.2s	65	    wrote falls_0003.npz (752 windows, 3064 banked)
+4845.2s	66	  le2i done - 3064 windows on disk | 190/190 clips decodable, 83 skipped, 6 subject id(s) contributed
+4845.2s	67	      skipped: no-annotation x83
+4845.2s	68	
+4845.2s	69	clips skipped during extraction (counted, and now reported):
+4845.2s	70	  le2i                                  83
+4845.2s	71	  A clip is skipped when its label cannot be established - for Le2i that means
+4845.2s	72	  no readable Annotation_files entry. Skipping is correct (guessing would put
+4845.2s	73	  real falls in the negatives), but the COUNT belongs in the write-up.
+4845.2s	74	4 shard(s) on disk, 3064 windows total
+4845.2s	75	3064 windows from 4 source(s):
+4845.2s	76	   1 standing              704
+4845.2s	77	   7 falling               408
+4845.2s	78	   8 fallen_on_ground      450
+4845.2s	79	  19 other_idle           1502
+4845.2s	80	  balance: 858 fall / 2206 non-fall
+4845.2s	81	  79 subject id(s):
+4845.2s	82	    caucafall_Subject.1              95 windows
+4845.2s	83	    caucafall_Subject.10            149 windows
+4845.2s	84	    caucafall_Subject.2              83 windows
+4845.2s	85	    caucafall_Subject.3             107 windows
+4845.2s	86	    caucafall_Subject.4             109 windows
+4845.2s	87	    caucafall_Subject.5             132 windows
+4845.2s	88	    caucafall_Subject.6             128 windows
+4845.2s	89	    caucafall_Subject.7             107 windows
+4845.2s	90	    caucafall_Subject.8             125 windows
+4845.2s	91	    caucafall_Subject.9             124 windows
+4845.2s	92	    gmdcsa_Subject1                 138 windows
+4845.2s	93	    gmdcsa_Subject2                 336 windows
+4845.2s	94	    gmdcsa_Subject3                 244 windows
+4845.2s	95	    gmdcsa_Subject4                 196 windows
+4845.2s	96	    le2i_Coffee_room_01             372 windows
+4845.2s	97	    le2i_Home_01                    184 windows
+4845.2s	98	    le2i_Home_02                    196 windows
+4845.2s	99	    urfd_adl-01                       4 windows
+4845.2s	100	    urfd_adl-02                       4 windows
+4845.2s	101	    urfd_adl-03                       5 windows
+4845.2s	102	    urfd_adl-04                       4 windows
+4845.2s	103	    urfd_adl-05                       5 windows
+4845.2s	104	    urfd_adl-06                       6 windows
+4845.2s	105	    urfd_adl-07                       5 windows
+4845.2s	106	    urfd_adl-08                       5 windows
+4845.2s	107	    urfd_adl-09                       4 windows
+4845.2s	108	    urfd_adl-10                       9 windows
+4845.2s	109	    urfd_adl-11                       7 windows
+4845.2s	110	    urfd_adl-12                       6 windows
+4845.2s	111	    urfd_adl-13                       6 windows
+4845.2s	112	    urfd_adl-14                       5 windows
+4845.2s	113	    urfd_adl-15                       6 windows
+4845.2s	114	    urfd_adl-16                       5 windows
+4845.2s	115	    urfd_adl-17                       5 windows
+4845.2s	116	    urfd_adl-18                       5 windows
+4845.2s	117	    urfd_adl-19                       5 windows
+4845.2s	118	    urfd_adl-20                       7 windows
+4845.2s	119	    urfd_adl-21                       5 windows
+4845.2s	120	    urfd_adl-22                       4 windows
+4845.2s	121	    urfd_adl-23                       4 windows
+4845.2s	122	    urfd_adl-24                       1 windows
+4845.2s	123	    urfd_adl-25                       1 windows
+4845.2s	124	    urfd_adl-26                       1 windows
+4845.2s	125	    urfd_adl-29                       3 windows
+4845.2s	126	    urfd_adl-30                       7 windows
+4845.2s	127	    urfd_adl-31                       6 windows
+4845.2s	128	    urfd_adl-32                       4 windows
+4845.2s	129	    urfd_adl-33                       3 windows
+4845.2s	130	    urfd_adl-34                       1 windows
+4845.2s	131	    urfd_adl-35                       6 windows
+4845.2s	132	    urfd_adl-36                       8 windows
+4845.2s	133	    urfd_adl-37                       8 windows
+4845.2s	134	    urfd_adl-38                       7 windows
+4845.2s	135	    urfd_adl-39                       6 windows
+4845.2s	136	    urfd_adl-40                       7 windows
+4845.2s	137	    urfd_fall-01                      3 windows
+4845.2s	138	    urfd_fall-02                      2 windows
+4845.2s	139	    urfd_fall-03                      6 windows
+4845.2s	140	    urfd_fall-04                      2 windows
+4845.2s	141	    urfd_fall-05                      4 windows
+4845.2s	142	    urfd_fall-06                      2 windows
+4845.2s	143	    urfd_fall-07                      4 windows
+4845.2s	144	    urfd_fall-08                      1 windows
+4845.2s	145	    urfd_fall-09                      5 windows
+4845.2s	146	    urfd_fall-10                      3 windows
+4845.2s	147	    urfd_fall-11                      1 windows
+4845.2s	148	    urfd_fall-13                      1 windows
+4845.2s	149	    urfd_fall-14                      1 windows
+4845.2s	150	    urfd_fall-15                      1 windows
+4845.2s	151	    urfd_fall-17                      1 windows
+4845.2s	152	    urfd_fall-18                      1 windows
+4845.2s	153	    urfd_fall-19                      1 windows
+4845.2s	154	    urfd_fall-20                      2 windows
+4845.2s	155	    urfd_fall-24                      1 windows
+4845.2s	156	    urfd_fall-25                      1 windows
+4845.2s	157	    urfd_fall-27                      2 windows
+4845.2s	158	    urfd_fall-28                      1 windows
+4845.2s	159	    urfd_fall-29                      2 windows
+4845.2s	160	    urfd_fall-30                      1 windows
+4845.2s	161	  NOTE: 56 subject(s) have only one clip type (['urfd_adl-01', 'urfd_adl-02', 'urfd_adl-03', 'urfd_adl-04']) - a split isolating them yields a fold with no positives.
+4845.2s	162	
+4845.2s	163	  subject granularity: 79 ids, 62 with <20 windows
+4845.2s	164	    small ids by corpus: {'urfd': 62}
+4845.2s	165	    URFD publishes no clip->volunteer mapping, so each CLIP is its own subject.
+4845.2s	166	    P1 is therefore optimistic for URFD - state this in the eval table.
+4849.4s	167	    val-fold size across 8 seeds: min 225 / max 1406 windows
+4849.4s	168	
+4849.4s	169	  P2 viable: 4 datasets -> 4 leave-one-out folds (['caucafall', 'gmdcsa', 'le2i', 'urfd'])
+4849.4s	170	
+4849.4s	171	4 shard(s), 4.3 MB total:
+4849.4s	172	  falls_0000.npz      1.3 MB
+4849.4s	173	  falls_0001.npz      0.4 MB
+4849.4s	174	  falls_0002.npz      1.5 MB
+4849.4s	175	  falls_0003.npz      1.0 MB
+4849.4s	176	
+4849.4s	177	Save Version -> create dataset behaviorsense-fall-shards.
+4855.4s	178	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+4855.4s	179	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+4855.6s	180	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+4855.6s	181	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+4856.3s	182	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+4856.6s	183	[NbConvertApp] Writing 58936 bytes to __notebook__.ipynb
+4859.3s	184	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+4860.3s	185	[NbConvertApp] Writing 423820 bytes to __results__.html
+
+
+[M01021] 2026-08-08T19:23:53.027Z ASSISTANT (conversation) [C007:1288; copies=13]
+Let me verify the current state before advising, since the last run's numbers decide whether you proceed or re-run.
+
+
+[M01022] 2026-08-08T19:25:21.948Z ASSISTANT (conversation) [C007:1294; copies=13]
+Numbers are self-consistent (both breakdowns sum to 3064), and the code dataset hasn't drifted. But one number in that output stops me from saying "proceed": **81.6% of the windows are positives.** Let me check what that does downstream before you spend a training session on it.
+
+
+[M01023] 2026-08-08T19:25:53.751Z ASSISTANT (conversation) [C007:1297; copies=13]
+Three real problems, all downstream of the same root cause. But notebook 03 globs shards — let me confirm whether the ADL shards already supply the missing negatives before recommending a re-run.
+
+
+[M01024] 2026-08-08T19:26:16.141Z ASSISTANT (conversation) [C007:1300; copies=13]
+Confirmed: `train_fall.py --shards *FALL` sees **only** the fall shards, so the 81.6% imbalance is exactly what the head trains on. The ADL corpus never reaches it. Let me verify the consequence empirically rather than argue it.
+
+
+[M01025] 2026-08-08T19:26:53.673Z ASSISTANT (conversation) [C007:1304; copies=13]
+Demonstrated: the same detector reports sensitivity 0.65 → 0.37 and AUPRC 0.993 → 0.790 purely from the negative count. On today's shards the fall head's headline numbers would be an artefact of shard composition. Fixing this properly — notebook 03 should feed the fall head ADL negatives too.
+
+
+[M01026] 2026-08-08T19:27:12.000Z ASSISTANT (conversation) [C007:1307; copies=13]
+`train_fall.py` already derives its target from labels 7/8, so **any** shard works as input — ADL windows simply become negatives. The fix is one line in notebook 03, plus making alpha follow the data rather than a stale constant.
+
+
+[M01027] 2026-08-08T19:27:26.913Z ASSISTANT (conversation) [C007:1308; copies=13]
+API Error: Server error mid-response. The response above may be incomplete.
+
+
+[M01028] 2026-08-08T19:28:19.518Z USER (conversation) [C007:1309; copies=13]
+Continue
+
+
+[M01029] 2026-08-08T19:34:36.572Z ASSISTANT (conversation) [C007:1316; copies=13]
+Now the focal alpha, which is currently weighting the majority class 3× the minority:
+
+
+[M01030] 2026-08-08T19:35:13.788Z ASSISTANT (conversation) [C007:1320; copies=13]
+`alpha=0.75` is correct *when positives are rare* — which the ADL fix restores. But nothing catches the backwards case, so let me add a guard rather than leave it to assumption:
+
+
+[M01031] 2026-08-08T19:38:04.055Z ASSISTANT (conversation) [C022:1767; copies=1]
+Same escape collapse. Fixing by line:
+
+
+[M01032] 2026-08-08T19:39:13.361Z ASSISTANT (conversation) [C022:1772; copies=1]
+`\\n` in source is a literal backslash-n, not a newline. Fixing that, then testing both branches:
+
+
+[M01033] 2026-08-08T19:39:49.458Z ASSISTANT (conversation) [C022:1775; copies=1]
+The source is now correct (`x the minority.\n"`); only my inline test string was malformed. Verifying the real behaviour by executing the guard:
+
+
+[M01034] 2026-08-08T19:41:16.588Z ASSISTANT (conversation) [C022:1778; copies=1]
+Both branches behave correctly, and the sample-size warning fired exactly where it should. Now regenerate and run the suite:
+
+
+[M01035] 2026-08-08T19:45:52.868Z ASSISTANT (conversation) [C022:1790; copies=1]
+While that runs, the docs need the Le2i coverage reality — 74 of 190 clips, 3 of 6 scenes:
+
+
+[M01036] 2026-08-08T20:00:11.903Z ASSISTANT (conversation) [C022:1807; copies=1]
+The extraction succeeded — 3,064 windows, 4 corpora, all 190 Le2i clips rescued by PyAV. **Save Version and create `behaviorsense-fall-shards`.** The shards are correct.
+
+But the new skip r… [CCR retrieve hash=3bdc0adf3c0919e18e5e94ef chars=3179]
+
+
+[M01037] 2026-08-08T20:00:47.096Z USER (conversation) [C007:1327; copies=13]
+what to be done next?
+
+
+[M01038] 2026-08-08T20:02:33.867Z ASSISTANT (conversation) [C007:1329; copies=13]
+Let me verify what actually needs re-uploading, and close one gap I left open.
+
+
+[M01039] 2026-08-08T20:03:27.720Z ASSISTANT (conversation) [C007:1332; copies=13]
+`train_fall.py` changed and the contract doesn't cover it — so a stale upload would pass `contract 11/11`, then train the fall head on 82% positives with inverted alpha. Closing that gap first:
+
+
+[M01040] 2026-08-08T20:06:48.793Z ASSISTANT (conversation) [C007:1338; copies=13]
+My own contract entry now names `train_fall.py`, so N18's cell lookup matches two cells. Fixing the needle:
+
+
+[M01041] 2026-08-08T20:09:23.190Z ASSISTANT (conversation) [C007:1341; copies=13]
+**Two steps.**
+
+**1. Re-upload `behaviorsense-code` — required this time.**
+
+```bash
+kaggle datasets version -p . --dir-mode zip -m "fall head trains on ADL negatives; alpha guard"
+```
+
+`scripts/train_fall.py` changed at 19:39, after your last verified mount. I also added it to the repo contract (now 12 tokens), so if you skip this upload notebook 03 will stop at the resolver cell naming the missing guard — rather than training the fall head on 82% positives and reporting a plausible, meaningless AUPRC.
+
+**2. Then run notebook 03 — OFFLINE, Blackwell.**
+
+Attach: `behaviorsense-code`, the wheels/weights dataset (`behavioursense-WW`), `behaviorsense-adl-shards`, `behaviorsense-fall-shards`.
+
+Expect roughly: preflight ~1 min → 4 ADL streams in parallel → fall head. The four streams fit concurrently in 96 GB, so wall-clock is the slowest stream rather than the sum.
+
+Two things to watch in the log, both new:
+
+- `positive rate 0.015` on the fall head — confirms the ADL negatives arrived. If it prints ~0.82, the ADL shards didn't mount and the run will refuse rather than proceed.
+- No `WARNING: ... permitted false alarms` line. With ADL negatives you should have ~40 h of monitored video, so the operating point becomes a real deployment choice.
+
+**Before that**, if you haven't yet: Save Version on the notebook 02 run and create `behaviorsense-fall-shards`. Notebook 03 needs it attached.
+
+One thing I'd flag for the write-up rather than fix: Le2i contributes 74 of 190 clips (3 of 6 scenes), and the 116 skips are now printed per corpus. That number belongs in the eval table next to the P2 fall results — it's a corpus limitation, not a defect, but it shouldn't be discovered by a reader.
+
+
+[M01042] 2026-08-08T20:14:25.281Z USER (conversation) [C007:1343; copies=13]
+| `behaviorsense-code`, `behaviorsense-wheels`, `behaviorsense-weights` | `behaviorsense-runs` |
+this is in the 1st markdown cell in @notebooks/03_train_blackwell_offline.ipynb, does it consider that wheels and weights are the in the same dataset
+
+
+[M01043] 2026-08-08T20:17:43.968Z ASSISTANT (conversation) [C007:1347; copies=13]
+Good catch — the **code** doesn't care, but the **header** implies three separate datasets. Let me confirm the resolver handles the combined case:
+
+
+[M01044] 2026-08-08T20:18:25.702Z ASSISTANT (conversation) [C007:1350; copies=13]
+**The code handles it correctly — the header is what's misleading.** Both layouts resolve, verified against your actual nesting (`/kaggle/input/datasets/<owner>/<name>/`):
+
+| layout | result |
+… [CCR retrieve hash=2fd0c1bd4e5ea9bd1a20ea16 chars=482]
+
+
+[M01045] 2026-08-08T20:24:43.016Z ASSISTANT (conversation) [C007:1358; copies=13]
+N1 checks headers name each dataset — a real check, but it encodes the assumption I just removed. Making it verify what the notebook *resolves* instead:
+
+
+[M01046] 2026-08-08T20:27:48.295Z ASSISTANT (conversation) [C007:1363; copies=13]
+**No — the header was misleading, but the code was already correct.** I verified the resolver against both layouts using your actual mount nesting:
+
+| you attach | resolver finds |
+|---|---|
+| one `be… [CCR retrieve hash=b9ca23b7295dda11b23c72d3 chars=1733]
+
+
+[M01047] 2026-08-08T20:43:02.240Z USER (conversation) [C022:1863; copies=1]
+Time
+#
+Log Message
+4.6s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.6s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.6s	3	0.00s - to python to disable frozen modules.
+4.6s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+5.0s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+5.0s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+5.0s	7	0.00s - to python to disable frozen modules.
+5.0s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+194.0s	9	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+194.0s	10	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+194.0s	11	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+194.0s	12	  attached  ['competitions', 'datasets']
+194.0s	13	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+194.0s	14	  contract 12/12 - mounted code is current
+197.6s	15	torch 2.10.0+cu128 already supports sm_120
+209.6s	16	======================================================================
+209.6s	17	BehaviorSense Kaggle preflight
+209.6s	18	======================================================================
+209.6s	19	torch 2.10.0+cu128
+209.6s	20	
+209.6s	21	imports:
+209.6s	22	  [ok] numpy
+209.6s	23	  [ok] pydantic
+209.6s	24	  [ok] torch
+209.6s	25	  [ok] PIL
+209.6s	26	  [ok] yaml
+209.6s	27	  [ok] transformers
+209.6s	28	  [warn] outlines missing (constrained decoding)
+209.6s	29	  [warn] onnxruntime missing (RTMO/RT-DETR inference)
+209.6s	30	
+209.6s	31	assets in /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights  (profile: training)
+209.6s	32	  (no staged asset blocks the 'training' profile; all findings are warnings)
+209.6s	33	  [ok] osnet_ain_x1_0_msmt17.pth: 17.3 MB
+209.6s	34	  [ok] osnet_ain_x1_0_imagenet.pth: 10.9 MB
+209.6s	35	  [ok] rtmo-l.onnx: 175.9 MB
+209.6s	36	  [ok] rtdetr-l.onnx: 131.7 MB
+209.6s	37	  [warn] MISSING stgcnpp_ntu60_joint.pth - ST-GCN++ NTU pretrain (Agent 2 init)
+209.6s	38	
+209.6s	39	======================================================================
+209.6s	40	PREFLIGHT FAILED - 1 blocking problem(s):
+209.6s	41	  - CUDA is not available - training would silently run on CPU
+209.6s	42	
+209.6s	43	Fix these before starting a training run; each one would otherwise
+209.6s	44	surface late in the session, after preprocessing time is already spent.
+209.8s	45	======================================================================
+209.8s	46	BehaviorSense Kaggle preflight
+209.8s	47	======================================================================
+209.8s	48	torch 2.10.0+cu128
+209.8s	49	
+209.8s	50	imports:
+209.8s	51	  [ok] numpy
+209.8s	52	  [ok] pydantic
+209.8s	53	  [ok] torch
+209.8s	54	  [ok] PIL
+209.8s	55	  [ok] yaml
+209.8s	56	  [ok] transformers
+209.8s	57	  [warn] outlines missing (constrained decoding)
+209.8s	58	  [warn] onnxruntime missing (RTMO/RT-DETR inference)
+209.8s	59	
+209.8s	60	assets in /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights  (profile: training)
+209.8s	61	  (no staged asset blocks the 'training' profile; all findings are warnings)
+209.8s	62	  [ok] osnet_ain_x1_0_msmt17.pth: 17.3 MB
+209.8s	63	  [ok] osnet_ain_x1_0_imagenet.pth: 10.9 MB
+209.8s	64	  [ok] rtmo-l.onnx: 175.9 MB
+209.8s	65	  [ok] rtdetr-l.onnx: 131.7 MB
+209.8s	66	  [warn] MISSING stgcnpp_ntu60_joint.pth - ST-GCN++ NTU pretrain (Agent 2 init)
+209.8s	67	
+209.8s	68	======================================================================
+209.8s	69	PREFLIGHT FAILED - 1 blocking problem(s):
+209.8s	70	  - CUDA is not available - training would silently run on CPU
+209.8s	71	
+209.8s	72	Fix these before starting a training run; each one would otherwise
+209.8s	73	surface late in the session, after preprocessing time is already spent.
+212.4s	74	Traceback (most recent call last):
+212.4s	75	  File "<string>", line 1, in <module>
+212.4s	76	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 131, in execute_notebook
+212.4s	77	    raise_for_execution_errors(nb, output_path)
+212.4s	78	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+212.4s	79	    raise error
+212.4s	80	papermill.exceptions.PapermillExecutionError: 
+212.4s	81	---------------------------------------------------------------------------
+212.4s	82	Exception encountered at "In [3]":
+212.4s	83	---------------------------------------------------------------------------
+212.4s	84	AssertionError                            Traceback (most recent call last)
+212.4s	85	/tmp/ipykernel_65/2069437990.py in <cell line: 0>()
+212.4s	86	     13      "--assets", str(WEIGHTS), "--profile", "training"],
+212.4s	87	     14     env={"PYTHONPATH": str(SRC), "PATH": "/usr/bin:/bin:/usr/local/bin"})
+212.4s	88	---> 15 assert r.returncode == 0, "PREFLIGHT FAILED - fix before burning GPU hours"
+212.4s	89	
+212.4s	90	AssertionError: PREFLIGHT FAILED - fix before burning GPU hours
+212.4s	91	
+213.5s	92	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+213.5s	93	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+213.6s	94	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+213.6s	95	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+213.8s	96	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+214.0s	97	[NbConvertApp] Writing 25058 bytes to __notebook__.ipynb
+215.1s	98	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+215.5s	99	[NbConvertApp] Writing 331792 bytes to __results__.html
+
+
+[M01048] 2026-08-08T20:43:09.354Z USER (control) [C022:1864; copies=1]
+[Request interrupted by user]

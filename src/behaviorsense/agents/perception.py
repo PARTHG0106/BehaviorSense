@@ -128,9 +128,35 @@ class PerceptionConfig:
 
     # -- tracking --------------------------------------------------------------
     max_age_frames: int = 30
-    """Frames a track survives without a detection before deletion. At 15 fps this is
-    2 seconds - long enough to cross behind furniture, short enough that an ID is not
-    handed to a different person who walks through the same spot."""
+    """Frames a TENTATIVE (unconfirmed) track survives without a detection before deletion.
+
+    This is the ghost-suppression horizon: a one-frame blip must not linger where a future
+    real person could be handed its id. Confirmed tracks are governed by
+    `bridge_max_age_frames` instead. At 20 Hz, 30 frames is 1.5 s."""
+
+    bridge_max_age_frames: int = 300
+    """Frames a CONFIRMED track survives without a detection, keeping its ID for re-detection.
+
+    THE MAIN LEVER ON TRACK FRAGMENTATION, and the fix for the measured failure: a 596 s
+    kitchen clip of ONE person produced 39 track ids, because RTMO missed them in 34% of
+    frames and every gap longer than `max_age_frames` retired the id - so the person arrived
+    at Agent 2 as dozens of fragments, and only the disjoint-span merge downstream held their
+    activity together. At 20 Hz, 300 frames bridges gaps up to 15 s in the TRACKER, which
+    leaves longer gaps (the person leaving the room and returning) to that merge, which also
+    applies the walking-distance check a tracker cannot.
+
+    The honest cost, same capability gap P3b documents: with no appearance gating, a
+    *different* person entering where the resident was last seen within the horizon can be
+    handed the resident's id. The IoU gate makes that unlikely but not impossible; real
+    BoT-SORT closes it with embeddings, which this tracker deliberately does not compute
+    inside the association loop."""
+
+    max_predict_steps: int = 10
+    """Cap on velocity extrapolation while coasting. Beyond this the predicted box stops
+    moving and association falls back to the last OBSERVED box - which for a person who
+    stepped behind a counter and returned is exactly the right prior. Without the cap,
+    velocity x age over a 300-frame gap projects the box across the room, and association
+    degenerates from 'coasting' to 'a guess about where the momentum went'."""
 
     min_hits: int = 3
     """Detections before a track is confirmed. Suppresses single-frame false positives
@@ -187,6 +213,19 @@ class PerceptionConfig:
     away; low momentum would let one error redefine the identity."""
 
     min_embed_box_area: float = 1200.0
+
+    reid_embed_interval: int = 15
+    """Frames between ReID embeddings for a confirmed track. Identity is a property of a
+    track, not a frame, so one embedding per ~0.75 s at 20 Hz is plenty: the vote window
+    absorbs the noise and the role persists on the track between samples. Measured context:
+    embedding every person-record on CPU cost 104 s per clip; at this interval the same clip
+    embeds ~1/15th of them. The enrolment protocol this deployment's tau was fitted under
+    used 4 crops per identity, so this is sampling ABOVE the fitting density, not below."""
+
+    enrolment_top_k: int = 8
+    """Best crops per track kept as enrolment candidates, ranked by pose confidence times
+    crop area - the two things that make an embedding worth keeping."""
+
     """Crops smaller than this yield embeddings dominated by upsampling artefacts. A
     distant figure produces a low-information vector that lands near the gallery mean and
     matches everything; skip it rather than trust it."""
@@ -247,6 +286,8 @@ class Track:
     velocity: tuple[float, float] = (0.0, 0.0)
     min_hits: int = 3
     """Copied from config at creation so `confirmed` cannot silently ignore the setting."""
+    max_predict_steps: int = 10
+    """Copied from config at creation, same reason - see PerceptionConfig."""
 
     @property
     def confirmed(self) -> bool:
@@ -266,9 +307,15 @@ class Track:
         person. The coasted box is used ONLY to widen association - it is never emitted,
         because `active_tracks()` filters to `age == 0`. A predicted position is not an
         observation and must not reach Agent 2 as one.
+
+        Extrapolation is CAPPED at `max_predict_steps`: momentum is a useful prior for
+        the first moments of a gap and a fiction after that. Beyond the cap the predicted
+        box stops moving, and association falls back to the last observed box - the
+        'stepped behind the counter, came back' prior - rather than projecting the person
+        across the room on velocity they may not still have.
         """
         vx, vy = self.velocity
-        steps = max(1, self.age)
+        steps = max(1, min(self.age, self.max_predict_steps))
         try:
             return BoundingBox(
                 x1=self.box.x1 + vx * steps, y1=self.box.y1 + vy * steps,
@@ -366,10 +413,20 @@ class SimpleTracker:
                 confidence=det.confidence,
                 keypoints=det.keypoints,
                 min_hits=cfg.min_hits,
+                max_predict_steps=cfg.max_predict_steps,
             )
             self._next_id += 1
 
-        dead = [tid for tid, t in self._tracks.items() if t.age > cfg.max_age_frames]
+        # TWO HORIZONS, by confirmation. A confirmed identity keeps its id through detection
+        # dropout for `bridge_max_age_frames`, so a person behind a counter for ten seconds is
+        # still themselves when RTMO finds them again; a tentative blip dies at
+        # `max_age_frames` so it cannot capture a future person. Both horizons bound the
+        # same failure - an id handed to someone else - just at different confidence that
+        # the track was ever a person.
+        dead = [
+            tid for tid, t in self._tracks.items()
+            if t.age > (cfg.bridge_max_age_frames if t.confirmed else cfg.max_age_frames)
+        ]
         for tid in dead:
             del self._tracks[tid]
 
@@ -557,6 +614,11 @@ class PerceptionAgent:
         self._last_objects: list[DetectedObject] = []
         self._object_interval = max(1, int(round(fps / self.config.object_sample_hz)))
         self._track_names: dict[int, str] = {}
+        # Enrolment candidates: the best few (embedding, quality) samples per confirmed
+        # track, so an operator can enrol a person from a clip they just ran. Pixels never
+        # leave the agent; only the 512-d vectors do, which is the same class of thing as
+        # the keypoints that already cross the seam.
+        self._enrolment: dict[int, list[tuple[float, np.ndarray]]] = {}
 
     # -- role assignment --------------------------------------------------------
 
@@ -624,6 +686,31 @@ class PerceptionAgent:
         """Enrolled name currently associated with a track, if any."""
         return self._track_names.get(track_id)
 
+    def _offer_enrolment(self, track: Track) -> None:
+        """Keep this track's best crops as enrolment candidates.
+
+        Quality is pose confidence times the square root of crop area: a sharp crop of a
+        well-detected person is what the gallery wants, and either factor alone is gameable
+        (a huge blurry crop, or a tiny sharp one). Capped at `enrolment_top_k` so a long
+        clip cannot balloon the output - the operator needs a handful, not a corpus.
+        """
+        if track.embedding is None or track.keypoints is None:
+            return
+        # `scores` may be a list or an array depending on how the Keypoints was built;
+        # asarray covers both without asking the caller to care.
+        scores = np.asarray(track.keypoints.scores, dtype=np.float32)
+        kp = float(scores.mean()) if scores.size else 0.0
+        quality = kp * (track.box.area ** 0.5)
+        kept = self._enrolment.setdefault(track.track_id, [])
+        kept.append((quality, track.embedding))
+        kept.sort(key=lambda q: -q[0])
+        del kept[self.config.enrolment_top_k:]
+
+    def enrolment_samples(self) -> dict[int, list[np.ndarray]]:
+        """The collected candidates, best first. Drained by the video path into its output
+        so an enrolment decision can be made where the operator's gallery lives."""
+        return {tid: [e for _q, e in kept] for tid, kept in self._enrolment.items()}
+
     # -- main entry point -------------------------------------------------------
 
     def process_frame(
@@ -644,8 +731,22 @@ class PerceptionAgent:
 
         persons: list[PersonObservation] = []
         for track in tracks:
-            observed = self._identify(frame, track)
-            self._vote_role(track, observed)
+            # EMBED ON A SCHEDULE, not every frame - but with a WARM-UP. Embedding every
+            # person-record cost 104 s of CPU per clip on the P100 deployment, and identity
+            # changes on no such schedule; the role persists on the track between samples
+            # and the vote window smooths the ones it gets. The warm-up exists because a
+            # cold interval is 15 frames and `role_min_votes` is 5: a pure-interval sampler
+            # would leave every short track UNKNOWN (P11 caught exactly this) and delay the
+            # first identity of a long one by three-quarters of a second. So: embed every
+            # frame until the vote has enough evidence to leave UNKNOWN, then thin out.
+            # `confirmed` gates the ghosts - a 1-frame blip is not worth an embedding.
+            votes = len(track.role_votes)
+            if (self.embedder is not None and track.confirmed
+                    and (votes < cfg.role_min_votes
+                         or self._frame_idx % max(1, cfg.reid_embed_interval) == 0)):
+                observed = self._identify(frame, track)
+                self._vote_role(track, observed)
+                self._offer_enrolment(track)
 
             keypoints = track.keypoints
             if keypoints is not None and not keypoints.is_usable(cfg.min_visible_keypoints):
@@ -702,6 +803,10 @@ class PerceptionAgent:
         self._frame_idx = 0
         self._last_objects = []
         self._track_names.clear()
+        # Enrolment candidates are crops of THIS video's tracks; the next video's track 0
+        # is not this video's track 0, and offering stale candidates under a fresh id is
+        # the same silent merge reset() exists to prevent.
+        self._enrolment.clear()
 
 
 def role_durations(

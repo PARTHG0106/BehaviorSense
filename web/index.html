@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BehaviorSense — verified behaviour monitoring</title>
+<meta name="description" content="Identity-aware behaviour monitoring for elderly care. A language model writes the daily summary; five deterministic checks decide whether it is allowed to be read.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/tokens.css?v=2026-09-13g">
+<link rel="stylesheet" href="styles/base.css?v=2026-09-13g">
+<link rel="stylesheet" href="styles/components.css?v=2026-09-13g">
+</head>
+<body>
+<a class="skip" href="#ledger">Skip to the report</a>
+
+<header class="rail">
+  <div class="rail__mark">
+    <span class="rail__name">BehaviorSense</span>
+    <span class="rail__sub">verified behaviour monitoring</span>
+  </div>
+  <nav class="rail__nav" aria-label="Sections">
+    <a href="#checks">Checks</a>
+    <a href="#footage">Footage</a>
+    <a href="#pipeline">Pipeline</a>
+    <a href="#measurements">Measurements</a>
+    <a href="#calibration">Calibration</a>
+  </nav>
+  <button class="conn" id="conn" data-mode="replay" type="button"
+          aria-expanded="false" aria-controls="dock">
+    <span class="conn__dot" aria-hidden="true"></span>
+    <span class="conn__text">Replay</span>
+  </button>
+</header>
+
+<!-- The backend is a Kaggle notebook behind a tunnel whose address changes every session,
+     so it is pasted, not configured. Kept as a slip under the rail rather than a modal:
+     nothing about this page needs to be blocked while you fill in a field. -->
+<div class="dock" id="dock" hidden>
+  <div class="dock__inner">
+    <div class="dock__copy">
+      <p class="dock__title">Inference backend</p>
+      <p class="dock__note">RTMO pose and the ST&#8209;GCN++ activity model run in a Kaggle notebook on a
+        GPU; the report is written by a hosted model called from the operator&rsquo;s machine,
+        which is also where its keys stay. Run
+        <code>notebooks/05_serve_inference_online.ipynb</code>, then paste the address it
+        prints. It is a new one every session.</p>
+    </div>
+    <form class="dock__form" id="dock-form" autocomplete="off">
+      <label class="dock__label" for="api-url">Address</label>
+      <input class="dock__input" id="api-url" type="url" spellcheck="false"
+             placeholder="https://something-random.trycloudflare.com">
+      <label class="dock__label" for="api-token">Token <span>optional</span></label>
+      <input class="dock__input" id="api-token" type="password" spellcheck="false"
+             placeholder="set BS_TOKEN in the notebook to require one">
+      <div class="dock__actions">
+        <button class="btn" type="submit" id="dock-connect">Connect</button>
+        <button class="btn btn--quiet" type="button" id="dock-forget">Forget</button>
+      </div>
+      <p class="dock__status" id="dock-status" role="status" aria-live="polite">
+        Not connected. The ledger below is replaying a stored day.</p>
+    </form>
+  </div>
+</div>
+
+<main>
+
+<section class="hero">
+  <div class="hero__inner">
+    <p class="eyebrow">Agent 4 &middot; claim verification</p>
+    <h1 class="display">No claim reaches a caregiver until the arithmetic agrees.</h1>
+    <p class="standfirst">BehaviorSense watches for decline in an older adult living
+      alone. A language model writes the daily summary &mdash; but it never sees video,
+      and it never decides whether it told the truth. Five deterministic checks do
+      that, and anything that fails one is withheld rather than flagged.</p>
+
+    <div class="ledger" id="ledger">
+      <div class="ledger__head">
+        <div class="ledger__id">
+          <p class="eyebrow eyebrow--bare">Daily report</p>
+          <p class="ledger__who" id="ledger-who">Resident &middot;
+            <time datetime="2026-02-22" id="ledger-day">22 February 2026</time></p>
+        </div>
+        <dl class="tally">
+          <div class="tally__cell"><dt>Claims</dt><dd id="t-total">&mdash;</dd></div>
+          <div class="tally__cell"><dt>Shown</dt><dd id="t-shown">&mdash;</dd></div>
+          <div class="tally__cell tally__cell--pencil"><dt>Withheld</dt><dd id="t-withheld">&mdash;</dd></div>
+        </dl>
+      </div>
+
+      <!-- Only meaningful once a backend answers, so it stays out of the way until then. -->
+      <p class="ledger__live" id="ledger-live" hidden></p>
+
+      <p class="ledger__summary" id="summary"></p>
+
+      <ol class="slips" id="slips" aria-live="polite"></ol>
+
+      <div class="ledger__foot">
+        <div class="controls" role="group" aria-label="Choose what the ledger shows">
+          <span class="controls__label">Inject faults</span>
+          <button type="button" class="chip" data-rate="0">None</button>
+          <button type="button" class="chip" data-rate="0.34" aria-pressed="true">1 in 3</button>
+          <button type="button" class="chip" data-rate="1">Every claim</button>
+          <button type="button" class="chip chip--live" id="chip-live" hidden
+                  data-live="1">Generate live</button>
+        </div>
+        <p class="ledger__note" id="ledger-note">The checks below each claim are the real
+          arithmetic, run in your browser against the same evidence table the model was
+          given. Faults are injected here so the checks are visible &mdash; in the measured
+          run, the language model failed <b>2.8&ndash;3.7%</b> of its claims unprompted.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="checks">
+  <div class="band__inner">
+    <header class="band__head">
+      <p class="eyebrow">The verifier</p>
+      <h2 class="h2">Five checks, and not one of them asks a language model.</h2>
+      <p class="lede">Using a model to check a model shares its blind spots. These are
+        arithmetic: they resolve a citation, compare two numbers, recompute a percentage,
+        read the sign of a change, and ask whether the sentence quotes the figure at all.
+        Counts are from 1,120 claims generated in the latest measured run.</p>
+    </header>
+
+    <ol class="checks">
+      <li class="check">
+        <p class="check__id">C1</p>
+        <h3 class="check__name">Citation resolves</h3>
+        <p class="check__q">Does the cited evidence row exist for this day?</p>
+        <p class="check__n"><b>1</b> failure</p>
+        <p class="check__note">The model is handed resolvable references rather than asked
+          to compose them &mdash; one fabrication in five runs, against zero in every run
+          before. A design choice doing real work, not a property of the model.</p>
+      </li>
+      <li class="check">
+        <p class="check__id">C2</p>
+        <h3 class="check__name">Value matches</h3>
+        <p class="check__q">Is the quoted number the recorded one, within 2%?</p>
+        <p class="check__n"><b>0</b> failures</p>
+        <p class="check__note">This used to be nearly the whole residual &mdash; 39&ndash;42
+          per run, the model restating a number it had been given. The prompt now carries a
+          filled template to copy from, and field misquotes went to zero.</p>
+      </li>
+      <li class="check">
+        <p class="check__id">C3</p>
+        <h3 class="check__name">Percentage survives</h3>
+        <p class="check__q">Does the quoted change hold up when recomputed, within 2 points?</p>
+        <p class="check__n"><b>0</b> failures</p>
+        <p class="check__note">A percentage against a zero baseline is undefined, not 0%.
+          Quoting one there is itself a failure.</p>
+      </li>
+      <li class="check check--sharp">
+        <p class="check__id">C4</p>
+        <h3 class="check__name">Direction agrees</h3>
+        <p class="check__q">Does the sentence match the sign of the change?</p>
+        <p class="check__n"><b>13</b> failures</p>
+        <p class="check__note">The dangerous one. &ldquo;Walking improved to 700&nbsp;s&rdquo;
+          quotes the right figure and inverts the meaning &mdash; C1 to C3 all pass it, and
+          a caregiver remembers the sentence, not the caveat.</p>
+      </li>
+      <li class="check">
+        <p class="check__id">C5</p>
+        <h3 class="check__name">Prose quotes the figure</h3>
+        <p class="check__q">Does the sentence contain the number the field records?</p>
+        <p class="check__n"><b>22</b> failures</p>
+        <p class="check__note">The newest, and now the largest category. The field can be
+          exactly right while the sentence says &ldquo;fell noticeably&rdquo; &mdash; C2 is
+          blind to that by construction, because it compares field against row and both
+          agree. The sentence is what a caregiver reads.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+<!-- All four agents on footage you supply, each stage's own output shown where it was
+     produced, then C1-C5 on every claim. Agent 3's baseline is a DECLARED simulated
+     reference and the payload says so on every affected number: one clip cannot supply a
+     multi-day rolling median, and a reference-relative z-score read as this person's decline is
+     the confusion the verification layer exists to prevent. -->
+<section class="band" id="footage">
+  <div class="band__inner">
+    <header class="band__head">
+      <p class="eyebrow">On your own footage</p>
+      <h2 class="h2">Upload a clip and watch all four agents work, one hand-off at a time.</h2>
+      <p class="lede">RTMO extracts COCO&#8209;17 poses for every person in shot, the tracker
+        holds an identity across frames, OSNet decides which of them is the resident, and the
+        ST&#8209;GCN++ ensemble labels each person&rsquo;s activity independently. Then the
+        behaviour layer measures the day, a hosted language model writes the report from
+        those numbers alone, and C1&ndash;C5 check every sentence before you see it. Each stage below shows
+        what it produced and what it handed on.</p>
+    </header>
+
+    <div class="clip" id="upload" data-ready="0">
+      <div class="clip__drop" id="clip-drop">
+        <p class="clip__cue">Drop a clip here, or</p>
+        <label class="btn" for="clip-input">Choose a file</label>
+        <input id="clip-input" type="file" accept="video/*" hidden>
+        <p class="clip__hint">Up to 60&nbsp;MB and ten minutes of footage. Longer uploads are
+          refused rather than silently cut short. One person or several: each identity is
+          tracked, classified and timelined separately.</p>
+        <p class="clip__enrol">
+          <label for="clip-enrol">Enrol the subject as</label>
+          <input id="clip-enrol" type="text" maxlength="40" autocomplete="off"
+                 placeholder="leave empty to just analyse">
+        </p>
+        <p class="clip__enrol-hint">A name here enrolls this clip's subject from their best
+          crops and turns on recognition for future uploads. The gallery is one local file on
+          the operator's machine &mdash; it never reaches Kaggle &mdash; and deleting it
+          forgets the enrolment.</p>
+      </div>
+
+      <div class="clip__stage" id="clip-stage" hidden>
+        <div class="clip__frame">
+          <video id="clip-video" playsinline controls muted loop></video>
+          <canvas id="clip-canvas" aria-hidden="true"></canvas>
+        </div>
+        <p class="clip__meta" id="clip-meta"></p>
+        <div class="clip__pipeline" id="clip-pipeline"></div>
+        <div class="clip__checks" id="clip-checks"></div>
+      </div>
+
+      <p class="clip__status" id="clip-status" role="status" aria-live="polite">
+        Connect a backend to analyse a clip.</p>
+
+      <p class="clip__caveat">The feature values Agent&nbsp;3 reports are measured from your
+        clip and are real. The baseline they are compared against is a declared simulated
+        reference, because a rolling multi&#8209;day median cannot come from one upload &mdash;
+        so read every deviation as &ldquo;unlike the reference&rdquo;, never as &ldquo;this
+        person has declined&rdquo;. C1&ndash;C5 still check each claim against the state
+        computed from this video, so a wrong figure or an inverted direction is caught
+        arithmetically either way.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band band--well" id="pipeline">
+  <div class="band__inner">
+    <header class="band__head">
+      <p class="eyebrow">The pipeline</p>
+      <h2 class="h2">Four agents, and one boundary the whole design rests on.</h2>
+      <p class="lede">Agents do not call each other. They hand over versioned schema
+        objects, each one persisted and independently replayable. The seam names below are
+        the actual types.</p>
+    </header>
+
+    <ol class="stages">
+      <li class="stage">
+        <p class="stage__n">Agent 1</p>
+        <h3 class="stage__name">Perception</h3>
+        <p class="stage__body">RTMO pose, tracking, and open-set re-identification, so a
+          measurement belongs to a person rather than to a box on screen. Strangers are
+          rejected at a fitted threshold instead of being enrolled by accident.</p>
+        <p class="seam"><span>emits</span> <code>PersonObservation</code></p>
+      </li>
+      <li class="stage">
+        <p class="stage__n">Agent 2</p>
+        <h3 class="stage__name">Activity</h3>
+        <p class="stage__body">A ST&#8209;GCN++ ensemble over 30-frame skeleton windows,
+          temperature-calibrated so its confidence means something, then smoothed into segments.
+          The served configuration uses the bone stream alone &mdash; selected on validation,
+          where averaging all four streams traded tail recall for head accuracy.</p>
+        <p class="seam"><span>emits</span> <code>ActivitySegment</code></p>
+      </li>
+      <li class="stage">
+        <p class="stage__n">Agent 3</p>
+        <h3 class="stage__name">Behaviour</h3>
+        <p class="stage__body">Thirty-day robust baselines per person, drift detection, and
+          ten alert rules. Statistical rather than learned, because a decline has to be
+          explainable to the person acting on it.</p>
+        <p class="seam"><span>emits</span> <code>BehaviourState</code></p>
+      </li>
+      <li class="stage stage--gate">
+        <p class="stage__n">Agent 4</p>
+        <h3 class="stage__name">Report</h3>
+        <p class="stage__body">Writes the summary as separate, citable claims &mdash; then
+          every claim goes through C1&ndash;C5 before anyone sees it.</p>
+        <p class="seam"><span>emits</span> <code>CaregiverReport</code></p>
+      </li>
+    </ol>
+
+    <p class="boundary">The model receives a <code>BehaviourState</code>: numbers,
+      baselines, deviations, alerts. No endpoint accepts video, and none returns
+      unverified output &mdash; so &ldquo;the model never sees pixels&rdquo; is a property
+      of the interface rather than a promise about how carefully it is called.</p>
+  </div>
+</section>
+
+<section class="band" id="measurements">
+  <div class="band__inner">
+    <header class="band__head">
+      <p class="eyebrow">Measurements</p>
+      <h2 class="h2">Every figure here came off a GPU, including the unflattering ones.</h2>
+      <p class="lede">Training and evaluation run offline on Kaggle. Where a number is
+        weak it is printed weak, because a results table that only contains good news
+        cannot be checked.</p>
+    </header>
+
+    <div class="readouts">
+      <article class="readout">
+        <p class="readout__label">Fall detection</p>
+        <p class="readout__fig">0.822<span class="readout__unit">AUPRC</span></p>
+        <ul class="readout__rows">
+          <li><span>Sensitivity</span><b>0.951</b></li>
+          <li><span>False alarms</span><b>0.99 / hour</b></li>
+          <li><span>Held-out AUROC, 4 unseen corpora</span><b>0.928&ndash;0.991</b></li>
+        </ul>
+        <p class="readout__note">AUPRC, not AUROC &mdash; at a 0.49% positive rate AUROC
+          flatters. The held-out range is the dedicated fall head scoring corpora it never
+          saw; the 20-class activity ensemble&rsquo;s own fall posterior sits at
+          0.47&ndash;0.60 on the same folds, which is why the two-model design exists.</p>
+      </article>
+
+      <article class="readout">
+        <p class="readout__label">Activity recognition</p>
+        <p class="readout__fig">0.187<span class="readout__unit">mean-class, 20 classes</span></p>
+        <ul class="readout__rows">
+          <li><span>Best single stream</span><b>bone</b></li>
+          <li><span>Ensemble top&#8209;1</span><b>0.375</b></li>
+          <li><span>Chance</span><b>0.050</b></li>
+          <li><span>Toyota cross-subject, served</span><b>0.736</b></li>
+        </ul>
+        <p class="readout__note is-weak">The weak result is the hard protocol: Charades,
+          measured actor-disjoint over 41 held-out actors. Four of the worst classes have
+          no skeleton-visible evidence at all &mdash; a pill bottle and a phone are the same
+          pose &mdash; which is why object context is part of the architecture rather than an
+          afterthought. The served checkpoint is trained on Toyota Smarthome instead, where
+          the same model family reaches 0.736 mean-class over 13 coarse classes
+          (cross-subject); on RTMO-extracted poses in deployment it measures 0.600. Both
+          numbers are in <code>results/evaluation.md</code>.</p>
+      </article>
+
+      <article class="readout">
+        <p class="readout__label">Identity</p>
+        <p class="readout__fig">0.355<span class="readout__unit">fitted threshold &tau;</span></p>
+        <ul class="readout__rows">
+          <li><span>Open-set AUROC</span><b>0.998</b></li>
+          <li><span>ImageNet control</span><b>0.534</b></li>
+          <li><span>Closed-set rank&#8209;1</span><b>99.58%</b></li>
+        </ul>
+        <p class="readout__note">The control is the load-bearing row. Untrained embeddings
+          scoring 0.534 through the identical protocol is what rules out a protocol bug
+          that would have flattered anything.</p>
+      </article>
+
+      <article class="readout">
+        <p class="readout__label">Decline detection</p>
+        <p class="readout__fig">5.07<span class="readout__unit">false alerts / 100 days</span></p>
+        <ul class="readout__rows">
+          <li><span>Recall</span><b>24 / 24</b></li>
+          <li><span>Median latency</span><b>4 days</b></li>
+          <li><span>Started at</span><b>67.66</b></li>
+        </ul>
+        <p class="readout__note">Five separate defects sat between 67.66 and 5.07, each
+          found by evaluation rather than by reading the code.</p>
+      </article>
+
+      <article class="readout">
+        <p class="readout__label">Report faithfulness</p>
+        <p class="readout__fig">3.2%<span class="readout__unit">hallucination rate</span></p>
+        <ul class="readout__rows">
+          <li><span>Claims checked</span><b>1,120</b></li>
+          <li><span>Grammar&#8209;constrained</span><b>2.8%</b></li>
+          <li><span>Unconstrained</span><b>3.7%</b></li>
+        </ul>
+        <p class="readout__note">Every claim withheld before a caregiver reads it. Field
+          misquotes went from ~40 per run to zero by giving the model a filled template to
+          copy from; the residual is prose that never quotes the figure, which only C5 can
+          see. The grammar&rsquo;s p&#8209;value for faithfulness is 0.40 &mdash; its value
+          is a parseability guarantee, not a truthfulness one.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="band band--well" id="calibration">
+  <div class="band__inner">
+    <header class="band__head">
+      <p class="eyebrow">Calibration</p>
+      <h2 class="h2">A metric nobody tried to break is a decoration.</h2>
+      <p class="lede">Before the verifier was pointed at a real model it was pointed at two
+        generators whose answers were already known: one that reports the evidence
+        honestly, and one that corrupts a controlled fraction of its claims. The honest one
+        has to score zero, and the corrupted one has to track its own injection rate.</p>
+    </header>
+
+    <div class="calib">
+      <figure class="fig" id="fig-anchors">
+        <figcaption class="fig__cap">
+          <span class="fig__title">Measured failure rate against injected corruption</span>
+          <span class="fig__sub">696 claims per condition &middot; 116 simulated resident-days</span>
+        </figcaption>
+        <div class="fig__plot" id="anchors-plot"></div>
+        <p class="fig__legend">
+          <span class="key"><span class="key__mark key__mark--ring"></span>injected</span>
+          <span class="key"><span class="key__mark key__mark--dot"></span>measured</span>
+        </p>
+        <p class="fig__note">Zero on honest output means the verifier has no false
+          positives, so every rate below it is real. Tracking the injection rate means it
+          does not saturate, so it can tell two models apart.</p>
+      </figure>
+
+      <div class="finding">
+        <p class="eyebrow eyebrow--bare">The result we did not want</p>
+        <h3 class="finding__head">Grammar-constrained decoding did not reduce hallucination.</h3>
+        <p class="finding__body">Forcing the model to emit JSON that matches the claim
+          schema is the standard fix. Measured over ~550 claims per arm it made no
+          difference: <b>2.8%</b> constrained against <b>3.7%</b> free,
+          <span class="mono">z&nbsp;=&nbsp;0.84</span>,
+          <span class="mono">p&nbsp;=&nbsp;0.40</span>, with confidence intervals
+          overlapping across most of their range &mdash; at <b>6.4&times;</b> the decoding
+          time.</p>
+        <p class="finding__body">What the grammar does buy is a guarantee: it
+          <em>cannot</em> emit a claim that fails the schema, where free decoding merely
+          happened not to. In a caregiver-facing system that is worth paying for. It is not
+          a faithfulness result, and it is not written up as one.</p>
+        <p class="finding__body finding__body--last">An earlier run put the constrained arm
+          at 39.9%. That figure was our own prompt: the model was never shown the shape of
+          the JSON it was being scored against, so it lost claims for guessing an envelope
+          nobody had described to it.</p>
+      </div>
+    </div>
+
+    <figure class="fig fig--wide" id="fig-lodo">
+      <figcaption class="fig__cap">
+        <span class="fig__title">Fall detection on a recording setup it was never trained on</span>
+        <span class="fig__sub">leave-one-corpus-out &middot; AUROC &middot; 3,064 windows across four corpora</span>
+      </figcaption>
+      <div class="fig__plot" id="lodo-plot"></div>
+      <p class="fig__note">Transfer is uneven and two corpora sit close to chance. Falls in
+        these datasets are acted, and camera geometry differs per site; the honest reading
+        is that a new home needs its own calibration, not that the model generalises.</p>
+    </figure>
+  </div>
+</section>
+
+<section class="band" id="status">
+  <div class="band__inner">
+    <p class="eyebrow">Status</p>
+    <h2 class="h2">Still being built.</h2>
+    <p class="lede">Final-year engineering project, in active development. The numbers on
+      this page come from completed offline GPU sessions; the work below is what is
+      currently running.</p>
+    <ul class="todo">
+      <li><span class="todo__state">next</span> Wiring object context into the classes
+        skeletons cannot separate &mdash; medication, phone use, watching television.</li>
+      <li><span class="todo__state">next</span> Staged-to-wild fall transfer on unscripted
+        footage, the one protocol not yet measured.</li>
+      <li><span class="todo__state todo__state--done">done</span> Training on the activity
+        streams completed at its patience limits; segment-level accuracy after temporal
+        smoothing is measured and in <code>results/evaluation.md</code>.</li>
+    </ul>
+    <p class="lede lede--close">Nothing on this page is a mock-up. The report at the top
+      runs the verifier's arithmetic; every measurement is reproducible from the
+      repository with one command.</p>
+    <p class="cta">
+      <a class="btn" href="https://github.com/PARTHG0106/BehaviorSense">Read the code</a>
+      <span class="cta__note">Backend, agents, notebooks and 217 tests</span>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot__inner">
+    <p class="foot__mark">BehaviorSense<span>Identity-aware multi-agent behaviour monitoring and explainable healthcare assistance</span></p>
+    <p class="foot__meta">Research prototype. No claim of diagnostic validity, and not a
+      medical device. Evaluated on Charades, Toyota Smarthome, Le2i, URFD, CAUCAFall, GMDCSA and
+      MSMT17; derived datasets are not redistributed.</p>
+  </div>
+</footer>
+
+<!-- THE VERSION KEY. Browsers cache ES modules hard - measured twice on this project, the
+     second time as "39 people tracked" over a report whose backend had already been updated, and
+     a withheld-deviations note that never rendered. A query string on the ENTRY script busts
+     nothing, because the modules it imports are cached under their own URLs. An import map
+     fixes the shape: every module resolves through ONE block, so bumping the version below
+     re-fetches all of them the moment this document revalidates (documents revalidate; modules
+     do not). The STYLESHEET links carry the same key for the same reason - components.css is
+     cached just as hard as stages.js, and an unstyled enrol field that only a hard refresh
+     fixes is the identical failure. CHANGE THIS whenever any file in scripts/ OR styles/
+     changes. -->
+<script type="importmap">
+{
+  "imports": {
+    "bs/api": "./scripts/api.js?v=2026-09-13g",
+    "bs/charts": "./scripts/charts.js?v=2026-09-13g",
+    "bs/dock": "./scripts/dock.js?v=2026-09-13g",
+    "bs/fixtures": "./scripts/fixtures.js?v=2026-09-13g",
+    "bs/ledger": "./scripts/ledger.js?v=2026-09-13g",
+    "bs/main": "./scripts/main.js?v=2026-09-13g",
+    "bs/overlay": "./scripts/overlay.js?v=2026-09-13g",
+    "bs/stages": "./scripts/stages.js?v=2026-09-13g",
+    "bs/upload": "./scripts/upload.js?v=2026-09-13g",
+    "bs/verifier": "./scripts/verifier.js?v=2026-09-13g"
+  }
+}
+</script>
+<script type="module" src="scripts/main.js?v=2026-09-13g"></script>
+</body>
+</html>

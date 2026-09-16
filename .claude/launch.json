@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "web",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "5175", "--directory", "web"],
+      "port": 5175
+    },
+    {
+      "name": "dev-api",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["web/dev_backend.py"],
+      "port": 8898,
+      "env": { "BS_PORT": "8898", "BS_STREAM_DELAY": "0.15" }
+    }
+  ]
+}

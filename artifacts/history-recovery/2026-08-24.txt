@@ -1,0 +1,752 @@
+
+[M01893] 2026-08-24T01:53:52.370Z USER (conversation) [C035:1561; copies=5]
+Successfully ran in 12796.9s
+Accelerator
+GPU RTX Pro 6000
+
+Environment
+Latest Container Image
+
+Output
+123.84 MB
+
+Time
+#
+Log Message
+4.9s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.9s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.9s	3	0.00s - to python to disable frozen modules.
+4.9s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+5.3s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+5.3s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+5.3s	7	0.00s - to python to disable frozen modules.
+5.3s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+7.4s	9	WARNING: Skipping onnxruntime as it is not installed.
+7.6s	10	WARNING: Skipping onnxruntime as it is not installed.
+7.6s	11	
+7.6s	12	WARNING: Skipping onnxruntime as it is not installed.
+7.9s	13	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+8.0s	14	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+8.0s	15	Installing collected packages: rtmlib
+8.0s	16	Successfully installed rtmlib-0.0.16
+8.2s	17	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+8.2s	18	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+8.2s	19	Installing collected packages: rtmlib
+8.2s	20	Successfully installed rtmlib-0.0.16
+8.5s	21	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+8.5s	22	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+8.7s	23	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+8.7s	24	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+12.0s	25	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+12.0s	26	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+12.0s	27	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+12.0s	28	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+12.0s	29	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+12.0s	30	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+12.2s	31	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+12.2s	32	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+12.2s	33	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+12.2s	34	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+12.2s	35	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+12.2s	36	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+12.8s	37	Installing collected packages: onnxruntime-gpu
+13.0s	38	Installing collected packages: onnxruntime-gpu
+15.3s	39	Successfully installed onnxruntime-gpu-1.26.0
+15.4s	40	Successfully installed onnxruntime-gpu-1.26.0
+15.4s	41	MODE=trimmed  FPS_SAMPLE=12.5  installed from /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+15.5s	42	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+15.5s	43	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+15.5s	44	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+15.5s	45	  attached  ["behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-toyota-meta (top level: ['toyota_meta'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "rgb-untrimmed (top level: ['Videos_mp4'])", "toyota-smarthome-rgb (top level: ['mp4'])", 'arc-prize-2026-arc-agi-3']
+15.5s	46	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+15.6s	47	  contract 22/22 - mounted code is current
+15.8s	48	onnxruntime providers: ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
+41.7s	49	meta   /kaggle/input/datasets/krishnagupta02468/behaviorsense-toyota-meta/toyota_meta
+41.7s	50	video  /kaggle/input/datasets/krishnagupta02468/toyota-smarthome-rgb/mp4  (16,115 files)
+41.7s	51	rtmo   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx
+41.9s	52	carried forward 0 shard(s), 0 clip(s) already extracted
+41.9s	53	16,115 clips in the 31-class space, 0 outside it or unparseable
+41.9s	54	16,115 to do this session
+44.4s	55	[0;93m2026-08-23 19:27:38.144755177 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+44.4s	56	[0;93m2026-08-23 19:27:38.146445715 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+44.4s	57	[0;93m2026-08-23 19:27:38.146450095 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+44.6s	58	[0;93m2026-08-23 19:27:38.144755177 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+44.6s	59	[0;93m2026-08-23 19:27:38.146445715 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+44.6s	60	[0;93m2026-08-23 19:27:38.146450095 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+44.6s	61	
+44.6s	62	[0;93m2026-08-23 19:27:38.144755177 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+44.6s	63	[0;93m2026-08-23 19:27:38.146445715 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+44.6s	64	[0;93m2026-08-23 19:27:38.146450095 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+44.6s	65	load /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx with onnxruntime backend
+779.6s	66	  500/16,115 clips, 433 ok, 67 unusable, 5,496 pending, 12.2 min, eta 383 min
+1078.3s	67	  shard 0: 8,012 windows
+1502.9s	68	  1,000/16,115 clips, 810 ok, 190 unusable, 2,680 pending, 24.3 min, eta 367 min
+1740.3s	69	  1,500/16,115 clips, 1,155 ok, 345 unusable, 4,051 pending, 28.3 min, eta 275 min
+1983.8s	70	  2,000/16,115 clips, 1,566 ok, 434 unusable, 5,736 pending, 32.3 min, eta 228 min
+2128.1s	71	  2,500/16,115 clips, 1,894 ok, 606 unusable, 6,380 pending, 34.7 min, eta 189 min
+2286.8s	72	  3,000/16,115 clips, 2,249 ok, 751 unusable, 7,141 pending, 37.4 min, eta 163 min
+2432.9s	73	  shard 1: 8,000 windows
+2468.5s	74	  3,500/16,115 clips, 2,673 ok, 827 unusable, 209 pending, 40.4 min, eta 146 min
+2628.9s	75	  4,000/16,115 clips, 3,018 ok, 982 unusable, 1,036 pending, 43.1 min, eta 130 min
+2779.2s	76	  4,500/16,115 clips, 3,331 ok, 1,169 unusable, 1,716 pending, 45.6 min, eta 118 min
+2910.7s	77	  5,000/16,115 clips, 3,584 ok, 1,416 unusable, 2,307 pending, 47.8 min, eta 106 min
+3049.8s	78	  5,500/16,115 clips, 3,815 ok, 1,685 unusable, 2,954 pending, 50.1 min, eta 97 min
+3200.7s	79	  6,000/16,115 clips, 4,055 ok, 1,945 unusable, 3,463 pending, 52.6 min, eta 89 min
+3283.6s	80	  6,500/16,115 clips, 4,134 ok, 2,366 unusable, 3,575 pending, 54.0 min, eta 80 min
+3424.3s	81	  7,000/16,115 clips, 4,305 ok, 2,695 unusable, 4,093 pending, 56.3 min, eta 73 min
+3618.4s	82	  7,500/16,115 clips, 4,614 ok, 2,886 unusable, 5,032 pending, 59.6 min, eta 68 min
+3812.3s	83	  8,000/16,115 clips, 4,976 ok, 3,024 unusable, 6,219 pending, 62.8 min, eta 64 min
+4041.3s	84	  shard 2: 8,012 windows
+4894.9s	85	  shard 3: 8,057 windows
+5404.9s	86	  8,500/16,115 clips, 5,435 ok, 3,065 unusable, 5,038 pending, 89.3 min, eta 80 min
+5704.6s	87	  shard 4: 8,067 windows
+6534.1s	88	  shard 5: 8,089 windows
+7357.3s	89	  shard 6: 8,002 windows
+7627.1s	90	  9,000/16,115 clips, 5,896 ok, 3,104 unusable, 2,382 pending, 126.4 min, eta 100 min
+7710.4s	91	  9,500/16,115 clips, 5,990 ok, 3,510 unusable, 2,497 pending, 127.8 min, eta 89 min
+7790.7s	92	  10,000/16,115 clips, 6,061 ok, 3,939 unusable, 2,584 pending, 129.1 min, eta 79 min
+8141.7s	93	  10,500/16,115 clips, 6,448 ok, 4,052 unusable, 5,252 pending, 135.0 min, eta 72 min
+8409.7s	94	  shard 7: 8,000 windows
+9240.5s	95	  shard 8: 8,052 windows
+9700.2s	96	  11,000/16,115 clips, 6,935 ok, 4,065 unusable, 4,275 pending, 160.9 min, eta 75 min
+10116.7s	97	  shard 9: 8,004 windows
+10223.0s	98	  11,500/16,115 clips, 7,332 ok, 4,168 unusable, 666 pending, 169.6 min, eta 68 min
+10428.0s	99	  12,000/16,115 clips, 7,623 ok, 4,377 unusable, 1,842 pending, 173.1 min, eta 59 min
+10640.2s	100	  12,500/16,115 clips, 8,006 ok, 4,494 unusable, 3,047 pending, 176.6 min, eta 51 min
+10828.1s	101	  13,000/16,115 clips, 8,323 ok, 4,677 unusable, 3,921 pending, 179.7 min, eta 43 min
+10958.4s	102	  13,500/16,115 clips, 8,580 ok, 4,920 unusable, 4,406 pending, 181.9 min, eta 35 min
+11114.4s	103	  14,000/16,115 clips, 8,877 ok, 5,123 unusable, 5,208 pending, 184.5 min, eta 28 min
+11246.4s	104	  14,500/16,115 clips, 9,082 ok, 5,418 unusable, 5,690 pending, 186.7 min, eta 21 min
+11377.2s	105	  15,000/16,115 clips, 9,313 ok, 5,687 unusable, 6,231 pending, 188.9 min, eta 14 min
+11654.6s	106	  15,500/16,115 clips, 9,544 ok, 5,956 unusable, 7,845 pending, 193.5 min, eta 8 min
+11676.3s	107	  shard 10: 8,055 windows
+12577.7s	108	  16,000/16,115 clips, 9,975 ok, 6,025 unusable, 7,610 pending, 208.9 min, eta 2 min
+12633.0s	109	  shard 11: 8,038 windows
+12788.5s	110	  16,115/16,115 clips, 10,075 ok, 6,040 unusable, 1,399 pending, 212.4 min, eta 0 min
+12788.5s	111	  shard 12: 1,399 windows
+12788.5s	112	
+12788.5s	113	10,075 clips extracted, 6,040 unusable, 0 windows dropped as gap
+12788.5s	114	source frame rates seen: {20: 16115}
+12788.5s	115	12744s total
+12791.1s	116	97,787 windows in 13 shard(s), 18 subjects: ['p02', 'p03', 'p04', 'p06', 'p07', 'p09', 'p10', 'p11', 'p12', 'p13', 'p14', 'p15', 'p16', 'p17', 'p18', 'p19', 'p20', 'p25']
+12791.1s	117	CS subjects present - train 11, test 7
+12791.1s	118	
+12791.1s	119	fine class                          windows  share%
+12791.1s	120	Readbook                             36,341  37.16
+12791.1s	121	Uselaptop                            12,284  12.56
+12791.1s	122	WatchTV                              11,039  11.29
+12791.1s	123	Usetelephone                          6,467   6.61
+12791.1s	124	Walk                                  5,924   6.06
+12791.1s	125	Cook.Cleandishes                      4,816   4.92
+12791.1s	126	Drink.Fromcup                         3,540   3.62
+12791.1s	127	Cook.Cleanup                          3,537   3.62
+12791.1s	128	Cook.Cut                              2,012   2.06
+12791.1s	129	Usetablet                             1,751   1.79
+12791.1s	130	Cook.Stir                             1,723   1.76
+12791.1s	131	Takepills                             1,470   1.50
+12791.1s	132	Eat.Attable                             894   0.91
+12791.1s	133	Drink.Frombottle                        609   0.62
+12791.1s	134	Cook.Usestove                           578   0.59
+12791.1s	135	  ... and 16 more of 31 fine classes
+12791.1s	136	
+12791.1s	137	coarse class                        windows  share%
+12791.1s	138	reading                              36,341  37.16
+12791.1s	139	using_device                         14,035  14.35
+12791.1s	140	watching_tv                          11,039  11.29
+12791.1s	141	cleaning_housework                    8,353   8.54
+12791.1s	142	walking                               6,789   6.94
+12791.1s	143	cooking_food_prep                     6,701   6.85
+12791.1s	144	using_phone                           6,467   6.61
+12791.1s	145	drinking                              4,701   4.81
+12791.1s	146	taking_medication                     1,470   1.50
+12791.1s	147	eating                                1,098   1.12
+12791.1s	148	lying_down                              411   0.42
+12791.1s	149	sitting_down                            233   0.24
+12791.1s	150	standing_up                             149   0.15
+12791.1s	151	
+12791.1s	152	other_idle: 0 windows. Zero is intended - every Toyota class is a real activity, which is the opposite of the Charades map where the fallback was largest.
+12791.1s	153	imbalance 649x over 31/31 fine classes present
+12791.1s	154	wrote /kaggle/working/toyota_shard_manifest.json
+12791.1s	155	
+12791.1s	156	======================================================================
+12791.1s	157	  Save Version -> create/update PRIVATE dataset behaviorsense-toyota-shards
+12791.1s	158	======================================================================
+12794.4s	159	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+12794.4s	160	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+12794.5s	161	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+12794.5s	162	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+12794.8s	163	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+12795.0s	164	[NbConvertApp] Writing 56724 bytes to __notebook__.ipynb
+12796.1s	165	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+12796.5s	166	[NbConvertApp] Writing 416158 bytes to __results__.html
+
+
+[M01894] 2026-08-24T01:55:08.010Z ASSISTANT (conversation) [C035:1565; copies=5]
+Ran to completion — 97,787 windows, and it surfaced exactly the problem I flagged. Let me fix it.
+
+
+[M01895] 2026-08-24T02:09:30.742Z USER (conversation) [C068:1968; copies=2]
+@"C:\Users\Admin\Desktop\EmotionSense-Extended\notebooks\07_toyota_extract_offline.ipynb"
+the notebook07 produced the output as shown in the screenshot, can these shards and json output be used for inferencing, the notebook trains on toyota smarthome rgb trimmed dataset, dont edit any notebook code or script, just tell if it can run, if not, tell me why, dont make changes yoursel
+
+
+[M01896] 2026-08-24T02:12:04.227Z ASSISTANT (conversation) [C035:1614; copies=5]
+It completed — 97,787 windows, 13 shards, CS partition intact. But the striding problem I flagged did materialise, and it hit exactly where I said it would.
+
+## The good
+
+| | |
+|---|---|
+| filename/class parsing | **16,115 / 16,115**, zero unparseable |
+| `source frame rates seen` | **`{20: 16115}`** — every clip is 20 fps. The README's 30 is simply wrong, confirmed on all of them |
+| subjects | 18, **CS train 11 / test 7** — partition intact in the shards |
+| `other_idle` | **0 windows** — as intended |
+| fine classes present | **31 / 31** |
+
+## The problem
+
+**6,040 of 16,115 clips (37.5%) unusable** — and the loss was not uniform:
+
+| coarse class | windows | share | annotated corpus share |
+|---|---|---|---|
+| `sitting_down` | **233** | 0.24% | 0.72% |
+| `standing_up` | **149** | 0.15% | 0.67% |
+
+Three to four times under-represented. The cause is arithmetic: at 20 fps source and `FPS_SAMPLE = 12.5`, the integer stride is `round(20/12.5) = 2` → effective **10 Hz** → a 30-frame window spans **3.0 s** → any clip shorter than 3 s yields *no window at all*. A sit-to-stand **is** a short clip. Your preflight even showed one: `Sitdown_p20_r07_v09_c01.mp4`, 53 frames = 2.65 s.
+
+Those two classes are what Agent 3 derives `sit_to_stand_count` from — a validated clinical frailty marker. That's a headline feature being starved, not a tail statistic. And 149 windows is the same range as Charades' `standing` (123 → F1 0.005) and `bending_reaching` (26 → 0.000).
+
+## Fixed
+
+- **`FPS_SAMPLE = 20.0`** → stride 1, window **1.50 s**, minimum clip 1.5 s. Estimated **~322k windows** vs 97,787. And 1.50 s is *closer* to the Charades shards' 2.0 s than 3.00 s was, so window-extent consistency improves at the same time.
+- **Adaptive stride**: a clip too short for the nominal stride now gets a *finer* rate rather than being discarded. Thirty timesteps over less real time is a speed perturbation — a standard augmentation, and strictly better than having no example of the activity.
+- **Named drop reasons + stride histogram**, in the log and the manifest. The first run said "6,040 unusable" and nothing about why; finding the cause needed arithmetic on the class histogram afterwards.
+- **The rate is now in the shard name** (`toyota_trimmed_20hz_0000.npz`), so re-running at a different rate can't resume against shards whose windows span a different duration and mix two rates into one training set.
+
+N23 pins all four. `181/181`.
+
+## Re-run — and the honest cost
+
+**Do not Save Version on the current output.** Those shards would train, and they'd train a model whose sit-to-stand recall is broken by construction.
+
+Re-upload notebook 07, same attachments, `MODE = "trimmed"`. **~7 h** — roughly double, because stride 1 poses every frame. Your last run was 3.55 h, so this fits a 12 h session with margin. **Do not attach the old shards** as an input; the new prefix means it wouldn't resume from them anyway, but leaving them out keeps the output clean.
+
+What to check at the first progress line: `unusable` should now be a small fraction, and the summary's `strides used` will show how many clips needed the adaptive path.
+
+If 7 h is unacceptable against your quota, the cheaper alternative is keeping stride 2 for long clips and stride 1 only for short ones — ~4 h, ~110k windows, transitions recovered, but mixed rates within one shard set. I chose uniform 20 Hz because a benchmark corpus with one sampling rate is worth more than three hours, and because it also maximises the data. Say the word if you'd rather have the cheap version.
+
+
+[M01897] 2026-08-24T02:12:09.542Z USER (control) [C068:1988; copies=2]
+[Request interrupted by user]
+
+
+[M01898] 2026-08-24T02:12:43.025Z USER (conversation) [C035:1616; copies=5]
+reupload of behaviorsense code required?
+
+
+[M01899] 2026-08-24T02:14:29.871Z ASSISTANT (conversation) [C035:1625; copies=5]
+**No.** Verified two ways:
+
+1. **Nothing publishable changed.** `find src scripts configs weights -newermt "2026-08-23 19:00"` returns empty — no `.py`, `.yaml` or `.tsv` under the four directories the publisher stages has been touched since your notebook 06 run at 19:27. Every fix since then landed in `notebooks/_generate.py` (which ships inside the `.ipynb`) and in `tests/` (local only, not staged).
+
+2. **Notebook 07's imports all resolve** against the current code — `WINDOW_FRAMES`, `assign_slots`, `window_clip` from `prepare_skeletons`, and the fourteen names from `behaviorsense.data.toyota`. All pre-existing; the striding fix added no new dependency, just arithmetic inside the notebook's own `poses_for`.
+
+Your last publish is confirmed current by the run itself: `contract 22/22 - mounted code is current`, and the 06 log printed both `20 fps from the container, 30 in the README` and the frame-level agreement figures — both of which come from `src/behaviorsense/data/toyota.py`, so that version is already mounted.
+
+## So: one upload, one run
+
+Re-upload **`notebooks/07_toyota_extract_offline.ipynb`** only. Same six-ish attachments as last time:
+
+`behaviorsense-code`, `behavioursense-WW`, `behaviorsense-toyota-meta`, `toyota-smarthome-rgb` (plus `rgb-untrimmed` if you leave it on — harmless).
+
+**Don't attach the old shards output.** The new shard prefix (`toyota_trimmed_20hz_*`) wouldn't match the old files anyway, but leaving them out keeps the resume path unambiguous.
+
+Two lines to sanity-check early, then leave it for ~7 h:
+
+```
+MODE=trimmed  FPS_SAMPLE=20  installed from .../wheels
+  500/16,115 clips, ~490 ok, ~10 unusable, ...
+```
+
+`unusable` should be a small fraction now instead of 13%-and-climbing. If it's still large at clip 500, kill it and send me the `why clips were unusable` breakdown — that histogram exists precisely so the next diagnosis doesn't need arithmetic on a class table.
+
+
+[M01900] 2026-08-24T10:50:03.929Z USER (conversation) [C035:1626; copies=5]
+Successfully ran in 24713.3s
+Accelerator
+GPU RTX Pro 6000
+
+Environment
+Latest Container Image
+
+Output
+256.97 MB
+
+Time
+#
+Log Message
+4.0s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.0s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.0s	3	0.00s - to python to disable frozen modules.
+4.0s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.3s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.3s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.3s	7	0.00s - to python to disable frozen modules.
+4.3s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+6.2s	9	WARNING: Skipping onnxruntime as it is not installed.
+6.4s	10	WARNING: Skipping onnxruntime as it is not installed.
+6.4s	11	
+6.4s	12	WARNING: Skipping onnxruntime as it is not installed.
+6.7s	13	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+6.7s	14	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+6.7s	15	Installing collected packages: rtmlib
+6.7s	16	Successfully installed rtmlib-0.0.16
+6.9s	17	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+6.9s	18	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+6.9s	19	Installing collected packages: rtmlib
+6.9s	20	Successfully installed rtmlib-0.0.16
+7.2s	21	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.2s	22	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+7.4s	23	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.4s	24	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+11.3s	25	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+11.3s	26	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+11.3s	27	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+11.3s	28	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+11.3s	29	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+11.3s	30	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+11.5s	31	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+11.5s	32	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+11.5s	33	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+11.5s	34	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+11.5s	35	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+11.5s	36	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+12.1s	37	Installing collected packages: onnxruntime-gpu
+12.3s	38	Installing collected packages: onnxruntime-gpu
+14.7s	39	Successfully installed onnxruntime-gpu-1.26.0
+14.7s	40	Successfully installed onnxruntime-gpu-1.26.0
+14.7s	41	MODE=trimmed  FPS_SAMPLE=20.0  installed from /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+14.9s	42	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+14.9s	43	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+14.9s	44	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+14.9s	45	  attached  ["behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-toyota-meta (top level: ['toyota_meta'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "rgb-untrimmed (top level: ['Videos_mp4'])", "toyota-smarthome-rgb (top level: ['mp4'])", 'arc-prize-2026-arc-agi-3']
+14.9s	46	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+14.9s	47	  contract 22/22 - mounted code is current
+15.0s	48	onnxruntime providers: ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
+47.8s	49	meta   /kaggle/input/datasets/krishnagupta02468/behaviorsense-toyota-meta/toyota_meta
+47.8s	50	video  /kaggle/input/datasets/krishnagupta02468/toyota-smarthome-rgb/mp4  (16,115 files)
+47.8s	51	rtmo   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx
+48.0s	52	carried forward 0 shard(s), 0 clip(s) already extracted
+48.0s	53	16,115 clips in the 31-class space, 0 outside it or unparseable
+48.0s	54	16,115 to do this session
+51.9s	55	[0;93m2026-08-24 03:49:50.226113392 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+51.9s	56	[0;93m2026-08-24 03:49:50.227790892 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+51.9s	57	[0;93m2026-08-24 03:49:50.227795842 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+52.1s	58	[0;93m2026-08-24 03:49:50.226113392 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+52.1s	59	[0;93m2026-08-24 03:49:50.227790892 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+52.1s	60	[0;93m2026-08-24 03:49:50.227795842 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+52.1s	61	
+52.1s	62	[0;93m2026-08-24 03:49:50.226113392 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+52.1s	63	[0;93m2026-08-24 03:49:50.227790892 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+52.1s	64	[0;93m2026-08-24 03:49:50.227795842 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+52.1s	65	load /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx with onnxruntime backend
+997.8s	66	  shard 0: 8,096 windows
+1434.4s	67	  500/16,115 clips, 459 ok, 41 unusable, 3,408 pending, 23.0 min, eta 719 min
+1944.7s	68	  shard 1: 8,012 windows
+2840.3s	69	  1,000/16,115 clips, 895 ok, 105 unusable, 6,350 pending, 46.5 min, eta 702 min
+3065.4s	70	  shard 2: 8,002 windows
+3298.8s	71	  1,500/16,115 clips, 1,278 ok, 222 unusable, 1,635 pending, 54.1 min, eta 527 min
+3766.9s	72	  2,000/16,115 clips, 1,764 ok, 236 unusable, 5,664 pending, 61.9 min, eta 437 min
+4041.3s	73	  2,500/16,115 clips, 2,222 ok, 278 unusable, 7,603 pending, 66.5 min, eta 362 min
+4109.2s	74	  shard 3: 8,000 windows
+4344.9s	75	  3,000/16,115 clips, 2,681 ok, 319 unusable, 1,797 pending, 71.5 min, eta 313 min
+4695.1s	76	  3,500/16,115 clips, 3,139 ok, 361 unusable, 4,568 pending, 77.4 min, eta 279 min
+4999.1s	77	  4,000/16,115 clips, 3,579 ok, 421 unusable, 6,835 pending, 82.4 min, eta 250 min
+5160.5s	78	  shard 4: 8,002 windows
+5285.7s	79	  4,500/16,115 clips, 4,023 ok, 477 unusable, 827 pending, 87.2 min, eta 225 min
+5534.2s	80	  5,000/16,115 clips, 4,503 ok, 497 unusable, 2,653 pending, 91.4 min, eta 203 min
+5804.0s	81	  5,500/16,115 clips, 4,981 ok, 519 unusable, 4,591 pending, 95.9 min, eta 185 min
+6091.7s	82	  6,000/16,115 clips, 5,413 ok, 587 unusable, 6,078 pending, 100.7 min, eta 170 min
+6246.2s	83	  6,500/16,115 clips, 5,905 ok, 595 unusable, 6,914 pending, 103.2 min, eta 153 min
+6417.9s	84	  shard 5: 8,037 windows
+6515.3s	85	  7,000/16,115 clips, 6,377 ok, 623 unusable, 475 pending, 107.7 min, eta 140 min
+6887.6s	86	  7,500/16,115 clips, 6,784 ok, 716 unusable, 2,774 pending, 113.9 min, eta 131 min
+7260.4s	87	  8,000/16,115 clips, 7,267 ok, 733 unusable, 5,841 pending, 120.1 min, eta 122 min
+7537.1s	88	  shard 6: 8,032 windows
+8365.6s	89	  shard 7: 8,006 windows
+9171.3s	90	  shard 8: 8,057 windows
+9980.3s	91	  shard 9: 8,001 windows
+10364.4s	92	  8,500/16,115 clips, 7,751 ok, 749 unusable, 4,066 pending, 171.9 min, eta 154 min
+10746.2s	93	  shard 10: 8,110 windows
+11547.7s	94	  shard 11: 8,048 windows
+12332.7s	95	  shard 12: 8,009 windows
+13108.4s	96	  shard 13: 8,046 windows
+13918.2s	97	  shard 14: 8,051 windows
+14692.6s	98	  9,000/16,115 clips, 8,234 ok, 766 unusable, 7,365 pending, 244.0 min, eta 193 min
+14805.5s	99	  shard 15: 8,001 windows
+14851.2s	100	  9,500/16,115 clips, 8,727 ok, 773 unusable, 223 pending, 246.7 min, eta 172 min
+15002.0s	101	  10,000/16,115 clips, 9,225 ok, 775 unusable, 1,035 pending, 249.2 min, eta 152 min
+15685.6s	102	  10,500/16,115 clips, 9,714 ok, 786 unusable, 7,016 pending, 260.6 min, eta 139 min
+15779.9s	103	  shard 16: 8,027 windows
+16559.6s	104	  shard 17: 8,083 windows
+17368.9s	105	  shard 18: 8,055 windows
+18143.0s	106	  shard 19: 8,070 windows
+18719.6s	107	  11,000/16,115 clips, 10,210 ok, 790 unusable, 5,452 pending, 311.1 min, eta 145 min
+19006.6s	108	  shard 20: 8,000 windows
+19736.8s	109	  11,500/16,115 clips, 10,699 ok, 801 unusable, 6,878 pending, 328.1 min, eta 132 min
+19891.6s	110	  shard 21: 8,008 windows
+20137.8s	111	  12,000/16,115 clips, 11,193 ok, 807 unusable, 1,804 pending, 334.8 min, eta 115 min
+20551.1s	112	  12,500/16,115 clips, 11,682 ok, 818 unusable, 4,769 pending, 341.6 min, eta 99 min
+20911.4s	113	  13,000/16,115 clips, 12,161 ok, 839 unusable, 7,100 pending, 347.7 min, eta 83 min
+21050.8s	114	  shard 22: 8,002 windows
+21160.4s	115	  13,500/16,115 clips, 12,649 ok, 851 unusable, 695 pending, 351.8 min, eta 68 min
+21457.8s	116	  14,000/16,115 clips, 13,146 ok, 854 unusable, 2,952 pending, 356.8 min, eta 54 min
+21707.5s	117	  14,500/16,115 clips, 13,634 ok, 866 unusable, 4,555 pending, 360.9 min, eta 40 min
+21956.2s	118	  15,000/16,115 clips, 14,120 ok, 880 unusable, 6,255 pending, 365.1 min, eta 27 min
+22281.2s	119	  shard 23: 8,070 windows
+22493.3s	120	  15,500/16,115 clips, 14,616 ok, 884 unusable, 2,078 pending, 374.0 min, eta 15 min
+23159.9s	121	  shard 24: 8,131 windows
+24024.2s	122	  shard 25: 8,054 windows
+24295.3s	123	  16,000/16,115 clips, 15,097 ok, 903 unusable, 2,117 pending, 404.1 min, eta 3 min
+24702.8s	124	  16,115/16,115 clips, 15,206 ok, 909 unusable, 5,903 pending, 410.8 min, eta 0 min
+24703.0s	125	  shard 26: 5,903 windows
+24703.0s	126	
+24703.0s	127	15,206 clips extracted, 909 unusable, 0 windows dropped as gap
+24703.0s	128	source frame rates seen: {20: 16115}
+24703.0s	129	strides used: {1: 16115}   (a stride below the nominal one means the clip was short and the rate was raised to keep it, rather than dropping it)
+24703.0s	130	why clips were unusable:
+24703.0s	131	     909  no window passed the visibility gate
+24703.0s	132	24651s total
+24708.6s	133	214,913 windows in 27 shard(s), 18 subjects: ['p02', 'p03', 'p04', 'p06', 'p07', 'p09', 'p10', 'p11', 'p12', 'p13', 'p14', 'p15', 'p16', 'p17', 'p18', 'p19', 'p20', 'p25']
+24708.6s	134	CS subjects present - train 11, test 7
+24708.6s	135	
+24708.6s	136	fine class                          windows  share%
+24708.6s	137	Readbook                             73,730  34.31
+24708.6s	138	Uselaptop                            24,997  11.63
+24708.6s	139	WatchTV                              22,935  10.67
+24708.6s	140	Walk                                 16,847   7.84
+24708.6s	141	Usetelephone                         13,478   6.27
+24708.6s	142	Cook.Cleandishes                     10,032   4.67
+24708.6s	143	Drink.Fromcup                         9,915   4.61
+24708.6s	144	Cook.Cleanup                          7,482   3.48
+24708.6s	145	Cook.Cut                              4,206   1.96
+24708.6s	146	Cook.Stir                             4,092   1.90
+24708.6s	147	Usetablet                             3,554   1.65
+24708.6s	148	Takepills                             3,382   1.57
+24708.6s	149	Eat.Attable                           2,605   1.21
+24708.6s	150	Sitdown                               1,868   0.87
+24708.6s	151	Drink.Frombottle                      1,678   0.78
+24708.6s	152	  ... and 16 more of 31 fine classes
+24708.6s	153	
+24708.6s	154	coarse class                        windows  share%
+24708.6s	155	reading                              73,730  34.31
+24708.6s	156	using_device                         28,551  13.28
+24708.6s	157	watching_tv                          22,935  10.67
+24708.6s	158	walking                              19,221   8.94
+24708.6s	159	cleaning_housework                   17,514   8.15
+24708.6s	160	cooking_food_prep                    15,362   7.15
+24708.6s	161	using_phone                          13,478   6.27
+24708.6s	162	drinking                             13,237   6.16
+24708.6s	163	taking_medication                     3,382   1.57
+24708.6s	164	eating                                3,282   1.53
+24708.6s	165	sitting_down                          1,868   0.87
+24708.6s	166	standing_up                           1,307   0.61
+24708.6s	167	lying_down                            1,046   0.49
+24708.6s	168	
+24708.6s	169	other_idle: 0 windows. Zero is intended - every Toyota class is a real activity, which is the opposite of the Charades map where the fallback was largest.
+24708.6s	170	imbalance 358x over 31/31 fine classes present
+24708.6s	171	wrote /kaggle/working/toyota_shard_manifest.json
+24708.6s	172	
+24708.6s	173	======================================================================
+24708.6s	174	  Save Version -> create/update PRIVATE dataset behaviorsense-toyota-shards
+24708.6s	175	======================================================================
+24710.8s	176	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+24710.8s	177	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+24710.9s	178	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+24710.9s	179	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+24711.2s	180	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+24711.3s	181	[NbConvertApp] Writing 60839 bytes to __notebook__.ipynb
+24712.5s	182	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+24712.9s	183	[NbConvertApp] Writing 425153 bytes to __results__.html
+
+
+[M01901] 2026-08-24T11:04:04.704Z ASSISTANT (conversation) [C035:1648; copies=5]
+That's a good result. **Save Version now → `behaviorsense-toyota-shards`.** These shards are worth keeping.
+
+## The fix delivered what it was supposed to
+
+| | 12.5 nominal (10 Hz, 3.0 s) | 20 Hz (1.5 s) | |
+|---|---|---|---|
+| clips usable | 10,075 | **15,206** | |
+| unusable | 6,040 (37.5%) | **909 (5.6%)** | |
+| windows | 97,787 | **214,913** | 2.20× |
+| `sitting_down` | 233 | **1,868** | **8.0×** |
+| `standing_up` | 149 | **1,307** | **8.8×** |
+| `lying_down` | 411 | **1,046** | 2.5× |
+| fine imbalance | 649× | **358×** | |
+
+The transitions recovered 8–9×, which was the whole point — `sit_to_stand_count` is supportable now instead of resting on 149 windows. Smallest fine class is ~205 windows against `MIN_SUPPORT = 50`; for comparison Charades left `bending_reaching` at 26 and `standing` at 123.
+
+**Toyota is now the larger corpus**: 214,913 windows against Charades' 165,109.
+
+Two things the diagnostics confirm cleanly. `strides used: {1: 16115}` — no clip needed the adaptive path, so the nominal rate was already right. And all 909 remaining drops are **`no window passed the visibility gate`** — genuine pose failures from occlusion or truncation, *not* striding. That's the honest residual, and at 5.6% it's exactly the territory the V1.2 refined skeletons were built for (SSTA-PRS fixed occlusion/truncation). Much less compelling than 37.5% was, but it's the recoverable remainder if the tail classes need it.
+
+My 322k window estimate was 50% high — actual 215k. The recovered clips are short and contribute 1–2 windows each, so windows/clip came out 14.1 rather than 20.
+
+## One thing I fixed before you run the untrimmed half
+
+Integer striding would have broken window-duration parity between the two halves: 20 fps trimmed → 20 Hz → 1.50 s, but 25 fps untrimmed → 25 Hz → **1.20 s**. Same 30-frame tensor, different real time, and no field recording which — the two shard sets wouldn't be comparable.
+
+`poses_for` now does **exact resampling** (`want = int(round(k * src / rate))`) instead of integer striding. Verified by simulation: 20 fps keeps 1200/1200 frames, 25 fps keeps 1200/1500, and a 30-frame window spans **1.45 s vs 1.44 s** — parity. It's also capped at the container rate so it can never resample *up* and invent motion. The log now reports effective rates and `window_seconds` goes into the manifest.
+
+N23 pins both properties. `181/181`.
+
+## Next
+
+1. **Save Version → private `behaviorsense-toyota-shards`** (blocking everything downstream).
+2. Re-upload notebook 07 and run **`MODE = "untrimmed"`, `UNTRIMMED_SIDE = "test"`** — attach `rgb-untrimmed`, `behaviorsense-toyota-meta`, and the shards dataset back for resume. 185 CS test videos. This is where the exact-resampler fix matters, and it's also the first time the dense-label path and the `frame_mask` gap logic execute for real.
+3. Then I write the training extension: 31-class fine head + 22-class coarse via `collapse_matrix`, partial-label masked loss so Toyota abstains on the 7 classes it can't supervise and Charades/fall corpora cover them, then τ/T/Viterbi refit.
+
+No `behaviorsense-code` republish needed for step 2 — same check as before, nothing under `src/scripts/configs/weights` has changed.
+
+
+[M01902] 2026-08-24T11:36:27.507Z USER (conversation) [C164:1896; copies=1]
+these datasets for untrimmed run?
+
+
+[M01903] 2026-08-24T11:38:41.263Z USER (conversation) [C085:1649; copies=1]
+these datasets for untrimmed run?
+
+
+[M01904] 2026-08-24T11:38:41.392Z ASSISTANT (conversation) [C085:1657; copies=1]
+Prompt is too long
+
+
+[M01905] 2026-08-24T11:39:18.836Z USER (conversation) [C035:1649; copies=3]
+these datasets for untrimmed run?
+
+
+[M01906] 2026-08-24T11:40:49.370Z ASSISTANT (conversation) [C035:1658; copies=3]
+Yes — all six, and `toyota_smarthome_rgb` is harmless (the resolver picks by content, not name). But **don't run it yet** — attaching the shards dataset exposes a data-loss hazard I need to fix first.
+
+
+[M01907] 2026-08-24T12:00:56.546Z ASSISTANT (conversation) [C035:1684; copies=1]
+Those six are exactly right. `toyota_smarthome_rgb` isn't needed for this run but is harmless — the resolver picks by content (`Videos_mp4/P*T*C*.mp4`), not by name. The underscores in the sidebar are display titles; the mounts use hyphenated slugs, and it makes no difference either way.
+
+But attaching `behaviorsense-toyota-shards` exposed a bug worth catching before you spend 3.5 hours.
+
+## The hazard
+
+Save Version publishes **whatever is in `/kaggle/working`**. The carry-forward loop only copied shards matching the *current* prefix — so an untrimmed run would have copied forward `toyota_untrimmed_20hz_*` (nothing, first run), extracted its own, and published a dataset version containing **only the untrimmed half**. Your 214,913 trimmed windows would have vanished from the latest version — recoverable from the old version, but you'd only discover it when training came up short.
+
+Fixed: carry-forward now copies **every** `toyota_*.npz`, while `DONE` still keys on the current prefix so a rate or mode change re-extracts rather than assuming another shard set's clips are done. The verify cell now prints what the Save Version will actually publish:
+
+```
+the dataset this Save Version will publish:
+  toyota_trimmed_20hz            214,913 windows
+  toyota_untrimmed_20hz           NN,NNN windows
+  TOTAL                          NNN,NNN windows in NN shard(s)
+```
+
+N23 pins it, with a negative control confirming the prefix-only version fails. `181/181`.
+
+## Run it
+
+**Re-upload `notebooks/07_toyota_extract_offline.ipynb`** — this build has both the exact-resampler fix and the carry-forward fix. Then in the config cell:
+
+```python
+MODE = "untrimmed"
+UNTRIMMED_SIDE = "test"
+```
+
+Leave `FPS_SAMPLE = 20.0` alone — that's what makes a window 1.50 s on both halves despite 25 fps untrimmed vs 20 fps trimmed.
+
+Three lines to check early:
+
+```
+carried forward 27 shard(s) across 1 shard set(s): ['toyota_trimmed_20hz']
+resuming toyota_untrimmed_20hz: 0 shard(s), 0 clip(s) already extracted
+185 untrimmed videos on the CS test side
+```
+
+If the first line says 0 shards, the carry-forward didn't find them and you should stop — publishing would drop the trimmed half.
+
+185 videos averaging ~18 minutes, so this is the long-per-file case rather than the many-small-files case. Expect ~3.5–4 h. This is also the first real exercise of the dense-label path: `frame_multilabel`, `frame_mask`, and the gap rejection. Watch `windows dropped as gap` — it was 0 for trimmed by construction, and for untrimmed it should be substantial (a third of the corpus is unannotated).
+
+
+[M01908] 2026-08-24T13:40:16.532Z USER (conversation) [C035:1689; copies=3]
+Time
+#
+Log Message
+4.1s	0	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.1s	1	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.1s	2	0.00s - to python to disable frozen modules.
+4.1s	3	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.4s	4	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.4s	5	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.4s	6	0.00s - to python to disable frozen modules.
+4.4s	7	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+6.3s	8	WARNING: Skipping onnxruntime as it is not installed.
+6.5s	9	WARNING: Skipping onnxruntime as it is not installed.
+6.5s	10	
+6.5s	11	WARNING: Skipping onnxruntime as it is not installed.
+6.8s	12	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+6.8s	13	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+6.8s	14	Installing collected packages: rtmlib
+6.9s	15	Successfully installed rtmlib-0.0.16
+7.0s	16	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.0s	17	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+7.0s	18	Installing collected packages: rtmlib
+7.0s	19	Successfully installed rtmlib-0.0.16
+7.3s	20	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.4s	21	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+7.5s	22	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.5s	23	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+10.1s	24	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+10.1s	25	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+10.1s	26	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+10.1s	27	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+10.1s	28	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+10.1s	29	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+10.3s	30	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+10.3s	31	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+10.3s	32	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+10.3s	33	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+10.3s	34	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+10.3s	35	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+10.9s	36	Installing collected packages: onnxruntime-gpu
+11.1s	37	Installing collected packages: onnxruntime-gpu
+13.5s	38	Successfully installed onnxruntime-gpu-1.26.0
+13.5s	39	Successfully installed onnxruntime-gpu-1.26.0
+13.5s	40	MODE=untrimmed  FPS_SAMPLE=20.0  installed from /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+13.7s	41	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+13.7s	42	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+13.7s	43	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+13.7s	44	  attached  ["behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-toyota-meta (top level: ['toyota_meta'])", "behaviorsense-toyota-shards (top level: ['shards', 'toyota_shard_manifest.json'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "rgb-untrimmed (top level: ['Videos_mp4'])", "toyota-smarthome-rgb (top level: ['mp4'])", 'arc-prize-2026-arc-agi-3']
+13.7s	45	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+13.7s	46	  contract 22/22 - mounted code is current
+13.9s	47	onnxruntime providers: ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
+16.1s	48	meta   /kaggle/input/datasets/krishnagupta02468/behaviorsense-toyota-meta/toyota_meta
+16.1s	49	video  /kaggle/input/datasets/krishnagupta02468/rgb-untrimmed/Videos_mp4  (536 files)
+16.1s	50	rtmo   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx
+19.8s	51	carried forward 27 shard(s) across 1 shard set(s): ['toyota_trimmed_20hz']
+19.8s	52	resuming toyota_untrimmed_20hz: 0 shard(s), 0 clip(s) already extracted
+19.8s	53	185 untrimmed videos on the CS test side
+19.8s	54	185 to do this session
+21.8s	55	[0;93m2026-08-24 13:37:05.842271944 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+21.8s	56	[0;93m2026-08-24 13:37:05.843940184 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+21.8s	57	[0;93m2026-08-24 13:37:05.843946674 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+22.0s	58	[0;93m2026-08-24 13:37:05.842271944 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+22.0s	59	[0;93m2026-08-24 13:37:05.843940184 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+22.0s	60	[0;93m2026-08-24 13:37:05.843946674 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+22.0s	61	
+22.0s	62	[0;93m2026-08-24 13:37:05.842271944 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+22.0s	63	[0;93m2026-08-24 13:37:05.843940184 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+22.0s	64	[0;93m2026-08-24 13:37:05.843946674 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+22.0s	65	load /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx with onnxruntime backend
+4.1s	66	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.1s	67	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.1s	68	0.00s - to python to disable frozen modules.
+4.1s	69	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.4s	70	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.4s	71	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.4s	72	0.00s - to python to disable frozen modules.
+4.4s	73	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+6.3s	74	WARNING: Skipping onnxruntime as it is not installed.
+6.5s	75	WARNING: Skipping onnxruntime as it is not installed.
+6.5s	76	
+6.5s	77	WARNING: Skipping onnxruntime as it is not installed.
+21.8s	78	[0;93m2026-08-24 13:37:05.842271944 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+21.8s	79	[0;93m2026-08-24 13:37:05.843940184 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+21.8s	80	[0;93m2026-08-24 13:37:05.843946674 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+22.0s	81	[0;93m2026-08-24 13:37:05.842271944 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+22.0s	82	[0;93m2026-08-24 13:37:05.843940184 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+22.0s	83	[0;93m2026-08-24 13:37:05.843946674 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+22.0s	84	
+22.0s	85	[0;93m2026-08-24 13:37:05.842271944 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+22.0s	86	[0;93m2026-08-24 13:37:05.843940184 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+22.0s	87	[0;93m2026-08-24 13:37:05.843946674 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+6.8s	88	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+6.8s	89	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+6.8s	90	Installing collected packages: rtmlib
+6.9s	91	Successfully installed rtmlib-0.0.16
+7.0s	92	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.0s	93	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+7.0s	94	Installing collected packages: rtmlib
+7.0s	95	Successfully installed rtmlib-0.0.16
+7.3s	96	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.4s	97	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+7.5s	98	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.5s	99	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+10.1s	100	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+10.1s	101	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+10.1s	102	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+10.1s	103	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+10.1s	104	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+10.1s	105	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+10.3s	106	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+10.3s	107	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+10.3s	108	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+10.3s	109	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+10.3s	110	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+10.3s	111	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+10.9s	112	Installing collected packages: onnxruntime-gpu
+11.1s	113	Installing collected packages: onnxruntime-gpu
+13.5s	114	Successfully installed onnxruntime-gpu-1.26.0
+13.5s	115	Successfully installed onnxruntime-gpu-1.26.0
+13.5s	116	MODE=untrimmed  FPS_SAMPLE=20.0  installed from /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+13.7s	117	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+13.7s	118	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+13.7s	119	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+13.7s	120	  attached  ["behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-toyota-meta (top level: ['toyota_meta'])", "behaviorsense-toyota-shards (top level: ['shards', 'toyota_shard_manifest.json'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "rgb-untrimmed (top level: ['Videos_mp4'])", "toyota-smarthome-rgb (top level: ['mp4'])", 'arc-prize-2026-arc-agi-3']
+13.7s	121	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+13.7s	122	  contract 22/22 - mounted code is current
+13.9s	123	onnxruntime providers: ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
+16.1s	124	meta   /kaggle/input/datasets/krishnagupta02468/behaviorsense-toyota-meta/toyota_meta
+16.1s	125	video  /kaggle/input/datasets/krishnagupta02468/rgb-untrimmed/Videos_mp4  (536 files)
+16.1s	126	rtmo   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx
+19.8s	127	carried forward 27 shard(s) across 1 shard set(s): ['toyota_trimmed_20hz']
+19.8s	128	resuming toyota_untrimmed_20hz: 0 shard(s), 0 clip(s) already extracted
+19.8s	129	185 untrimmed videos on the CS test side
+19.8s	130	185 to do this session
+22.0s	131	load /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx with onnxruntime backend
+
+
+[M01909] 2026-08-24T13:52:00.212Z ASSISTANT (conversation) [C035:1699; copies=3]
+Started correctly — every gate passed. But the runtime is going to be ~7.5 h, not the ~3.5 I told you.
+
+## The startup is clean
+
+```
+carried forward 27 shard(s) across 1 shard set(s): ['toyota_trimmed_20hz']
+resuming toyota_untrimmed_20hz: 0 shard(s), 0 clip(s) already extracted
+185 untrimmed videos on the CS test side
+```
+
+That first line is the one that mattered — your 214,913 trimmed windows are in `/kaggle/working` and will survive the Save Version. Resolver 13.7s, `contract 22/22`, RTMO on CUDA, `rgb-untrimmed` correctly chosen over `toyota-smarthome-rgb` despite both being attached.
+
+## The estimate I got wrong
+
+I said ~3.5–4 h by analogy with the trimmed run. That was lazy — I should have computed it from the annotation durations I already have locally.
+
+The CS test side is **185 videos totalling 4,729,667 frames = 52.6 h of video**. At 20 Hz that's **3.78 M poses**. Your trimmed run measured **140 poses/s** (3.45 M poses in 24,651 s), so:
+
+**≈ 7.5 hours.**
+
+Inside a 12 h session, so let it run. But two things follow:
+
+**Progress will look frozen.** The counter prints every 500 clips and there are only 185 — so `seen % 500 == 0` never fires, and you'll get exactly one line at the very end (`185/185`). The shard flushes at 8,000 windows are your only heartbeat, roughly every 20–30 min. Silence for half an hour is expected, not a hang.
+
+**If Kaggle cuts the session,** re-attach the shards output and re-run — resume keys on clip name, so completed videos are skipped and the trimmed half carries through untouched. That path is now tested.
+
+One thing I checked and it's fine: `cap_frames = 40_000` truncates only **2 of 185** videos (`P18T01C04`, `P18T01C05` — the two longest at ~50k frames), losing 487 poses total = **0.013%**. Not worth touching.
+
+## What to send me at the end
+
+The verify block, specifically:
+
+- `windows dropped as gap` — should be *substantial* this time. A third of the corpus is unannotated, and `frame_mask` rejecting those windows is the dense-label path working. Zero would mean the mask isn't firing.
+- The `the dataset this Save Version will publish` table — both `toyota_trimmed_20hz` and `toyota_untrimmed_20hz` with a combined total.
+- The 51-class fine histogram, which is what tells me whether the untrimmed tail classes have enough support to train on.
+
+Then Save Version, and I'll write the training extension against both halves.

@@ -76,8 +76,50 @@ class VerifierConfig:
     value_abs_tol: float = 1e-6
     """Absolute floor for near-zero comparisons where relative tolerance is meaningless."""
 
+    display_round_half_step: float = 0.005
+    """Half-step of the DISPLAY ROUNDING the reporter publishes, and a floor on C2/C5.
+
+    MEASURED, on a deployed clip: the reporter's template offers `observed_value` rounded
+    to 2 decimals, the model copied it digit-for-digit (exactly what rule 2 demands), and
+    C2 struck the claim anyway - `claimed 0.07, actual 0.074` on mobility_index, because
+    0.004 of rounding exceeds 2% of 0.074. The verifier rejected a faithful copy of the
+    number the system itself published, and the run reported 20% unfaithful on a report
+    where every figure was quoted correctly. Durations never exposed this (2% of 800 s
+    dwarfs 0.005); the first small-magnitude feature claimed did.
+
+    The invariant this restores: a digit-for-digit copy of a published value must verify.
+    `round(x, 2)` is within 0.005 of x by construction, and 0.08 against 0.074 is NOT a
+    rounding of it, so invention at small magnitude still fails - the floor is exactly the
+    half-step, not a general slack."""
+
     pct_abs_tol: float = 2.0
     """Percentage points. A claim of "-42%" against a true -40.5% passes; "-25%" fails."""
+
+    require_prose_quoted_value: bool = True
+    """C5: claim text must echo the quoted number numerically somewhere in the prose.
+
+    C2 already catches a wrong `claimed_value` against the evidence row. What C2 does NOT
+    catch is the internally inconsistent claim - text that says "walking fell to 1800"
+    while `claimed_value` is 820 and the evidence is 820. The reader walks away with the
+    1800 because that is what the prose says, and the row's truthfulness went into the
+    record but never into the head.
+
+    Adding this check was a measured choice, not a policy preference. With Qwen2.5-7B
+    unconstrained over 514 emitted claims, 42 of 42 C2 failures are numeric misquotes;
+    a non-trivial fraction of those include a prose number that disagrees with the claimed
+    number, because the model frequently commits to one number in the row it is filling and
+    a different one in the sentence it is writing. The check uses a forgiving comparison
+    (rounded, comma-stripped, unit-stripped) so 1800 and "1,800 s" both match, while a true
+    misquote still fails - the same trade C2's relative tolerance is making.
+
+    Disabled only by fixtures that quote no value; default ON because the cost of a false
+    positive (a faithful claim wrongly flagged) is one fewer sentence shown to the caregiver,
+    and the cost of a false negative is a wrong number in a clinical report.
+    """
+
+    prose_value_rel_tol: float = 0.02
+    """Relative tolerance for C5's prose-vs-claim check. Same as C2: 2% relative, so
+    1800.0 == 1800 in prose, 1820 still fails."""
 
     require_evidence_ref: bool = True
     """If False, claims without refs are counted unverifiable rather than unfaithful.
@@ -122,6 +164,10 @@ class VerificationReport:
             "direction_error": sum(
                 1 for r in self.results if r.ref_exists and not r.direction_consistent
             ),
+            "prose_quoted_value_mismatch": sum(
+                1 for r in self.results
+                if r.ref_exists and r.value_matches and not r.prose_quoted_value
+            ),
         }
 
     def summary(self) -> str:
@@ -130,7 +176,8 @@ class VerificationReport:
             f"claims={self.n_claims} faithful={self.n_faithful} "
             f"hallucination_rate={self.hallucination_rate:.3f} | "
             f"bad_ref={b['missing_or_bad_ref']} value={b['value_mismatch']} "
-            f"pct={b['pct_mismatch']} direction={b['direction_error']}"
+            f"pct={b['pct_mismatch']} direction={b['direction_error']} "
+            f"prose={b['prose_quoted_value_mismatch']}"
         )
 
 
@@ -146,6 +193,85 @@ class FaithfulnessVerifier:
 
     def __init__(self, config: VerifierConfig | None = None) -> None:
         self.config = config or VerifierConfig()
+
+    # -- C5: prose-quoted-value ----------------------------------------------------
+
+    @staticmethod
+    def _numbers_in_text(text: str) -> list[float]:
+        """Every numeric literal in the claim text, with thousands-separators and `%`
+        stripped. Used by C5 to look for the quoted value in prose.
+
+        Why strip commas and `%`: caregivers say "1,800 s" or "70%", not "1800.0 s" or
+        "70.0%". A strict numeric match would fail every well-written sentence. The same
+        forgiveness C2 applies to row comparisons is applied here, symmetrically.
+
+        The regex is anchored at whitespace boundaries so "1,800" reads as one number,
+        not as "1" then "800" (which a non-anchored scan would have produced and which a
+        test caught during the C5 landing).
+        """
+        out: list[float] = []
+        # Walk character-by-character with a small hand-written tokenizer so the only
+        # ambiguity we have to think about is the trailing scale suffix. Building a
+        # full numeric grammar here would mean pulling in a dependency for one check.
+        i = 0
+        n = len(text)
+        while i < n:
+            ch = text[i]
+            if ch.isdigit() or (ch == "-" and i + 1 < n and text[i + 1].isdigit()):
+                j = i + 1
+                saw_digit = ch.isdigit()
+                while j < n and (text[j].isdigit() or text[j] == ","):
+                    if text[j] == ",":
+                        # Comma must be followed by exactly three digits, then either
+                        # the end of the number or another thousand-separator group.
+                        if j + 4 > n or not (text[j + 1].isdigit() and text[j + 2].isdigit()
+                                              and text[j + 3].isdigit()):
+                            break
+                        j += 4
+                    else:
+                        j += 1
+                        saw_digit = True
+                # Optional fractional part
+                if j < n and text[j] == "." and j + 1 < n and text[j + 1].isdigit():
+                    j += 1
+                    while j < n and text[j].isdigit():
+                        j += 1
+                # Optional scale suffix: k/m/K/M for kilo/mega
+                if j < n and text[j] in "kKmM" and j == i + len(text[i:j]):
+                    if (j + 1 == n) or (not text[j + 1].isalnum()):
+                        j += 1
+                if saw_digit:
+                    token = text[i:j].replace(",", "")
+                    if token.endswith(("k", "K")):
+                        try: out.append(float(token[:-1]) * 1000.0)
+                        except ValueError: pass
+                    elif token.endswith(("m", "M")):
+                        try: out.append(float(token[:-1]) * 1_000_000.0)
+                        except ValueError: pass
+                    else:
+                        try: out.append(float(token))
+                        except ValueError: pass
+                    i = j
+                    continue
+            i += 1
+        return out
+
+    def _prose_quotes_value(self, text: str, value: float) -> bool:
+        cfg = self.config
+        if not cfg.require_prose_quoted_value:
+            return True
+        for n in self._numbers_in_text(text):
+            if abs(value) < cfg.value_abs_tol:
+                if abs(n) < max(cfg.value_abs_tol, 1e-3):
+                    return True
+                continue
+            # Same display half-step floor as C2: prose quoting the published 2-decimal
+            # value (0.07) and prose quoting full precision (0.074) are both faithful
+            # renderings of the same underlying number.
+            if abs(n - value) <= max(cfg.prose_value_rel_tol * abs(value),
+                                     cfg.display_round_half_step):
+                return True
+        return False
 
     # -- evidence resolution ----------------------------------------------------
 
@@ -178,7 +304,11 @@ class FaithfulnessVerifier:
         cfg = self.config
         if abs(actual) < cfg.value_abs_tol:
             return abs(claimed) < max(cfg.value_abs_tol, 1e-3)
-        return abs(claimed - actual) <= cfg.value_rel_tol * abs(actual)
+        # The display half-step floors the relative tolerance: see display_round_half_step.
+        # Without it, a claim quoting the reporter's own 2-decimal publication can differ
+        # from full precision by more than 2% on any feature under 0.25 in magnitude.
+        tol = max(cfg.value_rel_tol * abs(actual), cfg.display_round_half_step)
+        return abs(claimed - actual) <= tol
 
     def _lexical_direction(self, text: str) -> str | None:
         """Infer direction from prose. None if absent or contradictory.
@@ -316,12 +446,24 @@ class FaithfulnessVerifier:
                     f"actual delta ({evidence.delta:+g})"
                 )
 
+        # C5: prose-quoted value. The check is only meaningful when claimed_value is set
+        # - a claim with no numeric value has nothing to echo in the prose.
+        prose_quoted = True
+        if claim.claimed_value is not None:
+            prose_quoted = self._prose_quotes_value(claim.text, claim.claimed_value)
+            if not prose_quoted:
+                notes.append(
+                    f"prose does not echo claimed_value {claim.claimed_value:g}: a "
+                    "caregiver would read the prose number, not the row - flagged"
+                )
+
         return VerificationResult(
             claim_id=claim.claim_id,
             ref_exists=True,
             value_matches=value_matches,
             pct_matches=pct_matches,
             direction_consistent=direction_consistent,
+            prose_quoted_value=prose_quoted,
             notes=notes,
         )
 

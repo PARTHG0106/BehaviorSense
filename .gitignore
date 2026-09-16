@@ -24,6 +24,29 @@ Le2i*/
 CAUCAFall*/
 URFD*/
 
+# Toyota Smarthome. THIS REPOSITORY IS PUBLIC (github.com/PARTHG0106/BehaviorSense), and the
+# dataset is licensed for academic research only, granted per-request to one institutional
+# address. That makes every part of it unpublishable here - and not only the video:
+#
+#   Toyota_Smarthome/*.pdf     Inria's licence text, theirs not ours to relicense
+#   Toyota_Smarthome/*.txt     the dataset's own READMEs
+#   smarthome_C[SV]_51.json    the aggregated annotations. Publicly mirrored by the authors
+#                              on GitHub, which is THEIR choice to make and not ours to
+#                              repeat from a repo carrying an MIT licence file.
+#   Annotation/                the per-video CSVs from Annotation_v1.0.tar.gz
+#
+# The annotation JSON is needed OFFLINE for the duration cross-check, so it is staged the
+# way every other restricted asset here is: fetched by an online notebook into a PRIVATE
+# Kaggle dataset. `src/behaviorsense/data/toyota.py` carries only class names, protocol
+# subject ids and the mapping - facts about the corpus, not the corpus.
+Toyota_Smarthome/
+toyota_smarthome*/
+smarthome_CS_51.json
+smarthome_CV_51.json
+TSU_CS.json
+Annotation/
+Annotation_v1.0*/
+
 # --- Model weights: third-party redistribution + git bloat ---
 # weights/osnet_ain_x1_0_{imagenet,msmt17}.pth are upstream checkpoints, not ours to
 # relicense. scripts/ documents where to fetch them.
@@ -57,3 +80,14 @@ configs/*.local.yaml
 # --- Frontend ---
 node_modules/
 dashboard/dist/
+
+# --- Credentials ---
+# A Kaggle API token is a username plus a key that can create, overwrite and delete every
+# dataset on the account. `kaggle (1).json` sits at this repo root, untracked but NOT ignored,
+# and `origin` is a public GitHub repository - one `git add .` publishes the key. It lives at
+# ~/.kaggle/kaggle.json for the CLI to read; the copy here is a download artefact and does not
+# need to exist at all.
+kaggle*.json
+*.kaggle.json
+# biometric templates - the operator's enrolled residents; must never be committed
+gallery.json

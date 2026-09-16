@@ -1,0 +1,386 @@
+
+[M02385] 2026-09-04T12:04:13.847Z USER (conversation) [C059:337; copies=6]
+why is there a 60MB limit on uploads?
+
+
+[M02386] 2026-09-04T12:10:54.122Z ASSISTANT (conversation) [C059:361; copies=6]
+Because I picked the number, and unlike the frame cap next to it, it has no comment justifying it — `MAX_UPLOAD_MB = 60` at [_generate.py:3041](notebooks/_generate.py:3041) sits bare between two well-documented constants.
+
+It also isn't the limit you're actually hitting. The binding one is:
+
+```python
+MAX_FRAMES = 900   # src/behaviorsense/video.py:54
+```
+
+At 20 Hz that's **45 seconds of video**, and it *refuses* rather than truncates — deliberately, per its own comment: "a report over the first 20 seconds of a ten-minute video, presented as a report over the video, is the kind of quiet misrepresentation this project keeps finding and removing." Your clip was 601 frames, so 30 s, comfortably under.
+
+A 45-second 640×480 clip is a few megabytes. To reach 60 MB inside 900 frames you'd need something like 4K or near-lossless, where decode time would break first. So in every realistic case the size cap is inert.
+
+What the size check *is* genuinely for — and this part I'd defend:
+
+- It runs **before the streaming response begins**, while an HTTP status is still available. Once headers are sent for the NDJSON stream, 413 and 422 stop being options ([_generate.py:3673](notebooks/_generate.py:3673)).
+- It's checked incrementally against 1 MiB chunks written straight to disk, so a huge body can't exhaust Kaggle's RAM before the check fires. That's also why the RAM ceiling isn't a function of this number.
+
+So it's a coarse guard against someone posting a 2 GB file, not a considered capacity figure. 60 was a guess.
+
+The real wart is the ordering. Size is checked as bytes arrive; frames are counted only after decode starts. So a 55 MB three-minute 1080p clip passes the size check, gets fully transferred and written to disk, and *then* gets rejected for frame count. And nothing tells you either limit up front — `/health` returns `max_upload_mb` but no part of the page renders it, and the file picker is a bare `accept="video/*"`.
+
+If you want, the fix is small and worth doing: state the limit in the unit you experience it in — "clips up to 45 s" — on the upload control, and have the 413 name the duration cap as well as the byte cap. That's a copy change plus surfacing two fields the backend already sends.
+
+
+[M02387] 2026-09-04T13:16:42.839Z USER (conversation) [C071:374; copies=2]
+The dev server failed to start with the following error:
+
+```
+Port 5175 is in use by "python.exe" (PID 30460) (not a preview server). Ask the user: does this server need port 5175 specifically (e.g. for OAuth callbacks, webhooks, or CORS)? If yes, set "autoPort": false in .claude/launch.json and free port 5175. If no, set "autoPort": true in .claude/launch.json AND check the start command for hardcoded port flags (e.g. --port, -p) — remove them so the server uses the assigned port via the PORT environment variable. Then retry.
+```
+
+Fix, then call preview_start to start the server.
+
+
+[M02388] 2026-09-04T13:16:50.777Z USER (control) [C071:377; copies=2]
+[Request interrupted by user]
+
+
+[M02389] 2026-09-04T13:35:24.044Z USER (conversation) [C059:362; copies=4]
+for the first video(shown in first screenshot), the model identified 3 different people while there were only one lady in the entire video
+900 frames at 20 Hz · 640×480 · 3 people tracked · pose 29.9s · classify 0.4s · behaviour 0.52s · report 15.39s · re-id off, roles unidentified · τ=0.25 · truncated at 900 frames
+
+1. Agent 1done29.9s
+perception
+Decoded 900 frames at 20.0 Hz and ran RTMO over every one of them. 3 people were tracked. Re-identification is off — every track is reported as unidentified, which is honest rather than broken.
+   * Frames kept900
+   * Source rate25.0 fps
+   * Sample rate20.0 Hz
+   * Window length1.50 s (30 frames)
+   * People tracked3
+   * Decoded size640×480
+   * Mean keypoint confidence0.854
+   * Unusable pose records6 of 623 (1%)
+   * Execution providerCUDA
+   * Truncatedyes — clip hit the frame cap
+unidentified · track 0 · unidentified · track 1 · unidentified · track 2
+hands on`PersonObservation`Agent 2 receives one per person per frame
+2. Agent 2done0.4s
+activity
+Each person's windows are classified on their own skeletons, independently — nobody's activity is inferred from anybody else's. The served configuration is the one notebook 04 selected, not the defaults: `bone` at τ=0.25 and T=1.00.
+Identity is asserted, not re-identified. No resident is enrolled, so track 2 — the most-present one — is treated as the subject for Agent 3's features. Every role below still reads as unidentified because that is what OSNet decided, and it is right to: it has no gallery to match a stranger against. Without the assertion the subject filter matches nobody and all 27 features read zero.
+   * Streams servedbone
+   * Logit adjustment &tau;0.25
+   * Temperature1.00
+   * Segments emitted5
+decoding`calibrate -> object fusion -> Viterbi -> abstain -> segments`
+unidentifiedtrack 0 · 2 segments
+cleaning_housework 3.2s · cleaning_housework 7.3s
+unidentifiedtrack 1 · 1 segment
+cooking_food_prep 8.6s
+unidentifiedtrack 2 · 2 segmentssubject of Agent 3's features
+cleaning_housework 4.6s · cleaning_housework 5.9s
+hands on`ActivitySegment`Agent 3 receives the segments, per identity
+3. Agent 3done0.5s
+behaviour
+Baseline is a declared reference, not this person. 21 reference days primed against 1 real day from this clip. The feature values below are measured from your video and are real; every robust-z is “unlike the reference”, never “this person has declined”.
+Agent 3 is statistics, not a model: a robust median and MAD per feature, a z-score against it, and CUSUM for slow drift. It is written that way so a flagged decline can be explained to the person acting on it. Observed span is 0.012 h, far below the 8 h a day needs to be called reliable — so the day is marked unreliable rather than quietly averaged in.
+Measured from this clip
+   * walking duration s0.00
+   * walking bouts0.00
+   * mean bout duration s0.00
+   * room transitions0.00
+   * sit to stand count0.00
+   * mean sit to stand duration s0.00
+   * sitting duration s0.00
+   * lying duration s0.00
+   * standing duration s0.00
+   * longest inactive block s0.00
+   * meal events0.00
+   * eating duration s0.00
+   * drinking events0.00
+   * cooking duration s0.00
+   * medication events0.00
+   * tv duration s0.00
+   * reading duration s0.00
+   * phone events0.00
+   * social interaction duration s0.00
+   * visitor count0.00
+   * housework duration s10.55
+   * fall events0.00
+   * max post fall immobility s0.00
+   * observed hours0.01
+   * tracking coverage1.00
+   * mobility index0.00
+   * sedentary ratio0.00
+Deviation against the reference (robust‑z)
+   * walking duration s-10.00
+   * walking bouts-10.00
+   * mean bout duration s-10.00
+   * room transitions-10.00
+   * sit to stand count-10.00
+   * mean sit to stand duration s-10.00
+No alert rule fired.
+hands on`BehaviourState`Agent 4 receives numbers only — never pixels
+4. Agent 4done15.4s
+report
+The model receives the numbers above and nothing else — no frames, no skeletons, no pixels. It writes the summary as separate citable claims, and each one is checked before it is shown.
+   * Modelz-ai/glm-5.2:free via nvidia/nemotron-3-super-120b-a12b:free (openrouter, 20 key(s))
+   * Constrained decodingon (JSON grammar)
+   * Claims emitted0
+   * Schema-valid claims0
+   * Unfaithful share0.0%
+   * Escalateno
+The generation did not parse. Reported rather than retried silently — a repaired-until-valid report is not the one the model wrote.
+hands on`CaregiverReport`every claim goes to C1–C5 before anyone sees it
+
+
+the skeleton got stuck at a fixed place at 45 seconds for the rest of the video
+
+in the 2nd video(shown in second screenshot) the skeleton got stuck there after 45s, its output:
+900 frames at 20 Hz · 640×480 · 8 people tracked · pose 29.5s · classify 0.1s · behaviour 0.03s · report 19.23s · re-id off, roles unidentified · τ=0.25 · truncated at 900 frames
+
+Agent 1
+done
+29.5s
+
+perception
+Decoded 900 frames at 20.0 Hz and ran RTMO over every one of them. 8 people were tracked. Re-identification is off — every track is reported as unidentified, which is honest rather than broken.
+
+Frames kept
+900
+Source rate
+25.0 fps
+Sample rate
+20.0 Hz
+Window length
+1.50 s (30 frames)
+People tracked
+8
+Decoded size
+640×480
+Mean keypoint confidence
+0.787
+Unusable pose records
+74 of 456 (16%)
+Execution provider
+CUDA
+Truncated
+yes — clip hit the frame cap
+unidentified · track 0 · unidentified · track 1 · unidentified · track 2 · unidentified · track 3 · unidentified · track 5 · unidentified · track 6 · unidentified · track 7 · unidentified · track 8
+
+hands on
+PersonObservation
+Agent 2 receives one per person per frame
+
+Agent 2
+done
+0.1s
+
+activity
+Each person's windows are classified on their own skeletons, independently — nobody's activity is inferred from anybody else's. The served configuration is the one notebook 04 selected, not the defaults: bone at τ=0.25 and T=1.00.
+
+Identity is asserted, not re-identified. No resident is enrolled, so track 6 — the most-present one — is treated as the subject for Agent 3's features. Every role below still reads as unidentified because that is what OSNet decided, and it is right to: it has no gallery to match a stranger against. Without the assertion the subject filter matches nobody and all 27 features read zero.
+
+Streams served
+bone
+Logit adjustment &tau;
+0.25
+Temperature
+1.00
+Segments emitted
+4
+decoding
+calibrate -> object fusion -> Viterbi -> abstain -> segments
+
+unidentified
+track 0 · 1 segment
+
+reading 2.6s
+
+unidentified
+track 6 · 3 segments
+subject of Agent 3's features
+
+reading 1.9s · reading 4.2s · reading 2.1s
+
+hands on
+ActivitySegment
+Agent 3 receives the segments, per identity
+
+Agent 3
+done
+0.0s
+
+behaviour
+Baseline is a declared reference, not this person. 21 reference days primed against 1 real day from this clip. The feature values below are measured from your video and are real; every robust-z is “unlike the reference”, never “this person has declined”.
+
+Agent 3 is statistics, not a model: a robust median and MAD per feature, a z-score against it, and CUSUM for slow drift. It is written that way so a flagged decline can be explained to the person acting on it. Observed span is 0.012 h, far below the 8 h a day needs to be called reliable — so the day is marked unreliable rather than quietly averaged in.
+
+Measured from this clip
+
+walking duration s
+0.00
+walking bouts
+0.00
+mean bout duration s
+0.00
+room transitions
+0.00
+sit to stand count
+0.00
+mean sit to stand duration s
+0.00
+sitting duration s
+0.00
+lying duration s
+0.00
+standing duration s
+0.00
+longest inactive block s
+8.15
+meal events
+0.00
+eating duration s
+0.00
+drinking events
+0.00
+cooking duration s
+0.00
+medication events
+0.00
+tv duration s
+0.00
+reading duration s
+8.15
+phone events
+0.00
+social interaction duration s
+0.00
+visitor count
+0.00
+housework duration s
+0.00
+fall events
+0.00
+max post fall immobility s
+0.00
+observed hours
+0.01
+tracking coverage
+1.00
+mobility index
+0.00
+sedentary ratio
+0.00
+Deviation against the reference (robust‑z)
+
+walking duration s
+-10.00
+walking bouts
+-10.00
+mean bout duration s
+-10.00
+room transitions
+-10.00
+sit to stand count
+-10.00
+mean sit to stand duration s
+-10.00
+No alert rule fired.
+
+hands on
+BehaviourState
+Agent 4 receives numbers only — never pixels
+
+Agent 4
+done
+19.2s
+
+report
+The model receives the numbers above and nothing else — no frames, no skeletons, no pixels. It writes the summary as separate citable claims, and each one is checked before it is shown.
+
+Model
+z-ai/glm-5.2:free via nvidia/nemotron-3-super-120b-a12b:free (openrouter, 20 key(s))
+Constrained decoding
+on (JSON grammar)
+Claims emitted
+0
+Schema-valid claims
+0
+Unfaithful share
+0.0%
+Escalate
+no
+The generation did not parse. Reported rather than retried silently — a repaired-until-valid report is not the one the model wrote.
+
+hands on
+CaregiverReport
+every claim goes to C1–C5 before anyone sees it
+
+No claims were produced for this clip, so there is nothing to verify. That is reported rather than shown as a clean bill of health.
+
+Done. Every claim passed all five checks.
+
+it detected 8 people while the video had only one lady
+
+
+[M02390] 2026-09-04T13:36:37.342Z ASSISTANT (conversation) [C059:370; copies=4]
+Three separate problems in that output, and one of them is visible as a contradiction inside your own pasted results. Let me check each against the code.
+
+
+[M02391] 2026-09-04T13:45:17.868Z ASSISTANT (conversation) [C059:414; copies=4]
+Now the fix — the frozen skeleton is a one-line clamp in `frameAt`:
+
+
+[M02392] 2026-09-04T14:18:42.116Z ASSISTANT (conversation) [C059:534; copies=4]
+These are three unrelated defects, and the frozen skeleton is the one that explains most of what you saw. 206/206 pass.
+
+## 1. The frozen skeleton — a display bug, fixed
+
+```js
+const i = Math.min(frames.length - 1, Math.max(0, Math.round(t * fps)));
+```
+
+`frameAt()` **clamped**. 900 frames at 20 Hz is exactly 45.0 s of analysis; your clips are 9:56 and 15:07. So from 45 s to the end, every redraw returned `frames[899]` — the last analysed pose, pinned. I ran the arithmetic: at t=149 s (the 2:29 in your first screenshot) the old code returns frame 899.
+
+That's also why the skeleton sits over the hob while she's at the coffee machine — that's where she was standing at the 45-second mark.
+
+It was drawing pose over footage nothing ever decoded, which is a claim to have tracked what was never looked at. `frameAt` now returns null past the analysed span, and the canvas captions *"analysis ended at 45.0 s"* so an empty overlay doesn't read as a broken renderer.
+
+## 2. The person count — detection dropout, and the damage is worse than the count
+
+From your own counters:
+
+- **Video 1:** 623 person-records over 900 frames → no detection in ~31% of frames → 3 ids.
+- **Video 2:** 456 records over 900 frames → no detection in ~49% → 9 ids minted (0,1,2,3,5,6,7,8 listed; id 4 produced nothing).
+
+`max_age_frames = 30`, and its comment claimed "at 15 fps this is 2 seconds". **We serve at 20 Hz, so it's 1.5 s.** Any gap longer than that kills the track, and re-detection mints a new id. Corrected the comment — the tolerance quietly shrank 25% when the sample rate moved and nobody noticed.
+
+Mean keypoint confidence across your three clips runs 0.906 → 0.854 → 0.787, tracking the difficulty: behind a kitchen island, then seated with her back to camera behind a sofa in lamp light. That the occlusion is the cause is inference from the screenshots; the dropout rates are measured.
+
+**But the count isn't the real harm.** `assert_subject()` keeps the most-present track, and `aggregate_daily_features` attributes personal features only to the subject — so every other fragment is thrown away. Video 1:
+
+| track | segments | counted? |
+|---|---|---|
+| 0 | housework 3.2 s + 7.3 s | **discarded** |
+| 1 | **cooking 8.6 s** | **discarded** |
+| 2 (subject) | housework 4.6 s + 5.9 s | counted |
+
+Agent 3 reports `housework_duration_s = 10.55` and **`cooking_duration_s = 0.00`** — while Agent 2's card on the same page shows `cooking_food_prep 8.6s`. If that's one lady, housework is halved and cooking is reported as zero despite being detected. Video 2 loses track 0's `reading 2.6 s` the same way: 8.15 s reported against ~10.8 s.
+
+Also: 6 of the 8 "people" in video 2 emitted no segment at all — too short to fill a 30-frame window. "8 people were tracked" counts track ids, not people with usable activity.
+
+## 3. Agent 4 didn't parse — now self-diagnosing
+
+Both runs emitted 0 claims via nemotron-3-super; GLM produced 6 earlier. `_extract_json` already distinguishes *"no JSON object in response"* (answered in prose — a compliance failure) from *"unterminated JSON object (truncated generation)"* (`max_tokens` too low for a model that reasons before answering — a budget failure). That reason was captured in `out.notes` and discarded before reaching the page, leaving one boolean.
+
+I haven't guessed which it is. `notes` now reaches the Agent 4 card, so the next run will say. My hypothesis is truncation, since Nemotron Super is a reasoning model against a 1600-token cap — but that's a hypothesis, not a finding. W2 caught me mid-change here: adding `notes` to the notebook and staging but not the dev stub failed the staleness guard.
+
+## The one decision I need from you
+
+Fixing the discarded activity changes how identity is assigned, which is your central claim, so I'm not doing it unilaterally. My recommendation is to **merge time-disjoint tracks into the subject**: two tracks present in the same frame are definitely two people, but two that never co-occur cannot be distinguished without a gallery — and with ReID off there is none. For a single-occupant clip that recovers the lost activity, and it gets declared exactly as the current assertion is. The alternatives are raising `max_age_frames` (helps, won't fix 49% dropout) or just reporting the discard without merging (honest, leaves the numbers wrong).
+
+## Steps
+
+```bash
+python scripts/publish_code_dataset.py
+```
+
+Then restart notebook 05's kernel, re-run for a fresh tunnel, restart the local backend — and **hard-refresh the page** (Ctrl+Shift+R), since `overlay.js` and `stages.js` changed and the browser will otherwise serve the cached copies.

@@ -41,6 +41,72 @@ at all. The reliable win is the eliminated download and the faster card, not a 1
 | `02_prepare_fall_shards_online` | ONLINE, GPU | `behaviorsense-code` + Kaggle dataset `tuyenldvn/falldataset-imvia` (Le2i) | `behaviorsense-fall-shards` |
 | `03_train_blackwell_offline` | **OFFLINE**, Blackwell | `behaviorsense-code`, `-wheels`, `-weights`, `-adl-shards`, `-fall-shards`; **resume:** `behaviorsense-runs` | `behaviorsense-runs` |
 | `04_evaluate_blackwell_offline` | **OFFLINE**, Blackwell | everything 03 uses + `behaviorsense-runs` + **Kaggle Model** `Qwen2.5-7B-Instruct` | `results/*.md` (optionally `behaviorsense-results`) |
+| `05_serve_inference_online` | **ONLINE**, **T4 x2 / P100** | `behaviorsense-code`, `-runs`, `-weights`, `-results` + **Kaggle Model** `Qwen2.5-7B-Instruct` | a Cloudflare URL the front end connects to |
+| `06_toyota_preflight_online` | **ONLINE**, CPU | `behaviorsense-code`, `-weights` + all nine Toyota / MSMT mounts | `behaviorsense-toyota-meta` (a few MB) + a go/no-go verdict |
+
+### Toyota Smarthome: nine private mounts, and the one that is not what it looks like
+
+Uploaded 2026-08-22 under one owner. Resolved **by content** in notebook 06, never by slug:
+
+| slug | inner layout |
+|---|---|
+| `annotation-v1-0` | `Annotation/P<dd>/P<dd>T<dd>C<dd>.csv` |
+| `rgb-untrimmed` | `Videos_mp4/P<dd>T<dd>C<dd>.mp4` |
+| `pose-untrimmed` | `Skeleton/results_P<dd>T<dd>C<dd>_lcrnet+v3d.json` |
+| `depth-untrimmed` | `Depth/P<dd>T<dd>C<dd>.mp4` |
+| `toyota-smarthome-rgb` | `mp4/<Activity>_p<dd>_r<dd>_v<dd>_c<dd>.mp4` |
+| `toyota-smarthome-skeleton` | `json/...` (V1.1) |
+| `toyota-smarthome-skeleton-v1-2` | `..._pose3d.json` at the **root**, no subfolder |
+| `toyota-smarthome-depth` | `depth/...` |
+| `msmt17` | `MSMT17/{query,bounding_box_train,bounding_box_test}` |
+
+**`Annotation_v1.0.tar.gz` does not contain `smarthome_CS_51.json`.** It contains one CSV per
+video. That JSON - the artefact every published baseline trains against, and the only source
+of `duration` - is *derived*, and lives in `dairui01/Toyota_Smarthome/pipline/data/`. Both are
+read: the CSVs for spans, the JSON for durations and as an independent copy to check the
+inferred CSV schema against. `frame_multilabel` maps step to annotation position as
+`step * duration / n_steps`, so a guessed duration rescales the entire label tensor and leaves
+its shape correct - which is why `load_tsu_annotations_from_csv` takes `durations` with no
+default.
+
+Two filename traps, both fixed and both regression-tested. The V1.2 archive appends `_pose3d`
+after the camera field, so an anchored pattern rejects **every file in it** and reports "0
+matched", which reads as an unattached dataset. And the untrimmed ids are decorated three
+different ways across the four untrimmed mounts (bare, bare, `results_..._lcrnet+v3d`, bare),
+so `parse_tsu_filename` searches for the id rather than matching the whole name - and refuses a
+filename containing two ids instead of picking the first.
+
+**Nothing from this dataset is committed.** The repo is public and the licence is
+academic-research-only. `.gitignore` refuses the video, the CSVs, the JSON and Inria's licence
+PDFs; notebook 06 stages the JSON into a private dataset so the offline notebooks never reach
+for the network.
+
+### The hardware splits by internet, and that caps the serving model
+
+This is the constraint that decides what the architecture is allowed to contain, so it is
+stated as a rule rather than left implicit in the table:
+
+| | internet | GPU |
+|---|---|---|
+| training, shard building, evaluation | **off** | RTX PRO 6000 Blackwell, 96 GB |
+| serving the front end (notebook 05) | **on** | T4 x2 (2 x 16 GB) or P100 (16 GB) |
+
+The front end runs locally or on any static host; every video the visitor uploads is
+processed on Kaggle behind the tunnel, because that is where the weights are. So the
+**serving** GPU - not the training one - is the ceiling for anything on the inference path.
+
+Qwen2.5-7B in bf16 is already ~15 GB of that 16 GB before the ADL streams, RTMO and OSNet
+are counted. Two consequences follow, and neither is a preference:
+
+- **Any appearance backbone added to Agent 1 must be small.** VideoMAE-v2 and InternVideo
+  are out on memory alone. I3D at ~12 M parameters is in - and it is what the dataset's own
+  RGB baseline uses, with released Smarthome CS weights (`srijandas07/i3d_smarthome`,
+  `models/rgb_SH_CS.pt`) trained on **SSD person crops**, which is the same input shape our
+  RTMO boxes already produce. The cheap option and the right option coincide here.
+- **Train big, serve small, and never let the two diverge silently.** The 96 GB card is for
+  fitting the 51-class model; what ships is whatever fits a T4. A configuration that only
+  fits offline is not a deployable configuration, and notebook 05 asserts on what it loaded
+  rather than assuming.
 
 ## Step 0 — upload the repo from this machine (local CLI, once)
 
@@ -141,7 +207,7 @@ contract needs no manual version bumping: it fails exactly when the snapshot is 
 the notebook running against it. `tests/test_notebooks.py::N13` also asserts every contract
 token exists in the local checkout, so the guard can never reject a fresh upload.
 
-The contract is now 15 tokens. Two were added after notebook 04's first complete run,
+The contract is now 21 tokens. Several were added after notebook 04's first complete run,
 because a stale snapshot would have silently produced the *old* measurement rather than
 failing: `repair_claim` and `unusable_rate` gate the three-arm hallucination table, and
 without them the free-decoding arm reports `nan%` from an empty denominator — a number that

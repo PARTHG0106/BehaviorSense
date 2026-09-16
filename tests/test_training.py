@@ -591,6 +591,197 @@ def test_s9_early_stopping_ends_a_run_without_losing_its_peak():
           "runs to ep59 keeping 0.822@ep56; best.pt saved before the stop check")
 
 
+def test_s10_logit_adjusted_loss_reduces_to_plain_ce_at_tau_zero():
+    """The default training path must be unchanged by adding this loss.
+
+    `LogitAdjustedCE` sits in the default code path with `--tau-train 0`, so if tau=0 were
+    not an exact no-op every existing result would silently shift. Asserted against
+    `CrossEntropyLoss` on the same logits, including with label smoothing on, because that
+    is how it is actually configured.
+    """
+    from train_adl import LogitAdjustedCE, label_prior
+
+    torch.manual_seed(0)
+    logits = torch.randn(64, N_CLASSES)
+    target = torch.randint(0, N_CLASSES, (64,))
+    labels = np.concatenate([np.zeros(400, int), np.arange(N_CLASSES)])
+    prior = label_prior(labels, N_CLASSES)
+
+    for smoothing in (0.0, 0.1):
+        plain = torch.nn.CrossEntropyLoss(label_smoothing=smoothing)(logits, target)
+        adjusted = LogitAdjustedCE(prior, tau=0.0, label_smoothing=smoothing)(logits, target)
+        assert torch.allclose(plain, adjusted, atol=1e-6), (
+            f"tau=0 changed the loss at label_smoothing={smoothing}: "
+            f"{plain.item():.6f} vs {adjusted.item():.6f}"
+        )
+
+    # And tau>0 must actually move it, in the direction that up-weights the tail: the head
+    # class gets a larger positive offset, so its logit needs to be higher to win.
+    loss1 = LogitAdjustedCE(prior, tau=1.0)(logits, target)
+    assert not torch.allclose(loss1, LogitAdjustedCE(prior, tau=0.0)(logits, target)), (
+        "tau=1 produced the same loss as tau=0 - the offset is not being applied"
+    )
+    offset = LogitAdjustedCE(prior, tau=1.0).offset
+    assert offset.argmax().item() == int(np.argmax(prior)), (
+        "the largest offset is not on the most frequent class, so the adjustment has the "
+        "wrong sign and would penalise the tail instead of the head"
+    )
+
+    # The buffer must be registered, or it stays on the CPU while logits are on the GPU.
+    assert "offset" in dict(LogitAdjustedCE(prior).named_buffers())
+    print(f"  S10 tau=0 == CrossEntropyLoss at smoothing 0.0/0.1; tau=1 offset peaks on "
+          f"class {offset.argmax().item()} (prior {prior.max():.1%}); offset is a buffer")
+
+
+def test_s11_balanced_sampling_and_logit_adjusted_loss_cannot_be_stacked():
+    """Two corrections for one imbalance is a silent methodological error.
+
+    Effective-number sampling already removes most of the head/tail ratio. Adding
+    tau*log(prior) on top over-penalises the head, and the run produces a plausible number
+    that means nothing. `train_adl.py` refuses the combination rather than warning - the
+    same choice train_fall.py makes for focal alpha, and for the same reason: a warning in
+    a 12-hour Kaggle log is not read until the result is already wrong.
+    """
+    with tempfile.TemporaryDirectory() as td:
+        shard = Path(td) / "smoke.npz"
+        base = [sys.executable, str(ROOT / "scripts/train_adl.py"), "--smoke",
+                "--smoke-shard", str(shard), "--epochs", "1", "--stop-after", "1",
+                "--out", str(Path(td) / "run")]
+
+        bad = subprocess.run([*base, "--sampler", "balanced", "--tau-train", "1.0"],
+                             capture_output=True, text=True, timeout=900)
+        assert bad.returncode != 0, "stacking balanced sampling and tau-train was accepted"
+        blob = bad.stdout + bad.stderr
+        assert "corrects the class imbalance twice" in blob, blob[-400:]
+        assert "--sampler natural" in blob, "the refusal does not say how to fix it"
+
+        # Positive control: each alone must run. Without this the test would pass for a
+        # script that refused everything.
+        for extra in (["--sampler", "balanced"], ["--sampler", "natural", "--tau-train", "1.0"]):
+            ok = subprocess.run([*base, *extra], capture_output=True, text=True, timeout=900)
+            assert ok.returncode == 0, f"{extra} failed: {(ok.stdout + ok.stderr)[-500:]}"
+    print("  S11 balanced+tau-train refused with a fix-it message; each alone still trains")
+
+
+def test_s12_rng_state_reloads_when_the_checkpoint_came_back_off_a_device():
+    """Resume must survive `map_location="cuda"` moving the RNG tensor.
+
+    All five GPU runs died here: `torch.load(..., map_location=args.device)` moves EVERY
+    tensor in the checkpoint to the GPU, the RNG state included, and
+    `torch.set_rng_state` accepts only a CPU ByteTensor:
+
+        TypeError: RNG state must be a torch.ByteTensor
+
+    S7 never caught it because S7 resumes with `--device cpu`, where `map_location` is a
+    no-op. There is no GPU here either, so the failure is reproduced by handing
+    `load_rng_state` a state whose tensor did NOT come back as a CPU ByteTensor - the same
+    precondition violation, without needing CUDA.
+    """
+    from train_adl import _byte_cpu, load_rng_state, rng_state
+
+    torch.manual_seed(1234)
+    saved = rng_state()
+    expected = torch.rand(4)
+
+    # Negative control: the raw torch API rejects a non-ByteTensor, so the fixture really
+    # does reproduce the failure and a no-op _byte_cpu could not pass this test.
+    moved = saved["torch"].to(torch.int64)
+    try:
+        torch.set_rng_state(moved)
+        raise AssertionError("torch.set_rng_state accepted a non-ByteTensor; fixture is "
+                             "no longer a faithful reproduction of the GPU failure")
+    except (TypeError, RuntimeError):
+        pass
+
+    for mangled in (saved["torch"].to(torch.int64), saved["torch"].clone()):
+        torch.manual_seed(999)
+        load_rng_state({**saved, "torch": mangled})
+        assert torch.allclose(torch.rand(4), expected), (
+            "RNG state did not restore bit-exactly after coercion"
+        )
+
+    assert _byte_cpu(saved["torch"]).dtype == torch.uint8
+    assert _byte_cpu(saved["torch"]).device.type == "cpu"
+    assert _byte_cpu("not a tensor") == "not a tensor", "non-tensors must pass through"
+
+    # train_fall.py imports this from train_adl, so one fix covers both trainers - assert
+    # the import is still the shared one rather than a divergent copy.
+    fall = (ROOT / "scripts/train_fall.py").read_text(encoding="utf-8")
+    assert "load_rng_state" in fall and "from train_adl import" in fall, (
+        "train_fall.py no longer shares load_rng_state with train_adl.py"
+    )
+    print("  S12 RNG state restores bit-exactly from an int64/off-device tensor; raw "
+          "set_rng_state still rejects it (control); train_fall shares the fix")
+
+
+def test_s13_actor_split_removes_the_leak_the_video_split_hides():
+    """P1's split identity: video ids leak people; Charades actor ids must not.
+
+    docs/07 recorded "Charades subject ids do not exist publicly" and the shards stored
+    video ids as `subjects`. That was wrong - Charades_v1_train.csv has carried a `subject`
+    column all along (267 actors, ~30 videos each). With that ratio a video-id split puts
+    essentially every actor on both sides, so the "subject-disjoint" P1 was video-disjoint:
+    same person, same home, same mannerisms in train and val. This is the exact failure
+    `subject_from_path` prevents in the fall corpora, committed on the biggest corpus, and
+    the disjointness assert could never catch it because the IDS really are disjoint.
+
+    The test builds a Charades-shaped CSV (quoted fields with commas, as the real one has),
+    shows the leak exists under video ids, and shows the remap eliminates it.
+    """
+    import csv as _csv
+
+    from behaviorsense.data.skeleton_dataset import load_subject_map, remap_subjects
+
+    with tempfile.TemporaryDirectory() as td:
+        p = Path(td) / "Charades_v1_train.csv"
+        with open(p, "w", newline="", encoding="utf-8") as fh:
+            w = _csv.writer(fh)
+            w.writerow(["id", "subject", "scene", "quality", "relevance", "verified",
+                        "script", "descriptions", "actions", "length"])
+            for i in range(30):
+                w.writerow([f"VID{i:03d}", f"ACT{i % 5}", "Kitchen", 7, 7, "Yes",
+                            "a person walks, then sits", "walks; sits",
+                            "c093 0.0 2.0", "10.0"])
+        mapping = load_subject_map(p)
+        assert len(mapping) == 30 and mapping["VID007"] == "ACT2"
+
+        subjects = np.array([f"VID{i % 30:03d}" for i in range(300)] + ["urfd-01"] * 10)
+        remapped, cov = remap_subjects(subjects, mapping)
+        assert abs(cov - 300 / 310) < 1e-9, cov
+        assert remapped[-1] == "urfd-01", "non-Charades ids must pass through unchanged"
+        assert len(set(remapped[:-10])) == 5, "30 videos should collapse to 5 actors"
+
+        actors = np.array([mapping.get(s, s) for s in subjects])
+        tr_v, va_v = split_by_subject(subjects, val_frac=0.2, seed=0)
+        leak_video = set(actors[tr_v]) & set(actors[va_v]) - {"urfd-01"}
+        assert leak_video, (
+            "the video-id split leaked no actors on this fixture - the positive control "
+            "is gone, so the actor-split assertion below proves nothing"
+        )
+        tr_a, va_a = split_by_subject(remapped, val_frac=0.2, seed=0)
+        assert not (set(actors[tr_a]) & set(actors[va_a])), (
+            "actor-id split still places one person on both sides"
+        )
+
+        bad = Path(td) / "bad.csv"
+        bad.write_text("id,scene\nVID000,Kitchen\n", encoding="utf-8")
+        try:
+            load_subject_map(bad)
+            raise AssertionError("CSV without a subject column was accepted")
+        except ValueError:
+            pass
+
+    # And the trainer must expose the flag + refuse a resume across split identities.
+    src = (ROOT / "scripts/train_adl.py").read_text(encoding="utf-8")
+    assert "--subject-map" in src, "train_adl.py lost the --subject-map flag"
+    assert '"subject_map"' in src, (
+        "subject_map is not in the resume guard - a checkpoint from the other split "
+        "identity would resume silently and smuggle its leakage into this protocol"
+    )
+    print(f"  S13 video-id split leaked {len(leak_video)} actor(s); actor-id split leaked "
+          "0; pass-through + coverage + bad-CSV refusal + resume guard all hold")
+
+
 if __name__ == "__main__":
     tests = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     failed = 0

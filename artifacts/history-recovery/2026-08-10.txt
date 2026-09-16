@@ -1,0 +1,1504 @@
+
+[M01139] 2026-08-10T09:50:05.023Z USER (conversation) [C023:1569; copies=9]
+Time
+#
+Log Message
+4.3s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.3s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.3s	3	0.00s - to python to disable frozen modules.
+4.3s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.6s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.6s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.6s	7	0.00s - to python to disable frozen modules.
+4.6s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+323.5s	9	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+323.5s	10	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+323.5s	11	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+323.5s	12	  attached  ['competitions', 'datasets']
+323.5s	13	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+323.5s	14	  contract 12/12 - mounted code is current
+327.0s	15	torch 2.10.0+cu128 already supports sm_120
+339.4s	16	======================================================================
+339.4s	17	BehaviorSense Kaggle preflight
+339.4s	18	======================================================================
+339.4s	19	torch 2.10.0+cu128
+339.4s	20	GPU: NVIDIA RTX PRO 6000 Blackwell Server Edition  sm_120  102.0 GB
+339.4s	21	  sm_120 is in the supported arch list
+339.4s	22	  bf16 matmul 4096^2 OK (0.36s)
+339.4s	23	  ST-GCN++ fwd+bwd under bf16 autocast OK (peak 0.19 GB)
+339.4s	24	
+339.4s	25	imports:
+339.4s	26	  [ok] numpy
+339.4s	27	  [ok] pydantic
+339.4s	28	  [ok] torch
+339.4s	29	  [ok] PIL
+339.4s	30	  [ok] yaml
+339.4s	31	  [ok] transformers
+339.4s	32	  [warn] outlines missing (constrained decoding)
+339.4s	33	  [warn] onnxruntime missing (RTMO/RT-DETR inference)
+339.4s	34	
+339.4s	35	assets in /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights  (profile: training)
+339.4s	36	  (no staged asset blocks the 'training' profile; all findings are warnings)
+339.4s	37	  [ok] osnet_ain_x1_0_msmt17.pth: 17.3 MB
+339.4s	38	  [ok] osnet_ain_x1_0_imagenet.pth: 10.9 MB
+339.4s	39	  [ok] rtmo-l.onnx: 175.9 MB
+339.4s	40	  [ok] rtdetr-l.onnx: 131.7 MB
+339.4s	41	  [warn] MISSING stgcnpp_ntu60_joint.pth - ST-GCN++ NTU pretrain (Agent 2 init)
+339.4s	42	
+339.4s	43	======================================================================
+339.4s	44	PREFLIGHT PASSED - safe to start training
+339.6s	45	======================================================================
+339.6s	46	BehaviorSense Kaggle preflight
+339.6s	47	======================================================================
+339.6s	48	torch 2.10.0+cu128
+339.6s	49	GPU: NVIDIA RTX PRO 6000 Blackwell Server Edition  sm_120  102.0 GB
+339.6s	50	  sm_120 is in the supported arch list
+339.6s	51	  bf16 matmul 4096^2 OK (0.36s)
+339.6s	52	  ST-GCN++ fwd+bwd under bf16 autocast OK (peak 0.19 GB)
+339.6s	53	
+339.6s	54	imports:
+339.6s	55	  [ok] numpy
+339.6s	56	  [ok] pydantic
+339.6s	57	  [ok] torch
+339.6s	58	  [ok] PIL
+339.6s	59	  [ok] yaml
+339.6s	60	  [ok] transformers
+339.6s	61	  [warn] outlines missing (constrained decoding)
+339.6s	62	  [warn] onnxruntime missing (RTMO/RT-DETR inference)
+339.6s	63	
+339.6s	64	assets in /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights  (profile: training)
+339.6s	65	  (no staged asset blocks the 'training' profile; all findings are warnings)
+339.6s	66	  [ok] osnet_ain_x1_0_msmt17.pth: 17.3 MB
+339.6s	67	  [ok] osnet_ain_x1_0_imagenet.pth: 10.9 MB
+339.6s	68	  [ok] rtmo-l.onnx: 175.9 MB
+339.6s	69	  [ok] rtdetr-l.onnx: 131.7 MB
+339.6s	70	  [warn] MISSING stgcnpp_ntu60_joint.pth - ST-GCN++ NTU pretrain (Agent 2 init)
+339.6s	71	
+339.6s	72	======================================================================
+339.6s	73	PREFLIGHT PASSED - safe to start training
+341.5s	74	ADL mounts:
+374.3s	75	  skipping fixture _smoke_fall.npz
+374.3s	76	  skipping fixture _smoke.npz
+374.3s	77	  behaviorsense-adl-shards: 6 .npz
+374.3s	78	fall mounts:
+381.2s	79	  skipping fixture _smoke_fall.npz
+381.2s	80	  skipping fixture _smoke.npz
+381.2s	81	  behaviorsense-fall-shards: 4 .npz
+381.2s	82	ADL shards: 6, fall shards: 4
+381.3s	83	fall-head training mix: 168,173 windows, 858 positive (0.51%)
+386.4s	84	ignoring 4 checkpoint(s) that are not resumable here:
+386.4s	85	  adl            smoke run (synthetic fixture, not real training)
+386.4s	86	  fall           epochs=1, this run wants 60
+386.4s	87	  smoke          smoke run (synthetic fixture, not real training)
+386.4s	88	  smoke_fall     smoke run (synthetic fixture, not real training)
+386.4s	89	fresh training - no resumable last.pt under any attached dataset
+8178.9s	90	joint -> OK
+8317.1s	91	bone -> OK
+8337.0s	92	joint_motion -> OK
+8337.0s	93	bone_motion -> OK
+8345.4s	94	train 126431 / val 41742 windows | positive rate 0.006 | lr=0.2000 | device=cuda
+8345.6s	95	train 126431 / val 41742 windows | positive rate 0.006 | lr=0.2000 | device=cuda
+8368.9s	96	ep000 loss 0.0086 auprc 0.056 auroc 0.988 sens@1.0fa/h 0.024 thr 0.457 (23s)
+8369.1s	97	ep000 loss 0.0086 auprc 0.056 auroc 0.988 sens@1.0fa/h 0.024 thr 0.457 (23s)
+8391.9s	98	ep001 loss 0.0043 auprc 0.214 auroc 0.997 sens@1.0fa/h 0.195 thr 0.611 (23s)
+8392.1s	99	ep001 loss 0.0043 auprc 0.214 auroc 0.997 sens@1.0fa/h 0.195 thr 0.611 (23s)
+8415.0s	100	ep002 loss 0.0037 auprc 0.347 auroc 0.999 sens@1.0fa/h 0.293 thr 0.596 (23s)
+8415.2s	101	ep002 loss 0.0037 auprc 0.347 auroc 0.999 sens@1.0fa/h 0.293 thr 0.596 (23s)
+8438.0s	102	ep003 loss 0.0034 auprc 0.388 auroc 0.999 sens@1.0fa/h 0.341 thr 0.570 (23s)
+8438.2s	103	ep003 loss 0.0034 auprc 0.388 auroc 0.999 sens@1.0fa/h 0.341 thr 0.570 (23s)
+8461.1s	104	ep004 loss 0.0031 auprc 0.385 auroc 0.999 sens@1.0fa/h 0.341 thr 0.557 (23s)
+8461.3s	105	ep004 loss 0.0031 auprc 0.385 auroc 0.999 sens@1.0fa/h 0.341 thr 0.557 (23s)
+8484.1s	106	ep005 loss 0.0030 auprc 0.372 auroc 0.999 sens@1.0fa/h 0.390 thr 0.538 (23s)
+8484.3s	107	ep005 loss 0.0030 auprc 0.372 auroc 0.999 sens@1.0fa/h 0.390 thr 0.538 (23s)
+8507.1s	108	ep006 loss 0.0029 auprc 0.381 auroc 0.999 sens@1.0fa/h 0.390 thr 0.538 (23s)
+8507.3s	109	ep006 loss 0.0029 auprc 0.381 auroc 0.999 sens@1.0fa/h 0.390 thr 0.538 (23s)
+8530.1s	110	ep007 loss 0.0029 auprc 0.380 auroc 0.999 sens@1.0fa/h 0.415 thr 0.529 (23s)
+8530.3s	111	ep007 loss 0.0029 auprc 0.380 auroc 0.999 sens@1.0fa/h 0.415 thr 0.529 (23s)
+8553.2s	112	ep008 loss 0.0028 auprc 0.375 auroc 0.999 sens@1.0fa/h 0.415 thr 0.544 (23s)
+8553.4s	113	ep008 loss 0.0028 auprc 0.375 auroc 0.999 sens@1.0fa/h 0.415 thr 0.544 (23s)
+8576.2s	114	ep009 loss 0.0028 auprc 0.382 auroc 0.999 sens@1.0fa/h 0.439 thr 0.547 (23s)
+8576.4s	115	ep009 loss 0.0028 auprc 0.382 auroc 0.999 sens@1.0fa/h 0.439 thr 0.547 (23s)
+8599.3s	116	ep010 loss 0.0028 auprc 0.388 auroc 0.999 sens@1.0fa/h 0.390 thr 0.558 (23s)
+8599.5s	117	ep010 loss 0.0028 auprc 0.388 auroc 0.999 sens@1.0fa/h 0.390 thr 0.558 (23s)
+8622.4s	118	ep011 loss 0.0028 auprc 0.364 auroc 0.999 sens@1.0fa/h 0.317 thr 0.577 (23s)
+8622.6s	119	ep011 loss 0.0028 auprc 0.364 auroc 0.999 sens@1.0fa/h 0.317 thr 0.577 (23s)
+8645.4s	120	ep012 loss 0.0027 auprc 0.368 auroc 0.999 sens@1.0fa/h 0.341 thr 0.587 (23s)
+8645.7s	121	ep012 loss 0.0027 auprc 0.368 auroc 0.999 sens@1.0fa/h 0.341 thr 0.587 (23s)
+8668.5s	122	ep013 loss 0.0027 auprc 0.374 auroc 0.999 sens@1.0fa/h 0.366 thr 0.603 (23s)
+8668.7s	123	ep013 loss 0.0027 auprc 0.374 auroc 0.999 sens@1.0fa/h 0.366 thr 0.603 (23s)
+8691.6s	124	ep014 loss 0.0027 auprc 0.380 auroc 0.999 sens@1.0fa/h 0.415 thr 0.614 (23s)
+8691.8s	125	ep014 loss 0.0027 auprc 0.380 auroc 0.999 sens@1.0fa/h 0.415 thr 0.614 (23s)
+8714.6s	126	ep015 loss 0.0025 auprc 0.376 auroc 0.999 sens@1.0fa/h 0.341 thr 0.637 (23s)
+8714.8s	127	ep015 loss 0.0025 auprc 0.376 auroc 0.999 sens@1.0fa/h 0.341 thr 0.637 (23s)
+8737.7s	128	ep016 loss 0.0026 auprc 0.374 auroc 0.999 sens@1.0fa/h 0.390 thr 0.629 (23s)
+8737.9s	129	ep016 loss 0.0026 auprc 0.374 auroc 0.999 sens@1.0fa/h 0.390 thr 0.629 (23s)
+8760.7s	130	ep017 loss 0.0025 auprc 0.395 auroc 0.999 sens@1.0fa/h 0.415 thr 0.629 (23s)
+8760.9s	131	ep017 loss 0.0025 auprc 0.395 auroc 0.999 sens@1.0fa/h 0.415 thr 0.629 (23s)
+8783.8s	132	ep018 loss 0.0025 auprc 0.408 auroc 0.999 sens@1.0fa/h 0.415 thr 0.627 (23s)
+8784.0s	133	ep018 loss 0.0025 auprc 0.408 auroc 0.999 sens@1.0fa/h 0.415 thr 0.627 (23s)
+8806.8s	134	ep019 loss 0.0025 auprc 0.424 auroc 0.999 sens@1.0fa/h 0.415 thr 0.650 (23s)
+8807.0s	135	ep019 loss 0.0025 auprc 0.424 auroc 0.999 sens@1.0fa/h 0.415 thr 0.650 (23s)
+8829.9s	136	ep020 loss 0.0025 auprc 0.439 auroc 0.999 sens@1.0fa/h 0.463 thr 0.654 (23s)
+8830.1s	137	ep020 loss 0.0025 auprc 0.439 auroc 0.999 sens@1.0fa/h 0.463 thr 0.654 (23s)
+8853.0s	138	ep021 loss 0.0024 auprc 0.433 auroc 0.999 sens@1.0fa/h 0.463 thr 0.670 (23s)
+8853.2s	139	ep021 loss 0.0024 auprc 0.433 auroc 0.999 sens@1.0fa/h 0.463 thr 0.670 (23s)
+8876.0s	140	ep022 loss 0.0024 auprc 0.435 auroc 0.999 sens@1.0fa/h 0.488 thr 0.667 (23s)
+8876.2s	141	ep022 loss 0.0024 auprc 0.435 auroc 0.999 sens@1.0fa/h 0.488 thr 0.667 (23s)
+8899.1s	142	ep023 loss 0.0023 auprc 0.435 auroc 0.999 sens@1.0fa/h 0.439 thr 0.669 (23s)
+8899.3s	143	ep023 loss 0.0023 auprc 0.435 auroc 0.999 sens@1.0fa/h 0.439 thr 0.669 (23s)
+8922.2s	144	ep024 loss 0.0023 auprc 0.425 auroc 0.999 sens@1.0fa/h 0.439 thr 0.683 (23s)
+8922.4s	145	ep024 loss 0.0023 auprc 0.425 auroc 0.999 sens@1.0fa/h 0.439 thr 0.683 (23s)
+8945.2s	146	ep025 loss 0.0023 auprc 0.423 auroc 0.999 sens@1.0fa/h 0.463 thr 0.690 (23s)
+8945.4s	147	ep025 loss 0.0023 auprc 0.423 auroc 0.999 sens@1.0fa/h 0.463 thr 0.690 (23s)
+8968.2s	148	ep026 loss 0.0023 auprc 0.437 auroc 0.999 sens@1.0fa/h 0.512 thr 0.695 (23s)
+8968.4s	149	ep026 loss 0.0023 auprc 0.437 auroc 0.999 sens@1.0fa/h 0.512 thr 0.695 (23s)
+8991.3s	150	ep027 loss 0.0022 auprc 0.446 auroc 0.999 sens@1.0fa/h 0.561 thr 0.697 (23s)
+8991.5s	151	ep027 loss 0.0022 auprc 0.446 auroc 0.999 sens@1.0fa/h 0.561 thr 0.697 (23s)
+9014.4s	152	ep028 loss 0.0022 auprc 0.448 auroc 0.999 sens@1.0fa/h 0.415 thr 0.705 (23s)
+9014.6s	153	ep028 loss 0.0022 auprc 0.448 auroc 0.999 sens@1.0fa/h 0.415 thr 0.705 (23s)
+9037.4s	154	ep029 loss 0.0022 auprc 0.461 auroc 0.999 sens@1.0fa/h 0.463 thr 0.703 (23s)
+9037.6s	155	ep029 loss 0.0022 auprc 0.461 auroc 0.999 sens@1.0fa/h 0.463 thr 0.703 (23s)
+9060.6s	156	ep030 loss 0.0022 auprc 0.464 auroc 1.000 sens@1.0fa/h 0.415 thr 0.708 (23s)
+9060.8s	157	ep030 loss 0.0022 auprc 0.464 auroc 1.000 sens@1.0fa/h 0.415 thr 0.708 (23s)
+9083.6s	158	ep031 loss 0.0021 auprc 0.472 auroc 1.000 sens@1.0fa/h 0.561 thr 0.703 (23s)
+9083.8s	159	ep031 loss 0.0021 auprc 0.472 auroc 1.000 sens@1.0fa/h 0.561 thr 0.703 (23s)
+9106.7s	160	ep032 loss 0.0020 auprc 0.477 auroc 1.000 sens@1.0fa/h 0.561 thr 0.693 (23s)
+9106.9s	161	ep032 loss 0.0020 auprc 0.477 auroc 1.000 sens@1.0fa/h 0.561 thr 0.693 (23s)
+9129.7s	162	ep033 loss 0.0020 auprc 0.484 auroc 1.000 sens@1.0fa/h 0.561 thr 0.703 (23s)
+9129.9s	163	ep033 loss 0.0020 auprc 0.484 auroc 1.000 sens@1.0fa/h 0.561 thr 0.703 (23s)
+9152.7s	164	ep034 loss 0.0020 auprc 0.487 auroc 1.000 sens@1.0fa/h 0.561 thr 0.704 (23s)
+9152.9s	165	ep034 loss 0.0020 auprc 0.487 auroc 1.000 sens@1.0fa/h 0.561 thr 0.704 (23s)
+9175.8s	166	ep035 loss 0.0019 auprc 0.492 auroc 1.000 sens@1.0fa/h 0.561 thr 0.711 (23s)
+9176.0s	167	ep035 loss 0.0019 auprc 0.492 auroc 1.000 sens@1.0fa/h 0.561 thr 0.711 (23s)
+9198.9s	168	ep036 loss 0.0019 auprc 0.501 auroc 1.000 sens@1.0fa/h 0.634 thr 0.731 (23s)
+9199.1s	169	ep036 loss 0.0019 auprc 0.501 auroc 1.000 sens@1.0fa/h 0.634 thr 0.731 (23s)
+9221.9s	170	ep037 loss 0.0019 auprc 0.542 auroc 1.000 sens@1.0fa/h 0.878 thr 0.727 (23s)
+9222.1s	171	ep037 loss 0.0019 auprc 0.542 auroc 1.000 sens@1.0fa/h 0.878 thr 0.727 (23s)
+9245.0s	172	ep038 loss 0.0018 auprc 0.546 auroc 1.000 sens@1.0fa/h 0.805 thr 0.735 (23s)
+9245.2s	173	ep038 loss 0.0018 auprc 0.546 auroc 1.000 sens@1.0fa/h 0.805 thr 0.735 (23s)
+9268.0s	174	ep039 loss 0.0018 auprc 0.506 auroc 1.000 sens@1.0fa/h 0.805 thr 0.730 (23s)
+9268.2s	175	ep039 loss 0.0018 auprc 0.506 auroc 1.000 sens@1.0fa/h 0.805 thr 0.730 (23s)
+9291.0s	176	ep040 loss 0.0017 auprc 0.499 auroc 1.000 sens@1.0fa/h 0.756 thr 0.730 (23s)
+9291.2s	177	ep040 loss 0.0017 auprc 0.499 auroc 1.000 sens@1.0fa/h 0.756 thr 0.730 (23s)
+9314.1s	178	ep041 loss 0.0017 auprc 0.502 auroc 1.000 sens@1.0fa/h 0.634 thr 0.732 (23s)
+9314.3s	179	ep041 loss 0.0017 auprc 0.502 auroc 1.000 sens@1.0fa/h 0.634 thr 0.732 (23s)
+9337.1s	180	ep042 loss 0.0017 auprc 0.546 auroc 1.000 sens@1.0fa/h 0.829 thr 0.723 (23s)
+9337.3s	181	ep042 loss 0.0017 auprc 0.546 auroc 1.000 sens@1.0fa/h 0.829 thr 0.723 (23s)
+9360.1s	182	ep043 loss 0.0016 auprc 0.577 auroc 1.000 sens@1.0fa/h 0.878 thr 0.720 (23s)
+9360.3s	183	ep043 loss 0.0016 auprc 0.577 auroc 1.000 sens@1.0fa/h 0.878 thr 0.720 (23s)
+9383.2s	184	ep044 loss 0.0015 auprc 0.609 auroc 1.000 sens@1.0fa/h 0.927 thr 0.717 (23s)
+9383.4s	185	ep044 loss 0.0015 auprc 0.609 auroc 1.000 sens@1.0fa/h 0.927 thr 0.717 (23s)
+9406.2s	186	ep045 loss 0.0014 auprc 0.624 auroc 1.000 sens@1.0fa/h 0.951 thr 0.723 (23s)
+9406.4s	187	ep045 loss 0.0014 auprc 0.624 auroc 1.000 sens@1.0fa/h 0.951 thr 0.723 (23s)
+9429.3s	188	ep046 loss 0.0013 auprc 0.628 auroc 1.000 sens@1.0fa/h 0.976 thr 0.725 (23s)
+9429.5s	189	ep046 loss 0.0013 auprc 0.628 auroc 1.000 sens@1.0fa/h 0.976 thr 0.725 (23s)
+9452.3s	190	ep047 loss 0.0013 auprc 0.626 auroc 1.000 sens@1.0fa/h 0.976 thr 0.727 (23s)
+9452.5s	191	ep047 loss 0.0013 auprc 0.626 auroc 1.000 sens@1.0fa/h 0.976 thr 0.727 (23s)
+9475.4s	192	ep048 loss 0.0012 auprc 0.661 auroc 1.000 sens@1.0fa/h 0.976 thr 0.740 (23s)
+9475.6s	193	ep048 loss 0.0012 auprc 0.661 auroc 1.000 sens@1.0fa/h 0.976 thr 0.740 (23s)
+9498.5s	194	ep049 loss 0.0012 auprc 0.737 auroc 1.000 sens@1.0fa/h 0.976 thr 0.741 (23s)
+9498.7s	195	ep049 loss 0.0012 auprc 0.737 auroc 1.000 sens@1.0fa/h 0.976 thr 0.741 (23s)
+9521.6s	196	ep050 loss 0.0010 auprc 0.773 auroc 1.000 sens@1.0fa/h 1.000 thr 0.744 (23s)
+9521.8s	197	ep050 loss 0.0010 auprc 0.773 auroc 1.000 sens@1.0fa/h 1.000 thr 0.744 (23s)
+9544.7s	198	ep051 loss 0.0010 auprc 0.778 auroc 1.000 sens@1.0fa/h 1.000 thr 0.747 (23s)
+9544.9s	199	ep051 loss 0.0010 auprc 0.778 auroc 1.000 sens@1.0fa/h 1.000 thr 0.747 (23s)
+9567.7s	200	ep052 loss 0.0009 auprc 0.769 auroc 1.000 sens@1.0fa/h 0.976 thr 0.741 (23s)
+9567.9s	201	ep052 loss 0.0009 auprc 0.769 auroc 1.000 sens@1.0fa/h 0.976 thr 0.741 (23s)
+9590.8s	202	ep053 loss 0.0008 auprc 0.785 auroc 1.000 sens@1.0fa/h 0.976 thr 0.744 (23s)
+9591.0s	203	ep053 loss 0.0008 auprc 0.785 auroc 1.000 sens@1.0fa/h 0.976 thr 0.744 (23s)
+9613.8s	204	ep054 loss 0.0007 auprc 0.793 auroc 1.000 sens@1.0fa/h 0.976 thr 0.762 (23s)
+9614.0s	205	ep054 loss 0.0007 auprc 0.793 auroc 1.000 sens@1.0fa/h 0.976 thr 0.762 (23s)
+9636.8s	206	ep055 loss 0.0007 auprc 0.808 auroc 1.000 sens@1.0fa/h 0.976 thr 0.762 (23s)
+9637.0s	207	ep055 loss 0.0007 auprc 0.808 auroc 1.000 sens@1.0fa/h 0.976 thr 0.762 (23s)
+9659.9s	208	ep056 loss 0.0006 auprc 0.822 auroc 1.000 sens@1.0fa/h 0.976 thr 0.765 (23s)
+9660.1s	209	ep056 loss 0.0006 auprc 0.822 auroc 1.000 sens@1.0fa/h 0.976 thr 0.765 (23s)
+9683.0s	210	ep057 loss 0.0006 auprc 0.814 auroc 1.000 sens@1.0fa/h 0.976 thr 0.767 (23s)
+9683.2s	211	ep057 loss 0.0006 auprc 0.814 auroc 1.000 sens@1.0fa/h 0.976 thr 0.767 (23s)
+9706.0s	212	ep058 loss 0.0005 auprc 0.795 auroc 1.000 sens@1.0fa/h 0.951 thr 0.780 (23s)
+9706.2s	213	ep058 loss 0.0005 auprc 0.795 auroc 1.000 sens@1.0fa/h 0.951 thr 0.780 (23s)
+9729.1s	214	ep059 loss 0.0005 auprc 0.796 auroc 1.000 sens@1.0fa/h 0.951 thr 0.783 (23s)
+9729.1s	215	done. best AUPRC 0.8222
+9729.1s	216	OPERATING POINT: threshold 0.7826 -> sensitivity 0.951 at 0.99 false alarms/hour (23.2 h of negatives)
+9729.3s	217	ep059 loss 0.0005 auprc 0.796 auroc 1.000 sens@1.0fa/h 0.951 thr 0.783 (23s)
+9729.3s	218	done. best AUPRC 0.8222
+9729.3s	219	OPERATING POINT: threshold 0.7826 -> sensitivity 0.951 at 0.99 false alarms/hour (23.2 h of negatives)
+9729.5s	220	fall head: OK
+9729.6s	221	adl_bone           epoch  79  macro_f1=0.146  best=0.000
+9729.6s	222	adl_bone_motion    epoch  79  macro_f1=0.096  best=0.000
+9729.6s	223	adl_joint          epoch  79  macro_f1=0.138  best=0.000
+9729.6s	224	adl_joint_motion   epoch  79  macro_f1=0.096  best=0.000
+9729.6s	225	fall               epoch  59  auprc=0.796  best=0.822
+9729.6s	226	
+9729.6s	227	Save Version -> create/update dataset behaviorsense-runs from /kaggle/working/runs
+9729.6s	228	Timed out mid-training? Save Version anyway - resume continues bit-exactly next session.
+9731.2s	229	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+9731.2s	230	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+9731.3s	231	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+9731.3s	232	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+9731.6s	233	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+9731.7s	234	[NbConvertApp] Writing 40384 bytes to __notebook__.ipynb
+9732.8s	235	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+9733.2s	236	[NbConvertApp] Writing 357701 bytes to __results__.html
+
+
+[M01140] 2026-08-10T09:53:01.480Z ASSISTANT (conversation) [C063:1647; copies=1]
+API Error: 503 [agentrouter/claude-opus-5-xhigh] [503]: Request dropped after exceeding the local rate-limit queue budget maxWaitMs (15000ms) for agentrouter/claude-opus-5 — this is OmniRoute's request queue (resilienceSettings.requestQueue.maxWaitMs), not an upstream timeout. Raise it in Settings → Resilience if this is queue saturation rather than a slow provider. (cause: This job timed out after 15000 ms.) (reset after 1m 36s). This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (localhost:20128).
+
+
+[M01141] 2026-08-10T09:59:03.370Z USER (conversation) [C023:1571; copies=9]
+Continue
+
+
+[M01142] 2026-08-10T10:02:02.621Z ASSISTANT (conversation) [C023:1574; copies=9]
+Training completed — and the two heads tell very different stories. Let me check one thing that looks alarming first.
+
+
+[M01143] 2026-08-10T10:05:12.838Z USER (context) [C023:1577; copies=9]
+Continue from where you left off.
+
+
+[M01144] 2026-08-10T10:05:12.839Z ASSISTANT (conversation) [C023:1578; copies=9]
+No response requested.
+
+
+[M01145] 2026-08-10T10:07:45.189Z USER (context) [C023:1579; copies=9]
+<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+
+
+[M01146] 2026-08-10T10:07:45.189Z USER (control) [C023:1580; copies=9]
+<command-name>/model</command-name>
+            <command-message>model</command-message>
+            <command-args>claude-opus-5[1m]</command-args>
+
+
+[M01147] 2026-08-10T10:07:45.189Z USER (control) [C023:1581; copies=9]
+<local-command-stdout>Set model to claude-opus-5[1m]</local-command-stdout>
+
+
+[M01148] 2026-08-10T10:08:45.238Z USER (conversation) [C023:1582; copies=9]
+Continue
+
+
+[M01149] 2026-08-10T10:09:41.844Z ASSISTANT (conversation) [C023:1583; copies=9]
+Confirmed — `best=0.000` is a **reporting bug in the summary cell, not a training failure**. It looks for a key called `mca`, but `train_adl.py` writes `mean_class_acc`. The `max()` falls through to its `default=0`.
+
+The real numbers are in the checkpoints. Let me read them rather than infer:
+
+
+[M01150] 2026-08-10T10:13:05.758Z ASSISTANT (conversation) [C023:1586; copies=9]
+Two things need doing: fix the reporting bug so you can see the real numbers, and understand why the ADL heads are weak. Let me fix the reporting first — it's blocking diagnosis.
+
+
+[M01151] 2026-08-10T10:13:39.731Z ASSISTANT (conversation) [C023:1589; copies=9]
+Now the real question — why the ADL heads are near chance. Let me check the class distribution in the extraction, since that's the most likely cause:
+
+
+[M01152] 2026-08-10T10:13:55.728Z ASSISTANT (conversation) [C023:1592; copies=9]
+The distribution explains part of it. But let me check whether the model is actually learning anything at all — that distinguishes "weak" from "broken":
+
+
+[M01153] 2026-08-10T10:15:24.398Z ASSISTANT (conversation) [C023:1596; copies=9]
+I need the per-class data to diagnose properly, and it's already in the checkpoints you have. Let me add a diagnostic that reads it:
+
+
+[M01154] 2026-08-10T10:16:05.960Z ASSISTANT (conversation) [C023:1600; copies=9]
+Escaping bug in my own edit — `\\n` became a real newline inside the generated f-string. Fixing by avoiding the escape entirely:
+
+
+[M01155] 2026-08-10T10:17:19.444Z ASSISTANT (conversation) [C023:1605; copies=9]
+Training finished, and the two heads landed very differently. One number in your summary is a bug, not a result.
+
+## The fall head is a genuine success
+
+```
+OPERATING POINT: threshold 0.7826 -> sensitivity 0.951 at 0.99 false alarms/hour
+best AUPRC 0.8222
+```
+
+**95.1% of fall windows caught at one false alarm per hour**, measured against 23.2 h of negatives. Compare the trajectory: AUPRC 0.056 → 0.822, and the late climb from ep043 (0.577 → 0.822) is real learning, not noise. At a 0.49% positive rate, chance AUPRC is ~0.005, so 0.822 is **~168× better than chance**.
+
+This is the number the ADL-negatives fix bought. Before it, the same metric was fitted against 0.08 h of negatives and meant nothing.
+
+## `best=0.000` is a reporting bug
+
+Four independent runs reporting *exactly* zero is the tell — real noise never lands there. The summary cell looked for a key called `mca`; `train_adl.py` writes `mean_class_acc`. `max()` fell through to its `default=0`. **Your checkpoints are fine**; the summary was lying. Fixed, and it now asserts the key exists rather than defaulting.
+
+## The ADL heads are weak, and that's the real finding
+
+macro-F1 0.096–0.146 against a majority-collapse floor of 0.031 — above degenerate, far below what ST-GCN++ reaches on curated data (~92% on NTU-60).
+
+I can't tell you *why* from the summary alone, and I won't guess. The distinguishing evidence is `per_class_f1`, which is already in your `history.json` files and was simply never printed. I've added that diagnostic:
+
+- **Broad low-but-nonzero spread** → the task is genuinely hard. Charades is untrimmed and multi-label; a 2 s window frequently contains no evidence of its labelled action.
+- **A few classes at ~0, rest healthy** → label-map starvation, already documented in `results/adl_extraction.md`.
+- **Everything ~0 except `other_idle`** → collapse, meaning something upstream destroys the signal.
+
+## Do this now
+
+**Save Version → create `behaviorsense-runs`.** Those checkpoints are 2.7 h of Blackwell time and the fall head is genuinely good.
+
+Then re-paste notebook 03 and **re-run only the last cell** — no retraining. It reads the existing `history.json` files and prints the per-class table in seconds. That table decides whether the ADL result needs a data fix, a training fix, or honest reporting as a hard-task baseline.
+
+**No code-dataset re-upload needed** — the changes were notebook-side only.
+
+
+[M01156] 2026-08-10T10:20:55.383Z USER (conversation) [C023:1607; copies=9]
+only re-running the last cell prints this:
+Save Version -> create/update dataset behaviorsense-runs from /kaggle/working/runs
+Timed out mid-training? Save Version anyway - resume continues bit-exactly next session.
+
+
+[M01157] 2026-08-10T10:21:43.485Z ASSISTANT (conversation) [C023:1609; copies=9]
+An empty glob, printing nothing and then cheerfully saying "Save Version" — that's the exact anti-pattern I've been guarding everywhere else and left in my own summary cell.
+
+
+[M01158] 2026-08-10T10:22:11.889Z ASSISTANT (conversation) [C023:1612; copies=9]
+Same escaping trap I hit twenty minutes ago — `\\n` inside the outer triple-quoted literal becomes a real newline. Let me fix it and add a guard so `_generate.py` catches this class of error itself instead of me finding it by compiling afterwards.
+
+
+[M01159] 2026-08-10T10:22:50.088Z ASSISTANT (conversation) [C023:1616; copies=9]
+I hit the same trap writing the guard against it — my heredoc collapsed `\\n` before Python saw it. Let me write the file with a method that can't do that:
+
+
+[M01160] 2026-08-10T10:23:18.980Z ASSISTANT (conversation) [C023:1619; copies=9]
+All six generate cleanly, and every code cell is now compiled at generation time. Let me prove the guard actually catches the defect, then verify the summary cell works in your situation:
+
+
+[M01161] 2026-08-10T10:24:56.532Z ASSISTANT (conversation) [C023:1622; copies=9]
+The guard works and names the exact cause. Now let me verify the summary cell behaves correctly in your three real situations:
+
+
+[M01162] 2026-08-10T10:35:45.244Z ASSISTANT (conversation) [C023:1627; copies=9]
+API Error: API returned an empty or malformed response (HTTP 200) — check for a proxy or gateway intercepting the request
+
+
+[M01163] 2026-08-10T10:36:07.821Z USER (conversation) [C023:1628; copies=9]
+Continue
+
+
+[M01164] 2026-08-10T10:36:55.215Z ASSISTANT (conversation) [C023:1629; copies=9]
+All three states verified. Let me lock this in with a regression test and run the full suite:
+
+
+[M01165] 2026-08-10T10:43:43.735Z ASSISTANT (conversation) [C023:1636; copies=9]
+That empty output was another silent-empty-iteration bug — mine, in the cell meant to *report* results. `/kaggle/working` is wiped between sessions, so the glob found nothing, the loop body never ran, and the cell finished by cheerfully printing "Save Version". Exactly the pattern I've been fixing in notebooks 00, 01 and 02, left in my own summary cell.
+
+Three things fixed:
+
+**The cell now looks in both places and refuses to print nothing.** `/kaggle/working/runs` first, then `/kaggle/input/**/runs/*/history.json` for when the runs dataset is attached. If neither has anything it raises and tells you what to attach, instead of implying success.
+
+**`best=0.000` is gone** — it read a key called `mca`; the trainer writes `mean_class_acc`. Now selects the right key per head and asserts it exists rather than defaulting to zero.
+
+**`_generate.py` compiles every code cell before writing the `.ipynb`.** I introduced the same escaping defect three times today (a `\n` inside a triple-quoted cell literal becomes a real newline and splits the string), each time discovered only by compiling afterwards. Verified with a negative control — injecting the defect now aborts generation and names the cause:
+
+```
+03_train_blackwell_offline.ipynb cell 8 is not valid Python: unterminated f-string literal
+  A common cause: a backslash-n written inside a triple-quoted cell literal...
+```
+
+Verified against all three real states: nothing attached (refuses), same session (reads `/kaggle/working`), and fresh session with `behaviorsense-runs` attached including Kaggle's nested `kaggle/working/` layout. 128/128 tests pass, `N14` locks it.
+
+**Next step.** If you haven't already: **Save Version on the completed training run → create `behaviorsense-runs`.** Those checkpoints are 2.7 hours of Blackwell time.
+
+Then re-paste notebook 03, **attach `behaviorsense-runs` as an input**, and run just the last cell. You'll get the real ADL numbers plus the per-class table that tells us whether the weak macro-F1 is a hard task, label starvation, or something upstream — the three cases need different responses, and I'd rather see the data than guess.
+
+**No code-dataset re-upload** — all notebook-side.
+
+
+[M01166] 2026-08-10T11:29:52.551Z USER (conversation) [C023:1637; copies=9]
+reading 9 run(s) from attached dataset
+adl                epoch  24  mean_class_acc=0.647  macro_f1=0.574  macro_f1_supported=nan  top1=0.650  | best mean_class_acc=0.677 @ep16
+fall               epoch   0  auprc=0.059  auroc=0.512  sensitivity=0.091  | best auprc=0.059 @ep0
+smoke              epoch  24  mean_class_acc=0.667  macro_f1=0.567  top1=0.700  | best mean_class_acc=0.708 @ep19
+---------------------------------------------------------------------------
+AssertionError                            Traceback (most recent call last)
+/tmp/ipykernel_163/3986496299.py in <cell line: 0>()
+     34     SELECT = {"adl": "mean_class_acc", "fall": "auprc"}
+     35     metric = SELECT["fall" if hist.parent.name.startswith("fall") else "adl"]
+---> 36     assert metric in last, (
+     37         f"{hist.parent.name}: history has no {metric!r}. Keys present: {sorted(last)}")
+     38     shown = [k for k in ("mean_class_acc", "macro_f1", "macro_f1_supported", "top1",
+
+AssertionError: smoke_fall: history has no 'mean_class_acc'. Keys present: ['auprc', 'auroc', 'epoch', 'false_alarms_per_hour', 'monitored_hours', 'positive_rate', 'secs', 'sensitivity', 'specificity', 'threshold', 'train_loss']
+
+
+[M01167] 2026-08-10T11:32:21.599Z ASSISTANT (conversation) [C023:1640; copies=9]
+My name-prefix heuristic was the wrong idea. Let me infer run type from the metrics present, and stop reading the contaminated directory at all:
+
+
+[M01168] 2026-08-10T11:33:24.502Z ASSISTANT (conversation) [C023:1645; copies=9]
+Exactly right: 5 real runs, 4 contaminated ones excluded, no crash. Let me lock it and run the suite:
+
+
+[M01169] 2026-08-10T11:37:00.443Z ASSISTANT (conversation) [C023:1649; copies=9]
+Fixed. Two bugs, both mine:
+
+**The assert crash.** My `SELECT` used a directory-name prefix to decide which metric a run records. `smoke_fall` is a *fall* run whose name doesn't start with `fall`, so it demanded `mean_class_acc` from an AUPRC-only history. The heuristic was wrong in principle — a run's type is what it *measured*, not what its folder is called. It now reads `auprc` or `mean_class_acc` based on which keys are present, and skips anything with neither.
+
+**The worse one:** it read 9 runs when you have 5. The other four are the contaminated `runs/` that shipped inside `behaviorsense-code`, and it reported a 25-epoch CPU smoke run (`adl  epoch 24  mca=0.647`) as if it were a result. My carry-forward guard blocks those from being *resumed*, but I never applied the same exclusion to *reporting* — so the highest number on screen was a toy fixture. Now excluded by both the `smoke` name and the code-checkout path.
+
+Verified against your exact scenario — 5 real + 4 contaminated:
+
+```
+reading 5 run(s) from attached dataset
+adl_bone / adl_bone_motion / adl_joint / adl_joint_motion  epoch 79
+fall  epoch 59  | best auprc=0.822 @ep56
+```
+
+128/128 pass; `N14` now covers the contaminated case.
+
+**Re-paste notebook 03 and re-run the last cell.** You'll get the four real ADL streams plus the per-class table.
+
+Worth noting what those smoke numbers accidentally revealed: the CPU smoke run scored **mca 0.647** on 6 synthetic classes, while the real 80-epoch run scored ~0.19 on 18 Charades classes. That's not a contradiction — it's the gap between a separable fixture and untrimmed real video, and it's a useful sanity check that the training loop itself works. The per-class table will tell us which of the three explanations applies to the real data.
+
+Also worth cleaning up when convenient: `rm -rf runs data/shards` before the next `behaviorsense-code` upload. The guards now handle the contamination, but it shouldn't be in the dataset at all.
+
+
+[M01170] 2026-08-10T11:49:25.915Z USER (conversation) [C023:1651; copies=9]
+reading 5 run(s) from attached dataset
+adl_bone           epoch  79  mean_class_acc=0.137  macro_f1=0.146  macro_f1_supported=0.154  top1=0.348  | best mean_class_acc=0.184 @ep11
+adl_bone_motion    epoch  79  mean_class_acc=0.091  macro_f1=0.096  macro_f1_supported=0.101  top1=0.319  | best mean_class_acc=0.125 @ep8
+adl_joint          epoch  79  mean_class_acc=0.129  macro_f1=0.138  macro_f1_supported=0.146  top1=0.345  | best mean_class_acc=0.179 @ep9
+adl_joint_motion   epoch  79  mean_class_acc=0.092  macro_f1=0.096  macro_f1_supported=0.102  top1=0.319  | best mean_class_acc=0.129 @ep10
+fall               epoch  59  auprc=0.796  auroc=1.000  sensitivity=0.951  | best auprc=0.822 @ep56
+
+adl_bone - per-class F1 at best epoch 11:
+  other_idle               n= 12958  f1=0.518  ####################
+  lying_down               n=   624  f1=0.424  ################
+  sitting                  n=  3071  f1=0.304  ############
+  cooking_food_prep        n=   557  f1=0.207  ########
+  walking                  n=   563  f1=0.191  #######
+  drinking                 n=   983  f1=0.185  #######
+  cleaning_housework       n=  3330  f1=0.178  #######
+  reading                  n=  2127  f1=0.154  ######
+  personal_hygiene         n=  3177  f1=0.137  #####
+  eating                   n=  1120  f1=0.134  #####
+  using_phone              n=  2111  f1=0.133  #####
+  watching_tv              n=   635  f1=0.113  ####
+  sitting_down             n=   324  f1=0.100  ###
+  standing_up              n=   383  f1=0.076  ###
+  interacting_with_person  n=   550  f1=0.046  #
+  taking_medication        n=   434  f1=0.043  #
+  standing                 n=    84  f1=0.040  #
+  bending_reaching         n=    13  f1=0.000  
+  -> 17/18 classes above F1 0.02; 1 at ~0: ['bending_reaching']
+
+Save Version -> create/update dataset behaviorsense-runs from /kaggle/working/runs
+Timed out mid-training? Save Version anyway - resume continues bit-exactly next session.
+
+
+[M01171] 2026-08-10T11:51:12.924Z ASSISTANT (conversation) [C023:1653; copies=9]
+The broad spread answers the diagnostic question — but something else in that output is more urgent. Let me check it.
+
+
+[M01172] 2026-08-10T11:51:44.756Z ASSISTANT (conversation) [C023:1657; copies=9]
+Now let me check the thing that determines whether you actually lost anything:
+
+
+[M01173] 2026-08-10T11:52:53.246Z ASSISTANT (conversation) [C063:1764; copies=1]
+**`best.pt` was saved at each stream's peak, and notebook 04 loads `best.pt`.** So you haven't lost the good weights — but the story needs correcting on two points.
+
+**First, the diagnostic answer.** The spread is broad and non-zero: 17/18 classes above F1 0.02, `lying_down` at 0.424, `sitting` 0.304, `other_idle` 0.518. That rules out collapse and rules out a broken pipeline. The model is learning real structure from 2 s skeleton windows of untrimmed Charades — a genuinely hard task, not a defect.
+
+**Second, and more important: every stream peaked at epoch 8–11, then degraded ~27% over the remaining 70 epochs.**
+
+```
+adl_bone          best 0.184 @ep11   ep79 0.137   -25.5%
+adl_joint         best 0.179 @ep 9   ep79 0.129   -27.9%
+adl_joint_motion  best 0.129 @ep10   ep79 0.092   -28.7%
+adl_bone_motion   best 0.125 @ep 8   ep79 0.091   -27.2%
+```
+
+Four independent runs, different input streams, all peaking in the same three-epoch window — that is not noise. **80 epochs is roughly 8× too many**, and my `EPOCHS = "80"` was copied from ST-GCN++'s NTU recipe, which has ~10× more labelled data per class. I chose it by analogy rather than by measurement, and the cosine schedule spent 70 epochs memorising.
+
+**What this means practically:**
+
+- Your usable ADL numbers are the `best` column: **mca 0.18 / macro-F1 ~0.15** for the joint and bone streams. Those are what notebook 04 will load.
+- The motion streams are markedly weaker (0.125–0.129 vs 0.179–0.184). Worth knowing before the ensemble ablation — they may contribute little.
+- **~2.4 of your 2.7 GPU-hours were wasted.** A 15-epoch run would have produced better checkpoints in a fifth of the time.
+
+**Two things I'd do, in order:**
+
+**1. Save Version now** → `behaviorsense-runs`. The `best.pt` files are genuinely your best result and shouldn't be at risk.
+
+**2. Then decide about a re-run.** Training 15 epochs with early stopping would take ~30 minutes and likely *beat* 0.184, because the cosine schedule would complete its decay inside the useful window rather than being truncated at peak. That's a real accuracy gain for half an hour of quota, and I'd take it — but it's your call given the timeline.
+
+Either way I should fix `EPOCHS` and add early stopping, so the next run can't repeat this. Shall I make those changes?
+
+
+[M01174] 2026-08-10T12:06:18.745Z USER (conversation) [C023:1663; copies=9]
+yes
+
+
+[M01175] 2026-08-10T12:06:58.506Z ASSISTANT (conversation) [C023:1665; copies=9]
+Let me read the training loop before changing it.
+
+
+[M01176] 2026-08-10T12:08:20.407Z ASSISTANT (conversation) [C063:1778; copies=1]
+Now adding early stopping and correcting the epoch default:
+
+
+[M01177] 2026-08-10T12:19:08.842Z ASSISTANT (conversation) [C063:1783; copies=1]
+The fall head is a different story — it peaked at ep56 of 60, near the *end*. Let me check before applying the same fix:
+
+
+[M01178] 2026-08-10T12:20:18.548Z ASSISTANT (conversation) [C063:1793; copies=1]
+`best_at_epoch` in `train_fall.py` is defined at line 301+ but `history` initialises after it. Let me verify the ordering is valid:
+
+
+[M01179] 2026-08-10T12:20:50.699Z ASSISTANT (conversation) [C063:1796; copies=1]
+Ordering is correct — `history` loads first, then `best_at_epoch` reads it. Now let me verify early stopping actually fires, using the real measured curve:
+
+
+[M01180] 2026-08-10T12:21:54.287Z ASSISTANT (conversation) [C063:1800; copies=1]
+The asymmetric defaults are validated against both real curves. Let me update notebook 03 and lock this with a test:
+
+
+[M01181] 2026-08-10T12:23:03.002Z ASSISTANT (conversation) [C063:1810; copies=1]
+Smoke test passes with the changes in place. Let me lock the reasoning in a test and run everything:
+
+
+[M01182] 2026-08-10T12:23:39.204Z ASSISTANT (conversation) [C063:1814; copies=1]
+Two issues: `re` isn't imported in that test file, and my stray `argparse` import is unused.
+
+
+[M01183] 2026-08-10T12:34:52.194Z ASSISTANT (conversation) [C063:1820; copies=1]
+While that runs, let me record the finding — this is a real measured result that belongs in the write-up:
+
+
+[M01184] 2026-08-10T12:53:56.600Z ASSISTANT (conversation) [C063:1839; copies=1]
+The per-class table gave a clean answer, and it surfaced something more important than the number itself.
+
+## The diagnostic verdict: genuinely hard, not broken
+
+```
+other_idle 0.518 | lying_down 0.424 | sitting 0.304 | cooking 0.207 | walking 0.191
+...  17/18 classes above F1 0.02; 1 at ~0: bending_reaching (13 val windows)
+```
+
+A broad non-zero spread rules out both collapse and a broken pipeline. The model learns real structure from 2 s skeleton windows of untrimmed, multi-label Charades — where a window frequently contains no evidence of its labelled action. That's the honest framing, and it's now attributable rather than asserted.
+
+## The real finding: 70 of 80 epochs made it worse
+
+| stream | best | @ep | ep79 | lost |
+|---|---:|---:|---:|---:|
+| adl_bone | 0.184 | 11 | 0.137 | −25.5% |
+| adl_joint | 0.179 | 9 | 0.129 | −27.9% |
+| adl_joint_motion | 0.129 | 10 | 0.092 | −28.7% |
+| adl_bone_motion | 0.125 | 8 | 0.091 | −27.2% |
+
+Four independent runs peaking in the same three-epoch window isn't noise. My `EPOCHS = 80` came from ST-GCN++'s NTU-60 recipe — a dataset with ~10× more labelled windows per class. I chose it by analogy rather than measurement, and ~2.4 of your 2.7 GPU-hours went into memorising.
+
+**Nothing was lost**: `best.pt` is written on improvement and notebook 04 loads `best.pt`. But report the **best** column, not the final epoch.
+
+## The fix is asymmetric, deliberately
+
+The obvious move — cut everything — would have been wrong. The fall head peaked at **epoch 56 of 60, still climbing**. One logit over a 1.5% positive rate needs epochs an 18-class head doesn't.
+
+- `train_adl.py`: **30 epochs, `--patience 8`**
+- `train_fall.py`: **60 epochs kept, `--patience 15`**
+
+Both replayed against the real measured curves in `S9`: the ADL rule stops at ep19 keeping 0.184@ep11; the fall rule runs to ep59 keeping 0.822@ep56. `S9` also asserts `best.pt` is written *before* the stop check, so stopping can't discard the epoch it stopped for.
+
+128/128 fast tests pass; training suite running.
+
+**Next: re-upload the code dataset — required.** `train_adl.py` and `train_fall.py` both changed:
+
+```bash
+rm -rf runs data/shards
+kaggle datasets version -p . --dir-mode zip -m "epoch budgets from measurement; early stopping"
+```
+
+The `rm -rf` matters — that's the contaminated `runs/` that put a smoke fixture in your results.
+
+Then re-run notebook 03. **~30–40 minutes instead of 2.7 hours**, and the ADL checkpoints should be *better* than 0.184, because the cosine schedule will now complete its decay inside the useful window rather than being truncated at peak.
+
+
+[M01185] 2026-08-10T13:07:19.832Z USER (conversation) [C023:1673; copies=9]
+why is this running?
+cd "C:\Users\Admin\Desktop\EmotionSense-Extended" && python run_tests.py --all 2>&1 | tail -6
+
+
+[M01186] 2026-08-10T13:08:00.505Z ASSISTANT (conversation) [C023:1674; copies=9]
+Because I started it — and I should have said so more clearly rather than leaving it running in the background.
+
+I launched it right before my last message to confirm the training suite (16 tests, ~8–10 min) passes with the new `--patience` code and the `S9` test. My message reported "128/128 fast tests pass; training suite running", but that was easy to miss.
+
+The fast suite already passed and `S9` passed individually. This run is the belt-and-braces check that `train_adl.py`'s early-stop branch didn't break the bit-exact resume tests (`S7`/`S7b`), which are the slow ones and the only place a subtle interaction with `best_at_epoch` and resume could show up.
+
+Let me check whether it finished:
+
+
+[M01187] 2026-08-10T13:08:20.965Z ASSISTANT (conversation) [C023:1678; copies=9]
+Still going — the resume tests train two real models to compare them step-for-step, which takes ~8 minutes on CPU. `run_tests.py` buffers per suite, so nothing appears until it completes.
+
+Want me to kill it? Nothing depends on it. It's purely a regression check on the `--patience` change, and the two tests that matter (`S9` and the fast suite) already passed. Your next action — re-uploading the code dataset and re-running notebook 03 — isn't blocked either way.
+
+I'd rather let it finish, since `S7` is the one test that would catch early stopping interfering with bit-exact resume, and that's a correctness property worth confirming before you spend GPU quota. But it's your call.
+
+
+[M01188] 2026-08-10T13:11:35.346Z USER (conversation) [C023:1680; copies=9]
+<task-notification>
+<task-id>bvgx9zx7h</task-id>
+<tool-use-id>toolu_01BhEXDRsgqgUkDdvhQLhooF</tool-use-id>
+<output-file>C:\Users\Admin\AppData\Local\Temp\claude\C--Users-Admin-Desktop-EmotionSense-Extended\3f7f13fe-a251-45dd-a76e-1cb0365213ff\tasks\bvgx9zx7h.output</output-file>
+<status>completed</status>
+<summary>Background command "Run the training suite to confirm S9 in full" completed (exit code 0)</summary>
+</task-notification>
+
+
+[M01189] 2026-08-10T13:13:07.675Z ASSISTANT (conversation) [C023:1683; copies=9]
+It finished, and it confirmed the thing I wanted to know: **`S7` bit-exact resume still passes with early stopping in place** — 17/17 training tests, 145/145 overall.
+
+That was the one real risk in the change. `best_at_epoch` is reconstructed from `history.json` on resume, and if that had interacted badly with the RNG-state restore, a resumed run could have diverged silently. It doesn't.
+
+**Everything is verified. Your next two steps:**
+
+**1. Re-upload the code dataset — required.** Both training scripts changed:
+
+```bash
+rm -rf runs data/shards
+kaggle datasets version -p . --dir-mode zip -m "epoch budgets from measurement; early stopping"
+```
+
+The `rm -rf` matters as much as the upload — that's the contaminated `runs/` that reported a 25-epoch CPU smoke fixture as your best result.
+
+**2. Re-paste notebook 03 and run it.** ~30–40 minutes instead of 2.7 hours.
+
+What to expect in the log: each ADL stream should print an `early stop at epoch N` line somewhere around epoch 19, naming the peak it kept. The fall head should run closer to its full 60. If an ADL stream *doesn't* stop early, that's informative too — it would mean the shorter schedule changed the dynamics, and the 30-epoch budget deserves another look.
+
+The ADL checkpoints should come out **better than 0.184**, because the cosine schedule now completes its decay inside the useful window rather than being truncated mid-peak. That's the part I'd genuinely like to see measured — it's a prediction, not a certainty.
+
+
+[M01190] 2026-08-10T13:13:36.138Z USER (conversation) [C063:1866; copies=1]
+it completed
+
+
+[M01191] 2026-08-10T13:13:57.846Z ASSISTANT (conversation) [C063:1867; copies=1]
+Let me look at the actual numbers before drawing any conclusion — the prediction I made is falsifiable and I'd rather check it than assume.
+
+
+[M01192] 2026-08-10T13:14:37.709Z ASSISTANT (conversation) [C063:1870; copies=1]
+I have the baseline ready, but I can't see your run's output — could you paste the log?
+
+Most useful parts:
+
+- The **summary table** at the end (the five `mean_class_acc` / `auprc` lines)
+- Any **`early stop at epoch N`** lines — whether they fired, and where
+- The **wall-clock** total
+
+The specific thing I want to check is whether the ADL streams beat **0.184**. I predicted they would, on the theory that the cosine schedule now completes its decay inside the useful window instead of being cut off mid-peak. If they land at or below 0.184, that theory is wrong — the plateau is genuine and the ceiling is in the data, not the schedule. Either outcome is worth knowing before we write it up.
+
+Also worth watching: whether the fall head still reaches ~0.822. It kept its 60 epochs, so it should be unchanged — if it moved much, something else shifted.
+
+
+[M01193] 2026-08-10T13:40:56.708Z USER (conversation) [C023:1684; copies=8]
+for the rerun do we require to upload the dataset from the previous 2.7hrs run?
+
+
+[M01194] 2026-08-10T13:41:59.002Z ASSISTANT (conversation) [C023:1690; copies=8]
+Good question — the answer depends on what the guard does with 80-epoch checkpoints under the new budget. Let me verify rather than assume:
+
+
+[M01195] 2026-08-10T13:44:27.254Z ASSISTANT (conversation) [C023:1693; copies=8]
+Found a real bug before you hit it: the guard still expects `adl: 80`, but the notebook now trains 30. Let me confirm the consequence, then fix it:
+
+
+[M01196] 2026-08-10T13:45:00.964Z ASSISTANT (conversation) [C023:1696; copies=8]
+Confirmed — attaching the old runs would kill all four ADL streams at startup. Fixing the guard to derive from the actual budgets rather than a duplicated constant:
+
+
+[M01197] 2026-08-10T13:45:37.493Z ASSISTANT (conversation) [C023:1699; copies=8]
+Now the guard correctly rejects the old checkpoints. Let me verify that end-to-end:
+
+
+[M01198] 2026-08-10T13:46:21.267Z ASSISTANT (conversation) [C023:1706; copies=8]
+**No — don't attach it.** And your question caught a real bug before it cost you a session.
+
+The guard still expected `adl: 80` after I cut the budget to 30. Had you attached the old runs, it would have *accepted* those checkpoints, then `train_adl.py`'s own resume guard would have rejected them — `resume mismatch: --epochs was 80 but is 30 now` — and **all four ADL streams would have died at startup**. The fall head would have resumed at epoch 59 of 60, done one epoch, and thrown away the retrain.
+
+Fixed: the budgets are now defined once and read by both the guard and the training cells, so they can't drift again. Verified both directions:
+
+```
+OLD run attached (ADL@80)  -> refuses all 4 ADL streams, names the reason
+future run at new budgets  -> resumes all 5 cleanly
+```
+
+Note the guard now correctly keeps `fall` from the old run, since 60 epochs is unchanged. That's harmless but not what you want here — the fall head trained on a val fold whose composition depends on the same shards, and mixing a resumed fall head with freshly-trained ADL streams makes the P1/P2 tables harder to describe honestly. Cleaner to retrain both.
+
+**So for the rerun, attach only:**
+
+- `behaviorsense-code` (re-uploaded)
+- `behavioursense-WW`
+- `behaviorsense-adl-shards`
+- `behaviorsense-fall-shards`
+
+Expect `fresh training - no resumable last.pt` and ~30–40 minutes.
+
+**Keep the old `behaviorsense-runs` dataset** — don't delete it. It's your evidence that 80 epochs overfits: four independent streams peaking at 8–11 then losing 27%. That measurement is what justifies the 30-epoch budget in your write-up, and it's worth citing rather than discarding.
+
+**Before uploading:**
+
+```bash
+rm -rf runs data/shards
+kaggle datasets version -p . --dir-mode zip -m "epoch budgets from measurement; early stopping"
+```
+
+
+[M01199] 2026-08-10T14:27:46.745Z USER (conversation) [C023:1710; copies=8]
+Time
+#
+Log Message
+4.1s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.1s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.1s	3	0.00s - to python to disable frozen modules.
+4.1s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.4s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.4s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.4s	7	0.00s - to python to disable frozen modules.
+4.4s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+6.2s	9	Traceback (most recent call last):
+6.2s	10	  File "<string>", line 1, in <module>
+6.2s	11	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 131, in execute_notebook
+6.2s	12	    raise_for_execution_errors(nb, output_path)
+6.2s	13	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+6.2s	14	    raise error
+6.2s	15	papermill.exceptions.PapermillExecutionError: 
+6.2s	16	---------------------------------------------------------------------------
+6.2s	17	Exception encountered at "In [1]":
+6.2s	18	---------------------------------------------------------------------------
+6.2s	19	AssertionError                            Traceback (most recent call last)
+6.2s	20	/tmp/ipykernel_65/788799809.py in <cell line: 0>()
+6.2s	21	     53 WHEELS  = find_wheel_dir()
+6.2s	22	     54 WEIGHTS = find_asset("**/rtmo-l.onnx", "weights").parent
+6.2s	23	---> 55 SRC     = find_asset("**/src/behaviorsense/__init__.py", "code").parent.parent
+6.2s	24	     56 CODE    = SRC.parent
+6.2s	25	     57 SCRIPTS = CODE / "scripts"
+6.2s	26	
+6.2s	27	/tmp/ipykernel_65/788799809.py in find_asset(pattern, what, required)
+6.2s	28	     23     if not hits:
+6.2s	29	     24         if required:
+6.2s	30	---> 25             raise AssertionError(
+6.2s	31	     26                 f"{what}: nothing matches {pattern!r} under /kaggle/input. "
+6.2s	32	     27                 f"Attached datasets: {ATTACHED}")
+6.2s	33	
+6.2s	34	AssertionError: code: nothing matches '**/src/behaviorsense/__init__.py' under /kaggle/input. Attached datasets: ['competitions', 'datasets']
+6.2s	35	
+7.4s	36	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+7.4s	37	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+7.4s	38	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+7.4s	39	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+7.8s	40	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+7.9s	41	[NbConvertApp] Writing 38729 bytes to __notebook__.ipynb
+9.1s	42	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+9.5s	43	[NbConvertApp] Writing 372045 bytes to __results__.html
+
+
+[M01200] 2026-08-10T14:28:36.253Z ASSISTANT (conversation) [C023:1712; copies=8]
+The wheels and weights resolved, but the code dataset didn't — so `behaviorsense-code` is attached yet lacks `src/`. Let me check what the upload would have contained:
+
+
+[M01201] 2026-08-10T14:29:16.277Z ASSISTANT (conversation) [C023:1716; copies=8]
+Two findings. `dataset-metadata.json` is missing, so the upload command would have errored out — but more importantly, look at what the error reported: `Attached datasets: ['competitions', 'datasets']`. That listing is useless. Let me fix the diagnostic:
+
+
+[M01202] 2026-08-10T14:29:39.271Z ASSISTANT (conversation) [C023:1719; copies=8]
+My memory file records this nesting, and I still built the diagnostic on the flat assumption. Fixing it to list real datasets and say what each holds:
+
+
+[M01203] 2026-08-10T14:34:42.953Z ASSISTANT (conversation) [C023:1727; copies=8]
+API Error: API returned an empty or malformed response (HTTP 200) — check for a proxy or gateway intercepting the request
+
+
+[M01204] 2026-08-10T14:35:52.648Z USER (conversation) [C023:1730; copies=8]
+Continue
+
+
+[M01205] 2026-08-10T14:36:33.800Z ASSISTANT (conversation) [C023:1731; copies=8]
+That's a diagnostic worth having — it now names each dataset and what's inside it. Let me lock it and check the second finding.
+
+
+[M01206] 2026-08-10T14:37:09.382Z ASSISTANT (conversation) [C023:1736; copies=8]
+Now the second finding — the missing `dataset-metadata.json` explains why `src/` never reached Kaggle:
+
+
+[M01207] 2026-08-10T14:40:21.780Z ASSISTANT (conversation) [C023:1739; copies=3]
+There it is. **`MSMT17` is 2.7 GB and there's no `dataset-metadata.json`** — so the upload command either failed outright or tried to push 2.8 GB. Let me confirm the metadata is genuinely required:
+
+
+[M01208] 2026-08-10T14:43:26.591Z ASSISTANT (conversation) [C023:1743; copies=3]
+The CLI has no dry-run. But the conclusion is clear: `dataset-metadata.json` is the required manifest, it's missing, and the upload either failed or produced an incomplete dataset. The `.kaggleignore` was meant to exclude MSMT17 and runs, but since the CLI doesn't honour it, everything in the tree went along (or the command errored and you may have re-run after deleting something).
+
+
+[M01209] 2026-08-10T14:46:31.654Z ASSISTANT (conversation) [C023:1749; copies=3]
+API Error: API returned an empty or malformed response (HTTP 200) — check for a proxy or gateway intercepting the request
+
+
+[M01210] 2026-08-10T14:53:38.255Z USER (conversation) [C023:1756; copies=8]
+Continue
+
+
+[M01211] 2026-08-10T14:54:02.374Z ASSISTANT (conversation) [C023:1757; copies=8]
+The `.kaggleignore` header references `scripts/publish_code_dataset.py` — a script I described but never wrote. Let me check:
+
+
+[M01212] 2026-08-10T14:54:22.700Z ASSISTANT (conversation) [C023:1760; copies=8]
+It does exist. Let me read it, since it's what should have been used for the upload:
+
+
+[M01213] 2026-08-10T14:56:01.704Z ASSISTANT (conversation) [C023:1764; copies=8]
+The script is sound and already handles this correctly — but it needs `dataset-metadata.json`, which is what's missing. Let me get your Kaggle username from the mount paths rather than ask:
+
+
+[M01214] 2026-08-10T14:56:58.738Z ASSISTANT (conversation) [C023:1770; copies=8]
+That's the whole problem solved. **28.7 MB, 40 files** — versus the 2.8 GB working tree the raw CLI command would have pushed.
+
+Notice what's staged: `src/` 24 files, `scripts/` 13, `configs/` 1, `weights/` 2. No `MSMT17`, no `runs/`, no `data/shards/`. The contract check passed against the *staged* copy, so the notebooks will resolve.
+
+## What went wrong
+
+Your session reported `nothing matches '**/src/behaviorsense/__init__.py'`, which means `src/` never reached the dataset. The cause: **`dataset-metadata.json` was missing**, so `kaggle datasets version -p .` had no manifest and the upload failed.
+
+`src/behaviorsense/__init__.py` exists locally and always did.
+
+## Two things fixed
+
+**The diagnostic was useless.** `Attached datasets: ['competitions', 'datasets']` names Kaggle's two container directories, never a real dataset — my memory file records this nesting and I still built the message on the flat assumption. It now says:
+
+```
+['behaviorsense-adl-shards (top level: [])',
+ "behaviorsense-code (top level: ['EmotionSense-Extended'])",
+ "behavioursense-ww (top level: ['weights', 'wheels'])"]
+```
+
+which would have told you immediately that the code dataset was attached but hollow. Locked by `N1c`.
+
+**`dataset-metadata.json` recreated**, with the owner slug taken from your session logs rather than guessed.
+
+## Do this
+
+```bash
+python scripts/publish_code_dataset.py -m "epoch budgets from measurement; early stopping"
+```
+
+Use the script, not the raw CLI. It stages a clean copy, verifies the repo contract against *that copy*, and refuses to upload if a shard or run directory slips in — the failure mode that cost you a session earlier today.
+
+Then re-paste notebook 03 and run with the four datasets: code, `behavioursense-WW`, ADL shards, fall shards. **Not** `behaviorsense-runs` — the guard would refuse the 80-epoch ADL checkpoints anyway, but attaching it just adds noise.
+
+Expect `contract 12/12`, `fresh training`, and ~30–40 minutes.
+
+
+[M01215] 2026-08-10T17:08:17.840Z USER (conversation) [C023:1774; copies=7]
+Time
+#
+Log Message
+4.3s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.3s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.3s	3	0.00s - to python to disable frozen modules.
+4.3s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.6s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.6s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.6s	7	0.00s - to python to disable frozen modules.
+4.6s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+291.2s	9	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+291.2s	10	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+291.2s	11	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+291.2s	12	  attached  ['competitions', 'datasets']
+291.2s	13	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+291.2s	14	  contract 12/12 - mounted code is current
+294.5s	15	torch 2.10.0+cu128 already supports sm_120
+306.0s	16	======================================================================
+306.0s	17	BehaviorSense Kaggle preflight
+306.0s	18	======================================================================
+306.0s	19	torch 2.10.0+cu128
+306.0s	20	GPU: NVIDIA RTX PRO 6000 Blackwell Server Edition  sm_120  102.0 GB
+306.0s	21	  sm_120 is in the supported arch list
+306.0s	22	  bf16 matmul 4096^2 OK (0.36s)
+306.0s	23	  ST-GCN++ fwd+bwd under bf16 autocast OK (peak 0.19 GB)
+306.0s	24	
+306.0s	25	imports:
+306.0s	26	  [ok] numpy
+306.0s	27	  [ok] pydantic
+306.0s	28	  [ok] torch
+306.0s	29	  [ok] PIL
+306.0s	30	  [ok] yaml
+306.0s	31	  [ok] transformers
+306.0s	32	  [warn] outlines missing (constrained decoding)
+306.0s	33	  [warn] onnxruntime missing (RTMO/RT-DETR inference)
+306.0s	34	
+306.0s	35	assets in /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights  (profile: training)
+306.0s	36	  (no staged asset blocks the 'training' profile; all findings are warnings)
+306.0s	37	  [ok] osnet_ain_x1_0_msmt17.pth: 17.3 MB
+306.0s	38	  [ok] osnet_ain_x1_0_imagenet.pth: 10.9 MB
+306.0s	39	  [ok] rtmo-l.onnx: 175.9 MB
+306.0s	40	  [ok] rtdetr-l.onnx: 131.7 MB
+306.0s	41	  [warn] MISSING stgcnpp_ntu60_joint.pth - ST-GCN++ NTU pretrain (Agent 2 init)
+306.0s	42	
+306.0s	43	======================================================================
+306.0s	44	PREFLIGHT PASSED - safe to start training
+306.2s	45	======================================================================
+306.2s	46	BehaviorSense Kaggle preflight
+306.2s	47	======================================================================
+306.2s	48	torch 2.10.0+cu128
+306.2s	49	GPU: NVIDIA RTX PRO 6000 Blackwell Server Edition  sm_120  102.0 GB
+306.2s	50	  sm_120 is in the supported arch list
+306.2s	51	  bf16 matmul 4096^2 OK (0.36s)
+306.2s	52	  ST-GCN++ fwd+bwd under bf16 autocast OK (peak 0.19 GB)
+306.2s	53	
+306.2s	54	imports:
+306.2s	55	  [ok] numpy
+306.2s	56	  [ok] pydantic
+306.2s	57	  [ok] torch
+306.2s	58	  [ok] PIL
+306.2s	59	  [ok] yaml
+306.2s	60	  [ok] transformers
+306.2s	61	  [warn] outlines missing (constrained decoding)
+306.2s	62	  [warn] onnxruntime missing (RTMO/RT-DETR inference)
+306.2s	63	
+306.2s	64	assets in /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights  (profile: training)
+306.2s	65	  (no staged asset blocks the 'training' profile; all findings are warnings)
+306.2s	66	  [ok] osnet_ain_x1_0_msmt17.pth: 17.3 MB
+306.2s	67	  [ok] osnet_ain_x1_0_imagenet.pth: 10.9 MB
+306.2s	68	  [ok] rtmo-l.onnx: 175.9 MB
+306.2s	69	  [ok] rtdetr-l.onnx: 131.7 MB
+306.2s	70	  [warn] MISSING stgcnpp_ntu60_joint.pth - ST-GCN++ NTU pretrain (Agent 2 init)
+306.2s	71	
+306.2s	72	======================================================================
+306.2s	73	PREFLIGHT PASSED - safe to start training
+308.1s	74	ADL mounts:
+337.9s	75	  skipping fixture _smoke_fall.npz
+337.9s	76	  skipping fixture _smoke.npz
+337.9s	77	  behaviorsense-adl-shards: 6 .npz
+337.9s	78	fall mounts:
+341.6s	79	  skipping fixture _smoke_fall.npz
+341.6s	80	  skipping fixture _smoke.npz
+341.6s	81	  behaviorsense-fall-shards: 4 .npz
+341.6s	82	ADL shards: 6, fall shards: 4
+341.7s	83	fall-head training mix: 168,173 windows, 858 positive (0.51%)
+346.2s	84	ignoring 4 checkpoint(s) that are not resumable here:
+346.2s	85	  adl            smoke run (synthetic fixture, not real training)
+346.2s	86	  fall           epochs=1, this run wants 60
+346.2s	87	  smoke          smoke run (synthetic fixture, not real training)
+346.2s	88	  smoke_fall     smoke run (synthetic fixture, not real training)
+346.2s	89	fresh training - no resumable last.pt under any attached dataset
+2531.0s	90	joint -> OK
+2531.0s	91	bone -> OK
+2531.0s	92	joint_motion -> OK
+2588.3s	93	bone_motion -> OK
+2596.8s	94	train 126431 / val 41742 windows | positive rate 0.006 | lr=0.2000 | device=cuda
+2597.0s	95	train 126431 / val 41742 windows | positive rate 0.006 | lr=0.2000 | device=cuda
+2620.2s	96	ep000 loss 0.0086 auprc 0.056 auroc 0.988 sens@1.0fa/h 0.024 thr 0.457 (23s)
+2620.4s	97	ep000 loss 0.0086 auprc 0.056 auroc 0.988 sens@1.0fa/h 0.024 thr 0.457 (23s)
+2643.2s	98	ep001 loss 0.0043 auprc 0.214 auroc 0.997 sens@1.0fa/h 0.195 thr 0.611 (23s)
+2643.4s	99	ep001 loss 0.0043 auprc 0.214 auroc 0.997 sens@1.0fa/h 0.195 thr 0.611 (23s)
+2666.2s	100	ep002 loss 0.0037 auprc 0.347 auroc 0.999 sens@1.0fa/h 0.293 thr 0.596 (23s)
+2666.4s	101	ep002 loss 0.0037 auprc 0.347 auroc 0.999 sens@1.0fa/h 0.293 thr 0.596 (23s)
+2689.3s	102	ep003 loss 0.0034 auprc 0.388 auroc 0.999 sens@1.0fa/h 0.341 thr 0.570 (23s)
+2689.5s	103	ep003 loss 0.0034 auprc 0.388 auroc 0.999 sens@1.0fa/h 0.341 thr 0.570 (23s)
+2712.3s	104	ep004 loss 0.0031 auprc 0.385 auroc 0.999 sens@1.0fa/h 0.341 thr 0.557 (23s)
+2712.5s	105	ep004 loss 0.0031 auprc 0.385 auroc 0.999 sens@1.0fa/h 0.341 thr 0.557 (23s)
+2735.3s	106	ep005 loss 0.0030 auprc 0.372 auroc 0.999 sens@1.0fa/h 0.390 thr 0.538 (23s)
+2735.5s	107	ep005 loss 0.0030 auprc 0.372 auroc 0.999 sens@1.0fa/h 0.390 thr 0.538 (23s)
+2758.3s	108	ep006 loss 0.0029 auprc 0.381 auroc 0.999 sens@1.0fa/h 0.390 thr 0.538 (23s)
+2758.5s	109	ep006 loss 0.0029 auprc 0.381 auroc 0.999 sens@1.0fa/h 0.390 thr 0.538 (23s)
+2781.3s	110	ep007 loss 0.0029 auprc 0.380 auroc 0.999 sens@1.0fa/h 0.415 thr 0.529 (23s)
+2781.5s	111	ep007 loss 0.0029 auprc 0.380 auroc 0.999 sens@1.0fa/h 0.415 thr 0.529 (23s)
+2804.3s	112	ep008 loss 0.0028 auprc 0.375 auroc 0.999 sens@1.0fa/h 0.415 thr 0.544 (23s)
+2804.6s	113	ep008 loss 0.0028 auprc 0.375 auroc 0.999 sens@1.0fa/h 0.415 thr 0.544 (23s)
+2827.4s	114	ep009 loss 0.0028 auprc 0.382 auroc 0.999 sens@1.0fa/h 0.439 thr 0.547 (23s)
+2827.6s	115	ep009 loss 0.0028 auprc 0.382 auroc 0.999 sens@1.0fa/h 0.439 thr 0.547 (23s)
+2850.5s	116	ep010 loss 0.0028 auprc 0.388 auroc 0.999 sens@1.0fa/h 0.390 thr 0.558 (23s)
+2850.7s	117	ep010 loss 0.0028 auprc 0.388 auroc 0.999 sens@1.0fa/h 0.390 thr 0.558 (23s)
+2873.5s	118	ep011 loss 0.0028 auprc 0.364 auroc 0.999 sens@1.0fa/h 0.317 thr 0.577 (23s)
+2873.7s	119	ep011 loss 0.0028 auprc 0.364 auroc 0.999 sens@1.0fa/h 0.317 thr 0.577 (23s)
+2896.5s	120	ep012 loss 0.0027 auprc 0.368 auroc 0.999 sens@1.0fa/h 0.341 thr 0.587 (23s)
+2896.7s	121	ep012 loss 0.0027 auprc 0.368 auroc 0.999 sens@1.0fa/h 0.341 thr 0.587 (23s)
+2919.5s	122	ep013 loss 0.0027 auprc 0.374 auroc 0.999 sens@1.0fa/h 0.366 thr 0.603 (23s)
+2919.7s	123	ep013 loss 0.0027 auprc 0.374 auroc 0.999 sens@1.0fa/h 0.366 thr 0.603 (23s)
+2942.6s	124	ep014 loss 0.0027 auprc 0.380 auroc 0.999 sens@1.0fa/h 0.415 thr 0.614 (23s)
+2942.8s	125	ep014 loss 0.0027 auprc 0.380 auroc 0.999 sens@1.0fa/h 0.415 thr 0.614 (23s)
+2965.6s	126	ep015 loss 0.0025 auprc 0.376 auroc 0.999 sens@1.0fa/h 0.341 thr 0.637 (23s)
+2965.8s	127	ep015 loss 0.0025 auprc 0.376 auroc 0.999 sens@1.0fa/h 0.341 thr 0.637 (23s)
+2988.6s	128	ep016 loss 0.0026 auprc 0.374 auroc 0.999 sens@1.0fa/h 0.390 thr 0.629 (23s)
+2988.8s	129	ep016 loss 0.0026 auprc 0.374 auroc 0.999 sens@1.0fa/h 0.390 thr 0.629 (23s)
+3011.7s	130	ep017 loss 0.0025 auprc 0.395 auroc 0.999 sens@1.0fa/h 0.415 thr 0.629 (23s)
+3011.9s	131	ep017 loss 0.0025 auprc 0.395 auroc 0.999 sens@1.0fa/h 0.415 thr 0.629 (23s)
+3034.7s	132	ep018 loss 0.0025 auprc 0.408 auroc 0.999 sens@1.0fa/h 0.415 thr 0.627 (23s)
+3034.9s	133	ep018 loss 0.0025 auprc 0.408 auroc 0.999 sens@1.0fa/h 0.415 thr 0.627 (23s)
+3057.8s	134	ep019 loss 0.0025 auprc 0.424 auroc 0.999 sens@1.0fa/h 0.415 thr 0.650 (23s)
+3058.0s	135	ep019 loss 0.0025 auprc 0.424 auroc 0.999 sens@1.0fa/h 0.415 thr 0.650 (23s)
+3080.9s	136	ep020 loss 0.0025 auprc 0.439 auroc 0.999 sens@1.0fa/h 0.463 thr 0.654 (23s)
+3081.1s	137	ep020 loss 0.0025 auprc 0.439 auroc 0.999 sens@1.0fa/h 0.463 thr 0.654 (23s)
+3103.9s	138	ep021 loss 0.0024 auprc 0.433 auroc 0.999 sens@1.0fa/h 0.463 thr 0.670 (23s)
+3104.1s	139	ep021 loss 0.0024 auprc 0.433 auroc 0.999 sens@1.0fa/h 0.463 thr 0.670 (23s)
+3126.9s	140	ep022 loss 0.0024 auprc 0.435 auroc 0.999 sens@1.0fa/h 0.488 thr 0.667 (23s)
+3127.2s	141	ep022 loss 0.0024 auprc 0.435 auroc 0.999 sens@1.0fa/h 0.488 thr 0.667 (23s)
+3150.0s	142	ep023 loss 0.0023 auprc 0.435 auroc 0.999 sens@1.0fa/h 0.439 thr 0.669 (23s)
+3150.2s	143	ep023 loss 0.0023 auprc 0.435 auroc 0.999 sens@1.0fa/h 0.439 thr 0.669 (23s)
+3173.0s	144	ep024 loss 0.0023 auprc 0.425 auroc 0.999 sens@1.0fa/h 0.439 thr 0.683 (23s)
+3173.2s	145	ep024 loss 0.0023 auprc 0.425 auroc 0.999 sens@1.0fa/h 0.439 thr 0.683 (23s)
+3196.0s	146	ep025 loss 0.0023 auprc 0.423 auroc 0.999 sens@1.0fa/h 0.463 thr 0.690 (23s)
+3196.2s	147	ep025 loss 0.0023 auprc 0.423 auroc 0.999 sens@1.0fa/h 0.463 thr 0.690 (23s)
+3219.1s	148	ep026 loss 0.0023 auprc 0.437 auroc 0.999 sens@1.0fa/h 0.512 thr 0.695 (23s)
+3219.3s	149	ep026 loss 0.0023 auprc 0.437 auroc 0.999 sens@1.0fa/h 0.512 thr 0.695 (23s)
+3242.1s	150	ep027 loss 0.0022 auprc 0.446 auroc 0.999 sens@1.0fa/h 0.561 thr 0.697 (23s)
+3242.3s	151	ep027 loss 0.0022 auprc 0.446 auroc 0.999 sens@1.0fa/h 0.561 thr 0.697 (23s)
+3265.2s	152	ep028 loss 0.0022 auprc 0.448 auroc 0.999 sens@1.0fa/h 0.415 thr 0.705 (23s)
+3265.4s	153	ep028 loss 0.0022 auprc 0.448 auroc 0.999 sens@1.0fa/h 0.415 thr 0.705 (23s)
+3288.2s	154	ep029 loss 0.0022 auprc 0.461 auroc 0.999 sens@1.0fa/h 0.463 thr 0.703 (23s)
+3288.4s	155	ep029 loss 0.0022 auprc 0.461 auroc 0.999 sens@1.0fa/h 0.463 thr 0.703 (23s)
+3311.3s	156	ep030 loss 0.0022 auprc 0.464 auroc 1.000 sens@1.0fa/h 0.415 thr 0.708 (23s)
+3311.5s	157	ep030 loss 0.0022 auprc 0.464 auroc 1.000 sens@1.0fa/h 0.415 thr 0.708 (23s)
+3334.4s	158	ep031 loss 0.0021 auprc 0.472 auroc 1.000 sens@1.0fa/h 0.561 thr 0.703 (23s)
+3334.6s	159	ep031 loss 0.0021 auprc 0.472 auroc 1.000 sens@1.0fa/h 0.561 thr 0.703 (23s)
+3357.4s	160	ep032 loss 0.0020 auprc 0.477 auroc 1.000 sens@1.0fa/h 0.561 thr 0.693 (23s)
+3357.6s	161	ep032 loss 0.0020 auprc 0.477 auroc 1.000 sens@1.0fa/h 0.561 thr 0.693 (23s)
+3380.4s	162	ep033 loss 0.0020 auprc 0.484 auroc 1.000 sens@1.0fa/h 0.561 thr 0.703 (23s)
+3380.6s	163	ep033 loss 0.0020 auprc 0.484 auroc 1.000 sens@1.0fa/h 0.561 thr 0.703 (23s)
+3403.5s	164	ep034 loss 0.0020 auprc 0.487 auroc 1.000 sens@1.0fa/h 0.561 thr 0.704 (23s)
+3403.7s	165	ep034 loss 0.0020 auprc 0.487 auroc 1.000 sens@1.0fa/h 0.561 thr 0.704 (23s)
+3426.6s	166	ep035 loss 0.0019 auprc 0.492 auroc 1.000 sens@1.0fa/h 0.561 thr 0.711 (23s)
+3426.8s	167	ep035 loss 0.0019 auprc 0.492 auroc 1.000 sens@1.0fa/h 0.561 thr 0.711 (23s)
+3449.6s	168	ep036 loss 0.0019 auprc 0.501 auroc 1.000 sens@1.0fa/h 0.634 thr 0.731 (23s)
+3449.8s	169	ep036 loss 0.0019 auprc 0.501 auroc 1.000 sens@1.0fa/h 0.634 thr 0.731 (23s)
+3472.6s	170	ep037 loss 0.0019 auprc 0.542 auroc 1.000 sens@1.0fa/h 0.878 thr 0.727 (23s)
+3472.8s	171	ep037 loss 0.0019 auprc 0.542 auroc 1.000 sens@1.0fa/h 0.878 thr 0.727 (23s)
+3495.6s	172	ep038 loss 0.0018 auprc 0.546 auroc 1.000 sens@1.0fa/h 0.805 thr 0.735 (23s)
+3495.8s	173	ep038 loss 0.0018 auprc 0.546 auroc 1.000 sens@1.0fa/h 0.805 thr 0.735 (23s)
+3518.6s	174	ep039 loss 0.0018 auprc 0.506 auroc 1.000 sens@1.0fa/h 0.805 thr 0.730 (23s)
+3518.8s	175	ep039 loss 0.0018 auprc 0.506 auroc 1.000 sens@1.0fa/h 0.805 thr 0.730 (23s)
+3541.7s	176	ep040 loss 0.0017 auprc 0.499 auroc 1.000 sens@1.0fa/h 0.756 thr 0.730 (23s)
+3541.9s	177	ep040 loss 0.0017 auprc 0.499 auroc 1.000 sens@1.0fa/h 0.756 thr 0.730 (23s)
+3564.7s	178	ep041 loss 0.0017 auprc 0.502 auroc 1.000 sens@1.0fa/h 0.634 thr 0.732 (23s)
+3564.9s	179	ep041 loss 0.0017 auprc 0.502 auroc 1.000 sens@1.0fa/h 0.634 thr 0.732 (23s)
+3587.7s	180	ep042 loss 0.0017 auprc 0.546 auroc 1.000 sens@1.0fa/h 0.829 thr 0.723 (23s)
+3587.9s	181	ep042 loss 0.0017 auprc 0.546 auroc 1.000 sens@1.0fa/h 0.829 thr 0.723 (23s)
+3610.8s	182	ep043 loss 0.0016 auprc 0.577 auroc 1.000 sens@1.0fa/h 0.878 thr 0.720 (23s)
+3611.0s	183	ep043 loss 0.0016 auprc 0.577 auroc 1.000 sens@1.0fa/h 0.878 thr 0.720 (23s)
+3633.8s	184	ep044 loss 0.0015 auprc 0.609 auroc 1.000 sens@1.0fa/h 0.927 thr 0.717 (23s)
+3634.0s	185	ep044 loss 0.0015 auprc 0.609 auroc 1.000 sens@1.0fa/h 0.927 thr 0.717 (23s)
+3656.9s	186	ep045 loss 0.0014 auprc 0.624 auroc 1.000 sens@1.0fa/h 0.951 thr 0.723 (23s)
+3657.1s	187	ep045 loss 0.0014 auprc 0.624 auroc 1.000 sens@1.0fa/h 0.951 thr 0.723 (23s)
+3679.9s	188	ep046 loss 0.0013 auprc 0.628 auroc 1.000 sens@1.0fa/h 0.976 thr 0.725 (23s)
+3680.1s	189	ep046 loss 0.0013 auprc 0.628 auroc 1.000 sens@1.0fa/h 0.976 thr 0.725 (23s)
+3703.0s	190	ep047 loss 0.0013 auprc 0.626 auroc 1.000 sens@1.0fa/h 0.976 thr 0.727 (23s)
+3703.2s	191	ep047 loss 0.0013 auprc 0.626 auroc 1.000 sens@1.0fa/h 0.976 thr 0.727 (23s)
+3726.0s	192	ep048 loss 0.0012 auprc 0.661 auroc 1.000 sens@1.0fa/h 0.976 thr 0.740 (23s)
+3726.2s	193	ep048 loss 0.0012 auprc 0.661 auroc 1.000 sens@1.0fa/h 0.976 thr 0.740 (23s)
+3749.1s	194	ep049 loss 0.0012 auprc 0.737 auroc 1.000 sens@1.0fa/h 0.976 thr 0.741 (23s)
+3749.3s	195	ep049 loss 0.0012 auprc 0.737 auroc 1.000 sens@1.0fa/h 0.976 thr 0.741 (23s)
+3772.1s	196	ep050 loss 0.0010 auprc 0.773 auroc 1.000 sens@1.0fa/h 1.000 thr 0.744 (23s)
+3772.4s	197	ep050 loss 0.0010 auprc 0.773 auroc 1.000 sens@1.0fa/h 1.000 thr 0.744 (23s)
+3795.2s	198	ep051 loss 0.0010 auprc 0.778 auroc 1.000 sens@1.0fa/h 1.000 thr 0.747 (23s)
+3795.4s	199	ep051 loss 0.0010 auprc 0.778 auroc 1.000 sens@1.0fa/h 1.000 thr 0.747 (23s)
+3818.2s	200	ep052 loss 0.0009 auprc 0.769 auroc 1.000 sens@1.0fa/h 0.976 thr 0.741 (23s)
+3818.4s	201	ep052 loss 0.0009 auprc 0.769 auroc 1.000 sens@1.0fa/h 0.976 thr 0.741 (23s)
+3841.3s	202	ep053 loss 0.0008 auprc 0.785 auroc 1.000 sens@1.0fa/h 0.976 thr 0.744 (23s)
+3841.5s	203	ep053 loss 0.0008 auprc 0.785 auroc 1.000 sens@1.0fa/h 0.976 thr 0.744 (23s)
+3864.3s	204	ep054 loss 0.0007 auprc 0.793 auroc 1.000 sens@1.0fa/h 0.976 thr 0.762 (23s)
+3864.5s	205	ep054 loss 0.0007 auprc 0.793 auroc 1.000 sens@1.0fa/h 0.976 thr 0.762 (23s)
+3887.3s	206	ep055 loss 0.0007 auprc 0.808 auroc 1.000 sens@1.0fa/h 0.976 thr 0.762 (23s)
+3887.5s	207	ep055 loss 0.0007 auprc 0.808 auroc 1.000 sens@1.0fa/h 0.976 thr 0.762 (23s)
+3910.4s	208	ep056 loss 0.0006 auprc 0.822 auroc 1.000 sens@1.0fa/h 0.976 thr 0.765 (23s)
+3910.6s	209	ep056 loss 0.0006 auprc 0.822 auroc 1.000 sens@1.0fa/h 0.976 thr 0.765 (23s)
+3933.4s	210	ep057 loss 0.0006 auprc 0.814 auroc 1.000 sens@1.0fa/h 0.976 thr 0.767 (23s)
+3933.6s	211	ep057 loss 0.0006 auprc 0.814 auroc 1.000 sens@1.0fa/h 0.976 thr 0.767 (23s)
+3956.4s	212	ep058 loss 0.0005 auprc 0.795 auroc 1.000 sens@1.0fa/h 0.951 thr 0.780 (23s)
+3956.6s	213	ep058 loss 0.0005 auprc 0.795 auroc 1.000 sens@1.0fa/h 0.951 thr 0.780 (23s)
+3979.4s	214	ep059 loss 0.0005 auprc 0.796 auroc 1.000 sens@1.0fa/h 0.951 thr 0.783 (23s)
+3979.4s	215	done. best AUPRC 0.8222
+3979.4s	216	OPERATING POINT: threshold 0.7826 -> sensitivity 0.951 at 0.99 false alarms/hour (23.2 h of negatives)
+3979.6s	217	ep059 loss 0.0005 auprc 0.796 auroc 1.000 sens@1.0fa/h 0.951 thr 0.783 (23s)
+3979.6s	218	done. best AUPRC 0.8222
+3979.6s	219	OPERATING POINT: threshold 0.7826 -> sensitivity 0.951 at 0.99 false alarms/hour (23.2 h of negatives)
+3979.9s	220	fall head: OK
+3979.9s	221	reading 5 run(s) from /kaggle/working/runs
+3979.9s	222	adl_bone           epoch  18  mean_class_acc=0.178  macro_f1=0.167  macro_f1_supported=0.177  top1=0.341  | best mean_class_acc=0.190 @ep10
+3979.9s	223	adl_bone_motion    epoch  25  mean_class_acc=0.104  macro_f1=0.109  macro_f1_supported=0.115  top1=0.345  | best mean_class_acc=0.126 @ep17
+3979.9s	224	adl_joint          epoch  23  mean_class_acc=0.157  macro_f1=0.159  macro_f1_supported=0.168  top1=0.348  | best mean_class_acc=0.180 @ep15
+3979.9s	225	adl_joint_motion   epoch  20  mean_class_acc=0.120  macro_f1=0.116  macro_f1_supported=0.123  top1=0.346  | best mean_class_acc=0.127 @ep12
+3979.9s	226	fall               epoch  59  auprc=0.796  auroc=1.000  sensitivity=0.951  | best auprc=0.822 @ep56
+3979.9s	227	
+3979.9s	228	adl_bone - per-class F1 at best epoch 10:
+3979.9s	229	  other_idle               n= 12958  f1=0.509  ####################
+3979.9s	230	  lying_down               n=   624  f1=0.408  ################
+3979.9s	231	  sitting                  n=  3071  f1=0.318  ############
+3979.9s	232	  cooking_food_prep        n=   557  f1=0.206  ########
+3979.9s	233	  drinking                 n=   983  f1=0.195  #######
+3979.9s	234	  cleaning_housework       n=  3330  f1=0.193  #######
+3979.9s	235	  walking                  n=   563  f1=0.192  #######
+3979.9s	236	  personal_hygiene         n=  3177  f1=0.176  #######
+3979.9s	237	  eating                   n=  1120  f1=0.164  ######
+3979.9s	238	  reading                  n=  2127  f1=0.151  ######
+3979.9s	239	  sitting_down             n=   324  f1=0.127  #####
+3979.9s	240	  standing_up              n=   383  f1=0.093  ###
+3979.9s	241	  using_phone              n=  2111  f1=0.091  ###
+3979.9s	242	  watching_tv              n=   635  f1=0.089  ###
+3979.9s	243	  taking_medication        n=   434  f1=0.043  #
+3979.9s	244	  interacting_with_person  n=   550  f1=0.042  #
+3979.9s	245	  standing                 n=    84  f1=0.037  #
+3979.9s	246	  bending_reaching         n=    13  f1=0.000  
+3979.9s	247	  -> 17/18 classes above F1 0.02; 1 at ~0: ['bending_reaching']
+3979.9s	248	
+3979.9s	249	Save Version -> create/update dataset behaviorsense-runs from /kaggle/working/runs
+3979.9s	250	Timed out mid-training? Save Version anyway - resume continues bit-exactly next session.
+3981.5s	251	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+3981.5s	252	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+3981.6s	253	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+3981.6s	254	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+3981.9s	255	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+3982.0s	256	[NbConvertApp] Writing 49554 bytes to __notebook__.ipynb
+3983.2s	257	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+3983.6s	258	[NbConvertApp] Writing 379912 bytes to __results__.html
+
+
+[M01216] 2026-08-10T17:10:11.460Z ASSISTANT (conversation) [C023:1779; copies=2]
+The run completed, early stopping worked, and one of my predictions was **wrong**. Let me quantify that honestly.
+
+
+[M01217] 2026-08-10T17:11:38.785Z ASSISTANT (conversation) [C023:1784; copies=2]
+Complete run, everything working — and **my prediction was wrong**, which is worth saying before anything else.
+
+I said the 30-epoch cosine would beat 80 because the schedule completes its decay inside the useful window. It didn't:
+
+| stream | 80ep | 30ep | Δ |
+|---|---|---|---|
+| adl_joint | 0.179 | 0.180 | +0.001 |
+| adl_bone | 0.184 | **0.190** | +0.006 |
+| adl_joint_motion | 0.129 | 0.127 | −0.002 |
+| adl_bone_motion | 0.125 | 0.126 | +0.001 |
+| **mean** | 0.154 | 0.156 | **+0.002** |
+
+That's noise. **8–11 epochs was already the ceiling for this data**, and schedule length doesn't move it. The overfitting was real, but recovering the peak was all there was to recover.
+
+What the change did buy is unambiguous: **9,729 s → 3,984 s, a 59% cut**, and the ADL streams went 2.7 h → 0.62 h. That's a quota win, not an accuracy win, and it should be described that way in the write-up.
+
+**Early stopping fired exactly as designed** — every stream stopped at `peak + 8`:
+
+```
+adl_bone         peaked ep10  stopped ep18
+adl_joint        peaked ep15  stopped ep23
+adl_joint_motion peaked ep12  stopped ep20
+adl_bone_motion  peaked ep17  stopped ep25
+```
+
+**The fall head reproduced bit-identically**: AUPRC 0.8222 @ep56, threshold 0.7826, sensitivity 0.951 @ 0.99 FA/h — same to four decimals across two independent sessions. That's the RNG-state checkpointing working, and it's a free reproducibility result worth citing.
+
+One thing that changed my mind about the fall head: it peaked at **ep56 of 60** and never triggered its patience-15 stop. Its budget isn't too long — it may be too *short*. Worth testing 100 epochs next time, since that's the head where accuracy actually matters.
+
+**Now: Quick Save → create/update `behaviorsense-runs`.** Then notebook 04 for the P1/P2/ablation tables.
+
+Two things to carry into the write-up. `bending_reaching` is the only class at F1 0.000, with 13 val windows — already documented as a label-map consequence. And the ADL macro-F1 of ~0.19 mean-class-accuracy across 18 untrimmed Charades classes is a hard-task baseline, not a broken pipeline: 17 of 18 classes are above F1 0.02, with a smooth spread from `other_idle` 0.509 down to `standing` 0.037. That's what "genuinely difficult" looks like, and the per-class table is the evidence for saying so.
+
+
+[M01218] 2026-08-10T17:21:40.368Z USER (conversation) [C023:1789; copies=7]
+its accuracy cant be improved?
+
+
+[M01219] 2026-08-10T17:22:44.268Z ASSISTANT (conversation) [C023:1791; copies=7]
+Fair question, and "no" would be the wrong answer. Let me check what's already available before speculating.
+
+
+[M01220] 2026-08-10T17:25:34.508Z ASSISTANT (conversation) [C023:1801; copies=7]
+Good — the ensemble is already evaluated in notebook 04, and you haven't run it yet. Let me estimate what it's worth before proposing anything more speculative:
+
+
+[M01221] 2026-08-10T17:25:56.307Z ASSISTANT (conversation) [C023:1804; copies=7]
+Now let me check the constraint that actually caps this — how much signal is in the input at all:
+
+
+[M01222] 2026-08-10T17:27:00.641Z ASSISTANT (conversation) [C023:1809; copies=7]
+**No — it can be improved, and three of the four levers are already built and unmeasured.** Your 0.190 is a *single stream's raw window accuracy*, which is the weakest number the system will ever produce.
+
+**1. The 4-stream ensemble — already trained, never evaluated.** You have four checkpoints. Every number you've seen is one stream in isolation. Notebook 04 already does the logit averaging and the prob-vs-logit ablation. The streams are genuinely decorrelated (joint/bone differ by 0.06, motion pair by another 0.05), which is the precondition for averaging to help. Published ST-GCN++ gains over the best single stream are +2 to +4 points, so expect roughly **0.21–0.23**. Cost: one short session, no retraining.
+
+**2. Temporal smoothing — implemented, and this is the big one.** `classify_stream` runs Viterbi over a transition prior. Every number so far is a *2-second window in isolation*, but activities persist for minutes. A `using_phone` window misread as `reading` gets corrected by its neighbours. This is where per-window accuracy and per-segment accuracy diverge sharply, and **segments are what Agent 3 consumes** — window accuracy isn't the metric that matters downstream.
+
+**3. Object context — implemented, not wired to RT-DETR.** `fuse_objects` applies log-odds priors and you already staged `rtdetr-l.onnx`. This targets precisely the classes that are failing.
+
+That third point is the real answer to your question. Look at which classes are worst:
+
+| class | F1 | why |
+|---|---|---|
+| `taking_medication` | 0.043 | hand-to-mouth — identical to eating/drinking in 17 joints |
+| `interacting_with_person` | 0.042 | needs a second person; slot 2 often empty |
+| `standing` | 0.037 | 84 val windows |
+| `watching_tv` | 0.089 | *is* sitting, plus a TV the skeleton cannot see |
+
+The four worst classes share one property: **the distinguishing evidence is not in the skeleton.** It's in the held object, the faced screen, the other person. No amount of training fixes an input that lacks the signal — which is why `docs/02_architecture.md` specified object fusion from the start. The failures are confirming the architecture, not contradicting it.
+
+**What I would not do:** retrain longer, or grow the model. You have direct evidence that 8–11 epochs is the ceiling, and the 30-vs-80 comparison showed schedule changes buy nothing. A bigger backbone on the same input hits the same wall.
+
+**Order of operations:** Save Version → `behaviorsense-runs`, then run notebook 04. It measures the ensemble and the ablation on already-trained weights. Get that number first — it's free, and it changes what's worth doing next.
+
+
+[M01223] 2026-08-10T18:01:13.089Z USER (conversation) [C023:1813; copies=7]
+Time
+#
+Log Message
+4.2s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.2s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.2s	3	0.00s - to python to disable frozen modules.
+4.2s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.5s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.5s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.5s	7	0.00s - to python to disable frozen modules.
+4.5s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+487.5s	9	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+487.5s	10	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+487.5s	11	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+487.5s	12	  attached  ["behaviorsense-adl-shards (top level: ['charades_map.yaml', 'charades_map_review.tsv', 'shards'])", "behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-fall-shards (top level: ['_decode_probe.py', 'decode_list.txt', 'decode_list_av.txt', 'decode_probe.tsv', 'decode_probe_av.tsv', 'shards'])", "behaviorsense-runs (top level: ['runs', 'train_bone.log', 'train_bone_motion.log', 'train_joint.log', 'train_joint_motion.log'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "charades-480p (top level: ['Charades_annotations', 'Charades_v1_480'])", "qwen2-5-7b-instruct (top level: ['LICENSE', 'README.md', 'config.json', 'generation_config.json', 'gitattributes', 'merges.txt'])", 'arc-prize-2026-arc-agi-3']
+487.5s	13	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+487.5s	14	  contract 12/12 - mounted code is current
+491.6s	15	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+491.6s	16	Requirement already satisfied: transformers in /usr/local/lib/python3.12/dist-packages (5.0.0)
+491.6s	17	Requirement already satisfied: accelerate in /usr/local/lib/python3.12/dist-packages (1.13.0)
+491.6s	18	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines-1.3.3-py3-none-any.whl
+491.6s	19	Requirement already satisfied: safetensors in /usr/local/lib/python3.12/dist-packages (0.7.0)
+491.6s	20	Requirement already satisfied: filelock in /usr/local/lib/python3.12/dist-packages (from transformers) (3.29.0)
+491.6s	21	Requirement already satisfied: huggingface-hub<2.0,>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (1.11.0)
+491.6s	22	Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2.0.2)
+491.6s	23	Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (26.1)
+491.6s	24	Requirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.12/dist-packages (from transformers) (6.0.3)
+491.6s	25	Requirement already satisfied: regex!=2019.12.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2025.11.3)
+491.6s	26	Requirement already satisfied: tokenizers<=0.23.0,>=0.22.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (0.22.2)
+491.6s	27	Requirement already satisfied: typer-slim in /usr/local/lib/python3.12/dist-packages (from transformers) (0.24.0)
+491.6s	28	Requirement already satisfied: tqdm>=4.27 in /usr/local/lib/python3.12/dist-packages (from transformers) (4.67.3)
+491.7s	29	Requirement already satisfied: psutil in /usr/local/lib/python3.12/dist-packages (from accelerate) (5.9.5)
+491.7s	30	Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.12/dist-packages (from accelerate) (2.10.0+cu128)
+491.7s	31	Requirement already satisfied: jinja2 in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.6)
+491.7s	32	Requirement already satisfied: cloudpickle in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.2)
+491.7s	33	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/diskcache-5.6.3-py3-none-any.whl (from outlines)
+491.7s	34	Requirement already satisfied: pydantic>=2.0 in /usr/local/lib/python3.12/dist-packages (from outlines) (2.12.3)
+491.7s	35	Requirement already satisfied: jsonschema in /usr/local/lib/python3.12/dist-packages (from outlines) (4.26.0)
+491.7s	36	Requirement already satisfied: pillow in /usr/local/lib/python3.12/dist-packages (from outlines) (11.3.0)
+491.7s	37	Requirement already satisfied: typing_extensions in /usr/local/lib/python3.12/dist-packages (from outlines) (4.15.0)
+491.7s	38	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from outlines)
+491.8s	39	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/genson-1.4.0-py3-none-any.whl (from outlines)
+491.8s	40	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+491.8s	41	Requirement already satisfied: transformers in /usr/local/lib/python3.12/dist-packages (5.0.0)
+491.8s	42	Requirement already satisfied: accelerate in /usr/local/lib/python3.12/dist-packages (1.13.0)
+491.8s	43	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines-1.3.3-py3-none-any.whl
+491.8s	44	Requirement already satisfied: safetensors in /usr/local/lib/python3.12/dist-packages (0.7.0)
+491.8s	45	Requirement already satisfied: filelock in /usr/local/lib/python3.12/dist-packages (from transformers) (3.29.0)
+491.8s	46	Requirement already satisfied: huggingface-hub<2.0,>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (1.11.0)
+491.8s	47	Requirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2.0.2)
+491.8s	48	Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (26.1)
+491.8s	49	Requirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.12/dist-packages (from transformers) (6.0.3)
+491.8s	50	Requirement already satisfied: regex!=2019.12.17 in /usr/local/lib/python3.12/dist-packages (from transformers) (2025.11.3)
+491.8s	51	Requirement already satisfied: tokenizers<=0.23.0,>=0.22.0 in /usr/local/lib/python3.12/dist-packages (from transformers) (0.22.2)
+491.8s	52	Requirement already satisfied: typer-slim in /usr/local/lib/python3.12/dist-packages (from transformers) (0.24.0)
+491.8s	53	Requirement already satisfied: tqdm>=4.27 in /usr/local/lib/python3.12/dist-packages (from transformers) (4.67.3)
+491.8s	54	Requirement already satisfied: psutil in /usr/local/lib/python3.12/dist-packages (from accelerate) (5.9.5)
+491.8s	55	Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.12/dist-packages (from accelerate) (2.10.0+cu128)
+491.8s	56	Requirement already satisfied: jinja2 in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.6)
+491.8s	57	Requirement already satisfied: cloudpickle in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.2)
+491.8s	58	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/diskcache-5.6.3-py3-none-any.whl (from outlines)
+491.8s	59	Requirement already satisfied: pydantic>=2.0 in /usr/local/lib/python3.12/dist-packages (from outlines) (2.12.3)
+491.8s	60	Requirement already satisfied: jsonschema in /usr/local/lib/python3.12/dist-packages (from outlines) (4.26.0)
+491.8s	61	Requirement already satisfied: pillow in /usr/local/lib/python3.12/dist-packages (from outlines) (11.3.0)
+491.8s	62	Requirement already satisfied: typing_extensions in /usr/local/lib/python3.12/dist-packages (from outlines) (4.15.0)
+491.8s	63	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from outlines)
+491.8s	64	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/genson-1.4.0-py3-none-any.whl (from outlines)
+491.8s	65	Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (2025.3.0)
+491.8s	66	Requirement already satisfied: hf-xet<2.0.0,>=1.4.3 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (1.4.3)
+491.8s	67	Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.28.1)
+491.8s	68	Requirement already satisfied: typer in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.24.2)
+491.8s	69	Requirement already satisfied: annotated-types>=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.7.0)
+491.8s	70	Requirement already satisfied: pydantic-core==2.41.4 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (2.41.4)
+491.8s	71	Requirement already satisfied: typing-inspection>=0.4.2 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.4.2)
+491.8s	72	Requirement already satisfied: setuptools in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (81.0.0)
+491.8s	73	Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.14.0)
+491.8s	74	Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.1)
+491.8s	75	Requirement already satisfied: cuda-bindings==12.9.4 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.9.4)
+491.8s	76	Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+491.8s	77	Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+491.8s	78	Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+491.8s	79	Requirement already satisfied: nvidia-cudnn-cu12==9.10.2.21 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (9.10.2.21)
+491.8s	80	Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.4.1)
+491.8s	81	Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.3.3.83)
+491.8s	82	Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (10.3.9.90)
+491.8s	83	Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.7.3.90)
+491.8s	84	Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.5.8.93)
+491.8s	85	Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (0.7.1)
+491.8s	86	Requirement already satisfied: nvidia-nccl-cu12==2.27.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (2.27.5)
+491.8s	87	Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.4.5)
+491.8s	88	Requirement already satisfied: nvidia-nvtx-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+491.8s	89	Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+491.8s	90	Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.13.1.3)
+491.8s	91	Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.0)
+491.8s	92	Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.12/dist-packages (from cuda-bindings==12.9.4->torch>=2.0.0->accelerate) (1.5.3)
+491.8s	93	Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2->outlines) (3.0.3)
+491.8s	94	Requirement already satisfied: attrs>=22.2.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (26.1.0)
+491.8s	95	Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (2025.9.1)
+491.8s	96	Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.37.0)
+491.8s	97	Requirement already satisfied: rpds-py>=0.25.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.30.0)
+491.8s	98	Requirement already satisfied: anyio in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (4.13.0)
+491.8s	99	Requirement already satisfied: certifi in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (2026.4.22)
+491.8s	100	Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (1.0.9)
+491.8s	101	Requirement already satisfied: idna in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (3.13)
+491.8s	102	Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.12/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (0.16.0)
+491.8s	103	Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.12/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate) (1.3.0)
+491.9s	104	Requirement already satisfied: click>=8.2.1 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (8.3.3)
+491.9s	105	Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (1.5.4)
+491.9s	106	Requirement already satisfied: rich>=12.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (13.9.4)
+491.9s	107	Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.0.4)
+491.9s	108	Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (4.0.0)
+491.9s	109	Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (2.20.0)
+491.9s	110	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+492.0s	111	Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (2025.3.0)
+492.0s	112	Requirement already satisfied: hf-xet<2.0.0,>=1.4.3 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (1.4.3)
+492.0s	113	Requirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.28.1)
+492.0s	114	Requirement already satisfied: typer in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<2.0,>=1.3.0->transformers) (0.24.2)
+492.0s	115	Requirement already satisfied: annotated-types>=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.7.0)
+492.0s	116	Requirement already satisfied: pydantic-core==2.41.4 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (2.41.4)
+492.0s	117	Requirement already satisfied: typing-inspection>=0.4.2 in /usr/local/lib/python3.12/dist-packages (from pydantic>=2.0->outlines) (0.4.2)
+492.0s	118	Requirement already satisfied: setuptools in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (81.0.0)
+492.0s	119	Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.14.0)
+492.0s	120	Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.1)
+492.0s	121	Requirement already satisfied: cuda-bindings==12.9.4 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.9.4)
+492.0s	122	Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+492.0s	123	Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+492.0s	124	Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+492.0s	125	Requirement already satisfied: nvidia-cudnn-cu12==9.10.2.21 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (9.10.2.21)
+492.0s	126	Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.4.1)
+492.0s	127	Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.3.3.83)
+492.0s	128	Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (10.3.9.90)
+492.0s	129	Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (11.7.3.90)
+492.0s	130	Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.5.8.93)
+492.0s	131	Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (0.7.1)
+492.0s	132	Requirement already satisfied: nvidia-nccl-cu12==2.27.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (2.27.5)
+492.0s	133	Requirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.4.5)
+492.0s	134	Requirement already satisfied: nvidia-nvtx-cu12==12.8.90 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.90)
+492.0s	135	Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (12.8.93)
+492.0s	136	Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (1.13.1.3)
+492.0s	137	Requirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.12/dist-packages (from torch>=2.0.0->accelerate) (3.6.0)
+492.0s	138	Requirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.12/dist-packages (from cuda-bindings==12.9.4->torch>=2.0.0->accelerate) (1.5.3)
+492.0s	139	Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2->outlines) (3.0.3)
+492.0s	140	Requirement already satisfied: attrs>=22.2.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (26.1.0)
+492.0s	141	Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (2025.9.1)
+492.0s	142	Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.37.0)
+492.0s	143	Requirement already satisfied: rpds-py>=0.25.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema->outlines) (0.30.0)
+492.0s	144	Requirement already satisfied: anyio in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (4.13.0)
+492.0s	145	Requirement already satisfied: certifi in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (2026.4.22)
+492.0s	146	Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (1.0.9)
+492.0s	147	Requirement already satisfied: idna in /usr/local/lib/python3.12/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (3.13)
+492.0s	148	Requirement already satisfied: h11>=0.16 in /usr/local/lib/python3.12/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.3.0->transformers) (0.16.0)
+492.0s	149	Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.12/dist-packages (from sympy>=1.13.3->torch>=2.0.0->accelerate) (1.3.0)
+492.0s	150	Requirement already satisfied: click>=8.2.1 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (8.3.3)
+492.0s	151	Requirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (1.5.4)
+492.0s	152	Requirement already satisfied: rich>=12.3.0 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (13.9.4)
+492.0s	153	Requirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.12/dist-packages (from typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.0.4)
+492.0s	154	Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (4.0.0)
+492.0s	155	Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (2.20.0)
+492.0s	156	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+492.7s	157	Installing collected packages: outlines_core, genson, diskcache, outlines
+492.9s	158	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+492.9s	159	Installing collected packages: outlines_core, genson, diskcache, outlines
+492.9s	160	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+567.1s	161	P1 val: 24908 windows, 1166 subjects
+638.4s	162	Traceback (most recent call last):
+638.4s	163	  File "<string>", line 1, in <module>
+638.4s	164	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 131, in execute_notebook
+638.4s	165	    raise_for_execution_errors(nb, output_path)
+638.4s	166	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+638.4s	167	    raise error
+638.4s	168	papermill.exceptions.PapermillExecutionError: 
+638.4s	169	---------------------------------------------------------------------------
+638.4s	170	Exception encountered at "In [3]":
+638.4s	171	---------------------------------------------------------------------------
+638.4s	172	FileNotFoundError                         Traceback (most recent call last)
+638.4s	173	/tmp/ipykernel_65/3274074097.py in <cell line: 0>()
+638.4s	174	     42     "subject leakage between train and val"
+638.4s	175	     43 
+638.4s	176	---> 44 clf = EnsembleClassifier.from_run_dir(run_dir(), device="cuda")
+638.4s	177	     45 X = np.stack([normalise(ds.skeletons[i].astype(np.float32)) for i in val_idx])
+638.4s	178	     46 y = ds.labels[val_idx]
+638.4s	179	
+638.4s	180	/kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended/src/behaviorsense/models/ensemble.py in from_run_dir(cls, root, prefix, checkpoint, **kw)
+638.4s	181	    185                 found[stream] = p
+638.4s	182	    186         if not found:
+638.4s	183	--> 187             raise FileNotFoundError(
+638.4s	184	    188                 f"no checkpoints under {root} matching {prefix}<stream>/{checkpoint}. "
+638.4s	185	    189                 f"Train at least one stream first (scripts/train_adl.py)."
+638.4s	186	
+638.4s	187	FileNotFoundError: no checkpoints under /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended/runs matching adl_<stream>/best.pt. Train at least one stream first (scripts/train_adl.py).
+638.4s	188	
+639.5s	189	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+639.5s	190	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+639.6s	191	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+639.6s	192	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+639.9s	193	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+640.0s	194	[NbConvertApp] Writing 40668 bytes to __notebook__.ipynb
+641.2s	195	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+641.6s	196	[NbConvertApp] Writing 364698 bytes to __results__.html
+
+
+[M01224] 2026-08-10T18:02:53.609Z ASSISTANT (conversation) [C023:1817; copies=7]
+`run_dir()` picked the code dataset's leftover `runs/` instead of `behaviorsense-runs` — the same contamination, in the one function I never applied the filter to.
+
+
+[M01225] 2026-08-10T18:03:39.112Z ASSISTANT (conversation) [C023:1820; copies=7]
+I've now fixed this same contamination at four separate call sites, one at a time. That's the actual defect — let me apply the exclusion once, everywhere, rather than a fifth patch:
+
+
+[M01226] 2026-08-10T18:04:03.032Z ASSISTANT (conversation) [C023:1824; copies=7]
+No shared helper exists — that's why I've patched it four times. Let me write one in the repo, so it's tested once and every notebook imports it:
+
+
+[M01227] 2026-08-10T18:05:30.852Z ASSISTANT (conversation) [C023:1829; copies=7]
+Now wire notebook 04 to it, and add it to the contract so a stale upload can't reintroduce the bug:
+
+
+[M01228] 2026-08-10T18:12:01.086Z ASSISTANT (conversation) [C023:1841; copies=7]
+Two failures — let me identify them:
+
+
+[M01229] 2026-08-10T18:17:18.142Z ASSISTANT (conversation) [C023:1847; copies=7]
+My import insertion landed in the wrong cell — the shard cells use `is_real_artifact` but never import it. Let me check:
+
+
+[M01230] 2026-08-10T18:18:51.923Z ASSISTANT (conversation) [C023:1853; copies=7]
+Notebook 03's shard cell uses it without importing. Fixing:
+
+
+[M01231] 2026-08-10T18:23:30.825Z ASSISTANT (conversation) [C023:1858; copies=7]
+N10c pins the old wording — the message changed when I moved to the shared rule. Updating the test to match:
+
+
+[M01232] 2026-08-10T18:28:47.033Z ASSISTANT (conversation) [C023:1865; copies=7]
+The fixture writes `epochs=80`, but I changed notebook 03's ADL budget to 30 — so the guard correctly refuses them. The test data is stale, not the code:
+
+
+[M01233] 2026-08-10T18:33:11.019Z ASSISTANT (conversation) [C023:1870; copies=7]
+My regex missed because the budgets are now read from `EPOCH_BUDGET` rather than literals. Let me read the real values:
+
+
+[M01234] 2026-08-10T18:36:54.740Z ASSISTANT (conversation) [C023:1880; copies=7]
+My `"\\n"` inside the heredoc collapsed to a real newline. Fixing that one line:
+
+
+[M01235] 2026-08-10T18:43:52.498Z ASSISTANT (conversation) [C023:1887; copies=7]
+130/130. The root cause is fixed properly this time.
+
+**What broke:** `run_dir()` resolved to `behaviorsense-code/.../runs` because "code" sorts before "runs", and that directory holds `adl/` and `fall/` — not `adl_joint/`. So the error blamed a missing checkpoint when the real fault was the wrong directory, with the correct one attached the whole time.
+
+**The actual defect** is that this was the **fourth** call site to need the same exclusion. `shard_paths()`, carry-forward, the summary cell, and now `run_dir()` — one rule, four copies, and each time I patched the copy in front of me. So I wrote it once:
+
+`src/behaviorsense/kaggle_artifacts.py` — `is_real_artifact()` and `find_run_dir()`, which selects by *content* (the directory containing `adl_<stream>/` subdirectories, most streams wins) rather than sort order. Both notebooks import it, and it's now a contract token so a stale upload fails at cell 1 rather than mid-evaluation.
+
+`N10d` locks it with a negative control: the test asserts the *old* rule picks the wrong directory, so it can't quietly stop testing the bug.
+
+Two test failures along the way were worth having. `N10c` hard-coded `epochs=80`, so when the ADL budget moved to 30 the resume guard correctly refused the fixtures — and the test silently started measuring the guard instead of the fixture exclusion it's named for. Fixtures now parse `EPOCH_BUDGET` from the notebook, so they can't drift again.
+
+**Next: re-upload, then re-run notebook 04.**
+
+```bash
+python scripts/publish_code_dataset.py -m "shared kaggle-artifact rule; find_run_dir"
+```
+
+Required — `kaggle_artifacts.py` is new and both notebooks import it.
+
+Then re-paste notebook 04 with the same datasets attached. Expect `contract 13/13`, then the P1 table: four per-stream rows plus the **ENSEMBLE** row, which is the number you've been waiting for. Then the P2 leave-one-dataset-out folds and the logit-vs-prob ablation.
+
+Worth noting for the write-up: `P1 val: 24908 windows, 1166 subjects` from the last run confirms the split is honest — 1,166 distinct Charades video-ids held out, with leakage asserted against rather than assumed.

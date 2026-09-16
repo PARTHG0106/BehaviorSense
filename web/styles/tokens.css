@@ -1,0 +1,74 @@
+/* BehaviorSense — design tokens
+ *
+ * Direction: a diazo specification sheet on a desk. The system audits a language
+ * model, so the vernacular is drawn from the world of specifications being checked —
+ * blueprint stock, hairline rules, sheets laid on a work surface, an auditor's pencil.
+ *
+ * The load-bearing decision: VERIFICATION IS THE DIFFERENCE BETWEEN INK AND PENCIL.
+ * A claim that passes is set in ink, permanent, indistinguishable from the page's own
+ * voice. A claim that fails is struck in red pencil with the arithmetic exposed in the
+ * margin. So there is no green "verified" badge anywhere — the verified state is simply
+ * the document, and failure is annotation on top of it. That is also why --pencil is the
+ * only saturated hue in the system: the eye should land on exactly one thing.
+ */
+
+:root {
+  /* Surfaces — cool, faintly cyan, like ozalid print stock. Not cream. */
+  --desk:        #d8dfdf;
+  --desk-deep:   #ccd5d5;
+  --sheet:       #e9eeed;
+  --sheet-edge:  #f2f5f4;
+  --well:        #cfd8d8;
+
+  --rule:        #a9b7b7;
+  --rule-soft:   #bcc8c8;
+
+  /* Ink — the verified state. Cool near-black, never pure. */
+  --ink:         #14212a;
+  --ink-soft:    #48595f;
+  --ink-faint:   #5f6e70;
+
+  /* Pencil — withheld, failed check, correction. Iron oxide, not terracotta. */
+  --pencil:      #8e3b34;
+  --pencil-soft: #a9564c;
+  --pencil-wash: rgba(142, 59, 52, 0.09);
+
+  /* Ochre — watch level only. Never decorative. */
+  --ochre:       #6e5614;
+
+  --type-display: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --type-doc:     "Newsreader", Georgia, "Times New Roman", serif;
+  --type-mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* Fluid scale. Display is set tight; the mono is set wide. */
+  --fs-display: clamp(2.35rem, 5.4vw, 4.15rem);
+  --fs-h2:      clamp(1.45rem, 2.5vw, 2.05rem);
+  --fs-h3:      1.0625rem;
+  --fs-lede:    clamp(1rem, 1.15vw, 1.0625rem);
+  --fs-body:    0.9375rem;
+  --fs-mono:    0.75rem;
+  --fs-micro:   0.6875rem;
+
+  --lh-tight: 1.04;
+  --lh-body:  1.62;
+
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4.5rem;
+  --sp-9: 7rem;
+
+  --measure: 34rem;
+  --shell:   72rem;
+
+  /* Printerly depth: a hairline plus a hard offset, never a blurred halo. */
+  --lift:      1px 1px 0 rgba(20, 33, 42, 0.05), 0 0 0 1px var(--rule-soft);
+  --lift-high: 3px 3px 0 rgba(20, 33, 42, 0.07), 0 0 0 1px var(--rule);
+  --radius: 2px;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}

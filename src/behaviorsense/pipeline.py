@@ -30,7 +30,13 @@ from datetime import datetime, timedelta
 
 import numpy as np
 
-from behaviorsense.agents.activity import ActivityAgent, ActivityConfig, WindowClassifier
+from behaviorsense.data.skeleton_dataset import normalise
+from behaviorsense.agents.activity import (
+    N_CLASSES,
+    ActivityAgent,
+    ActivityConfig,
+    WindowClassifier,
+)
 from behaviorsense.schemas import (
     ActivitySegment,
     DailyFeatures,
@@ -167,7 +173,16 @@ class ActivityPipeline:
     ) -> None:
         self.classifier = classifier
         self.config = config or ActivityConfig()
-        self.agent = agent or ActivityAgent(self.config)
+        # The head size is READ OFF THE CLASSIFIER, not configured here. `EnsembleClassifier`
+        # derives it from the checkpoint, so a 22-class Toyota model automatically gets a 22x22
+        # transition matrix and a 22-wide prior. Configured separately, the two drift and the
+        # mismatch surfaces inside Viterbi as an unbroadcastable shape - several stages after the
+        # decision that caused it. Anything without the attribute keeps the 20-class default.
+        # `or N_CLASSES`, not a getattr default: an adapter that forwards a MISSING inner
+        # attribute passes None through, and `int(None)` raises where the 20-class
+        # fallback was wanted. Absent and None mean the same thing here.
+        self.n_classes = int(getattr(classifier, "n_classes", None) or N_CLASSES)
+        self.agent = agent or ActivityAgent(self.config, n_classes=self.n_classes)
 
     def run(
         self, frames: Sequence[FrameObservation], stats: PipelineStats | None = None
@@ -176,7 +191,22 @@ class ActivityPipeline:
         segments: list[ActivitySegment] = []
 
         for tw in frames_to_windows(frames, stats=stats):
-            logits = self.classifier.logits(np.stack(tw.windows))
+            # NORMALISE, because training did. `SkeletonWindowDataset.__getitem__` calls
+            # `normalise()` on every window, so the checkpoints have only ever seen root-centred
+            # coordinates divided by torso length - dimensionless, order +/-2. This path was
+            # handing them RAW PIXELS from a 640x480 frame, order +/-300: a ~150x scale error on
+            # every joint, which saturated the network into one constant class.
+            #
+            # The symptom was a served demo emitting a single 29.3 s segment of the same label on
+            # every clip, identical across runs, winning even against a -2.0 log-odds penalty. I
+            # blamed the uncalibrated temperature first; temperature scales logits and cannot
+            # rescue inputs two orders of magnitude out of range.
+            #
+            # Notebook 04's evaluation cell normalises explicitly before calling the classifier,
+            # which is how the convention was already established - and how one of its two
+            # callers came to be the only one honouring it.
+            windows = np.stack([normalise(w.astype(np.float32)) for w in tw.windows])
+            logits = self.classifier.logits(windows)
             results = self.agent.classify_stream(
                 logits, tw.starts, tw.ends, objects_per_window=tw.objects
             )

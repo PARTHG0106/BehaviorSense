@@ -42,7 +42,15 @@ from typing import Literal
 import numpy as np
 
 from behaviorsense.agents.activity import N_CLASSES
-from behaviorsense.models.stgcnpp import STREAMS, STGCNpp, make_stream
+
+_RAW_PIXEL_SCALE = 25.0
+"""Above this peak |x|,|y| a window is raw pixels, not torso units.
+
+`normalise()` divides by torso length, so a joint sits within ~2 torso lengths of the hip and a
+walking person's retained root motion adds a few more across a 30-frame window - call it 10 at the
+extreme. A 640x480 frame peaks near 300-700 (LCR-Net and RTMO both extrapolate past the frame
+edge). The gap between 10 and 300 is what makes 25 a safe line rather than a tuned one."""
+from behaviorsense.models.stgcnpp import FLIP_INDEX, STREAMS, STGCNpp, make_stream
 
 CombineMode = Literal["logit", "prob"]
 
@@ -109,6 +117,25 @@ class SyntheticClassifier:
         return out
 
 
+def flip_windows(windows: np.ndarray) -> np.ndarray:
+    """Mirror [N, T, M, 17, 3] windows: negate x AND remap left/right joints.
+
+    Both halves are required. Negating x alone turns a left-handed reach into a
+    right-handed one performed by a body whose left wrist is on its right side - a pose no
+    human can adopt - and the model was never trained on it. `FLIP_INDEX` is the same
+    permutation `augment()` uses, so a test-time mirror is a transform the model has
+    genuinely seen during training rather than an out-of-distribution input.
+
+    Scores (channel 2) are confidences, not coordinates, so they are permuted with their
+    joints and never negated.
+    """
+    x = np.asarray(windows, dtype=np.float32).copy()
+    if x.ndim != 5 or x.shape[-1] != 3 or x.shape[-2] != 17:
+        raise ValueError(f"expected [N,T,M,17,3], got {x.shape}")
+    x[..., 0] = -x[..., 0]
+    return x[:, :, :, list(FLIP_INDEX), :]
+
+
 class EnsembleClassifier:
     """Multi-stream ST-GCN++ ensemble satisfying `WindowClassifier`.
 
@@ -126,7 +153,8 @@ class EnsembleClassifier:
         combine: CombineMode = "logit",
         batch_size: int = 64,
         use_ema: bool = True,
-        n_classes: int = N_CLASSES,
+        n_classes: int | None = None,
+        tta: bool = False,
     ) -> None:
         import torch
 
@@ -139,9 +167,15 @@ class EnsembleClassifier:
         self.device = device
         self.combine = combine
         self.batch_size = batch_size
+        self.tta = tta
+        """Average each window's logits with its mirror image. Doubles inference cost and
+        nothing else - no retraining, no extra checkpoints - and the mirror is a transform
+        the model was trained on (`AugmentConfig.flip_prob = 0.5`), so it is averaging two
+        legitimate views rather than smearing in an out-of-distribution one."""
         self.streams = sorted(checkpoints, key=STREAMS.index)
         self.models: dict[str, STGCNpp] = {}
         self.loaded_from: dict[str, str] = {}
+        self._head: int | None = None
 
         for stream in self.streams:
             path = Path(checkpoints[stream])
@@ -159,8 +193,28 @@ class EnsembleClassifier:
                     "load silently and produce confident nonsense."
                 )
 
+            # THE HEAD SIZE IS A PROPERTY OF THE CHECKPOINT, read from it rather than assumed.
+            # Charades checkpoints have 20 outputs; the Toyota RTMO run has 22, because
+            # `COARSE_V11` appends `using_device` and `object_interaction`. A hard-coded 20 does
+            # crash rather than mislead - `load_state_dict` raises on a shape mismatch even with
+            # `strict=False`, verified - but crashing three minutes into a served demo for a fact
+            # the file already records is a poor trade.
+            trained_n = ck.get("args", {}).get("n_classes")
+            head = n_classes if n_classes is not None else (trained_n or N_CLASSES)
+            if trained_n is not None and trained_n != head:
+                raise ValueError(
+                    f"{path} was trained with a {trained_n}-class head but is being loaded as "
+                    f"{head}. Pass n_classes={trained_n}, or omit it and let the checkpoint "
+                    "decide - a head size mismatch is not something to override by accident."
+                )
+            if self._head is not None and self._head != head:
+                raise ValueError(
+                    f"ensemble mixes head sizes: {self._head} and {head}. Averaging logits "
+                    "across different class spaces adds up unrelated activities."
+                )
+            self._head = head
             state = ck.get("ema") if (use_ema and ck.get("ema")) else ck.get("model", ck)
-            model = STGCNpp(n_classes=n_classes)
+            model = STGCNpp(n_classes=head)
             missing, unexpected = model.load_state_dict(state, strict=False)
             if missing:
                 raise RuntimeError(
@@ -171,6 +225,7 @@ class EnsembleClassifier:
             model.eval().to(device)
             self.models[stream] = model
             self.loaded_from[stream] = str(path)
+        self.n_classes = self._head or N_CLASSES
 
     @classmethod
     def from_run_dir(
@@ -192,10 +247,45 @@ class EnsembleClassifier:
 
     @property
     def name(self) -> str:
-        return f"stgcnpp-ensemble[{'+'.join(self.streams)}]/{self.combine}"
+        tta = "+tta" if self.tta else ""
+        mode = "logit" if self.combine == "logit" else "prob (mixture)"
+        return f"stgcnpp-ensemble[{'+'.join(self.streams)}]/{mode}{tta}"
 
     def logits(self, windows: np.ndarray) -> np.ndarray:
-        """[N, T, M, 17, 3] -> [N, n_classes] raw averaged logits (uncalibrated)."""
+        """[N, T, M, 17, 3] -> [N, n_classes] raw averaged logits (uncalibrated).
+
+        Windows must already be `normalise()`d - root-centred and divided by torso length, so
+        coordinates are dimensionless and order +/-2. That is the only representation the
+        checkpoints have ever seen, because `SkeletonWindowDataset.__getitem__` normalises every
+        training window.
+
+        The scale is CHECKED here rather than trusted, because the convention was "the caller
+        normalises" and one of two callers did not: notebook 04's evaluation cell called
+        `normalise()` explicitly while `ActivityPipeline` handed over raw 640x480 pixels. A ~150x
+        scale error saturates the network into one constant class, and the demo emitted a single
+        29.3 s segment of the same label on every clip - a confident answer, so nothing raised.
+        """
+        arr = np.asarray(windows, dtype=np.float32)
+        if arr.size:
+            # Ignore the exact zeros normalise() leaves where RTMO saw no joint.
+            mag = np.abs(arr[..., :2])
+            peak = float(mag[mag > 0].max()) if (mag > 0).any() else 0.0
+            if peak > _RAW_PIXEL_SCALE:
+                raise ValueError(
+                    f"windows peak at {peak:.0f} in x/y, which is pixel scale, not the torso "
+                    f"units the checkpoints were trained on (normalised windows peak below "
+                    f"~{_RAW_PIXEL_SCALE:g}). Call `normalise()` before classifying - the network "
+                    "does not fail on out-of-range input, it saturates and returns one confident "
+                    "class for everything."
+                )
+        raw = self._logits(windows)
+        if not self.tta:
+            return raw
+        # Average in LOGIT space regardless of self.combine: the two views are the same
+        # model on the same window, not two experts, so there is no mixture to form.
+        return ((raw + self._logits(flip_windows(windows))) / 2.0).astype(np.float32)
+
+    def _logits(self, windows: np.ndarray) -> np.ndarray:
         import torch
 
         x = np.asarray(windows)
@@ -242,8 +332,51 @@ class EnsembleClassifier:
 
 
 __all__ = [
+    "torch_supports_device",
     "EnsembleClassifier",
     "SyntheticClassifier",
+    "flip_windows",
     "windows_to_tensor",
     "CombineMode",
 ]
+
+
+def torch_supports_device(index: int = 0) -> tuple[bool, str]:
+    """Does the INSTALLED PyTorch have kernels for this GPU? `(ok, reason)`.
+
+    `torch.cuda.is_available()` answers "is there a driver and a device", not "was this wheel
+    compiled for it". On a P100 (sm_60) against a build targeting sm_70+, `is_available()` is True,
+    the model moves to the device without complaint, and the first kernel launch fails with:
+
+        CUDA error: no kernel image is available for execution on the device
+
+    which arrives as an AcceleratorError from whichever op happened to run first - so it reads as
+    a bug in that op rather than as an unsupported card. Observed exactly that on Kaggle's P100
+    while RTMO was fine, because onnxruntime carries its own kernels and PTX.
+
+    `get_arch_list()` is the wheel's own answer, so this is a fact check rather than a guess.
+    """
+    import torch
+
+    if not torch.cuda.is_available():
+        return False, "torch.cuda.is_available() is False"
+    major, minor = torch.cuda.get_device_capability(index)
+    sm = f"sm_{major}{minor}"
+    archs = list(torch.cuda.get_arch_list())
+    if not archs:
+        return False, "this torch build lists no CUDA architectures (CPU-only wheel)"
+    if sm in archs:
+        return True, f"{torch.cuda.get_device_name(index)} is {sm}, built for {archs}"
+    # PTX lets a newer card run older code; it never lets an OLDER card run newer code, so a
+    # compute_XX entry only helps when the device is at or above XX.
+    ptx = [a for a in archs if a.startswith("compute_")]
+    for p in ptx:
+        try:
+            if int(p.split("_")[1]) <= major * 10 + minor:
+                return True, f"{sm} via PTX from {p}"
+        except ValueError:                                          # noqa: PERF203
+            continue
+    return False, (
+        f"{torch.cuda.get_device_name(index)} is {sm} but this torch was built for "
+        f"{archs} - no kernel image exists for it"
+    )

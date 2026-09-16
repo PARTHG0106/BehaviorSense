@@ -1,14 +1,18 @@
-# BehaviorSense AI — Unified ADL Taxonomy v1.0
+# BehaviorSense AI — Unified ADL Taxonomy v1.1
 #
-# 20 classes chosen so that every class is (a) recognisable from 2D pose + light object
+# 22 classes chosen so that every class is (a) recognisable from 2D pose + light object
 # context, and (b) meaningful to the behavioural layer. A class that no downstream
 # feature consumes is dead weight and was removed.
 #
 # `behaviour_role` declares what each class feeds in Agent 3. This is the contract that
 # stops the taxonomy drifting away from the reasoning layer.
+#
+# v1.1 appends ids 20-21 and renumbers nothing. See the note above id 20 for why appending
+# is the only affordable shape for this change.
 
-version: "1.0"
-n_classes: 20
+version: "1.1"
+n_classes: 22
+n_classes_v10: 20        # what the currently-trained checkpoints and activity.py still use
 
 classes:
   - id: 0
@@ -102,6 +106,40 @@ classes:
     behaviour_role: []
     notes: Explicit reject class. Without it the model force-fits ambiguous windows.
 
+  # --- v1.1, APPENDED. Ids 0-19 above are frozen. -------------------------------------
+  #
+  # Appended rather than inserted, and nothing renumbered, because the shards store only
+  # the coarse label id and not the source class (`labels` int64 in every *.npz). A change
+  # that re-partitions 0-19 cannot be applied by remapping - the information needed to
+  # un-merge was discarded at extraction - so it would cost the ~6 h re-extraction. Adding
+  # ids at the end leaves every existing label value correct and every existing shard
+  # readable; only the head width changes, which a retrain was going to do anyway.
+  #
+  # `agents/activity.py` deliberately still declares N_CLASSES = 20 while the trained
+  # checkpoints are 20 wide. `data/toyota.assert_coarse_parity()` is what stops the two
+  # lists drifting; flip activity.py to 22 in the same commit that ships a 22-wide
+  # checkpoint, not before, or EnsembleClassifier stops loading best.pt and the live demo
+  # goes down for nothing.
+  - id: 20
+    name: using_device
+    group: leisure
+    behaviour_role: [cognitive_engagement, sedentary_index]
+    notes: >
+      Laptop and tablet. Exists because Toyota Smarthome spends 11.9% of its annotated
+      frames here (Use_laptop 6.7% + Use_tablet 5.2%), and the obvious map put all of it in
+      `other_idle`. A reject class trained on a real, distinct, high-frequency activity
+      stops rejecting and starts competing - which is a large part of why the Charades run
+      came out at macro-F1 0.128.
+  - id: 21
+    name: object_interaction
+    group: iadl
+    behaviour_role: [iadl_index]
+    notes: >
+      Purposeful handling of storage and surfaces: drawer, cupboard, fridge, putting things
+      on and taking them off a table. 5.6% of Toyota's annotated frames. Kept out of
+      `other_idle` for the same reason as id 20, and it earns a behaviour_role on its own
+      terms: instrumental-ADL decline precedes basic-ADL decline.
+
 # ---------------------------------------------------------------------------
 # SOURCE MAPPINGS
 # Unmapped source classes -> `other_idle` or dropped. `drop: true` means excluded
@@ -188,38 +226,40 @@ mappings:
     adl_lying: lying_down
     adl_bending: bending_reaching
 
-  toyota_smarthome:              # only if approval lands
-    Walk: walking
-    Sitdown: sitting_down
-    Getup: standing_up
-    Eat_attable: eating
-    Eat_snack: eating
-    Drink_fromcup: drinking
-    Drink_frombottle: drinking
-    Drink_fromglass: drinking
-    Drink_fromcan: drinking
-    Cook_cleandishes: cleaning_housework
-    Cook_cleanup: cleaning_housework
-    Cook_cut: cooking_food_prep
-    Cook_stir: cooking_food_prep
-    Cook_usestove: cooking_food_prep
-    Takepills: taking_medication
-    Watch_TV: watching_tv
-    Readbook: reading
-    Usetelephone: using_phone
-    Uselaptop: other_idle
-    Enter: walking
-    Leave: walking
-    Laydown: lying_down
-    Makecoffee_pourgrains: cooking_food_prep
-    Makecoffee_pourwater: cooking_food_prep
-    Maketea_boilwater: cooking_food_prep
-    Maketea_insertteabag: cooking_food_prep
-    Pour_fromkettle: cooking_food_prep
-    Pour_frombottle: cooking_food_prep
-    Pour_fromcan: cooking_food_prep
-    Cutbread: cooking_food_prep
-    Cleanup_bin: cleaning_housework
+  toyota_smarthome:
+    # SUPERSEDED. The table that used to live here was written from memory of the class
+    # names and not one of its keys existed: `Eat_attable`, `Watch_TV`, `Cook_cleandishes`
+    # and the rest match neither official list, so the whole block would have mapped
+    # nothing and every Toyota window would have fallen through to the reject class.
+    #
+    # The real names came out of the dataset's own artefacts - `pipline/data/Action_list`
+    # (51 untrimmed) and `data_gen/smarthome_gendata.py`'s `action_classes` (31 trimmed) -
+    # and the two halves spell the same activities differently (`Read` vs `Readbook`,
+    # `Take_pills` vs `Takepills`), so they need two tables, not one normalised regex.
+    #
+    # Both now live in `src/behaviorsense/data/toyota.py` as TSU_TO_COARSE and
+    # TSM_TO_COARSE, where `collapse_matrix()` REFUSES any unmapped class rather than
+    # defaulting it. That refusal is the point: a silent default to `other_idle` is exactly
+    # what put 18% of this corpus in the reject class in the first draft.
+    #
+    #   python scripts/audit_toyota_map.py --annotations smarthome_CS_51.json
+    #
+    # writes configs/toyota_map.yaml + configs/toyota_map_review.tsv and prints the coarse
+    # distribution. Review that TSV, not this comment.
+    _source: src/behaviorsense/data/toyota.py
+    _fine_classes: {untrimmed: 51, trimmed: 31, cross_view: 19}
+    _protocol: {CS: 351/185 videos, CV1: 75/107/60, CV2: 369/107/60}
+    _cannot_supervise:
+      # Measured, not assumed: 7 of the 22 coarse classes get no positive frames from
+      # Toyota, so the cross-corpus loss must ABSTAIN on them rather than score them
+      # negative. `frame_mask()` carries the per-frame version of the same fact.
+      - standing                  # annotated only as the Get_up transition
+      - sitting                   # annotated only as the Sit_down transition
+      - bending_reaching          # not in the label set
+      - falling                   # ADL corpus: no falls at all
+      - fallen_on_ground
+      - interacting_with_person   # one resident per recording
+      - other_idle                # a reject class has no positives to donate
 
   ntu120:                        # only if approval lands; skeleton pretraining
     A008_sit_down: sitting_down

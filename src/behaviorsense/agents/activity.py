@@ -45,6 +45,22 @@ CLASS_NAMES: tuple[str, ...] = (
 )
 assert len(CLASS_NAMES) == N_CLASSES
 
+EXTENDED_CLASS_NAMES: tuple[str, ...] = (*CLASS_NAMES, "using_device", "object_interaction")
+"""Taxonomy v1.1: the 20 above plus the two ids only the Toyota mapping produces.
+
+`configs/taxonomy.yaml` v1.1 and `data.toyota.COARSE_V11` are the source of truth; this is the
+same list, kept here so `agents` does not import from `data` just to name a segment. The two are
+asserted identical in the test suite rather than at import, so a drift is caught without adding a
+dependency edge.
+
+Why a superset instead of widening `CLASS_NAMES`: the 20-class tuple IS the ADL agent's measured
+identity - every number in `results/evaluation.md`, the fall indices, and every `OBJECT_PRIORS`
+key are indexed against it. A model with a 22-way head names its segments from here; a 20-way
+head is unaffected, because the first twenty entries are identical.
+"""
+assert EXTENDED_CLASS_NAMES[:N_CLASSES] == CLASS_NAMES
+N_EXTENDED_CLASSES = len(EXTENDED_CLASS_NAMES)
+
 # Object-context priors: log-odds offsets applied to specific classes when specific
 # objects were detected nearby (RT-DETR labels, sampled at 1 Hz). A hand-written table,
 # not a learned fusion MLP: 20 classes x a dozen objects is small enough to inspect, and
@@ -151,7 +167,7 @@ def fit_temperature(
     return best_t
 
 
-def build_transition_matrix(cfg: ActivityConfig) -> np.ndarray:
+def build_transition_matrix(cfg: ActivityConfig, n_classes: int = N_CLASSES) -> np.ndarray:
     """[20, 20] row-stochastic transition prior.
 
     Structure, not statistics: self-transition dominant, uniform leakage elsewhere,
@@ -164,12 +180,21 @@ def build_transition_matrix(cfg: ActivityConfig) -> np.ndarray:
         then the person is on the ground or back up. Letting `falling` persist would
         double-count fall windows into duration features.
     """
-    A = np.full((N_CLASSES, N_CLASSES), 0.0)
-    off = (1.0 - cfg.self_transition) / (N_CLASSES - 1)
+    # `n_classes` is a parameter because the served head is not always 20. The Toyota RTMO
+    # checkpoint has 22 (`COARSE_V11` appends `using_device` and `object_interaction`), and a
+    # 20x20 transition matrix against 22-class posteriors does not broadcast - it raises inside
+    # Viterbi, several stages after the mismatch was introduced.
+    n = int(n_classes)
+    if n < 9:
+        raise ValueError(
+            f"n_classes={n} but the fall asymmetries below index classes 3, 4, {FALLING} and "
+            f"{FALLEN}; a smaller taxonomy needs its own transition prior, not this one")
+    A = np.full((n, n), 0.0)
+    off = (1.0 - cfg.self_transition) / (n - 1)
     A[:] = off
     np.fill_diagonal(A, cfg.self_transition)
 
-    A[FALLING, :] = 0.02 / (N_CLASSES - 4)
+    A[FALLING, :] = 0.02 / (n - 4)
     A[FALLING, FALLING] = 0.28          # a fall CAN span two windows, rarely more
     A[FALLING, FALLEN] = 0.50           # dominant physical outcome
     A[FALLING, 3] = 0.10                # lying_down (controlled descent misread)
@@ -179,11 +204,11 @@ def build_transition_matrix(cfg: ActivityConfig) -> np.ndarray:
     # the floor survives exactly. (A naive floor-then-normalise shaved the floor to
     # 0.048 - below the documented 0.05 - which is precisely the kind of silent
     # parameter drift this project keeps getting bitten by.)
-    for i in range(N_CLASSES):
+    for i in range(n):
         if i == FALLING or A[i, FALLING] >= cfg.emergency_floor:
             continue
         A[i, FALLING] = cfg.emergency_floor
-        others = [j for j in range(N_CLASSES) if j != FALLING]
+        others = [j for j in range(n) if j != FALLING]
         A[i, others] *= (1.0 - cfg.emergency_floor) / A[i, others].sum()
 
     assert np.allclose(A.sum(axis=1), 1.0)
@@ -272,11 +297,16 @@ class WindowResult:
 class ActivityAgent:
     """Logits -> calibrate -> fuse objects -> Viterbi -> abstain -> segments."""
 
-    def __init__(self, config: ActivityConfig | None = None) -> None:
+    def __init__(self, config: ActivityConfig | None = None,
+                 n_classes: int = N_CLASSES) -> None:
         self.config = config or ActivityConfig()
-        self._A = build_transition_matrix(self.config)
+        # The head size travels with the agent. Everything downstream - the transition matrix,
+        # the uniform prior, the name used for a segment - is sized from it, so a 22-class model
+        # cannot half-configure a 20-class decoder.
+        self.n_classes = int(n_classes)
+        self._A = build_transition_matrix(self.config, self.n_classes)
         self._log_A = np.log(np.maximum(self._A, 1e-12))
-        self._log_pi = np.log(np.full(N_CLASSES, 1.0 / N_CLASSES))
+        self._log_pi = np.log(np.full(self.n_classes, 1.0 / self.n_classes))
 
     # -- per-stage, individually testable ------------------------------------
 
@@ -303,9 +333,26 @@ class ActivityAgent:
                 out[i, 12] += MEDICATION_ABSENT_PENALTY
         return softmax(out)
 
+    def _check_width(self, posteriors: np.ndarray) -> None:
+        """Name the cause of a head-size mismatch instead of letting numpy raise on shapes.
+
+        A wrapper that forgets to forward `n_classes` leaves this agent configured for 20 classes
+        while the model emits 22, and the first symptom is
+        `operands could not be broadcast together with shapes (20,) (22,)` from inside Viterbi -
+        which says nothing about where the mismatch was introduced.
+        """
+        if posteriors.ndim == 2 and posteriors.shape[1] != self.n_classes:
+            raise ValueError(
+                f"this agent is configured for {self.n_classes} classes but received "
+                f"{posteriors.shape[1]}-wide posteriors. The head size comes from the "
+                "classifier: pass n_classes to ActivityAgent/ActivityPipeline, and make sure "
+                "any wrapper around the classifier forwards its `n_classes` attribute."
+            )
+
     def smooth(self, posteriors: np.ndarray) -> np.ndarray:
         """[T, 20] posteriors -> [T] Viterbi path under the structured transition prior."""
         log_e = np.log(np.maximum(posteriors, 1e-12))
+        self._check_width(posteriors)
         return viterbi(log_e, self._log_A, self._log_pi)
 
     def marginals(self, posteriors: np.ndarray) -> np.ndarray:
@@ -380,7 +427,7 @@ class ActivityAgent:
                     track_id=track_id,
                     role=role,
                     activity_id=label,
-                    activity_name=CLASS_NAMES[label],
+                    activity_name=EXTENDED_CLASS_NAMES[label],
                     start_time=run[0].start,
                     end_time=run[-1].end,
                     confidence=min(1.0, max(0.0, float(np.mean(confs)))),

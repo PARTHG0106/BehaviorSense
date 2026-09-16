@@ -1,0 +1,515 @@
+
+[M01478] 2026-08-16T05:23:28.704Z USER (conversation) [C001:1212; copies=1]
+Continue
+
+
+[M01479] 2026-08-16T05:23:33.317Z ASSISTANT (conversation) [C001:1217; copies=1]
+API Error: 400 This call is estimated at about $7.32, more than half of your $5.00 balance. Send "th_confirm_spend": true to run it anyway, or reduce the prompt or max_tokens. The estimate is pessimistic on purpose: it prices the whole prompt without cache discounts and the full output cap.
+
+
+[M01480] 2026-08-16T05:31:10.516Z USER (conversation) [C006:1212; copies=33]
+Continue
+
+
+[M01481] 2026-08-16T05:33:13.960Z ASSISTANT (conversation) [C006:1215; copies=33]
+The latest pipeline result exposed a more important earlier-stage issue: Charades provides real actor IDs, but the existing ADL checkpoints were trained with video IDs as the split identity. I’m tightening the split contract so the next training run is genuinely person-disjoint, and the old checkpoints cannot be resumed under the new protocol.
+
+
+[M01482] 2026-08-16T05:34:19.527Z ASSISTANT (conversation) [C006:1217; copies=33]
+API Error: API returned an empty or malformed response (HTTP 200) — check for a proxy or gateway intercepting the request
+
+
+[M01483] 2026-08-16T06:37:06.592Z USER (conversation) [C074:1224; copies=1]
+Continue
+
+
+[M01484] 2026-08-16T06:37:53.887Z ASSISTANT (conversation) [C074:1225; copies=1]
+API Error: API returned an empty or malformed response (HTTP 200) — check for a proxy or gateway intercepting the request
+
+
+[M01485] 2026-08-16T06:38:29.518Z USER (conversation) [C190:1218; copies=1]
+Continue
+
+
+[M01486] 2026-08-16T06:38:30.845Z ASSISTANT (conversation) [C190:1223; copies=1]
+API Error: 402 Insufficient balance for this request.
+
+
+[M01487] 2026-08-16T06:56:58.774Z USER (conversation) [C113:1218; copies=1]
+Continue
+
+
+[M01488] 2026-08-16T07:35:50.326Z USER (conversation) [C006:1218; copies=30]
+Continue
+
+
+[M01489] 2026-08-16T09:46:29.514Z USER (context) [C006:1221; copies=30]
+Continue from where you left off.
+
+
+[M01490] 2026-08-16T09:46:29.514Z ASSISTANT (conversation) [C006:1222; copies=30]
+No response requested.
+
+
+[M01491] 2026-08-16T09:50:07.678Z USER (conversation) [C006:1223; copies=30]
+Continue
+
+
+[M01492] 2026-08-16T09:55:55.620Z ASSISTANT (conversation) [C006:1229; copies=30]
+Now pass the map to the trainers in the launch cell:
+
+
+[M01493] 2026-08-16T10:36:55.989Z ASSISTANT (conversation) [C006:1246; copies=30]
+N21's regexes matched the exact call signatures I just changed. Updating both patterns to the new shapes:
+
+
+[M01494] 2026-08-16T11:47:25.770Z USER (context) [C006:1251; copies=30]
+Continue from where you left off.
+
+
+[M01495] 2026-08-16T11:47:25.770Z ASSISTANT (conversation) [C006:1252; copies=30]
+No response requested.
+
+
+[M01496] 2026-08-16T11:47:28.014Z USER (conversation) [C006:1253; copies=30]
+Continue
+
+
+[M01497] 2026-08-16T11:54:53.969Z ASSISTANT (conversation) [C006:1254; copies=30]
+No response requested.
+
+
+[M01498] 2026-08-16T11:59:14.861Z USER (conversation) [C006:1255; copies=30]
+Continue
+
+
+[M01499] 2026-08-16T12:48:16.428Z ASSISTANT (conversation) [C006:1266; copies=30]
+Yes — one thing upstream genuinely required fixing, and it's the most consequential defect found in this project so far.
+
+## P1 was never person-disjoint
+
+The shards store **video ids** as `subjects`. That decision rests on a claim recorded in `docs/07_kaggle_plan.md`: *"Charades subject ids do not exist publicly."*
+
+**That claim is false.** [`Charades_v1_train.csv` has carried a `subject` column all along](https://prior.allenai.org/projects/data/charades/README.txt) — a unique id for each of the **267 actors**, ~30 videos each. At that ratio, a video-id split puts essentially every *person* on both sides. Same actor, same home, same mannerisms in train and val. The disjointness assertion could never catch it, because the ids really are disjoint — it's the people behind them that aren't.
+
+The sharpest irony: `subject_from_path()` was built to prevent *exactly this* in the fall corpora ("the ids are disjoint — the PEOPLE behind them are not," GMDCSA's `Subject 1/01.mp4` vs `Subject 2/01.mp4`). We committed the same failure on the biggest corpus, and the CSV that fixes it is already inside `charades-480p`, attached to every session.
+
+**What this means for the numbers:** every P1 figure to date is video-disjoint, not person-disjoint, and likely optimistic. The fall head is less affected (its corpora already use real people, plus ADL negatives), but the ADL mean-class/macro-F1 numbers need the caveat — now written into `results/evaluation.md` and the README limitations, ahead of anyone else spotting it.
+
+**The fix, all in place and tested (166/166, full suite including training):**
+- `load_subject_map()` / `remap_subjects()` — video→actor remap, applied at *split time only*; shards keep video ids, which sequence reconstruction still needs. Non-Charades ids pass through, coverage is reported, <50% coverage refuses to train.
+- `train_adl.py --subject-map`, notebook 03 passes it automatically when the CSV is present, notebook 04 auto-detects it and prints the split mode next to P1.
+- **Resume guard extended**: a checkpoint trained under one split identity is refused under the other — resuming across identities would smuggle the old boundary's leakage into the new protocol. (Also added `sampler`/`tau_train` to that guard while there.)
+- **S13** proves it: on a Charades-shaped fixture, the video-id split leaks 4 of 5 actors onto both sides; the actor-id split leaks zero. Positive control included, so the assertion can't pass vacuously.
+
+## What I audited and found sound
+
+Slot tracking (S8), the best-covering window labelling, fall labelling by true frame position, `normalise()` dropout handling, bone flip equivariance, the MMDetection-free preflight — all already regression-tested against the failures they once had. The remaining known upstream issue is the **`walking` label-map audit** (563 windows, 1.7% — implausible), which is a data question for `charades_map_review.tsv`, not a code fix.
+
+## Consequence for the plan
+
+This changes the retraining calculus from my earlier advice. Before: "retraining is optional, try post-hoc levers first." Now: **one notebook-03 retrain is required** for defensible P1 numbers — the current checkpoints measure a protocol we can no longer claim. Expect the person-disjoint numbers to come out *lower*; that's not a regression, it's the honest measurement.
+
+**Start from: notebook 03** (fresh training — the guard will correctly refuse to resume the old checkpoints), then notebook 04. Attach `charades-480p` to *both* (03 needs the CSV now).
+
+**Re-upload required:**
+
+```bash
+python scripts/publish_code_dataset.py -m "person-disjoint P1: Charades actor-id split via subject column; resume guard across split identities"
+```
+
+
+[M01500] 2026-08-16T13:44:13.596Z USER (conversation) [C006:1268; copies=30]
+so for now i have to do: reupload behaviorsense-code, then notebook03, then notebook04?
+always tell the steps to take clearly after making changes
+
+
+[M01501] 2026-08-16T13:51:14.783Z ASSISTANT (conversation) [C006:1271; copies=30]
+Yes, exactly those three steps. Here they are precisely, including what to expect at each:
+
+## Step 1 — Re-upload `behaviorsense-code` (required first)
+
+```bash
+python scripts/publish_code_dataset.py -m "person-disjoint P1: actor-id split; resume guard across split identities"
+```
+
+The contract is now 21 tokens (`load_subject_map` added) — without this upload, both notebooks fail at cell 1 with "mounted code is OLDER".
+
+## Step 2 — Notebook 03 (retrains the 4 ADL streams)
+
+**Attach:** `behaviorsense-code` · `behavioursense-WW` · `behaviorsense-adl-shards` · `behaviorsense-fall-shards` · `behaviorsense-runs` (existing version) · **`charades-480p` ← newly required here** (it holds `Charades_v1_train.csv`, the actor-id map).
+
+What you should see in the log:
+- `ADL split identity: actor-id (Charades subjects)` — if it says `video-id proxy`, charades-480p isn't attached; stop and attach it.
+- The 4 old ADL checkpoints **rejected** with `split identity mismatch: checkpoint was trained video-disjoint...` — correct, they must retrain fresh.
+- The **fall checkpoint accepted and resumed** — it's unaffected by the split change and already at its final epoch, so AUPRC 0.822 carries forward at no cost.
+- In each `train_*.log`: `subject map: ~100% of windows remapped, ~7900 video ids -> ~267 split ids`.
+
+Roughly the same duration as the original ADL training (~2–3 h; 30-epoch budget, patience 8, four streams in parallel).
+
+**Then: Save Version → update the `behaviorsense-runs` dataset from `/kaggle/working/runs`.** This time there IS new training, so publishing is right.
+
+## Step 3 — Notebook 04
+
+**Attach:** `behaviorsense-code` · `behavioursense-WW` · `behaviorsense-adl-shards` · `behaviorsense-fall-shards` · **`behaviorsense-runs` (the NEW version from step 2)** · `charades-480p` · `qwen2-5-7b-instruct`.
+
+Check the log says `P1 split: actor-id (267 actors, 100% mapped)`. It reports everything against the new checkpoints — P1, all levers, second-person context, segment grid with fragmentation, Qwen table — and writes `evaluation.md`, `val_logits.npz`, `hallucination_qwen.md` + claims JSONL. Download `val_logits.npz`.
+
+One expectation to set: **the new P1 numbers should come out lower.** That's the honest measurement — the old ones counted recognising the same person across the split.
+
+Noting your standing instruction — every hand-off from me will end with numbered steps in this format.
+
+
+[M01502] 2026-08-16T14:55:46.866Z USER (conversation) [C006:1278; copies=30]
+just these for notebook03?:
+DATASETS
+
+* behaviorsense-adl-shards
+* charades-480p
+* behaviorsense-fall-shards
+* behaviorsense-runs
+* behavioursense-WW
+* behaviorsense-code
+
+
+[M01503] 2026-08-16T15:04:07.086Z ASSISTANT (conversation) [C006:1280; copies=30]
+Yes — exactly those six, nothing more. Qwen is **not** needed for notebook 03 (that's notebook 04 only).
+
+Quick check on each, so you know why it's there:
+
+| dataset | role in notebook 03 |
+|---|---|
+| `behaviorsense-code` | the **new version** from step 1 — cell 1 must print `contract 21/21` |
+| `behavioursense-WW` | wheels + weights (resolver finds it by `*.whl` / `rtmo-l.onnx`) |
+| `behaviorsense-adl-shards` | ADL training windows |
+| `behaviorsense-fall-shards` | fall head training windows |
+| `behaviorsense-runs` | existing version — the **fall** checkpoint resumes from it |
+| `charades-480p` | newly required: holds `Charades_v1_train.csv`, the actor-id map |
+
+Accelerator: RTX PRO 6000, as usual.
+
+Three lines to verify early in the log before letting it run:
+
+1. `contract 21/21 - mounted code is current` — confirms step 1's upload took.
+2. `ADL split identity: actor-id (Charades subjects)` — if it says `video-id proxy`, the CSV wasn't found; stop the session.
+3. The four `adl_*` checkpoints rejected with `split identity mismatch ... trained video-disjoint` and **`fall` in the resuming list** — that's the intended outcome, not an error.
+
+
+[M01504] 2026-08-16T16:36:42.300Z USER (conversation) [C048:1310; copies=1]
+Time
+#
+Log Message
+3.9s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+3.9s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+3.9s	3	0.00s - to python to disable frozen modules.
+3.9s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.2s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.2s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.2s	7	0.00s - to python to disable frozen modules.
+4.2s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+452.9s	9	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+452.9s	10	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+452.9s	11	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+452.9s	12	  attached  ["behaviorsense-adl-shards (top level: ['charades_map.yaml', 'charades_map_review.tsv', 'shards'])", "behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-fall-shards (top level: ['_decode_probe.py', 'decode_list.txt', 'decode_list_av.txt', 'decode_probe.tsv', 'decode_probe_av.tsv', 'shards'])", "behaviorsense-runs (top level: ['runs', 'train_bone.log', 'train_bone_motion.log', 'train_joint.log', 'train_joint_motion.log'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "charades-480p (top level: ['Charades_annotations', 'Charades_v1_480'])", 'arc-prize-2026-arc-agi-3']
+452.9s	13	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+452.9s	14	  contract 21/21 - mounted code is current
+455.9s	15	torch 2.10.0+cu128 already supports sm_120
+467.0s	16	======================================================================
+467.0s	17	BehaviorSense Kaggle preflight
+467.0s	18	======================================================================
+467.0s	19	torch 2.10.0+cu128
+467.0s	20	GPU: NVIDIA RTX PRO 6000 Blackwell Server Edition  sm_120  102.0 GB
+467.0s	21	  sm_120 is in the supported arch list
+467.0s	22	  bf16 matmul 4096^2 OK (0.33s)
+467.0s	23	  ST-GCN++ fwd+bwd under bf16 autocast OK (peak 0.19 GB)
+467.0s	24	
+467.0s	25	imports:
+467.0s	26	  [ok] numpy
+467.0s	27	  [ok] pydantic
+467.0s	28	  [ok] torch
+467.0s	29	  [ok] PIL
+467.0s	30	  [ok] yaml
+467.0s	31	  [ok] transformers
+467.0s	32	  [warn] outlines missing (constrained decoding)
+467.0s	33	  [warn] onnxruntime missing (RTMO/RT-DETR inference)
+467.0s	34	
+467.0s	35	assets in /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights  (profile: training)
+467.0s	36	  (no staged asset blocks the 'training' profile; all findings are warnings)
+467.0s	37	  [ok] osnet_ain_x1_0_msmt17.pth: 17.3 MB
+467.0s	38	  [ok] osnet_ain_x1_0_imagenet.pth: 10.9 MB
+467.0s	39	  [ok] rtmo-l.onnx: 175.9 MB
+467.0s	40	  [ok] rtdetr-l.onnx: 131.7 MB
+467.0s	41	  [warn] MISSING stgcnpp_ntu60_joint.pth - ST-GCN++ NTU pretrain (Agent 2 init)
+467.0s	42	
+467.0s	43	======================================================================
+467.0s	44	PREFLIGHT PASSED - safe to start training
+467.2s	45	======================================================================
+467.2s	46	BehaviorSense Kaggle preflight
+467.2s	47	======================================================================
+467.2s	48	torch 2.10.0+cu128
+467.2s	49	GPU: NVIDIA RTX PRO 6000 Blackwell Server Edition  sm_120  102.0 GB
+467.2s	50	  sm_120 is in the supported arch list
+467.2s	51	  bf16 matmul 4096^2 OK (0.33s)
+467.2s	52	  ST-GCN++ fwd+bwd under bf16 autocast OK (peak 0.19 GB)
+467.2s	53	
+467.2s	54	imports:
+467.2s	55	  [ok] numpy
+467.2s	56	  [ok] pydantic
+467.2s	57	  [ok] torch
+467.2s	58	  [ok] PIL
+467.2s	59	  [ok] yaml
+467.2s	60	  [ok] transformers
+467.2s	61	  [warn] outlines missing (constrained decoding)
+467.2s	62	  [warn] onnxruntime missing (RTMO/RT-DETR inference)
+467.2s	63	
+467.2s	64	assets in /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights  (profile: training)
+467.2s	65	  (no staged asset blocks the 'training' profile; all findings are warnings)
+467.2s	66	  [ok] osnet_ain_x1_0_msmt17.pth: 17.3 MB
+467.2s	67	  [ok] osnet_ain_x1_0_imagenet.pth: 10.9 MB
+467.2s	68	  [ok] rtmo-l.onnx: 175.9 MB
+467.2s	69	  [ok] rtdetr-l.onnx: 131.7 MB
+467.2s	70	  [warn] MISSING stgcnpp_ntu60_joint.pth - ST-GCN++ NTU pretrain (Agent 2 init)
+467.2s	71	
+467.2s	72	======================================================================
+467.2s	73	PREFLIGHT PASSED - safe to start training
+468.9s	74	ADL mounts:
+532.3s	75	  skipping msmt17__msmt17w.npz (fixture or code-checkout leftover)
+532.3s	76	  skipping msmt17__imagenetw.npz (fixture or code-checkout leftover)
+532.5s	77	  skipping _smoke_fall.npz (fixture or code-checkout leftover)
+532.5s	78	  skipping _smoke.npz (fixture or code-checkout leftover)
+537.7s	79	  behaviorsense-adl-shards: 6 .npz
+537.7s	80	fall mounts:
+604.0s	81	  skipping msmt17__msmt17w.npz (fixture or code-checkout leftover)
+604.0s	82	  skipping msmt17__imagenetw.npz (fixture or code-checkout leftover)
+604.3s	83	  skipping _smoke_fall.npz (fixture or code-checkout leftover)
+604.3s	84	  skipping _smoke.npz (fixture or code-checkout leftover)
+609.5s	85	  behaviorsense-fall-shards: 4 .npz
+609.5s	86	ADL shards: 6, fall shards: 4
+609.5s	87	fall-head training mix: 168,173 windows, 858 positive (0.51%)
+678.5s	88	ADL split identity: actor-id (Charades subjects)
+747.3s	89	ignoring 8 checkpoint(s) that are not resumable here:
+747.3s	90	  adl            smoke run (synthetic fixture, not real training)
+747.3s	91	  fall           epochs=1, this run wants 60
+747.3s	92	  smoke          smoke run (synthetic fixture, not real training)
+747.3s	93	  smoke_fall     smoke run (synthetic fixture, not real training)
+747.3s	94	  adl_bone       split identity mismatch: checkpoint was trained video-disjoint, this run is actor-disjoint - resuming would carry the other split's train/val boundary into this protocol
+747.3s	95	  adl_bone_motion split identity mismatch: checkpoint was trained video-disjoint, this run is actor-disjoint - resuming would carry the other split's train/val boundary into this protocol
+747.3s	96	  adl_joint      split identity mismatch: checkpoint was trained video-disjoint, this run is actor-disjoint - resuming would carry the other split's train/val boundary into this protocol
+747.3s	97	  adl_joint_motion split identity mismatch: checkpoint was trained video-disjoint, this run is actor-disjoint - resuming would carry the other split's train/val boundary into this protocol
+747.3s	98	resuming: ['fall']
+2127.4s	99	joint -> OK
+2127.4s	100	bone -> OK
+2127.4s	101	joint_motion -> OK
+2127.4s	102	bone_motion -> OK
+2136.0s	103	resumed from /kaggle/working/runs/fall/last.pt at epoch 60
+2136.0s	104	train 126431 / val 41742 windows | positive rate 0.006 | lr=0.2000 | device=cuda
+2136.0s	105	done. best AUPRC 0.8222
+2136.0s	106	OPERATING POINT: threshold 0.7826 -> sensitivity 0.951 at 0.99 false alarms/hour (23.2 h of negatives)
+2136.2s	107	resumed from /kaggle/working/runs/fall/last.pt at epoch 60
+2136.2s	108	train 126431 / val 41742 windows | positive rate 0.006 | lr=0.2000 | device=cuda
+2136.2s	109	done. best AUPRC 0.8222
+2136.2s	110	OPERATING POINT: threshold 0.7826 -> sensitivity 0.951 at 0.99 false alarms/hour (23.2 h of negatives)
+2136.4s	111	fall head: OK
+2136.4s	112	reading 5 run(s) from /kaggle/working/runs
+2136.4s	113	adl_bone           epoch  11  mean_class_acc=0.184  macro_f1=0.158  macro_f1_supported=0.167  top1=0.336  | best mean_class_acc=0.187 @ep3
+2136.4s	114	adl_bone_motion    epoch  12  mean_class_acc=0.118  macro_f1=0.097  macro_f1_supported=0.103  top1=0.340  | best mean_class_acc=0.121 @ep4
+2136.4s	115	adl_joint          epoch  12  mean_class_acc=0.171  macro_f1=0.154  macro_f1_supported=0.163  top1=0.334  | best mean_class_acc=0.181 @ep4
+2136.4s	116	adl_joint_motion   epoch  17  mean_class_acc=0.119  macro_f1=0.104  macro_f1_supported=0.110  top1=0.342  | best mean_class_acc=0.121 @ep9
+2136.4s	117	fall               epoch  59  auprc=0.796  auroc=1.000  sensitivity=0.951  | best auprc=0.822 @ep56
+2136.4s	118	
+2136.4s	119	adl_bone - per-class F1 at best epoch 3:
+2136.4s	120	  other_idle               n= 14655  f1=0.507  ####################
+2136.4s	121	  lying_down               n=   749  f1=0.435  #################
+2136.4s	122	  sitting                  n=  2952  f1=0.341  #############
+2136.4s	123	  drinking                 n=  1137  f1=0.195  #######
+2136.4s	124	  cooking_food_prep        n=   419  f1=0.187  #######
+2136.4s	125	  reading                  n=  1746  f1=0.176  #######
+2136.4s	126	  sitting_down             n=   375  f1=0.100  ###
+2136.4s	127	  cleaning_housework       n=  3620  f1=0.098  ###
+2136.4s	128	  walking                  n=   545  f1=0.093  ###
+2136.4s	129	  standing_up              n=   368  f1=0.088  ###
+2136.4s	130	  eating                   n=  1498  f1=0.082  ###
+2136.4s	131	  using_phone              n=  2477  f1=0.080  ###
+2136.4s	132	  watching_tv              n=   774  f1=0.074  ##
+2136.4s	133	  personal_hygiene         n=  3261  f1=0.074  ##
+2136.4s	134	  taking_medication        n=   359  f1=0.072  ##
+2136.4s	135	  interacting_with_person  n=   614  f1=0.022  
+2136.4s	136	  standing                 n=   123  f1=0.005  
+2136.4s	137	  bending_reaching         n=    26  f1=0.000  
+2136.4s	138	  -> 16/18 classes above F1 0.02; 2 at ~0: ['standing', 'bending_reaching']
+2136.4s	139	
+2136.4s	140	5 run(s) advanced this session.
+2136.4s	141	Save Version -> create/update dataset behaviorsense-runs from /kaggle/working/runs
+2136.4s	142	Timed out mid-training? Save Version anyway - resume continues bit-exactly next session.
+2138.0s	143	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+2138.0s	144	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+2138.1s	145	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+2138.1s	146	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+2138.4s	147	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+2138.5s	148	[NbConvertApp] Writing 56302 bytes to __notebook__.ipynb
+2139.7s	149	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+2140.1s	150	[NbConvertApp] Writing 398317 bytes to __results__.html
+
+
+[M01505] 2026-08-16T17:48:00.538Z ASSISTANT (conversation) [C048:1311; copies=1]
+API Error: Stream idle timeout - no chunks received
+
+
+[M01506] 2026-08-16T18:14:52.106Z USER (conversation) [C006:1281; copies=28]
+Time
+#
+Log Message
+3.9s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+3.9s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+3.9s	3	0.00s - to python to disable frozen modules.
+3.9s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.2s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.2s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.2s	7	0.00s - to python to disable frozen modules.
+4.2s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+452.9s	9	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+452.9s	10	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+452.9s	11	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+452.9s	12	  attached  ["behaviorsense-adl-shards (top level: ['charades_map.yaml', 'charades_map_review.tsv', 'shards'])", "behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-fall-shards (top level: ['_decode_probe.py', 'decode_list.txt', 'decode_list_av.txt', 'decode_probe.tsv', 'decode_probe_av.tsv', 'shards'])", "behaviorsense-runs (top level: ['runs', 'train_bone.log', 'train_bone_motion.log', 'train_joint.log', 'train_joint_motion.log'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "charades-480p (top level: ['Charades_annotations', 'Charades_v1_480'])", 'arc-prize-2026-arc-agi-3']
+452.9s	13	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+452.9s	14	  contract 21/21 - mounted code is current
+455.9s	15	torch 2.10.0+cu128 already supports sm_120
+467.0s	16	======================================================================
+467.0s	17	BehaviorSense Kaggle preflight
+467.0s	18	======================================================================
+467.0s	19	torch 2.10.0+cu128
+467.0s	20	GPU: NVIDIA RTX PRO 6000 Blackwell Server Edition  sm_120  102.0 GB
+467.0s	21	  sm_120 is in the supported arch list
+467.0s	22	  bf16 matmul 4096^2 OK (0.33s)
+467.0s	23	  ST-GCN++ fwd+bwd under bf16 autocast OK (peak 0.19 GB)
+467.0s	24	
+467.0s	25	imports:
+467.0s	26	  [ok] numpy
+467.0s	27	  [ok] pydantic
+467.0s	28	  [ok] torch
+467.0s	29	  [ok] PIL
+467.0s	30	  [ok] yaml
+467.0s	31	  [ok] transformers
+467.0s	32	  [warn] outlines missing (constrained decoding)
+467.0s	33	  [warn] onnxruntime missing (RTMO/RT-DETR inference)
+467.0s	34	
+467.0s	35	assets in /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights  (profile: training)
+467.0s	36	  (no staged asset blocks the 'training' profile; all findings are warnings)
+467.0s	37	  [ok] osnet_ain_x1_0_msmt17.pth: 17.3 MB
+467.0s	38	  [ok] osnet_ain_x1_0_imagenet.pth: 10.9 MB
+467.0s	39	  [ok] rtmo-l.onnx: 175.9 MB
+467.0s	40	  [ok] rtdetr-l.onnx: 131.7 MB
+467.0s	41	  [warn] MISSING stgcnpp_ntu60_joint.pth - ST-GCN++ NTU pretrain (Agent 2 init)
+467.0s	42	
+467.0s	43	======================================================================
+467.0s	44	PREFLIGHT PASSED - safe to start training
+467.2s	45	======================================================================
+467.2s	46	BehaviorSense Kaggle preflight
+467.2s	47	======================================================================
+467.2s	48	torch 2.10.0+cu128
+467.2s	49	GPU: NVIDIA RTX PRO 6000 Blackwell Server Edition  sm_120  102.0 GB
+467.2s	50	  sm_120 is in the supported arch list
+467.2s	51	  bf16 matmul 4096^2 OK (0.33s)
+467.2s	52	  ST-GCN++ fwd+bwd under bf16 autocast OK (peak 0.19 GB)
+467.2s	53	
+467.2s	54	imports:
+467.2s	55	  [ok] numpy
+467.2s	56	  [ok] pydantic
+467.2s	57	  [ok] torch
+467.2s	58	  [ok] PIL
+467.2s	59	  [ok] yaml
+467.2s	60	  [ok] transformers
+467.2s	61	  [warn] outlines missing (constrained decoding)
+467.2s	62	  [warn] onnxruntime missing (RTMO/RT-DETR inference)
+467.2s	63	
+467.2s	64	assets in /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights  (profile: training)
+467.2s	65	  (no staged asset blocks the 'training' profile; all findings are warnings)
+467.2s	66	  [ok] osnet_ain_x1_0_msmt17.pth: 17.3 MB
+467.2s	67	  [ok] osnet_ain_x1_0_imagenet.pth: 10.9 MB
+467.2s	68	  [ok] rtmo-l.onnx: 175.9 MB
+467.2s	69	  [ok] rtdetr-l.onnx: 131.7 MB
+467.2s	70	  [warn] MISSING stgcnpp_ntu60_joint.pth - ST-GCN++ NTU pretrain (Agent 2 init)
+467.2s	71	
+467.2s	72	======================================================================
+467.2s	73	PREFLIGHT PASSED - safe to start training
+468.9s	74	ADL mounts:
+532.3s	75	  skipping msmt17__msmt17w.npz (fixture or code-checkout leftover)
+532.3s	76	  skipping msmt17__imagenetw.npz (fixture or code-checkout leftover)
+532.5s	77	  skipping _smoke_fall.npz (fixture or code-checkout leftover)
+532.5s	78	  skipping _smoke.npz (fixture or code-checkout leftover)
+537.7s	79	  behaviorsense-adl-shards: 6 .npz
+537.7s	80	fall mounts:
+604.0s	81	  skipping msmt17__msmt17w.npz (fixture or code-checkout leftover)
+604.0s	82	  skipping msmt17__imagenetw.npz (fixture or code-checkout leftover)
+604.3s	83	  skipping _smoke_fall.npz (fixture or code-checkout leftover)
+604.3s	84	  skipping _smoke.npz (fixture or code-checkout leftover)
+609.5s	85	  behaviorsense-fall-shards: 4 .npz
+609.5s	86	ADL shards: 6, fall shards: 4
+609.5s	87	fall-head training mix: 168,173 windows, 858 positive (0.51%)
+678.5s	88	ADL split identity: actor-id (Charades subjects)
+747.3s	89	ignoring 8 checkpoint(s) that are not resumable here:
+747.3s	90	  adl            smoke run (synthetic fixture, not real training)
+747.3s	91	  fall           epochs=1, this run wants 60
+747.3s	92	  smoke          smoke run (synthetic fixture, not real training)
+747.3s	93	  smoke_fall     smoke run (synthetic fixture, not real training)
+747.3s	94	  adl_bone       split identity mismatch: checkpoint was trained video-disjoint, this run is actor-disjoint - resuming would carry the other split's train/val boundary into this protocol
+747.3s	95	  adl_bone_motion split identity mismatch: checkpoint was trained video-disjoint, this run is actor-disjoint - resuming would carry the other split's train/val boundary into this protocol
+747.3s	96	  adl_joint      split identity mismatch: checkpoint was trained video-disjoint, this run is actor-disjoint - resuming would carry the other split's train/val boundary into this protocol
+747.3s	97	  adl_joint_motion split identity mismatch: checkpoint was trained video-disjoint, this run is actor-disjoint - resuming would carry the other split's train/val boundary into this protocol
+747.3s	98	resuming: ['fall']
+2127.4s	99	joint -> OK
+2127.4s	100	bone -> OK
+2127.4s	101	joint_motion -> OK
+2127.4s	102	bone_motion -> OK
+2136.0s	103	resumed from /kaggle/working/runs/fall/last.pt at epoch 60
+2136.0s	104	train 126431 / val 41742 windows | positive rate 0.006 | lr=0.2000 | device=cuda
+2136.0s	105	done. best AUPRC 0.8222
+2136.0s	106	OPERATING POINT: threshold 0.7826 -> sensitivity 0.951 at 0.99 false alarms/hour (23.2 h of negatives)
+2136.2s	107	resumed from /kaggle/working/runs/fall/last.pt at epoch 60
+2136.2s	108	train 126431 / val 41742 windows | positive rate 0.006 | lr=0.2000 | device=cuda
+2136.2s	109	done. best AUPRC 0.8222
+2136.2s	110	OPERATING POINT: threshold 0.7826 -> sensitivity 0.951 at 0.99 false alarms/hour (23.2 h of negatives)
+2136.4s	111	fall head: OK
+2136.4s	112	reading 5 run(s) from /kaggle/working/runs
+2136.4s	113	adl_bone           epoch  11  mean_class_acc=0.184  macro_f1=0.158  macro_f1_supported=0.167  top1=0.336  | best mean_class_acc=0.187 @ep3
+2136.4s	114	adl_bone_motion    epoch  12  mean_class_acc=0.118  macro_f1=0.097  macro_f1_supported=0.103  top1=0.340  | best mean_class_acc=0.121 @ep4
+2136.4s	115	adl_joint          epoch  12  mean_class_acc=0.171  macro_f1=0.154  macro_f1_supported=0.163  top1=0.334  | best mean_class_acc=0.181 @ep4
+2136.4s	116	adl_joint_motion   epoch  17  mean_class_acc=0.119  macro_f1=0.104  macro_f1_supported=0.110  top1=0.342  | best mean_class_acc=0.121 @ep9
+2136.4s	117	fall               epoch  59  auprc=0.796  auroc=1.000  sensitivity=0.951  | best auprc=0.822 @ep56
+2136.4s	118	
+2136.4s	119	adl_bone - per-class F1 at best epoch 3:
+2136.4s	120	  other_idle               n= 14655  f1=0.507  ####################
+2136.4s	121	  lying_down               n=   749  f1=0.435  #################
+2136.4s	122	  sitting                  n=  2952  f1=0.341  #############
+2136.4s	123	  drinking                 n=  1137  f1=0.195  #######
+2136.4s	124	  cooking_food_prep        n=   419  f1=0.187  #######
+2136.4s	125	  reading                  n=  1746  f1=0.176  #######
+2136.4s	126	  sitting_down             n=   375  f1=0.100  ###
+2136.4s	127	  cleaning_housework       n=  3620  f1=0.098  ###
+2136.4s	128	  walking                  n=   545  f1=0.093  ###
+2136.4s	129	  standing_up              n=   368  f1=0.088  ###
+2136.4s	130	  eating                   n=  1498  f1=0.082  ###
+2136.4s	131	  using_phone              n=  2477  f1=0.080  ###
+2136.4s	132	  watching_tv              n=   774  f1=0.074  ##
+2136.4s	133	  personal_hygiene         n=  3261  f1=0.074  ##
+2136.4s	134	  taking_medication        n=   359  f1=0.072  ##
+2136.4s	135	  interacting_with_person  n=   614  f1=0.022  
+2136.4s	136	  standing                 n=   123  f1=0.005  
+2136.4s	137	  bending_reaching         n=    26  f1=0.000  
+2136.4s	138	  -> 16/18 classes above F1 0.02; 2 at ~0: ['standing', 'bending_reaching']
+2136.4s	139	
+2136.4s	140	5 run(s) advanced this session.
+2136.4s	141	Save Version -> create/update dataset behaviorsense-runs from /kaggle/working/runs
+2136.4s	142	Timed out mid-training? Save Version anyway - resume continues bit-exactly next session.
+2138.0s	143	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+2138.0s	144	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+2138.1s	145	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+2138.1s	146	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+2138.4s	147	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+2138.5s	148	[NbConvertApp] Writing 56302 bytes to __notebook__.ipynb
+2139.7s	149	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+2140.1s	150	[NbConvertApp] Writing 398317 bytes to __results__.html
+
+
+[M01507] 2026-08-16T19:09:13.793Z ASSISTANT (conversation) [C006:1283; copies=28]
+Everything fired exactly as designed — and the result is genuinely interesting. Let me record the numbers before giving you the steps.

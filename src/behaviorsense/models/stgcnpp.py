@@ -41,25 +41,40 @@ FLIP_INDEX: tuple[int, ...] = (
 )
 
 
-def build_adjacency(strategy: str = "spatial") -> np.ndarray:
+def build_adjacency(strategy: str = "spatial", *,
+                    edges: tuple[tuple[int, int], ...] = COCO_EDGES,
+                    n_nodes: int = N_JOINTS, centre: int = 0) -> np.ndarray:
     """[3, V, V] normalised adjacency: self / centripetal / centrifugal.
 
     The 3-partition spatial strategy (Yan et al. 2018) lets one conv learn different
     weights for "this joint", "joint closer to the body centre" and "joint further out" -
     which is what distinguishes reaching from retracting. A single averaged adjacency
     cannot express direction and measurably underperforms.
+
+    `edges`/`n_nodes`/`centre` are parameters so a second skeleton layout can reuse this.
+    Toyota's released poses are a 15-node tree whose centre is the pelvis - anatomically the
+    right root, and better than COCO-17's, where the nose is used because COCO has no spine
+    joint at all. The defaults keep the COCO behaviour byte-identical.
     """
-    V = N_JOINTS
+    V = n_nodes
     hop = np.full((V, V), np.inf)
     np.fill_diagonal(hop, 0)
-    for i, j in COCO_EDGES:
+    for i, j in edges:
         hop[i, j] = hop[j, i] = 1
-    # Floyd-Warshall for distance-to-centre; V=17 makes the cubic cost irrelevant.
+    # Floyd-Warshall for distance-to-centre; V<=17 makes the cubic cost irrelevant.
     for k in range(V):
         hop = np.minimum(hop, hop[:, k, None] + hop[None, k, :])
 
-    centre = 0  # nose: the COCO analogue of the spine root
     dist = hop[:, centre]
+    if not np.isfinite(dist).all():
+        # A disconnected node has infinite distance to the centre, lands in no partition, and
+        # then receives no message from anywhere - it trains as a constant. Cheap to check and
+        # impossible to see in a loss curve.
+        orphans = [i for i in range(V) if not np.isfinite(dist[i])]
+        raise ValueError(
+            f"joints {orphans} are not connected to joint {centre}; they would sit in no "
+            f"adjacency partition and receive no messages. {len(edges)} edges over {V} nodes."
+        )
 
     A = np.zeros((3, V, V), dtype=np.float32)
     for i in range(V):
@@ -192,11 +207,24 @@ class STGCNpp(nn.Module):
         base_channels: int = 64,
         n_person: int = 2,
         dropout: float = 0.2,
+        n_joints: int = N_JOINTS,
+        adjacency: np.ndarray | None = None,
     ) -> None:
         super().__init__()
-        A = build_adjacency()
+        # `adjacency` is passed in for a non-COCO layout (Toyota's released poses are a 15-node
+        # tree). It must agree with `n_joints`, or `data_bn` normalises over a different number
+        # of features than the graph convolution consumes - shapes that broadcast and a model
+        # that trains on misaligned channels.
+        A = build_adjacency() if adjacency is None else np.asarray(adjacency, dtype=np.float32)
+        if A.shape != (3, n_joints, n_joints):
+            raise ValueError(
+                f"adjacency is {A.shape}, expected (3, {n_joints}, {n_joints}). Build it with "
+                "`build_adjacency(edges=..., n_nodes=..., centre=...)` for the same layout the "
+                "input tensors use."
+            )
         self.n_person = n_person
-        self.data_bn = nn.BatchNorm1d(n_person * in_channels * N_JOINTS)
+        self.n_joints = n_joints
+        self.data_bn = nn.BatchNorm1d(n_person * in_channels * n_joints)
 
         c1, c2, c3 = base_channels, base_channels * 2, base_channels * 4
         self.blocks = nn.ModuleList([
@@ -236,7 +264,7 @@ class STGCNpp(nn.Module):
         return self.fc(self.drop(x))
 
 
-def to_bone(joints: torch.Tensor) -> torch.Tensor:
+def to_bone(joints: torch.Tensor, *, parents: dict[int, int] | None = None) -> torch.Tensor:
     """Joint stream -> bone stream (vector from each joint to its parent).
 
     `setdefault`, not assignment: the edge list closes the torso with (11, 12), and
@@ -247,12 +275,18 @@ def to_bone(joints: torch.Tensor) -> torch.Tensor:
     contradictory ways. Measured before the fix: flip-equivariance error 5.9 on unit
     tensors; after: 0. First-listed edge wins, and edges are listed root-outward, so
     every child's parent is its anatomical neighbour toward the nose.
+
+    `parents` overrides that derivation with an explicit child -> parent map, which is what a
+    non-COCO layout needs: the `max(i, j)` heuristic only identifies the child when the edge
+    list happens to be ordered root-outward, and Toyota's 15-node tree states the direction
+    outright rather than encoding it in index order.
     """
-    parent: dict[int, int] = {}
-    for i, j in COCO_EDGES:
-        parent.setdefault(max(i, j), min(i, j))
+    if parents is None:
+        parents = {}
+        for i, j in COCO_EDGES:
+            parents.setdefault(max(i, j), min(i, j))
     bone = torch.zeros_like(joints)
-    for child, par in parent.items():
+    for child, par in parents.items():
         bone[:, :, :, child] = joints[:, :, :, child] - joints[:, :, :, par]
     return bone
 
@@ -267,16 +301,21 @@ def to_motion(x: torch.Tensor) -> torch.Tensor:
 STREAMS = ("joint", "bone", "joint_motion", "bone_motion")
 
 
-def make_stream(x: torch.Tensor, stream: str) -> torch.Tensor:
-    """Derive one of the 4 ensemble streams from the joint input [N,C,T,V,M]."""
+def make_stream(x: torch.Tensor, stream: str, *,
+                parents: dict[int, int] | None = None) -> torch.Tensor:
+    """Derive one of the 4 ensemble streams from the joint input [N,C,T,V,M].
+
+    `parents` is threaded through to `to_bone` so a non-COCO skeleton derives its bones from
+    its own tree rather than from COCO's index ordering.
+    """
     if stream == "joint":
         return x
     if stream == "bone":
-        return to_bone(x)
+        return to_bone(x, parents=parents)
     if stream == "joint_motion":
         return to_motion(x)
     if stream == "bone_motion":
-        return to_motion(to_bone(x))
+        return to_motion(to_bone(x, parents=parents))
     raise ValueError(f"unknown stream {stream!r}; expected one of {STREAMS}")
 
 

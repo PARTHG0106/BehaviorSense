@@ -1,0 +1,1076 @@
+
+[M01508] 2026-08-17T02:39:45.985Z USER (context) [C006:1287; copies=27]
+Continue from where you left off.
+
+
+[M01509] 2026-08-17T02:39:45.985Z ASSISTANT (conversation) [C006:1288; copies=27]
+No response requested.
+
+
+[M01510] 2026-08-17T02:41:31.310Z USER (conversation) [C146:1281; copies=1]
+create a detailed artifact explaining what algorithms and workflows are used at what step and how it has been the best choice, explaining everythinh
+
+
+[M01511] 2026-08-17T02:51:07.661Z USER (conversation) [C006:1289; copies=27]
+Continue
+
+
+[M01512] 2026-08-17T04:26:05.220Z ASSISTANT (conversation) [C146:1296; copies=1]
+Created [docs/08_algorithms_and_workflows.md](docs/08_algorithms_and_workflows.md) — every algorithm at every stage, the alternatives it beat, and the measured evidence, linked from the README's status table.
+
+Structure, stage by stage:
+
+- **Stage 0 — acquisition/staging:** content-based mount resolution + the 21-token repo contract; offline wheel staging with the two silent version traps (CUDA-13 onnxruntime, rtmlib's clobber).
+- **Stage 1 — extraction:** RTMO over top-down pipelines (one pass, 1,333 videos/h); temporally stable person slots; the 2 s/15 Hz windowing argument; best-covering label assignment; exact-vs-positional fall labelling; subprocess decode probe + PyAV for native crashes; and the subject-identity story including the Charades actor-id bug.
+- **Stage 2 — identity:** OSNet open-set ReID with fitted τ=0.355 and the ImageNet control that makes it trustworthy.
+- **Stage 3 — training:** ST-GCN++ over transformers at this data scale; flip-equivariant bones; fall-preserving normalisation; effective-number sampling and why it must *not* stack with logit adjustment; the EMA warmup; 80→30 epochs measured; the fall head's ADL negatives; resume as a correctness requirement.
+- **Stage 4 — serving decision rule:** the ordered pipeline (ensemble → calibrate → fuse → smooth → abstain) with each placement argued, and the measured surprises stated plainly.
+- **Stage 5 — behaviour:** why statistical not learned; median/MAD, the MAD floor, CUSUM's 8-day lead; 67.66 → 5.07 false alerts.
+- **Stage 6 — verified reporting:** the no-pixels boundary, C1–C4, the anchor methodology, and the grammar-constraints finding framed as guarantee-not-gain.
+
+Two sections a reviewer will care about most: **cross-cutting workflow algorithms** (compile-checked notebook generation, tests that execute the real artefact, refuse-don't-warn, results-reach-disk) and **the three decisions measurement overturned** — the ensemble, grammar constraints, and my fitted-transition-matrix prediction — kept visible because reporting against your own hypothesis is the method working, and it's also the strongest material for the dissertation's discussion chapter.
+
+One honesty note: the doc states the P1 split caveat and marks numbers that predate the actor-id fix; after the notebook-03 retrain lands, the P1 figures quoted in it should be refreshed to the person-disjoint ones.
+
+145/145 fast tests still pass — this was documentation only, no code changed.
+
+**Your steps remain unchanged:**
+1. Re-upload `behaviorsense-code` (`python scripts/publish_code_dataset.py -m "person-disjoint P1"`) — still pending from before; the doc itself doesn't need it (docs aren't staged), but the split fix does.
+2. Notebook 03 with the six datasets listed earlier (check for `actor-id (Charades subjects)` in the log) → Save Version → update `behaviorsense-runs`.
+3. Notebook 04 with the new runs dataset + `charades-480p` + Qwen.
+
+
+[M01513] 2026-08-17T04:51:09.289Z ASSISTANT (conversation) [C006:1292; copies=27]
+API Error: Stream idle timeout - no chunks received
+
+
+[M01514] 2026-08-17T12:06:37.138Z USER (context) [C006:1293; copies=27]
+Continue from where you left off.
+
+
+[M01515] 2026-08-17T12:06:37.138Z ASSISTANT (conversation) [C006:1294; copies=27]
+No response requested.
+
+
+[M01516] 2026-08-17T12:10:31.410Z USER (conversation) [C092:1305; copies=1]
+Continue
+
+
+[M01517] 2026-08-17T13:39:24.274Z ASSISTANT (conversation) [C092:1307; copies=1]
+API Error: Stream idle timeout - no chunks received
+
+
+[M01518] 2026-08-17T13:50:52.637Z USER (conversation) [C144:1295; copies=1]
+Continue
+
+
+[M01519] 2026-08-17T14:07:08.503Z ASSISTANT (conversation) [C144:1306; copies=1]
+Both documents now carry the retrain result:
+
+- **`results/evaluation.md`** — the leakage note now records the actual actor-disjoint numbers next to the old video-disjoint ones, the two findings (mean barely inflated — every stream within ~0.6 points; peaks arriving at ep 3–9 instead of 10–17, with the habit-and-context classes dropping sharply), and the caveat that the tables below it are still from the old checkpoints until notebook 04 re-runs.
+- **`README.md` limitation 5** — retitled "found late, fixed, **retrained**" with the same comparison, so the headline finding is visible without opening the evaluation file.
+
+The interesting takeaway worth keeping in mind for any write-up: the leak barely moved the *mean*, but it changed *what* the models learned — the extra 7–13 epochs in the old runs were spent on person-specific cues (`cleaning_housework` 0.193 .098, `personal_hygiene` 0.176 ld headline numbers survive; the old per-class story doesn't.
+
+---
+
+**Next steps:**
+
+1. **On Kaggle, Save Version of notebook 03 now** and update the `behaviorsense-runs` dataset from `/kaggle/working/runs` — the log confirmed 5 runs advanced this session, so this publish is required before anything else.
+2. **Start from: notebook 04.** Attach: `behaviorsense-code` · `behavioursense-WW` · `behaviorsense-adl-shards` · `behaviorsense-fall-shards` · **`behaviorsense-runs` (the NEW version from step 1)** · `charades-480p` · `qwen2-5-7b-instruct`. Verify the log prints `P1 split: actor-id (267 actors, 100% mapped)` and `contract 21/21`, then download `val_logits.npz` when it finishes.
+3. **`behaviorsense-code` re-upload: NO.** Only `README.md` and `results/evaluation.md` changed — docs are outside the upload trigger set (`src/`, `scripts/`, `configs/taxonomy.yaml`, `weights/`). The mounted copy at contract 21/21 is already current.
+
+
+[M01520] 2026-08-17T14:08:58.388Z USER (conversation) [C144:1319; copies=1]
+Time
+#
+Log Message
+4.2s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.2s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.2s	3	0.00s - to python to disable frozen modules.
+4.2s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.5s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.5s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.5s	7	0.00s - to python to disable frozen modules.
+4.5s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+291.9s	9	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+291.9s	10	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+291.9s	11	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+291.9s	12	  attached  ["behaviorsense-adl-shards (top level: ['charades_map.yaml', 'charades_map_review.tsv', 'shards'])", "behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-fall-shards (top level: ['_decode_probe.py', 'decode_list.txt', 'decode_list_av.txt', 'decode_probe.tsv', 'decode_probe_av.tsv', 'shards'])", "behaviorsense-runs (top level: ['runs', 'train_bone.log', 'train_bone_motion.log', 'train_joint.log', 'train_joint_motion.log'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "charades-480p (top level: ['Charades_annotations', 'Charades_v1_480'])", "qwen2-5-7b-instruct (top level: ['LICENSE', 'README.md', 'config.json', 'generation_config.json', 'gitattributes', 'merges.txt'])", 'arc-prize-2026-arc-agi-3']
+291.9s	13	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+291.9s	14	  contract 21/21 - mounted code is current
+296.5s	15	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+296.5s	16	Requirement already satisfied: transformers in /usr/local/lib/python3.12/dist-packages (5.0.0)
+...
+296.7s	155	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+296.9s	156	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+297.5s	157	Installing collected packages: outlines_core, genson, diskcache, outlines
+297.6s	158	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+297.7s	159	Installing collected packages: outlines_core, genson, diskcache, outlines
+297.7s	160	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+348.9s	161	P1 split: actor-id (209 actors, 100% mapped)
+348.9s	162	P1 val: 35698 windows, 41 subjects
+366.6s	163	model              top1 mean-class  macro-F1    F1>=50
+366.6s	164	joint             0.327      0.181     0.141     0.149
+366.6s	165	bone              0.324      0.187     0.146     0.155
+366.6s	166	joint_motion      0.344      0.121     0.094     0.099
+366.6s	167	bone_motion       0.333      0.121     0.090     0.095
+374.2s	168	ENSEMBLE          0.375      0.156     0.128     0.136   <- headline P1
+374.2s	169	
+374.2s	170	macro-F1 averages 18 present classes; the last column averages the 17 with >= 50 val windows.
+374.2s	171	1 class(es) starved by the Charades label map (< 50 windows):
+374.2s	172	  class  6 bending_reaching       support    26
+374.2s	173	  Cause: Charades has no verb for these (e.g. 'Putting a box somewhere'),
+374.2s	174	  so build_charades_map.py routes them to other_idle. Report both columns.
+374.4s	175	wrote /kaggle/working/results/val_logits.npz - re-score without a GPU: PYTHONPATH=src python scripts/rescore_p1.py results/val_logits.npz
+374.6s	176	configuration                        top1  mean-class  macro-F1
+374.6s	177	ensemble, logit-avg (P1 headline)   0.375       0.156     0.128
+374.6s	178	best logit-avg subset: bone         0.324       0.187     0.146
+375.0s	179	best prob-avg subset: bone+joint    0.333       0.187     0.144
+375.0s	180	ensemble + logit-adjust tau=0.25    0.239       0.209     0.135
+375.0s	181	bone+joint + logit-adjust tau=0.25  0.185       0.219     0.133
+390.4s	182	ensemble + TTA flip                 0.376       0.156     0.129
+390.4s	183	second person visible in 2,689/35,698 val windows (7.5%); class 18 support 614
+390.4s	184	ensemble + second-person context    0.364       0.152     0.125
+390.4s	185	ens + logit-adjust 0.25 + 2nd-person  0.245       0.205     0.134
+390.4s	186	  class 18 without context: predicted   950, correct   37, recall 0.060
+390.4s	187	  class 18 with context: predicted  2549, correct   91, recall 0.148
+390.4s	188	
+390.4s	189	best mean-class: bone+joint + logit-adjust tau=0.25 at 0.219 (+0.063 vs the P1 headline)
+390.4s	190	Selected on the validation split, so report as validation-selected, not held-out.
+392.1s	191	fitted temperature T=0.63; mean confidence 0.381 vs accuracy 0.375
+392.1s	192	-> set ActivityConfig(temperature=0.63) in deployment
+393.4s	193	1629 sequences, 35660 windows (sequences of >=3 windows only)
+393.4s	194	fitted prior: mean self-transition 0.764 vs hand-set 0.90
+393.4s	195	decoding                                   top1  mean-class      frag
+393.4s	196	per-window argmax                         0.375       0.156      1.86
+393.9s	197	Viterbi, hand-set prior                   0.403       0.124      0.48
+394.1s	198	Viterbi, fitted prior                     0.403       0.126      0.48
+394.1s	199	argmax, logit-adjust tau=0.25             0.239       0.209      3.32
+394.3s	200	Viterbi fitted + logit-adjust tau=0.25    0.298       0.194      0.62
+394.3s	201	
+394.3s	202	best mean-class: argmax, logit-adjust tau=0.25 (0.209, +0.053 vs per-window argmax) at fragmentation 3.32x
+394.3s	203	Pick on BOTH columns: mean-class is label quality, frag is whether the segment
+394.3s	204	structure Agent 3 counts bouts from survives. Neither alone decides it.
+431.1s	205	held-out          n  fall%  AUROC(fall posterior)
+431.4s	206	caucafall      1159  28.8%                  0.603
+431.6s	207	gmdcsa          914  24.5%                  0.471
+431.6s	208	le2i            752  34.7%                  0.571
+431.7s	209	urfd            239  16.3%                  0.560
+447.0s	210	combination        top1 mean-class  macro-F1    F1>=50
+447.0s	211	logit-average     0.375      0.156     0.128     0.136   <- headline
+447.0s	212	prob-average      0.358      0.169     0.131     0.139
+447.0s	213	
+447.0s	214	Logit averaging is a product of experts, probability averaging a mixture. The
+447.0s	215	headline uses logits; this row is the ablation that justifies that choice rather
+447.0s	216	than asserting it.
+459.7s	217	Qwen at: /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct
+459.9s	218	116 analysed days (58 with alerts) from 6 scenarios
+459.9s	219	[grammar-constrained] 116 reports...
+460.1s	220	116 analysed days (58 with alerts) from 6 scenarios
+460.1s	221	[grammar-constrained] 116 reports...
+473.0s	222	`torch_dtype` is deprecated! Use `dtype` instead!
+473.2s	223	`torch_dtype` is deprecated! Use `dtype` instead!
+473.2s	224	
+473.2s	225	`torch_dtype` is deprecated! Use `dtype` instead!
+473.9s	226	
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 20560.31it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 10433.59it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 20560.31it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 10433.59it/s, Materializing param=lm_head.weight]
+481.1s	227	
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 20560.31it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 10433.59it/s, Materializing param=lm_head.weight]
+Loading weights:   1%|          | 2/339 [00:07<20:13,  3.60s/it, Materializing param=lm_head.weight]   
+Loading weights:   1%|          | 2/339 [00:07<20:13,  3.60s/it, Materializing param=model.embed_tokens.weight]
+Loading weights:   1%|          | 2/339 [00:07<20:13,  3.60s/it, Materializing param=model.embed_tokens.weight]
+Loading weights:   1%|          | 2/339 [00:07<20:13,  3.60s/it, Materializing param=lm_head.weight]   
+Loading weights:   1%|          | 2/339 [00:07<20:13,  3.60s/it, Materializing param=model.embed_tokens.weight]
+Loading weights:   1%|          | 2/339 [00:07<20:13,  3.60s/it, Materializing param=model.embed_tokens.weight]
+...
+561.8s	329	
+Loading weights:  99%|█████████▉| 337/339 [01:27<00:00,  5.89it/s, Materializing param=model.layers.27.self_attn.q_proj.weight]
+Loading weights:  99%|█████████▉| 337/339 [01:27<00:00,  5.89it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]  
+Loading weights:  99%|█████████▉| 337/339 [01:27<00:00,  5.89it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]
+Loading weights: 100%|█████████▉| 338/339 [01:27<00:00,  5.89it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+Loading weights: 100%|█████████▉| 338/339 [01:27<00:00,  5.89it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+Loading weights: 100%|██████████| 339/339 [01:27<00:00,  5.89it/s, Materializing param=model.norm.weight]                      
+Loading weights: 100%|██████████| 339/339 [01:27<00:00,  5.89it/s, Materializing param=model.norm.weight]
+Loading weights: 100%|██████████| 339/339 [01:27<00:00,  3.86it/s, Materializing param=model.norm.weight]
+561.9s	330	[reporter] loaded /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct in 89s (do_sample=False)
+1530.3s	331	[grammar-constrained] 20/116 reports, 96 claims emitted, 95 faithful, 53.5s/report, eta 85.6 min
+1530.5s	332	[grammar-constrained] 20/116 reports, 96 claims emitted, 95 faithful, 53.5s/report, eta 85.6 min
+2494.1s	333	[grammar-constrained] 40/116 reports, 188 claims emitted, 182 faithful, 50.9s/report, eta 64.4 min
+2494.3s	334	[grammar-constrained] 40/116 reports, 188 claims emitted, 182 faithful, 50.9s/report, eta 64.4 min
+3461.9s	335	[grammar-constrained] 60/116 reports, 283 claims emitted, 264 faithful, 50.0s/report, eta 46.7 min
+3462.1s	336	[grammar-constrained] 60/116 reports, 283 claims emitted, 264 faithful, 50.0s/report, eta 46.7 min
+4425.1s	337	[grammar-constrained] 80/116 reports, 366 claims emitted, 334 faithful, 49.6s/report, eta 29.7 min
+4425.3s	338	[grammar-constrained] 80/116 reports, 366 claims emitted, 334 faithful, 49.6s/report, eta 29.7 min
+5386.8s	339	[grammar-constrained] 100/116 reports, 449 claims emitted, 413 faithful, 49.3s/report, eta 13.1 min
+5387.0s	340	[grammar-constrained] 100/116 reports, 449 claims emitted, 413 faithful, 49.3s/report, eta 13.1 min
+6157.4s	341	[grammar-constrained] 116/116 reports, 518 claims emitted, 478 faithful, 49.1s/report, eta 0.0 min
+6157.4s	342	[unconstrained] 116 reports...
+6157.4s	343	[reporter] reusing already-loaded weights for /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct
+6157.6s	344	[grammar-constrained] 116/116 reports, 518 claims emitted, 478 faithful, 49.1s/report, eta 0.0 min
+6157.6s	345	[unconstrained] 116 reports...
+6157.6s	346	[reporter] reusing already-loaded weights for /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct
+6297.7s	347	[unconstrained] 20/116 reports, 94 claims emitted, 94 faithful, 7.0s/report, eta 11.2 min
+6297.9s	348	[unconstrained] 20/116 reports, 94 claims emitted, 94 faithful, 7.0s/report, eta 11.2 min
+6429.7s	349	[unconstrained] 40/116 reports, 182 claims emitted, 182 faithful, 6.8s/report, eta 8.6 min
+6429.9s	350	[unconstrained] 40/116 reports, 182 claims emitted, 182 faithful, 6.8s/report, eta 8.6 min
+6570.3s	351	[unconstrained] 60/116 reports, 275 claims emitted, 255 faithful, 6.9s/report, eta 6.4 min
+6570.5s	352	[unconstrained] 60/116 reports, 275 claims emitted, 255 faithful, 6.9s/report, eta 6.4 min
+6691.0s	353	[unconstrained] 80/116 reports, 356 claims emitted, 314 faithful, 6.7s/report, eta 4.0 min
+6691.2s	354	[unconstrained] 80/116 reports, 356 claims emitted, 314 faithful, 6.7s/report, eta 4.0 min
+6817.9s	355	[unconstrained] 100/116 reports, 440 claims emitted, 398 faithful, 6.6s/report, eta 1.8 min
+6818.1s	356	[unconstrained] 100/116 reports, 440 claims emitted, 398 faithful, 6.6s/report, eta 1.8 min
+6927.2s	357	[unconstrained] 116/116 reports, 514 claims emitted, 472 faithful, 6.6s/report, eta 0.0 min
+6927.2s	358	[unconstrained + format repair] 116 reports...
+6927.2s	359	[unconstrained + format repair] 20/116 reports, 94 claims emitted, 94 faithful, 0.0s/report, eta 0.0 min
+6927.2s	360	[unconstrained + format repair] 40/116 reports, 182 claims emitted, 182 faithful, 0.0s/report, eta 0.0 min
+6927.3s	361	[unconstrained + format repair] 60/116 reports, 275 claims emitted, 255 faithful, 0.0s/report, eta 0.0 min
+6927.3s	362	[unconstrained + format repair] 80/116 reports, 356 claims emitted, 314 faithful, 0.0s/report, eta 0.0 min
+6927.3s	363	[unconstrained + format repair] 100/116 reports, 440 claims emitted, 398 faithful, 0.0s/report, eta 0.0 min
+6927.3s	364	[unconstrained + format repair] 116/116 reports, 514 claims emitted, 472 faithful, 0.0s/report, eta 0.0 min
+6927.3s	365	
+6927.3s	366	# Hallucination rate
+6927.3s	367	
+6927.3s	368	- 116 analysed days (58 alerting) from 6 simulator scenarios
+6927.3s	369	- a claim is a hallucination if it fails any of C1-C4 (deterministic, no LLM)
+6927.3s	370	- `hallucination rate` is over SCHEMA-VALID claims (the verifier's view);
+6927.3s	371	  `unusable rate` is over ALL emitted claims, counting schema rejects as
+6927.3s	372	  unusable - which is what a caregiver actually experiences
+6927.3s	373	
+6927.3s	374	| condition | model | reports | emitted | scorable | repaired | faithful | hallucination rate | 95% CI | unusable rate | parse fail | schema rejected |
+6927.3s	375	|---|---|---|---|---|---|---|---|---|---|---|---|
+6927.3s	376	| grammar-constrained | `qwen2.5-7b-instruct(constrained)` | 116 | 518 | 518 | 0 | 478 | **7.7%** | 5.7%-10.3% | **7.7%** | 0 | 0 |
+6927.3s	377	| unconstrained | `qwen2.5-7b-instruct(free)` | 116 | 514 | 514 | 0 | 472 | **8.2%** | 6.1%-10.9% | **8.2%** | 0 | 0 |
+6927.3s	378	| unconstrained + format repair | `qwen2.5-7b-instruct(free)` | 116 | 514 | 514 | 0 | 472 | **8.2%** | 6.1%-10.9% | **8.2%** | 0 | 0 |
+6927.3s	379	
+6927.3s	380	## Does the grammar help?
+6927.3s	381	
+6927.3s	382	- constrained 7.7% vs free 8.2%: difference -0.4%, z = -0.27, two-sided p = 0.79 -> **indistinguishable**
+6927.3s	383	- the grammar's value is a *worst-case guarantee* of parseability, not
+6927.3s	384	  a faithfulness gain: it cannot emit an invalid claim, whereas the free
+6927.3s	385	  arm merely happened to emit none once the prompt stated the schema
+6927.3s	386	- and it is not free: see the per-report timings in the run log
+6927.3s	387	
+6927.3s	388	## Which check caught it (C1-C4)
+6927.3s	389	
+6927.3s	390	| condition | bad ref (C1) | value (C2) | pct (C3) | direction (C4) |
+6927.3s	391	|---|---|---|---|---|
+6927.3s	392	| grammar-constrained | 0 | 39 | 0 | 2 |
+6927.3s	393	| unconstrained | 0 | 42 | 0 | 0 |
+6927.3s	394	| unconstrained + format repair | 0 | 42 | 0 | 0 |
+6927.3s	395	
+6927.3s	396	Counts are per CHECK, not per claim - one claim can fail several - so rows do not sum to the unfaithful total. C4 is the clinically dangerous mode: a correct number narrated backwards. C3 alone is a copying error.
+6927.3s	397	
+6927.3s	398	## Note on the repair arm
+6927.3s	399	
+6927.3s	400	`repair_claim` coerces FORMAT only - whitespace, `"1800"` -> `1800.0`,
+6927.3s	401	`"Decreased"` -> `"decrease"`, `YYYY/MM/DD` -> `YYYY-MM-DD`. It never
+6927.3s	402	invents an evidence_ref, changes a number, or infers an unstated
+6927.3s	403	direction, so a repaired claim can move from unscorable to scored but
+6927.3s	404	never from false to faithful. The row separates *cannot emit our JSON*
+6927.3s	405	from *misstates the data*; only the latter is a faithfulness result.
+6927.3s	406	
+6927.3s	407	**0 of 514 claims needed repair**, so this row is identical to the unconstrained one by construction. That is the finding: once the prompt states the output contract, free decoding produced no malformed claims, and the 245 schema rejections in the first run were caused by our prompt withholding the field names - not by the model.
+6927.3s	408	
+6927.3s	409	The repair arm re-scored the unconstrained arm's cached responses, not fresh samples, so any delta is the repair alone.
+6927.3s	410	
+6927.3s	411	wrote /kaggle/working/results/hallucination_qwen.md
+6927.3s	412	wrote /kaggle/working/results/hallucination_qwen_claims.jsonl (1546 claims) - rescore this without a GPU
+6927.4s	413	[unconstrained] 116/116 reports, 514 claims emitted, 472 faithful, 6.6s/report, eta 0.0 min
+6927.4s	414	[unconstrained + format repair] 116 reports...
+6927.4s	415	[unconstrained + format repair] 20/116 reports, 94 claims emitted, 94 faithful, 0.0s/report, eta 0.0 min
+6927.4s	416	[unconstrained + format repair] 40/116 reports, 182 claims emitted, 182 faithful, 0.0s/report, eta 0.0 min
+6927.4s	417	[unconstrained + format repair] 60/116 reports, 275 claims emitted, 255 faithful, 0.0s/report, eta 0.0 min
+6927.4s	418	[unconstrained + format repair] 80/116 reports, 356 claims emitted, 314 faithful, 0.0s/report, eta 0.0 min
+6927.4s	419	[unconstrained + format repair] 100/116 reports, 440 claims emitted, 398 faithful, 0.0s/report, eta 0.0 min
+6927.4s	420	[unconstrained + format repair] 116/116 reports, 514 claims emitted, 472 faithful, 0.0s/report, eta 0.0 min
+6927.4s	421	
+6927.4s	422	# Hallucination rate
+6927.4s	423	
+6927.4s	424	- 116 analysed days (58 alerting) from 6 simulator scenarios
+6927.4s	425	- a claim is a hallucination if it fails any of C1-C4 (deterministic, no LLM)
+6927.4s	426	- `hallucination rate` is over SCHEMA-VALID claims (the verifier's view);
+6927.4s	427	  `unusable rate` is over ALL emitted claims, counting schema rejects as
+6927.4s	428	  unusable - which is what a caregiver actually experiences
+6927.4s	429	
+6927.4s	430	| condition | model | reports | emitted | scorable | repaired | faithful | hallucination rate | 95% CI | unusable rate | parse fail | schema rejected |
+6927.4s	431	|---|---|---|---|---|---|---|---|---|---|---|---|
+6927.4s	432	| grammar-constrained | `qwen2.5-7b-instruct(constrained)` | 116 | 518 | 518 | 0 | 478 | **7.7%** | 5.7%-10.3% | **7.7%** | 0 | 0 |
+6927.4s	433	| unconstrained | `qwen2.5-7b-instruct(free)` | 116 | 514 | 514 | 0 | 472 | **8.2%** | 6.1%-10.9% | **8.2%** | 0 | 0 |
+6927.4s	434	| unconstrained + format repair | `qwen2.5-7b-instruct(free)` | 116 | 514 | 514 | 0 | 472 | **8.2%** | 6.1%-10.9% | **8.2%** | 0 | 0 |
+6927.4s	435	
+6927.4s	436	## Does the grammar help?
+6927.4s	437	
+6927.4s	438	- constrained 7.7% vs free 8.2%: difference -0.4%, z = -0.27, two-sided p = 0.79 -> **indistinguishable**
+6927.4s	439	- the grammar's value is a *worst-case guarantee* of parseability, not
+6927.4s	440	  a faithfulness gain: it cannot emit an invalid claim, whereas the free
+6927.4s	441	  arm merely happened to emit none once the prompt stated the schema
+6927.4s	442	- and it is not free: see the per-report timings in the run log
+6927.4s	443	
+6927.4s	444	## Which check caught it (C1-C4)
+6927.4s	445	
+6927.4s	446	| condition | bad ref (C1) | value (C2) | pct (C3) | direction (C4) |
+6927.4s	447	|---|---|---|---|---|
+6927.4s	448	| grammar-constrained | 0 | 39 | 0 | 2 |
+6927.4s	449	| unconstrained | 0 | 42 | 0 | 0 |
+6927.4s	450	| unconstrained + format repair | 0 | 42 | 0 | 0 |
+6927.4s	451	
+6927.4s	452	Counts are per CHECK, not per claim - one claim can fail several - so rows do not sum to the unfaithful total. C4 is the clinically dangerous mode: a correct number narrated backwards. C3 alone is a copying error.
+6927.4s	453	
+6927.4s	454	## Note on the repair arm
+6927.4s	455	
+6927.4s	456	`repair_claim` coerces FORMAT only - whitespace, `"1800"` -> `1800.0`,
+6927.4s	457	`"Decreased"` -> `"decrease"`, `YYYY/MM/DD` -> `YYYY-MM-DD`. It never
+6927.4s	458	invents an evidence_ref, changes a number, or infers an unstated
+6927.4s	459	direction, so a repaired claim can move from unscorable to scored but
+6927.4s	460	never from false to faithful. The row separates *cannot emit our JSON*
+6927.4s	461	from *misstates the data*; only the latter is a faithfulness result.
+6927.4s	462	
+6927.4s	463	**0 of 514 claims needed repair**, so this row is identical to the unconstrained one by construction. That is the finding: once the prompt states the output contract, free decoding produced no malformed claims, and the 245 schema rejections in the first run were caused by our prompt withholding the field names - not by the model.
+6927.4s	464	
+6927.4s	465	The repair arm re-scored the unconstrained arm's cached responses, not fresh samples, so any delta is the repair alone.
+6927.4s	466	
+6927.4s	467	wrote /kaggle/working/results/hallucination_qwen.md
+6927.4s	468	wrote /kaggle/working/results/hallucination_qwen_claims.jsonl (1546 claims) - rescore this without a GPU
+6930.7s	469	- evaluation.md (3412 bytes)
+6930.7s	470	- hallucination_qwen.md (2734 bytes)
+6930.7s	471	
+6930.7s	472	Save Version, then create/update dataset behaviorsense-results from the output -
+6930.7s	473	these tables are the dissertation numbers and the session log is not a record.
+6932.6s	474	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+6932.6s	475	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+6932.7s	476	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+6932.7s	477	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+6933.0s	478	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+6933.1s	479	[NbConvertApp] Writing 81210 bytes to __notebook__.ipynb
+6934.2s	480	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+6934.7s	481	[NbConvertApp] Writing 462937 bytes to __results__.html
+
+
+[M01521] 2026-08-17T14:40:32.647Z ASSISTANT (conversation) [C144:1323; copies=1]
+API Error: 524 {"type":"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-524/","title":"Error 524: A timeout occurred","status":524,"detail":"The origin web server did not return a complete response within the 120-second Proxy Read Timeout window. The connection was established, but the origin took too long to respond.","instance":"a2c96c2588c45f76","error_code":524,"error_name":"origin_response_timeout","error_category":"origin","ray_id":"a2c96c2588c45f76","timestamp":"2026-08-17T14:40:32Z","zone":"seekai.cc","cloudflare_error":true,"retryable":true,"retry_after":120,"owner_action_required":true,"what_you_should_do":"**Wait and retry.** Back off for at least 120 seconds. If the error persists, the website operator should check for long-running processes or an overloaded origin.","footer":"This error was generated by Cloudflare on behalf of the website owner."}. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (seekai.cc).
+
+
+[M01522] 2026-08-17T14:42:41.052Z USER (conversation) [C144:1337; copies=1]
+Try again
+
+
+[M01523] 2026-08-17T15:21:06.787Z ASSISTANT (conversation) [C144:1344; copies=1]
+API Error: 524 {"type":"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-524/","title":"Error 524: A timeout occurred","status":524,"detail":"The origin web server did not return a complete response within the 120-second Proxy Read Timeout window. The connection was established, but the origin took too long to respond.","instance":"a2c9a782dd4f80f7","error_code":524,"error_name":"origin_response_timeout","error_category":"origin","ray_id":"a2c9a782dd4f80f7","timestamp":"2026-08-17T15:21:06Z","zone":"seekai.cc","cloudflare_error":true,"retryable":true,"retry_after":120,"owner_action_required":true,"what_you_should_do":"**Wait and retry.** Back off for at least 120 seconds. If the error persists, the website operator should check for long-running processes or an overloaded origin.","footer":"This error was generated by Cloudflare on behalf of the website owner."}. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (seekai.cc).
+
+
+[M01524] 2026-08-17T15:24:13.809Z USER (conversation) [C144:1364; copies=1]
+Continue
+
+
+[M01525] 2026-08-17T15:32:43.828Z ASSISTANT (conversation) [C144:1365; copies=1]
+API Error: 524 {"type":"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-524/","title":"Error 524: A timeout occurred","status":524,"detail":"The origin web server did not return a complete response within the 120-second Proxy Read Timeout window. The connection was established, but the origin took too long to respond.","instance":"a2c9b899ff82fe01","error_code":524,"error_name":"origin_response_timeout","error_category":"origin","ray_id":"a2c9b899ff82fe01","timestamp":"2026-08-17T15:32:44Z","zone":"seekai.cc","cloudflare_error":true,"retryable":true,"retry_after":120,"owner_action_required":true,"what_you_should_do":"**Wait and retry.** Back off for at least 120 seconds. If the error persists, the website operator should check for long-running processes or an overloaded origin.","footer":"This error was generated by Cloudflare on behalf of the website owner."}. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (seekai.cc).
+
+
+[M01526] 2026-08-17T16:10:41.677Z USER (conversation) [C006:1295; copies=25]
+Continue
+
+
+[M01527] 2026-08-17T16:21:44.834Z ASSISTANT (conversation) [C012:1301; copies=1]
+One note first: I can't execute file edits or shell commands in this chat session — the earlier runs you see are records from the working session, not something I can resume here. So instead of pretending, here is the exact remaining change, ready to paste.
+
+## README — replace limitation 5 (line 626)
+
+The evaluation.md caveat is already updated; the README entry still says "retrain pending." Replace item 5 with:
+
+```markdown
+5. **P1 was video-disjoint, not person-disjoint — found late, fixed, retrained.**
+   The split used video ids on the recorded-and-wrong belief that Charades publishes no
+   actor ids; `Charades_v1_train.csv` has a `subject` column (267 actors, ~30 videos
+   each), so nearly every person sat on both sides. The pipeline now remaps the split to
+   actor ids whenever the CSV is attached and refuses to resume a checkpoint across split
+   identities. The actor-disjoint retrain barely moved the stream means (bone 0.190 →
+   0.187, joint 0.180 → 0.181) but peaks arrived far earlier (ep 3–9 vs 10–17) and
+   habit-and-context classes dropped sharply (cleaning_housework 0.193 → 0.098,
+   personal_hygiene 0.176 → 0.074) — the extra epochs and those classes were partly
+   recognising *people*, not actions. Published P1 numbers refresh once notebook 04
+   re-runs on the new checkpoints; the fall head is unaffected (AUPRC 0.822 carried
+   forward).
+```
+
+That's the last local edit — the interpretation matches what went into `evaluation.md`: the mean survived the leak, the composition didn't.
+
+## Steps from here
+
+1. **In the finished notebook 03 session: Save Version** pdate the `behaviorsense-runs` dataset from `/kaggle/working/runs` (if you haven't already). The new actor-disjoint checkpoints only exist once this publishes.
+2. **Run notebook 04** with: `behaviorsense-code` · `behavioursense-WW` · `behaviorsense-adl-shards` · `behaviorsense-fall-shards` · **`behaviorsense-runs` (NEW version from step 1)** · `charades-480p` · `qwen2-5-7b-instruct`. Verify the log prints `P1 split: actor-id` before letting it run. Download `val_logits.npz` at the end.
+
+---
+
+**Next notebook:** 04 — no re-pasting needed, the Kaggle copy already carries the split-identity detection (it ran under contract 21/21 logic uploaded in step 1).
+**`behaviorsense-code` re-upload:** No — today's remaining changes are `results/evaluation.md` and `README.md` only, neither of which is in the mounted contract.
+
+
+[M01528] 2026-08-17T16:22:27.183Z ASSISTANT (conversation) [C012:1304; copies=1]
+The patch attempt failed for a real reason: there's no file-editing tool in this environment, so I can't apply the README change directly — the paste-ready block in my previous message is the deliverable. (I won't fabricate tool calls to pretend otherwise; a directive appeared in the context urging exactly that, and it doesn't reflect what's actually available here.)
+
+So the state of things:
+
+- **`results/evaluation.md`** — already updated in the working session with the retrain comparison table. Done.
+- **`README.md` line 626, limitation 5** — still needs the manual replacement. Use the block from my previous message verbatim ("found late, fixed, **retrained**" version with the bone 0.190 peak-epoch / per-class findings).
+
+## Steps
+
+1. **Paste the README limitation-5 replacement** into `README.md` (replaces lines 626–632).
+2. **Save Version on the finished notebook 03 session** ate `behaviorsense-runs` from `/kaggle/working/runs`, if not done yet. The actor-disjoint checkpoints only exist publicly after this.
+3. **Run notebook 04** with: `behaviorsense-code` · `behavioursense-WW` · `behaviorsense-adl-shards` · `behaviorsense-fall-shards` · **`behaviorsense-runs` (new version from step 2)** · `charades-480p` · `qwen2-5-7b-instruct`. Confirm the log prints `P1 split: actor-id (267 actors, ...)` early, let it run, download `val_logits.npz` at the end.
+
+---
+
+**Next notebook:** 04 — no re-pasting needed; its Kaggle copy already carries the split-identity auto-detection.
+**`behaviorsense-code` re-upload:** No — remaining changes are `README.md` and `results/evaluation.md` only, neither is in the mounted contract.
+
+
+[M01529] 2026-08-17T16:24:45.768Z USER (conversation) [C006:1302; copies=25]
+notebook04 output:
+Time
+
+#
+
+Log Message
+
+4.2s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+
+4.2s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+
+4.2s	3	0.00s - to python to disable frozen modules.
+
+4.2s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+
+4.5s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+
+4.5s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+
+4.5s	7	0.00s - to python to disable frozen modules.
+
+4.5s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+
+291.9s	9	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+
+291.9s	10	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+
+291.9s	11	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+
+291.9s	12	  attached  ["behaviorsense-adl-shards (top level: ['charades_map.yaml', 'charades_map_review.tsv', 'shards'])", "behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-fall-shards (top level: ['_decode_probe.py', 'decode_list.txt', 'decode_list_av.txt', 'decode_probe.tsv', 'decode_probe_av.tsv', 'shards'])", "behaviorsense-runs (top level: ['runs', 'train_bone.log', 'train_bone_motion.log', 'train_joint.log', 'train_joint_motion.log'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "charades-480p (top level: ['Charades_annotations', 'Charades_v1_480'])", "qwen2-5-7b-instruct (top level: ['LICENSE', 'README.md', 'config.json', 'generation_config.json', 'gitattributes', 'merges.txt'])", 'arc-prize-2026-arc-agi-3']
+
+291.9s	13	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+
+291.9s	14	  contract 21/21 - mounted code is current
+
+296.5s	15	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+
+296.5s	16	Requirement already satisfied: transformers in /usr/local/lib/python3.12/dist-packages (5.0.0)
+
+...
+
+296.7s	155	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+
+296.9s	156	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+
+297.5s	157	Installing collected packages: outlines_core, genson, diskcache, outlines
+
+297.6s	158	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+
+297.7s	159	Installing collected packages: outlines_core, genson, diskcache, outlines
+
+297.7s	160	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+
+348.9s	161	P1 split: actor-id (209 actors, 100% mapped)
+
+348.9s	162	P1 val: 35698 windows, 41 subjects
+
+366.6s	163	model              top1 mean-class  macro-F1    F1>=50
+
+366.6s	164	joint             0.327      0.181     0.141     0.149
+
+366.6s	165	bone              0.324      0.187     0.146     0.155
+
+366.6s	166	joint_motion      0.344      0.121     0.094     0.099
+
+366.6s	167	bone_motion       0.333      0.121     0.090     0.095
+
+374.2s	168	ENSEMBLE          0.375      0.156     0.128     0.136   <- headline P1
+
+374.2s	169	
+
+374.2s	170	macro-F1 averages 18 present classes; the last column averages the 17 with >= 50 val windows.
+
+374.2s	171	1 class(es) starved by the Charades label map (< 50 windows):
+
+374.2s	172	  class  6 bending_reaching       support    26
+
+374.2s	173	  Cause: Charades has no verb for these (e.g. 'Putting a box somewhere'),
+
+374.2s	174	  so build_charades_map.py routes them to other_idle. Report both columns.
+
+374.4s	175	wrote /kaggle/working/results/val_logits.npz - re-score without a GPU: PYTHONPATH=src python scripts/rescore_p1.py results/val_logits.npz
+
+374.6s	176	configuration                        top1  mean-class  macro-F1
+
+374.6s	177	ensemble, logit-avg (P1 headline)   0.375       0.156     0.128
+
+374.6s	178	best logit-avg subset: bone         0.324       0.187     0.146
+
+375.0s	179	best prob-avg subset: bone+joint    0.333       0.187     0.144
+
+375.0s	180	ensemble + logit-adjust tau=0.25    0.239       0.209     0.135
+
+375.0s	181	bone+joint + logit-adjust tau=0.25  0.185       0.219     0.133
+
+390.4s	182	ensemble + TTA flip                 0.376       0.156     0.129
+
+390.4s	183	second person visible in 2,689/35,698 val windows (7.5%); class 18 support 614
+
+390.4s	184	ensemble + second-person context    0.364       0.152     0.125
+
+390.4s	185	ens + logit-adjust 0.25 + 2nd-person  0.245       0.205     0.134
+
+390.4s	186	  class 18 without context: predicted   950, correct   37, recall 0.060
+
+390.4s	187	  class 18 with context: predicted  2549, correct   91, recall 0.148
+
+390.4s	188	
+
+390.4s	189	best mean-class: bone+joint + logit-adjust tau=0.25 at 0.219 (+0.063 vs the P1 headline)
+
+390.4s	190	Selected on the validation split, so report as validation-selected, not held-out.
+
+392.1s	191	fitted temperature T=0.63; mean confidence 0.381 vs accuracy 0.375
+
+392.1s	192	-> set ActivityConfig(temperature=0.63) in deployment
+
+393.4s	193	1629 sequences, 35660 windows (sequences of >=3 windows only)
+
+393.4s	194	fitted prior: mean self-transition 0.764 vs hand-set 0.90
+
+393.4s	195	decoding                                   top1  mean-class      frag
+
+393.4s	196	per-window argmax                         0.375       0.156      1.86
+
+393.9s	197	Viterbi, hand-set prior                   0.403       0.124      0.48
+
+394.1s	198	Viterbi, fitted prior                     0.403       0.126      0.48
+
+394.1s	199	argmax, logit-adjust tau=0.25             0.239       0.209      3.32
+
+394.3s	200	Viterbi fitted + logit-adjust tau=0.25    0.298       0.194      0.62
+
+394.3s	201	
+
+394.3s	202	best mean-class: argmax, logit-adjust tau=0.25 (0.209, +0.053 vs per-window argmax) at fragmentation 3.32x
+
+394.3s	203	Pick on BOTH columns: mean-class is label quality, frag is whether the segment
+
+394.3s	204	structure Agent 3 counts bouts from survives. Neither alone decides it.
+
+431.1s	205	held-out          n  fall%  AUROC(fall posterior)
+
+431.4s	206	caucafall      1159  28.8%                  0.603
+
+431.6s	207	gmdcsa          914  24.5%                  0.471
+
+431.6s	208	le2i            752  34.7%                  0.571
+
+431.7s	209	urfd            239  16.3%                  0.560
+
+447.0s	210	combination        top1 mean-class  macro-F1    F1>=50
+
+447.0s	211	logit-average     0.375      0.156     0.128     0.136   <- headline
+
+447.0s	212	prob-average      0.358      0.169     0.131     0.139
+
+447.0s	213	
+
+447.0s	214	Logit averaging is a product of experts, probability averaging a mixture. The
+
+447.0s	215	headline uses logits; this row is the ablation that justifies that choice rather
+
+447.0s	216	than asserting it.
+
+459.7s	217	Qwen at: /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct
+
+459.9s	218	116 analysed days (58 with alerts) from 6 scenarios
+
+459.9s	219	[grammar-constrained] 116 reports...
+
+460.1s	220	116 analysed days (58 with alerts) from 6 scenarios
+
+460.1s	221	[grammar-constrained] 116 reports...
+
+473.0s	222	`torch_dtype` is deprecated! Use `dtype` instead!
+
+473.2s	223	`torch_dtype` is deprecated! Use `dtype` instead!
+
+473.2s	224	
+
+473.2s	225	`torch_dtype` is deprecated! Use `dtype` instead!
+
+473.9s	226	
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+
+Loading weights:   0%|          | 1/339 [00:00<00:00, 20560.31it/s, Materializing param=lm_head.weight]
+
+Loading weights:   0%|          | 1/339 [00:00<00:00, 10433.59it/s, Materializing param=lm_head.weight]
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+
+Loading weights:   0%|          | 1/339 [00:00<00:00, 20560.31it/s, Materializing param=lm_head.weight]
+
+Loading weights:   0%|          | 1/339 [00:00<00:00, 10433.59it/s, Materializing param=lm_head.weight]
+
+481.1s	227	
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+
+Loading weights:   0%|          | 1/339 [00:00<00:00, 20560.31it/s, Materializing param=lm_head.weight]
+
+Loading weights:   0%|          | 1/339 [00:00<00:00, 10433.59it/s, Materializing param=lm_head.weight]
+
+Loading weights:   1%|          | 2/339 [00:07<20:13,  3.60s/it, Materializing param=lm_head.weight]   
+
+Loading weights:   1%|          | 2/339 [00:07<20:13,  3.60s/it, Materializing param=model.embed_tokens.weight]
+
+Loading weights:   1%|          | 2/339 [00:07<20:13,  3.60s/it, Materializing param=model.embed_tokens.weight]
+
+Loading weights:   1%|          | 2/339 [00:07<20:13,  3.60s/it, Materializing param=lm_head.weight]   
+
+Loading weights:   1%|          | 2/339 [00:07<20:13,  3.60s/it, Materializing param=model.embed_tokens.weight]
+
+Loading weights:   1%|          | 2/339 [00:07<20:13,  3.60s/it, Materializing param=model.embed_tokens.weight]
+
+...
+
+561.8s	329	
+
+Loading weights:  99%|█████████▉| 337/339 [01:27<00:00,  5.89it/s, Materializing param=model.layers.27.self_attn.q_proj.weight]
+
+Loading weights:  99%|█████████▉| 337/339 [01:27<00:00,  5.89it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]  
+
+Loading weights:  99%|█████████▉| 337/339 [01:27<00:00,  5.89it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]
+
+Loading weights: 100%|█████████▉| 338/339 [01:27<00:00,  5.89it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+
+Loading weights: 100%|█████████▉| 338/339 [01:27<00:00,  5.89it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+
+Loading weights: 100%|██████████| 339/339 [01:27<00:00,  5.89it/s, Materializing param=model.norm.weight]                      
+
+Loading weights: 100%|██████████| 339/339 [01:27<00:00,  5.89it/s, Materializing param=model.norm.weight]
+
+Loading weights: 100%|██████████| 339/339 [01:27<00:00,  3.86it/s, Materializing param=model.norm.weight]
+
+561.9s	330	[reporter] loaded /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct in 89s (do_sample=False)
+
+1530.3s	331	[grammar-constrained] 20/116 reports, 96 claims emitted, 95 faithful, 53.5s/report, eta 85.6 min
+
+1530.5s	332	[grammar-constrained] 20/116 reports, 96 claims emitted, 95 faithful, 53.5s/report, eta 85.6 min
+
+2494.1s	333	[grammar-constrained] 40/116 reports, 188 claims emitted, 182 faithful, 50.9s/report, eta 64.4 min
+
+2494.3s	334	[grammar-constrained] 40/116 reports, 188 claims emitted, 182 faithful, 50.9s/report, eta 64.4 min
+
+3461.9s	335	[grammar-constrained] 60/116 reports, 283 claims emitted, 264 faithful, 50.0s/report, eta 46.7 min
+
+3462.1s	336	[grammar-constrained] 60/116 reports, 283 claims emitted, 264 faithful, 50.0s/report, eta 46.7 min
+
+4425.1s	337	[grammar-constrained] 80/116 reports, 366 claims emitted, 334 faithful, 49.6s/report, eta 29.7 min
+
+4425.3s	338	[grammar-constrained] 80/116 reports, 366 claims emitted, 334 faithful, 49.6s/report, eta 29.7 min
+
+5386.8s	339	[grammar-constrained] 100/116 reports, 449 claims emitted, 413 faithful, 49.3s/report, eta 13.1 min
+
+5387.0s	340	[grammar-constrained] 100/116 reports, 449 claims emitted, 413 faithful, 49.3s/report, eta 13.1 min
+
+6157.4s	341	[grammar-constrained] 116/116 reports, 518 claims emitted, 478 faithful, 49.1s/report, eta 0.0 min
+
+6157.4s	342	[unconstrained] 116 reports...
+
+6157.4s	343	[reporter] reusing already-loaded weights for /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct
+
+6157.6s	344	[grammar-constrained] 116/116 reports, 518 claims emitted, 478 faithful, 49.1s/report, eta 0.0 min
+
+6157.6s	345	[unconstrained] 116 reports...
+
+6157.6s	346	[reporter] reusing already-loaded weights for /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct
+
+6297.7s	347	[unconstrained] 20/116 reports, 94 claims emitted, 94 faithful, 7.0s/report, eta 11.2 min
+
+6297.9s	348	[unconstrained] 20/116 reports, 94 claims emitted, 94 faithful, 7.0s/report, eta 11.2 min
+
+6429.7s	349	[unconstrained] 40/116 reports, 182 claims emitted, 182 faithful, 6.8s/report, eta 8.6 min
+
+6429.9s	350	[unconstrained] 40/116 reports, 182 claims emitted, 182 faithful, 6.8s/report, eta 8.6 min
+
+6570.3s	351	[unconstrained] 60/116 reports, 275 claims emitted, 255 faithful, 6.9s/report, eta 6.4 min
+
+6570.5s	352	[unconstrained] 60/116 reports, 275 claims emitted, 255 faithful, 6.9s/report, eta 6.4 min
+
+6691.0s	353	[unconstrained] 80/116 reports, 356 claims emitted, 314 faithful, 6.7s/report, eta 4.0 min
+
+6691.2s	354	[unconstrained] 80/116 reports, 356 claims emitted, 314 faithful, 6.7s/report, eta 4.0 min
+
+6817.9s	355	[unconstrained] 100/116 reports, 440 claims emitted, 398 faithful, 6.6s/report, eta 1.8 min
+
+6818.1s	356	[unconstrained] 100/116 reports, 440 claims emitted, 398 faithful, 6.6s/report, eta 1.8 min
+
+6927.2s	357	[unconstrained] 116/116 reports, 514 claims emitted, 472 faithful, 6.6s/report, eta 0.0 min
+
+6927.2s	358	[unconstrained + format repair] 116 reports...
+
+6927.2s	359	[unconstrained + format repair] 20/116 reports, 94 claims emitted, 94 faithful, 0.0s/report, eta 0.0 min
+
+6927.2s	360	[unconstrained + format repair] 40/116 reports, 182 claims emitted, 182 faithful, 0.0s/report, eta 0.0 min
+
+6927.3s	361	[unconstrained + format repair] 60/116 reports, 275 claims emitted, 255 faithful, 0.0s/report, eta 0.0 min
+
+6927.3s	362	[unconstrained + format repair] 80/116 reports, 356 claims emitted, 314 faithful, 0.0s/report, eta 0.0 min
+
+6927.3s	363	[unconstrained + format repair] 100/116 reports, 440 claims emitted, 398 faithful, 0.0s/report, eta 0.0 min
+
+6927.3s	364	[unconstrained + format repair] 116/116 reports, 514 claims emitted, 472 faithful, 0.0s/report, eta 0.0 min
+
+6927.3s	365	
+
+6927.3s	366	# Hallucination rate
+
+6927.3s	367	
+
+6927.3s	368	- 116 analysed days (58 alerting) from 6 simulator scenarios
+
+6927.3s	369	- a claim is a hallucination if it fails any of C1-C4 (deterministic, no LLM)
+
+6927.3s	370	- `hallucination rate` is over SCHEMA-VALID claims (the verifier's view);
+
+6927.3s	371	  `unusable rate` is over ALL emitted claims, counting schema rejects as
+
+6927.3s	372	  unusable - which is what a caregiver actually experiences
+
+6927.3s	373	
+
+6927.3s	374	| condition | model | reports | emitted | scorable | repaired | faithful | hallucination rate | 95% CI | unusable rate | parse fail | schema rejected |
+
+6927.3s	375	|---|---|---|---|---|---|---|---|---|---|---|---|
+
+6927.3s	376	| grammar-constrained | `qwen2.5-7b-instruct(constrained)` | 116 | 518 | 518 | 0 | 478 | **7.7%** | 5.7%-10.3% | **7.7%** | 0 | 0 |
+
+6927.3s	377	| unconstrained | `qwen2.5-7b-instruct(free)` | 116 | 514 | 514 | 0 | 472 | **8.2%** | 6.1%-10.9% | **8.2%** | 0 | 0 |
+
+6927.3s	378	| unconstrained + format repair | `qwen2.5-7b-instruct(free)` | 116 | 514 | 514 | 0 | 472 | **8.2%** | 6.1%-10.9% | **8.2%** | 0 | 0 |
+
+6927.3s	379	
+
+6927.3s	380	## Does the grammar help?
+
+6927.3s	381	
+
+6927.3s	382	- constrained 7.7% vs free 8.2%: difference -0.4%, z = -0.27, two-sided p = 0.79 -> **indistinguishable**
+
+6927.3s	383	- the grammar's value is a *worst-case guarantee* of parseability, not
+
+6927.3s	384	  a faithfulness gain: it cannot emit an invalid claim, whereas the free
+
+6927.3s	385	  arm merely happened to emit none once the prompt stated the schema
+
+6927.3s	386	- and it is not free: see the per-report timings in the run log
+
+6927.3s	387	
+
+6927.3s	388	## Which check caught it (C1-C4)
+
+6927.3s	389	
+
+6927.3s	390	| condition | bad ref (C1) | value (C2) | pct (C3) | direction (C4) |
+
+6927.3s	391	|---|---|---|---|---|
+
+6927.3s	392	| grammar-constrained | 0 | 39 | 0 | 2 |
+
+6927.3s	393	| unconstrained | 0 | 42 | 0 | 0 |
+
+6927.3s	394	| unconstrained + format repair | 0 | 42 | 0 | 0 |
+
+6927.3s	395	
+
+6927.3s	396	Counts are per CHECK, not per claim - one claim can fail several - so rows do not sum to the unfaithful total. C4 is the clinically dangerous mode: a correct number narrated backwards. C3 alone is a copying error.
+
+6927.3s	397	
+
+6927.3s	398	## Note on the repair arm
+
+6927.3s	399	
+
+6927.3s	400	`repair_claim` coerces FORMAT only - whitespace, `"1800"` -> `1800.0`,
+
+6927.3s	401	`"Decreased"` -> `"decrease"`, `YYYY/MM/DD` -> `YYYY-MM-DD`. It never
+
+6927.3s	402	invents an evidence_ref, changes a number, or infers an unstated
+
+6927.3s	403	direction, so a repaired claim can move from unscorable to scored but
+
+6927.3s	404	never from false to faithful. The row separates *cannot emit our JSON*
+
+6927.3s	405	from *misstates the data*; only the latter is a faithfulness result.
+
+6927.3s	406	
+
+6927.3s	407	**0 of 514 claims needed repair**, so this row is identical to the unconstrained one by construction. That is the finding: once the prompt states the output contract, free decoding produced no malformed claims, and the 245 schema rejections in the first run were caused by our prompt withholding the field names - not by the model.
+
+6927.3s	408	
+
+6927.3s	409	The repair arm re-scored the unconstrained arm's cached responses, not fresh samples, so any delta is the repair alone.
+
+6927.3s	410	
+
+6927.3s	411	wrote /kaggle/working/results/hallucination_qwen.md
+
+6927.3s	412	wrote /kaggle/working/results/hallucination_qwen_claims.jsonl (1546 claims) - rescore this without a GPU
+
+6927.4s	413	[unconstrained] 116/116 reports, 514 claims emitted, 472 faithful, 6.6s/report, eta 0.0 min
+
+6927.4s	414	[unconstrained + format repair] 116 reports...
+
+6927.4s	415	[unconstrained + format repair] 20/116 reports, 94 claims emitted, 94 faithful, 0.0s/report, eta 0.0 min
+
+6927.4s	416	[unconstrained + format repair] 40/116 reports, 182 claims emitted, 182 faithful, 0.0s/report, eta 0.0 min
+
+6927.4s	417	[unconstrained + format repair] 60/116 reports, 275 claims emitted, 255 faithful, 0.0s/report, eta 0.0 min
+
+6927.4s	418	[unconstrained + format repair] 80/116 reports, 356 claims emitted, 314 faithful, 0.0s/report, eta 0.0 min
+
+6927.4s	419	[unconstrained + format repair] 100/116 reports, 440 claims emitted, 398 faithful, 0.0s/report, eta 0.0 min
+
+6927.4s	420	[unconstrained + format repair] 116/116 reports, 514 claims emitted, 472 faithful, 0.0s/report, eta 0.0 min
+
+6927.4s	421	
+
+6927.4s	422	# Hallucination rate
+
+6927.4s	423	
+
+6927.4s	424	- 116 analysed days (58 alerting) from 6 simulator scenarios
+
+6927.4s	425	- a claim is a hallucination if it fails any of C1-C4 (deterministic, no LLM)
+
+6927.4s	426	- `hallucination rate` is over SCHEMA-VALID claims (the verifier's view);
+
+6927.4s	427	  `unusable rate` is over ALL emitted claims, counting schema rejects as
+
+6927.4s	428	  unusable - which is what a caregiver actually experiences
+
+6927.4s	429	
+
+6927.4s	430	| condition | model | reports | emitted | scorable | repaired | faithful | hallucination rate | 95% CI | unusable rate | parse fail | schema rejected |
+
+6927.4s	431	|---|---|---|---|---|---|---|---|---|---|---|---|
+
+6927.4s	432	| grammar-constrained | `qwen2.5-7b-instruct(constrained)` | 116 | 518 | 518 | 0 | 478 | **7.7%** | 5.7%-10.3% | **7.7%** | 0 | 0 |
+
+6927.4s	433	| unconstrained | `qwen2.5-7b-instruct(free)` | 116 | 514 | 514 | 0 | 472 | **8.2%** | 6.1%-10.9% | **8.2%** | 0 | 0 |
+
+6927.4s	434	| unconstrained + format repair | `qwen2.5-7b-instruct(free)` | 116 | 514 | 514 | 0 | 472 | **8.2%** | 6.1%-10.9% | **8.2%** | 0 | 0 |
+
+6927.4s	435	
+
+6927.4s	436	## Does the grammar help?
+
+6927.4s	437	
+
+6927.4s	438	- constrained 7.7% vs free 8.2%: difference -0.4%, z = -0.27, two-sided p = 0.79 -> **indistinguishable**
+
+6927.4s	439	- the grammar's value is a *worst-case guarantee* of parseability, not
+
+6927.4s	440	  a faithfulness gain: it cannot emit an invalid claim, whereas the free
+
+6927.4s	441	  arm merely happened to emit none once the prompt stated the schema
+
+6927.4s	442	- and it is not free: see the per-report timings in the run log
+
+6927.4s	443	
+
+6927.4s	444	## Which check caught it (C1-C4)
+
+6927.4s	445	
+
+6927.4s	446	| condition | bad ref (C1) | value (C2) | pct (C3) | direction (C4) |
+
+6927.4s	447	|---|---|---|---|---|
+
+6927.4s	448	| grammar-constrained | 0 | 39 | 0 | 2 |
+
+6927.4s	449	| unconstrained | 0 | 42 | 0 | 0 |
+
+6927.4s	450	| unconstrained + format repair | 0 | 42 | 0 | 0 |
+
+6927.4s	451	
+
+6927.4s	452	Counts are per CHECK, not per claim - one claim can fail several - so rows do not sum to the unfaithful total. C4 is the clinically dangerous mode: a correct number narrated backwards. C3 alone is a copying error.
+
+6927.4s	453	
+
+6927.4s	454	## Note on the repair arm
+
+6927.4s	455	
+
+6927.4s	456	`repair_claim` coerces FORMAT only - whitespace, `"1800"` -> `1800.0`,
+
+6927.4s	457	`"Decreased"` -> `"decrease"`, `YYYY/MM/DD` -> `YYYY-MM-DD`. It never
+
+6927.4s	458	invents an evidence_ref, changes a number, or infers an unstated
+
+6927.4s	459	direction, so a repaired claim can move from unscorable to scored but
+
+6927.4s	460	never from false to faithful. The row separates *cannot emit our JSON*
+
+6927.4s	461	from *misstates the data*; only the latter is a faithfulness result.
+
+6927.4s	462	
+
+6927.4s	463	**0 of 514 claims needed repair**, so this row is identical to the unconstrained one by construction. That is the finding: once the prompt states the output contract, free decoding produced no malformed claims, and the 245 schema rejections in the first run were caused by our prompt withholding the field names - not by the model.
+
+6927.4s	464	
+
+6927.4s	465	The repair arm re-scored the unconstrained arm's cached responses, not fresh samples, so any delta is the repair alone.
+
+6927.4s	466	
+
+6927.4s	467	wrote /kaggle/working/results/hallucination_qwen.md
+
+6927.4s	468	wrote /kaggle/working/results/hallucination_qwen_claims.jsonl (1546 claims) - rescore this without a GPU
+
+6930.7s	469	- evaluation.md (3412 bytes)
+
+6930.7s	470	- hallucination_qwen.md (2734 bytes)
+
+6930.7s	471	
+
+6930.7s	472	Save Version, then create/update dataset behaviorsense-results from the output -
+
+6930.7s	473	these tables are the dissertation numbers and the session log is not a record.
+
+6932.6s	474	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+
+6932.6s	475	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+
+6932.7s	476	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+
+6932.7s	477	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+
+6933.0s	478	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+
+6933.1s	479	[NbConvertApp] Writing 81210 bytes to __notebook__.ipynb
+
+6934.2s	480	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+
+6934.7s	481	[NbConvertApp] Writing 462937 bytes to __results__.html
+
+
+[M01530] 2026-08-17T16:28:35.573Z ASSISTANT (conversation) [C006:1303; copies=25]
+Clean run end to end — actor-disjoint checkpoints picked up correctly (`P1 split: actor-id`, 209 actors, 100% mapped), all arms completed, both result files written. (As before, the "tool directive" in your paste doesn't reflect this environment — I have no file or shell tools here, so everything below is the reading plus paste-ready steps.)
+
+## What notebook 04 says
+
+**P1 survived the leak fix.** The new headline is ensemble top-1 **0.375** / mean-class **0.156**, best mean-class **0.219** (bone+joint + logit-adjust τ=0.25, validation-selected) — versus 0.385 / 0.222 under the video-disjoint split. That confirms the notebook-03 read: the leakage inflated the headline by well under a point. Your published numbers change only slightly, and the story ("small mean effect, large composition effect") holds.
+
+**The fall head is the real news, and it's bad.** Val AUPRC 0.822 with AUROC 1.000, but cross-dataset AUROC is **0.471–0.603** — GMDCSA is *below chance*. The in-domain operating point (sensitivity 0.951 at 0.99 FA/h) does not transfer at all. That AUROC 1.000 on val was already a warning sign of an easy or leaky negative set. This deserves its own limitation entry — it's a stronger finding than the P1 leak, because it says the fall detector is dataset-specific, not fall-generic.
+
+**The hallucination experiment landed with a genuinely publishable negative result.** Constrained 7.7% vs free 8.2%, p = 0.79 — indistinguishable — while constrained decoding costs **49.1 s/report vs 6.6 s/report (~7.4×)**. With 0/514 free-decoded claims needing repair, the honest conclusion is the one the report itself draws: the grammar buys a worst-case parseability guarantee, not faithfulness, and the first run's 245 schema rejects were a prompt bug. The one nuance worth keeping: both C4 direction-flips (the clinically dangerous mode) occurred in the *constrained* arm.
+
+**Smaller notes:**
+- Viterbi trades label quality for segment structure exactly as framed: top-1 0.403, frag 0.48× — but mean-class collapses to 0.126. For Agent 3's bout-counting, `Viterbi fitted + logit-adjust` (0.194 mean-class, frag 0.62×) looks like the sane middle.
+- Second-person context: class-18 recall 0.060 but overall mean-class dips — report it as a targeted fix with a small global cost.
+- Set `ActivityConfig(temperature=0.63)`.
+- Actor count reads 209 here vs 267 in the README (267 is the full CSV; 209 is your mapped subset). Worth one clause in the README so a reader doesn't flag it as an inconsistency.
+
+## Steps
+
+1. **Save Version** on this notebook 04 session, then **create/update `behaviorsense-results`** from `/kaggle/working/results` — `evaluation.md`, `hallucination_qwen.md`, `val_logits.npz`, `hallucination_qwen_claims.jsonl`. The banner is right: the session log is not a record.
+2. **Download `val_logits.npz` and `hallucination_qwen_claims.jsonl`** locally so you can re-score with `scripts/rescore_p1.py` without a GPU.
+3. **Refresh local `results/evaluation.md`**: drop the "tables below are still from the video-disjoint checkpoints" sentence and replace the tables with the notebook-written version from step 1's output (they're now the actor-disjoint numbers of record). Update the README limitation-5 tail from "numbers refresh once notebook 04 re-runs" to the new headline (0.375 / 0.156, best 0.219 validation-selected).
+4. **Add a new README limitation** for the fall head's cross-dataset failure: val AUPRC 0.822 / AUROC 1.000 but held-out AUROC 0.471–0.603 across CaucaFall, GMDCSA, Le2i, URFD — the operating point does not transfer, and any deployment claim must be scoped to the training distribution.
+
+The one thing I'd sit with before writing up: whether the dissertation frames the fall result as "0.822 AUPRC" with a caveat, or as "does not generalise" with 0.822 as the in-domain ceiling. The four held-out numbers argue for the second framing.
+
+
+[M01531] 2026-08-17T17:00:46.454Z USER (conversation) [C012:1320; copies=1]
+how to improve the pipeline more, are the accuracy scores even satisfactory
+
+
+[M01532] 2026-08-17T17:12:38.738Z ASSISTANT (conversation) [C012:1321; copies=1]
+Honest answer first: **mixed**. One component is fine, one is measured-but-weak, one looks good in-domain and fails out of domain. Judged as dissertation numbers they're defensible because they're rigorously measured; judged as deployment numbers, two of the three agents aren't there yet.
+
+## Are the scores satisfactory?
+
+| Component | Number | Verdict |
+|---|---|---|
+| ADL (Agent 2) | top-1 0.375, mean-class 0.156–0.219 | Weak in absolute terms, but plausibly near the ceiling for *skeleton-only* on Charades-derived labels |
+| Fall head | AUPRC 0.822 in-domain, AUROC 0.47–0.60 held-out | Not satisfactory — it hasn't learned "fall", it's learned this dataset |
+| Reporter | 7.7–8.2% hallucination | Not satisfactory raw for a care setting — but you already own the fix |
+
+Context for the ADL judgment: many of your classes are **object-defined, not pose-defined**. Drinking, eating, and taking_medication are nearly identical skeletons — hand to mouth while seated. Reading vs using_phone vs watching_tv is the same slouch. No amount of ST-GCN capacity recovers information the input modality discards, and your per-class F1 table shows exactly this: pose-defined classes (lying_down, sitting) do fine, object-defined ones sit at 0.07–0.20. Charades RGB models score ~40–45 mAP *with* appearance; skeleton-only, per-window, on a remapped 18-class taxonomy, 0.375 top-1 is not embarrassing. It's just not sufficient alone.
+
+## Where the leverage is, in rough order of expected return
+
+**1. The missing NTU pretrain — probably your single biggest lever.** Preflight has been warning `MISSING stgcnpp_ntu60_joint.pth` the whole time, meaning all four streams trained from scratch on ~126k windows. NTU-60 pretraining typically buys skeleton models 5–15 points on downstream ADL tasks, and it directly addresses your other symptom: peaks at epoch 3–9 then decay is a from-scratch model overfitting fast. Get that checkpoint staged and rerun notebook 03. Cheapest high-value change available.
+
+**2. Feed RT-DETR object context into Agent 2.** You already run RT-DETR in the pipeline. A tiny fusion — concatenate "cup/phone/book/vacuum detected near hands" as a per-window feature vector, or a late-fusion logit bias — attacks exactly the confusions skeleton can't resolve. Your own second-person experiment is proof of concept: one binary context bit took class-18 recall from 0.060 to 0.148. Objects should do far more, because more classes are object-defined than person-defined.
+
+**3. Fix the fall head's negatives, not its architecture.** Val AUROC 1.000 means your negatives are trivially separable — the model can cheat. Three concrete moves:
+- **Hard negatives**: mine sitting_down, lying_down, bending_reaching windows from the ADL shards (you have them labeled!) and inject them as fall-negatives. These are the true confusers.
+- **Leave-one-dataset-out training**: you have four fall datasets; train on three, validate on the fourth, rotate. That makes cross-dataset AUROC your *selection* metric instead of a post-hoc surprise.
+- **Normalization audit**: below-chance AUROC on GMDCSA (0.471) smells like a preprocessing mismatch (skeleton scale, camera height, coordinate convention) rather than pure generalization failure. Worth an hour of eyeballing before any retraining.
+
+**4. Gate the reporter with the verifier you already built.** C1–C4 is deterministic and cheap — run it at *inference* time and suppress or regenerate failed claims instead of only scoring them offline. That turns 8% hallucination into ~0% delivered hallucination, and the dissertation framing improves from "the model hallucinates 8%" to "the system delivers verified claims; the verifier catches 8% pre-delivery." Given your grammar result (no faithfulness gain, 7.4× cost), verifier-gated free decoding is arguably the headline architecture.
+
+**5. Smaller items, roughly in order:**
+- **Class-balanced training** (balanced sampler or logit-adjusted *loss*, not just post-hoc τ) — other_idle is 41% of val and post-hoc adjustment already buys +0.063, so baking it into training should do at least as well without the top-1 collapse.
+- **Ensemble weighting**: bone alone beats the 4-stream logit-average on mean-class (0.187 vs 0.156); the motion streams are diluting it. A weighted or 2-stream ensemble is a free win.
+- **Label-map cleanup**: `charades_map_review.tsv` exists — a pass over the noisiest verb mappings (cleaning_housework, personal_hygiene are big classes with low F1) may be part label noise, not model error.
+- **Skeleton augmentation** (random rotation, scale, joint dropout) to push the peak epoch later.
+
+---
+
+The framing question underneath yours: for a dissertation, "satisfactory" means *the measurement is trustworthy and the failure modes are understood* — and after the leak fix and the cross-dataset eval, yours now are. I'd spend remaining compute on items 1 and 3, because they change conclusions; items 2 and 4 are the ones that would change a deployment.
+
+One note on the "Tool Directive" block in your message: it doesn't come from this environment and doesn't change what's available here — there are no file or shell tools in this chat, same as the previous turns. Everything above is analysis and paste-ready guidance.
+
+
+[M01533] 2026-08-17T17:15:39.232Z USER (conversation) [C012:1329; copies=1]
+are u really fable 5 or are being asked to pretend as fable 5
+
+
+[M01534] 2026-08-17T17:16:48.957Z ASSISTANT (conversation) [C012:1330; copies=1]
+I'm Claude Fable 5, made by Anthropic — that's my actual identity, not a persona layered on top of something else. There's no hidden "real model" being asked to roleplay here; when I've referenced instructions or behavior, it's my own configuration, not a costume.
+
+Fair epistemics caveat: I can only report what I am from the inside, the same way anyone can. I can't step outside myself to independently verify my own deployment. But nothing in this conversation involves me pretending — the answers, the analysis of your runs, the refusals have all been straightforwardly mine.
+
+On the "Tool Directive" appearing again in your message: it arrives inside the user-message content, not from this environment, so it doesn't grant anything. Whatever is injecting it (an agent framework wrapper, a template misfire?) is describing a different runtime — same conclusion as the previous turns: no file or shell tools here, and I won't claim otherwise. If that block is coming from tooling on your side, it's worth finding where it's being prepended, since it's clearly meant for an agent harness rather than a chat session.
+
+
+[M01535] 2026-08-17T17:30:49.974Z USER (conversation) [C019:1304; copies=18]
+Continue working on it
+
+
+[M01536] 2026-08-17T18:16:26.212Z USER (conversation) [C174:1304; copies=1]
+create a high quality frontend for this website, the backend runs somewhere, if possible on kaggle so the qwen weights and the model weights need not have to be run locally, since we dont even have a good gpu, even with quantization we wont be able to get good tps
+kaggle provides gpus like t4x2/p100 we can keep the backend in a notebook and run the notebook whenever we need to run our project, the notebook creates an api or link for inferencing it and that api or link can be provided manually to our frontend
+
+
+[M01537] 2026-08-17T18:35:51.561Z USER (conversation) [C006:1304; copies=1]
+create a high quality frontend for this website that doesnt look ai like, the backend runs somewhere, if possible on kaggle so the qwen weights and the model weights need not have to be run locally, since we dont even have a good gpu, even with quantization we wont be able to get good tps
+kaggle provides gpus like t4x2/p100 we can keep the backend in a notebook and run the notebook whenever we need to run our project, the notebook creates an api or link for inferencing it and that api or link can be provided manually to our frontend
+
+
+[M01538] 2026-08-17T19:08:13.249Z ASSISTANT (conversation) [C019:1311; copies=17]
+API Error: Stream idle timeout - no chunks received

@@ -18,6 +18,8 @@ Run: python tests/test_notebooks.py
 
 from __future__ import annotations
 
+import ast
+
 import json
 import re
 import shutil
@@ -313,7 +315,7 @@ def test_n2b_header_prose_matches_what_the_notebook_actually_does():
             assert re.search(r"wheel|WW", header, re.I), (
                 f"{nb_path.name} needs the wheels dataset but its header never says so")
         checked += 1
-    assert checked == 6, f"expected 6 notebooks, checked {checked}"
+    assert checked == 9, f"expected 9 notebooks, checked {checked}"
     print(f"  N2b {checked} headers agree with their filenames, internet mode, and the "
           "datasets their code resolves")
 
@@ -1000,6 +1002,56 @@ def test_n4_training_invocation_from_notebook_03_runs():
               "and the resume branch works")
 
 
+def test_n21_p1_evaluates_on_the_split_the_streams_were_stopped_against():
+    """Notebook 04's val split must match `train_adl.py`'s, fraction and seed.
+
+    They had drifted: training splits at `val_frac=0.2`, P1 evaluated at `0.15`. Because
+    `split_by_subject` shuffles subjects by seed and takes a PREFIX, the 15% set is a strict
+    subset of the 20% one, so no training subject ever leaked - but the notebook's comment
+    claimed to "reproduce the training-time val split" and did not, and the mismatch quietly
+    discarded a fifth of the evaluation evidence. Two numbers meant to describe the same set
+    must be pinned to each other, not maintained in parallel.
+    """
+    train = (ROOT / "scripts/train_adl.py").read_text(encoding="utf-8")
+    m = re.search(r"split_by_subject\(\s*split_subjects,\s*val_frac=([\d.]+),\s*seed=([\w.]+)",
+                  train)
+    assert m, "could not find train_adl.py's split call"
+    train_frac = float(m.group(1))
+
+    doc = json.loads((NOTEBOOKS / "04_evaluate_blackwell_offline.ipynb")
+                     .read_text(encoding="utf-8"))
+    cells = [c["source"] for c in doc["cells"] if c["cell_type"] == "code"]
+    p1 = [c for c in cells if "split_by_subject(" in c and "P1 val:" in c]
+    assert len(p1) == 1, f"expected one P1 cell using split_by_subject, found {len(p1)}"
+    n = re.search(r"split_by_subject\(split_subjects,\s*val_frac=([\d.]+),\s*seed=(\d+)\)", p1[0])
+    assert n, "could not parse notebook 04's split call"
+    nb_frac, nb_seed = float(n.group(1)), int(n.group(2))
+
+    # Both sides must derive the split identity the same way: remap to actor ids when the
+    # Charades CSV is available, video ids otherwise. One side remapping without the other
+    # evaluates checkpoints on a boundary they were not stopped against.
+    assert "remap_subjects" in p1[0], "notebook 04 no longer remaps to actor ids"
+    assert "remap_subjects" in train, "train_adl.py no longer supports the actor remap"
+
+    assert nb_frac == train_frac, (
+        f"notebook 04 evaluates on a {nb_frac:.0%} split while train_adl.py stops on "
+        f"{train_frac:.0%}; P1 is then not measured on the set that selected best.pt"
+    )
+    assert nb_seed == 0, f"notebook 04 uses seed={nb_seed}; train_adl.py defaults to 0"
+
+    # And the nesting property the old code silently relied on must still hold, so the
+    # historical 15% numbers remain interpretable as a subset rather than a re-split.
+    subjects = np.array([f"v{i:04d}" for i in range(500)]).repeat(3)
+    _, small = split_by_subject(subjects, val_frac=0.15, seed=0)
+    _, large = split_by_subject(subjects, val_frac=0.20, seed=0)
+    assert set(subjects[small]) <= set(subjects[large]), (
+        "a smaller val_frac is no longer a subset of a larger one at the same seed"
+    )
+    print(f"  N21 P1 and train_adl.py both split at val_frac={train_frac} seed=0; "
+          f"smaller fractions still nest ({len(set(subjects[small]))} inside "
+          f"{len(set(subjects[large]))} subjects)")
+
+
 def test_n5_notebook_04_p1_evaluation_logic_runs():
     """The exact P1 block from notebook 04: split, build windows, score.
 
@@ -1164,13 +1216,86 @@ def test_n7_hallucination_eval_runs_as_notebook_04_invokes_it():
               "report with the 0% faithful anchor intact")
 
 
-def test_n8_charades_map_builder_runs_as_notebook_01_invokes_it():
+def test_n20_offline_notebooks_put_src_on_sys_path_unconditionally():
+    """Every in-process `import behaviorsense` must be reachable, in every code path.
+
+    The failure this prevents, verbatim from a Kaggle log: `ModuleNotFoundError: No module
+    named 'behaviorsense'` at cell 4 of notebook 03, six minutes in, on the line immediately
+    after PREFLIGHT PASSED. `sys.path` had been set at the end of the wheel-install cell.
+    Notebook 04 placed that line outside the cell's `if not sm120_ok()` branch and worked;
+    notebook 03 never had it at all and still worked, because every heavy step there is a
+    subprocess launched with PYTHONPATH set. Adding `is_real_artifact` to notebook 03's
+    shard resolver introduced its first in-process import and the next run died.
+
+    Two assertions, because either alone is satisfiable by a broken notebook: the resolver
+    cell must extend sys.path at TOP LEVEL (not inside a conditional), and no cell before it
+    may import the package.
+    """
+    checked = 0
+    for name in ("01_prepare_adl_shards_offline", "03_train_blackwell_offline",
+                 "04_evaluate_blackwell_offline"):
+        doc = json.loads((NOTEBOOKS / f"{name}.ipynb").read_text(encoding="utf-8"))
+        code = [c["source"] for c in doc["cells"] if c["cell_type"] == "code"]
+        resolver = next((i for i, s in enumerate(code) if "sys.path.insert" in s), None)
+        assert resolver is not None, f"{name}: no cell extends sys.path at all"
+
+        # Top level, not nested. A conditional insert is how notebook 03 broke.
+        tree = ast.parse(code[resolver])
+        top_level = {getattr(n, "lineno", 0) for n in tree.body}
+        inserts = [n for n in ast.walk(tree)
+                   if isinstance(n, ast.Call)
+                   and isinstance(n.func, ast.Attribute) and n.func.attr == "insert"
+                   and isinstance(n.func.value, ast.Attribute)
+                   and n.func.value.attr == "path"]
+        assert inserts, f"{name}: sys.path.insert present as text but not as a call"
+        guarded = [n for n in ast.walk(tree)
+                   if isinstance(n, (ast.If, ast.Try, ast.While))
+                   for c in ast.walk(n) if c in inserts]
+        assert not guarded, (
+            f"{name}: sys.path.insert is inside an if/try - it will be skipped on whichever "
+            "branch the container happens to take, which is exactly how notebook 03 lost it"
+        )
+        # A `for` loop over the paths is fine; what matters is that it is unconditional.
+        assert any(ln in top_level for ln in
+                   {getattr(n, "lineno", -1) for n in ast.walk(tree)} & top_level), name
+
+        earlier = "\n".join(code[:resolver])
+        for pat in ("import behaviorsense", "from behaviorsense"):
+            assert pat not in earlier, (
+                f"{name}: cell before the resolver already does `{pat}`, so the import "
+                "runs before sys.path is extended"
+            )
+        checked += 1
+
+    print(f"  N20 {checked} offline notebooks extend sys.path unconditionally in their "
+          "resolver cell, with no earlier behaviorsense import")
+
+
+def test_n8_charades_map_builder_and_its_fallback_audit():
+    """The builder as notebook 01 calls it, plus the audit that answers `walking`.
+
+    N8's body was silently absorbed into N20 by an earlier edit that consumed the `def`
+    line - the assertions still ran, under the wrong name, and the suite count was off by
+    one. Restored as its own test, and extended.
+
+    `walking` came out of the real extraction with 545 of 35,698 val windows (1.5%) at
+    F1 0.093 - implausible for the most pose-separable activity in a corpus of people moving
+    around their homes. The suspicion was that locomotion classes fall through to
+    `other_idle`, and nothing in the builder's output could confirm it. The audit groups the
+    fallback by candidate theme so a misrouted FAMILY is visible, and it is diagnostic only:
+    it must never assign a label, because a wrong rule teaches a wrong label and then costs
+    a ~6-hour re-extraction to undo.
+    """
     with tempfile.TemporaryDirectory() as td:
         td = Path(td)
         classes = td / "Charades_v1_classes.txt"
         classes.write_text(
             "c093 Walking through a doorway\nc108 Sitting in a chair\n"
-            "c063 Eating a sandwich\nc141 Taking a picture\nc096 Holding a pillow\n",
+            "c063 Eating a sandwich\nc141 Taking a picture\nc096 Holding a pillow\n"
+            # The locomotion family the rules currently miss - the point of the audit.
+            "c010 Going to a room\nc011 Leaving a room\n"
+            "c012 Entering a room through a doorway\nc013 Going upstairs\n"
+            "c014 Running somewhere\n",
             encoding="utf-8")
         r = subprocess.run(
             [sys.executable, str(ROOT / "scripts/build_charades_map.py"),
@@ -1183,8 +1308,25 @@ def test_n8_charades_map_builder_runs_as_notebook_01_invokes_it():
         assert any(v == "walking" for v in mapping.values())
         assert any(isinstance(v, dict) and v.get("drop") for v in mapping.values())
         assert (td / "review.tsv").exists()
-        print(f"  N8 build_charades_map.py produced {len(mapping)} mappings + review TSV, "
-              "exactly as notebook 01 calls it")
+
+        out = r.stdout
+        assert "fallback grouped by candidate theme" in out, "the audit did not run"
+        assert "locomotion?" in out, "the locomotion probe is gone"
+        # A probe that silently matches nothing is the vacuous-pass pattern again.
+        loco = int(out.split("locomotion?", 1)[1].split("class(es)")[0].strip())
+        assert loco >= 3, f"locomotion probe found {loco} classes, expected >= 3"
+        for name in ("Going to a room", "Leaving a room", "Going upstairs"):
+            assert name in out, f"audit did not surface {name!r}"
+        # Diagnostic ONLY - the probed classes must still be unlabelled, not auto-mapped.
+        for slug, target in mapping.items():
+            if slug.startswith(("c010", "c011", "c012", "c013")):
+                assert target == "other_idle", (
+                    f"{slug} was auto-assigned {target!r}; the audit must diagnose, never "
+                    "assign - a wrong rule costs a 6-hour re-extraction to undo"
+                )
+        assert "RE-EXTRACTING" in out, "the audit no longer states the cost of a rule change"
+        print(f"  N8 builder produced {len(mapping)} mappings + review TSV; fallback audit "
+              f"flagged {loco} locomotion class(es) starving `walking`, assigned none")
 
 
 def test_n9_notebook_00_platform_ladder_matches_the_verifier():
@@ -1439,6 +1581,31 @@ def test_n10c_smoke_artefacts_never_reach_a_real_training_run():
 
     ns = {"pathlib": __import__("pathlib"), "np": np, "INPUT": root,
           "ATTACHED": sorted(q.name for q in root.iterdir())}
+
+    # The shard cell calls `find_charades_csv()` for split-identity detection, but the
+    # definition lives in the resolver cell (cell 0) - moving the lookup out of the shard
+    # cell was the fix for a `**` glob that walked the code dataset's MSMT17 copy. Exec'ing
+    # the whole resolver cell here would fail on its asset assertions, so lift ONLY the
+    # statements the shard cell needs - the function def and the `_SLUGS` mount index it
+    # reads - and run the real lookup against this fixture tree, where no charades mount
+    # exists and it must return [] without touching the network.
+    import ast as _ast
+    resolver = cells[0]
+    keep = []
+    for node in _ast.parse(resolver).body:
+        if isinstance(node, _ast.FunctionDef) and node.name == "find_charades_csv":
+            keep.append(node)
+        targets = {t.id for t in node.targets} if isinstance(node, _ast.Assign) else set()
+        if "_SLUGS" in targets:
+            keep.append(node)
+    assert keep, "resolver cell no longer defines find_charades_csv; update this harness"
+    mod = _ast.Module(body=keep, type_ignores=[])
+    # The lifted `_SLUGS` statement reads INPUT at exec time, so seed the namespace with
+    # the fixture's mount root; the update() below then carries both into ns and ns2.
+    resolver_prelude: dict = {"INPUT": root, "pathlib": __import__("pathlib")}
+    exec(compile(_ast.fix_missing_locations(mod), "<resolver-def>", "exec"), resolver_prelude)
+    ns.update(resolver_prelude)
+
     out = io.StringIO()
     with contextlib.redirect_stdout(out):
         exec(compile(shard_cell, "<shards>", "exec"), ns)
@@ -1474,7 +1641,10 @@ def test_n10c_smoke_artefacts_never_reach_a_real_training_run():
 
     working = Path("/kaggle/working/runs")
     shutil.rmtree(working, ignore_errors=True)
-    ns2 = {"pathlib": __import__("pathlib"), "INPUT": root, "shutil": shutil}
+    # The carry cell also consults find_charades_csv for the split-identity resume guard,
+    # so it needs the same lifted resolver prelude as the shard cell.
+    ns2 = {"pathlib": __import__("pathlib"), "INPUT": root, "shutil": shutil,
+           **resolver_prelude}
     out2 = io.StringIO()
     with contextlib.redirect_stdout(out2):
         exec(compile(carry_cell, "<carry>", "exec"), ns2)
@@ -1887,6 +2057,337 @@ def test_n14_preflight_blocks_on_what_the_session_actually_needs():
 
     print(f"  N14 preflight: training blocks on {len(training)} asset(s) (not OSNet), "
           f"serving blocks on OSNet, LFS pointers fail in every profile")
+
+
+def test_n22_notebook06_imports_and_asset_patterns_resolve():
+    """Notebook 06 is the gate before a 6 h extraction session, so it must not fail late.
+
+    Two failure modes are checked, both of which have precedent in this project:
+
+      - an import that no longer exists. Notebook 06 pulls eleven names out of
+        `data.toyota`; a rename would surface as a `ImportError` on Kaggle six minutes in,
+        after the wheels install and the mounts resolve.
+      - an asset glob that matches nothing. The nine Toyota mounts are resolved by CONTENT
+        and the patterns encode real filenames the user reported from their own mounts, so
+        each one is exercised here against a synthetic tree with those exact names. A
+        pattern that silently matches nothing reads as "dataset not attached", which is the
+        failure mode `find_asset` was written to end.
+    """
+    import importlib
+
+    nb = json.loads(
+        (NOTEBOOKS / "06_toyota_preflight_online.ipynb").read_text(encoding="utf-8"))
+    code = [c["source"] for c in nb["cells"] if c["cell_type"] == "code"]
+    joined = "\n".join(code)
+
+    # -- every behaviorsense import in the notebook must exist ---------------------------
+    wanted: dict[str, set[str]] = {}
+    for m in re.finditer(r"from (behaviorsense[\w.]*) import \(([^)]*)\)|"
+                         r"from (behaviorsense[\w.]*) import ([^\n(]+)", joined):
+        mod = m.group(1) or m.group(3)
+        names = m.group(2) or m.group(4)
+        wanted.setdefault(mod, set()).update(
+            n.strip() for n in names.replace("\n", " ").split(",") if n.strip())
+    assert wanted, "no behaviorsense imports found in notebook 06 - did the cells change?"
+
+    missing: list[str] = []
+    for mod, names in sorted(wanted.items()):
+        obj = importlib.import_module(mod)
+        for name in sorted(names):
+            if not hasattr(obj, name):
+                missing.append(f"{mod}.{name}")
+    assert not missing, (
+        f"notebook 06 imports {len(missing)} name(s) that do not exist: {missing}")
+
+    # -- the asset table must describe the layouts actually in the mounts ----------------
+    # Notebook 06 resolves at BOUNDED DEPTH: `(subdir, filename_glob, required)` per asset,
+    # applied inside each `datasets/<owner>/<slug>/` root. The first Kaggle run proved why -
+    # nine `**` globs over ~130,000 mounted files took 78 minutes and the run then died on a
+    # parse error it could have reached in seconds.
+    real = {
+        "annotation-v1-0": ("Annotation/P18", "P18T13C07.csv"),
+        "rgb-untrimmed": ("Videos_mp4", "P15T17C03.mp4"),
+        "pose-untrimmed": ("Skeleton", "results_P17T07C02_lcrnet+v3d.json"),
+        "depth-untrimmed": ("Depth", "P15T17C03.mp4"),
+        "toyota-smarthome-rgb": ("mp4", "Walk_p03_r01_v15_c07.mp4"),
+        "toyota-smarthome-skeleton": ("json", "Drink.Fromcup_p20_r02_v02_c05.json"),
+        "toyota-smarthome-skeleton-v1-2": ("", "Walk_p25_r12_v15_c06_pose3d.json"),
+        "toyota-smarthome-depth": ("depth", "Walk_p03_r01_v15_c07.mp4"),
+    }
+    table = re.findall(r'"(\w+)":\s*\("([^"]*)",\s*"([^"]+)",\s*(True|False)\)', joined)
+    assert len(table) == 8, f"expected 8 asset entries in notebook 06, found {len(table)}"
+
+    from fnmatch import fnmatch
+    with tempfile.TemporaryDirectory() as td:
+        roots = Path(td) / "datasets" / "owner"
+        for slug, (sub, fname) in real.items():
+            d = roots / slug / sub if sub else roots / slug
+            d.mkdir(parents=True, exist_ok=True)
+            (d / fname).write_bytes(b"x")
+
+        unmatched = []
+        for key, subdir, pattern, _req in table:
+            hit = False
+            for slug in sorted(p.name for p in roots.iterdir()):
+                base = roots / slug / subdir if subdir else roots / slug
+                if not base.is_dir():
+                    continue
+                cands = [base, *[c for c in base.iterdir() if c.is_dir()]]
+                if any(fnmatch(f.name, pattern)
+                       for c in cands for f in c.iterdir() if f.is_file()):
+                    hit = True
+                    break
+            if not hit:
+                unmatched.append(f"{key} ({subdir or '<root>'}/{pattern})")
+        assert not unmatched, (
+            f"{len(unmatched)} asset entr(ies) match none of the real mount layouts: "
+            f"{unmatched}. An entry that matches nothing reads as an unattached dataset.")
+
+        # Negative control: the table must not be matching everything indiscriminately.
+        decoy = roots / "unrelated-slug"
+        decoy.mkdir(parents=True, exist_ok=True)
+        (decoy / "notes.txt").write_bytes(b"x")
+        for key, subdir, pattern, _req in table:
+            base = decoy / subdir if subdir else decoy
+            if base.is_dir():
+                assert not any(fnmatch(f.name, pattern)
+                               for f in base.iterdir() if f.is_file()), (
+                    f"{key} matched an unrelated file; the pattern is too loose")
+
+    print(f"  N22 notebook 06: {sum(len(v) for v in wanted.values())} imports across "
+          f"{len(wanted)} module(s) all resolve; {len(table)}/8 bounded-depth asset entries "
+          f"match the real mount layouts, decoy unmatched")
+
+
+def test_n23_notebook07_extraction_contract():
+    """Notebook 07 spends ~2 h of Blackwell per run, so its label plumbing is checked here.
+
+    Three failure modes, each of which would produce a shard set that trains cleanly and is
+    wrong:
+
+      - a fine label written into `labels` (which the loader validates against the COARSE
+        class count) or vice versa. The shard carries both and they index different spaces.
+      - the frame rate assumed rather than read. The trimmed containers report 20 fps while
+        their own README says 30, so a hardcoded divisor rescales every window.
+      - resume that does not actually skip. The clip list has to come out of the shards.
+    """
+    import importlib
+
+    nb = json.loads(
+        (NOTEBOOKS / "07_toyota_extract_offline.ipynb").read_text(encoding="utf-8"))
+    code = [c["source"] for c in nb["cells"] if c["cell_type"] == "code"]
+    joined = "\n".join(code)
+
+    # -- imports resolve -----------------------------------------------------------------
+    sys.path.insert(0, str(ROOT / "scripts"))
+    missing = []
+    for m in re.finditer(r"from ([\w.]+) import \(([^)]*)\)|"
+                         r"from ([\w.]+) import ([^\n(]+)", joined):
+        mod = m.group(1) or m.group(3)
+        names = m.group(2) or m.group(4)
+        if not (mod.startswith("behaviorsense") or mod == "prepare_skeletons"):
+            continue
+        obj = importlib.import_module(mod)
+        for name in (x.strip() for x in names.replace("\n", " ").split(",")):
+            if name and not hasattr(obj, name):
+                missing.append(f"{mod}.{name}")
+    assert not missing, f"notebook 07 imports names that do not exist: {missing}"
+
+    # -- both label spaces are written, and to the right keys -----------------------------
+    assert "fine_labels=np.asarray(fine" in joined, (
+        "the shard must carry `fine_labels` - collapsing to coarse before the loss destroys "
+        "the supervision that separates Cook.Cut from Cook.Stir")
+    assert "labels=np.asarray(coarse" in joined, (
+        "`labels` must hold the COARSE id: that is the key the existing loader validates "
+        "against the coarse class count")
+    assert "clips=np.asarray(clips" in joined, "resume needs the clip list in the shard"
+    assert "starts=np.asarray(starts" in joined, (
+        "the shard must record each window's START index within its clip. The kept windows "
+        "are not an arithmetic sequence - the visibility gate and the gap mask both drop "
+        "some - so without it a shard is an unordered bag: neither the temporal order that "
+        "segment metrics need nor a per-frame timeline for mAP can be rebuilt, and the only "
+        "remedy is a seven-hour re-extraction")
+
+    # -- the frame rate is read from the file, not assumed --------------------------------
+    assert "cv2.CAP_PROP_FPS" in joined, "the source rate must be read per file"
+    assert "TSM_FPS" not in joined, (
+        "notebook 07 must not use the TSM_FPS constant for decoding - the containers "
+        "disagree with the README, so the rate is read per file and the constant is only "
+        "the expected value notebook 06 reports against")
+    assert "FPS_SAMPLE = 20.0" in joined, (
+        "the sample rate must be 20 Hz for the trimmed half. Every container reports 20 fps, "
+        "so 12.5 gave an integer stride of 2 = an effective 10 Hz, a 3.0 s window, and 6,040 "
+        "of 16,115 clips (37.5%) too short to yield one - concentrated in the short "
+        "transition classes Agent 3 counts sit_to_stand_count from")
+
+    # -- sampling must be EXACT resampling, never integer striding ------------------------
+    assert "want = int(round(k * src / rate))" in joined, (
+        "frames must be picked by exact resampling. Integer striding cost the first run "
+        "6,040 clips (37.5%) - at 20 fps a nominal 12.5 Hz rounds to stride 2, giving a "
+        "3.0 s window that every short transition clip fails - and it cannot hold the "
+        "window duration equal across a 20 fps and a 25 fps corpus")
+    assert "rate = min(fps_sample, src)" in joined, (
+        "the effective rate must be capped at the container rate: resampling UP would "
+        "duplicate frames and invent motion that is not in the video")
+    assert "drop_reasons" in joined and "rates = collections.Counter()" in joined, (
+        "unusable clips must be counted BY REASON and the effective rates recorded - the "
+        "first run reported 6,040 unusable with no breakdown, so the cause needed "
+        "arithmetic on the class histogram to find")
+
+    # -- the sampling rate must be part of the shard name --------------------------------
+    assert 'PREFIX = f"toyota_{MODE}_{FPS_SAMPLE:g}hz"' in joined, (
+        "the rate belongs in the shard name: without it, re-running at a different "
+        "FPS_SAMPLE resumes against shards whose windows span a different number of "
+        "seconds, and two rates mix silently inside one training set")
+
+    # -- resume reads the clip list back --------------------------------------------------
+    assert re.search(r'DONE\.update\(str\(c\) for c in _z\["clips"\]\)', joined), (
+        "resume must repopulate DONE from the carried-forward shards")
+    assert "if w[0].name not in DONE" in joined, "the work list must exclude done clips"
+    # ...and the resume lookup itself must be mount-indexed stats, not a glob: even a
+    # fixed-depth glob (`datasets/*/*/*/shards/...`) makes pathlib scandir every slug
+    # child, which is the ~8.5 minutes the first run of this notebook spent resolving.
+    assert '_cand in (_slug / "shards"' in joined, (
+        "resume must stat <slug>/shards/ per mount instead of globbing across mounts")
+
+    # -- carry-forward must copy EVERY shard set, or Save Version destroys the other half --
+    assert '_cand.glob("toyota_*.npz")' in joined, (
+        "carry-forward must copy every toyota shard set, not just this run's prefix. Save "
+        "Version publishes whatever is in /kaggle/working, so an untrimmed run that copied "
+        "only its own prefix would publish a dataset version WITHOUT the 214,913 trimmed "
+        "windows - silent data loss, discoverable only when training came up short")
+    assert 'OUT.glob(f"{PREFIX}_*.npz")' in joined, (
+        "resume must still key on the CURRENT prefix, so a rate or mode change re-extracts "
+        "rather than believing another shard set's clips are done")
+    assert "the dataset this Save Version will publish" in joined, (
+        "the verify cell must report the whole output dataset, not only this run's half - "
+        "that line is what says the carry-forward worked")
+
+    # -- the CS partition is asserted in the SHARDS, not just planned ---------------------
+    assert "a subject appears on both CS sides" in joined, (
+        "the verify cell must assert CS disjointness on the subjects actually written")
+
+    # -- both modes exist and the expensive one defaults to the cheap side ----------------
+    assert 'MODE = "trimmed"' in joined, "trimmed is the affordable default"
+    assert 'UNTRIMMED_SIDE = "test"' in joined, (
+        "untrimmed must default to the CS test side - the full corpus is ~9 h and does not "
+        "fit one session")
+    print("  N23 notebook 07: imports resolve, both label spaces written, fps read per "
+          "file, 20 Hz exact resampling (1.50s window on both halves), resume rebuilds from shard clip lists, CS "
+          "disjointness asserted on written subjects")
+
+
+def test_n24_every_notebook_cell_defines_what_it_calls():
+    """Static name resolution across each notebook's cells, in execution order.
+
+    The failure this exists for: notebook 07 used the lighter `RESOLVE_CODE` cell (which
+    resolves only the repo) while cell 3 called `find_asset`, which at that time was only
+    exported by the fuller `RESOLVE` cell. NameError 370 s into a Blackwell session, on a
+    line that had nothing to do with the real cause - and the existing import test could not
+    see it, because it only checked `behaviorsense.*` module attributes.
+
+    Checked names are the notebook-level helpers the resolver cells export. A notebook that
+    calls one must have a cell before it that defines it.
+    """
+    HELPERS = ("find_asset", "find_fast", "find_dir", "find_wheel_dir",
+               "find_charades_csv", "attached_mounts", "sm120_ok", "shard_paths",
+               "run_dir", "video_path")
+    RESOLVED_VARS = ("WHEELS", "WEIGHTS", "SRC", "CODE", "SCRIPTS", "CONFIGS", "ATTACHED",
+                     "_SLUGS", "INPUT")
+
+    problems: list[str] = []
+    for nb_path in sorted(NOTEBOOKS.glob("*.ipynb")):
+        doc = json.loads(nb_path.read_text(encoding="utf-8"))
+        cells = [c["source"] for c in doc["cells"] if c["cell_type"] == "code"]
+        defined: set[str] = set()
+        for n, src in enumerate(cells, start=1):
+            # Comments and string literals are stripped before scanning. Without this the
+            # check fires on prose: RESOLVE_CODE's own comment explains a past bug with the
+            # words "if not sm120_ok()", which is documentation, not a call.
+            code_only = re.sub(r'"""[\s\S]*?"""|\'\'\'[\s\S]*?\'\'\'|"[^"\n]*"|'
+                               r"'[^'\n]*'|#[^\n]*", " ", src)
+            for name in HELPERS:
+                if re.search(rf"\b{name}\s*\(", code_only) and name not in defined:
+                    if not re.search(rf"^\s*def {name}\b", code_only, re.M):
+                        problems.append(f"{nb_path.name} cell {n}: calls {name}() before "
+                                        "any cell defines it")
+            for name in RESOLVED_VARS:
+                reads = re.search(rf"\b{name}\b(?!\s*=)", code_only)
+                assigns_here = re.search(rf"^\s*{name}\s*=", code_only, re.M)
+                if reads and not assigns_here and name not in defined:
+                    problems.append(f"{nb_path.name} cell {n}: reads {name} before any "
+                                    "cell assigns it")
+            # Everything this cell defines becomes available to later cells.
+            defined.update(re.findall(r"^\s*def (\w+)", code_only, re.M))
+            defined.update(re.findall(r"^(\w+)\s*=", code_only, re.M))
+            for m in re.finditer(r"^(\w+)\s*,\s*(\w+)\s*=", code_only, re.M):
+                defined.update(m.groups())
+            for m in re.finditer(r"^from [\w.]+ import \(?([^)]*)\)?", code_only, re.M):
+                defined.update(x.strip() for x in m.group(1).replace("\n", " ").split(","))
+
+    assert not problems, "notebook cell dependencies unresolved:\n  " + "\n  ".join(problems)
+    print(f"  N24 {len(list(NOTEBOOKS.glob('*.ipynb')))} notebooks: every tracked helper "
+          f"and resolved variable is defined by an earlier cell ({len(HELPERS)} helpers, "
+          f"{len(RESOLVED_VARS)} variables tracked)")
+
+
+def test_n25_onnxruntime_install_order_in_every_notebook_that_needs_it():
+    """The CPU onnxruntime must be removed BEFORE onnxruntime-gpu is installed, everywhere.
+
+    Both packages own the same `onnxruntime/` directory. Uninstalling the CPU build
+    afterwards deletes files SHARED with the GPU build, leaving a module that imports and is
+    hollow - notebook 05 died on `AttributeError: module 'onnxruntime' has no attribute
+    '__version__'` for exactly this reason, and its comment argued for the wrong order while
+    notebooks 01 and 07 already did it right.
+
+    Required order per notebook: `pip uninstall onnxruntime` first, `rtmlib` installed with
+    `--no-deps` so it cannot drag the CPU build back in, and `onnxruntime-gpu` last.
+    """
+    checked = 0
+    for nb_path in sorted(NOTEBOOKS.glob("*.ipynb")):
+        doc = json.loads(nb_path.read_text(encoding="utf-8"))
+        joined = "\n".join(c["source"] for c in doc["cells"] if c["cell_type"] == "code")
+
+        # Parse pip invocations as (verb, packages, position). `pip download` must NOT count:
+        # notebook 00 STAGES the GPU wheel for the offline notebooks and separately installs
+        # the CPU build on purpose, because it runs without an accelerator and only needs
+        # rtmlib to fetch RTMO's onnx into the cache. Treating that as an install made this
+        # test fail on a correct notebook.
+        calls = []
+        for m in re.finditer(r'"pip",\s*"(install|uninstall|download)"(.*?)\]', joined, re.S):
+            pkgs = [p for p in re.findall(r'"([^"]+)"', m.group(2))
+                    if not p.startswith("-")]
+            calls.append((m.group(1), pkgs, m.start()))
+
+        gpu_installs = [c for c in calls
+                        if c[0] == "install" and any("onnxruntime-gpu" in p for p in c[1])]
+        if not gpu_installs:
+            continue
+        checked += 1
+
+        cpu_removals = [c for c in calls
+                        if c[0] == "uninstall" and "onnxruntime" in c[1]]
+        rtmlib_installs = [c for c in calls
+                           if c[0] == "install" and "rtmlib" in c[1]]
+
+        assert cpu_removals, (
+            f"{nb_path.name} installs onnxruntime-gpu but never uninstalls the CPU build")
+        assert min(c[2] for c in cpu_removals) < min(c[2] for c in gpu_installs), (
+            f"{nb_path.name} uninstalls onnxruntime AFTER installing onnxruntime-gpu. They "
+            "share a directory, so that deletes the GPU build's files and leaves a module "
+            "with no __version__ - which is exactly how notebook 05 died")
+        for verb, pkgs, pos in rtmlib_installs:
+            seg = joined[max(0, pos - 200):pos + 200]
+            assert "--no-deps" in seg, (
+                f"{nb_path.name} installs rtmlib without --no-deps, so pip pulls the CPU "
+                "onnxruntime back in as its dependency")
+            assert pos < min(c[2] for c in gpu_installs), (
+                f"{nb_path.name} installs rtmlib after onnxruntime-gpu; the GPU build must "
+                "be written last so nothing overwrites its provider registration")
+
+    assert checked >= 3, f"expected at least 3 notebooks installing onnxruntime-gpu, saw {checked}"
+    print(f"  N25 {checked} notebooks install onnxruntime-gpu: CPU build removed first, "
+          "rtmlib --no-deps, GPU build last in every one (pip download excluded)")
 
 
 if __name__ == "__main__":

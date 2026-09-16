@@ -63,6 +63,7 @@ all five content corruptions through it and requiring every one to still fail.
 from __future__ import annotations
 
 import json
+import pathlib
 import random
 import re
 from dataclasses import dataclass, field
@@ -90,10 +91,32 @@ REPORTABLE_FEATURES: tuple[str, ...] = (
     "meal_events",
     "medication_events",
     "social_interaction_duration_s",
+    # `visitor_count`, not buried: this is the only signal Agent 2's second-person context
+    # produces for `interacting_with_person` (class 18, F1 0.022), and the social-isolation
+    # alert is gated on `visitor_count == 0`. Showing the model the count, not just the
+    # duration, is what lets it name "no visitors today" as the cause when it is.
+    "visitor_count",
     "longest_inactive_block_s",
-    "sleep_proxy_duration_s",
+    # `lying_duration_s`, not `sleep_proxy_duration_s`: the latter never existed on
+    # DailyFeatures, so state_to_payload skipped it silently via its `not in values`
+    # guard and the model was never offered a sleep-related feature at all. A dead
+    # entry in a list of "features a caregiver report should mention" is worse than
+    # an absent one - it reads as covered.
+    "lying_duration_s",
     "room_transitions",
     "housework_duration_s",
+    # ADDED 2026-09-12, after the 9m56s upload: its report named walking, mobility index and the
+    # 5.2 s longest-inactive block while never mentioning that the resident COOKED FOR 66.95 s and
+    # DRANK FOUR TIMES - because neither feature was in this list, so the model was never offered
+    # them. A caregiver report that omits cooking and drinking to lead with "longest inactive
+    # block 5.2 s" is a report about the list, not the person.
+    #
+    # COST, stated rather than hidden: this list is the prompt's feature set, so the MEASURED
+    # (Qwen) arm's hallucination table in results/evaluation.md was produced over the previous
+    # 10-feature list and is now one revision behind the demo arm. Re-run notebook 04's
+    # measurement to bring the table level; the comparison's structure is unchanged.
+    "cooking_duration_s",
+    "drinking_events",
 )
 
 
@@ -166,6 +189,18 @@ def state_to_payload(state: BehaviourState, cfg: ReporterConfig) -> dict[str, An
     day = state.report_day
     values = state.today.numeric_items()
     rows: list[dict[str, Any]] = []
+    # A DAY'S TOTAL AND TEN MINUTES' TOTAL ARE NOT THE SAME QUANTITY, and comparing them is an
+    # arithmetic error rather than a judgement call. Measured on a 9m56s upload: the reference day
+    # observed 22.9 h against the clip's 0.166 h - a 138x difference - so walking read "-99.4%,
+    # robust_z -10.00" while the actual walking RATE was 62.7 s per observed hour against the
+    # baseline's 66.9 s/h. Essentially identical. Agent 4 read the -99.4% and recommended
+    # contacting a healthcare professional about a person who was cooking and cleaning normally,
+    # and all six claims passed C1-C5 because the arithmetic was internally consistent.
+    #
+    # 8 h is not a new threshold: `min_observed_hours_for_absence` already gates the ALERT rules at
+    # exactly this figure, for exactly this reason. This extends the same gate to what may be
+    # CLAIMED, which is the same decision applied to the other consumer of the same numbers.
+    partial = not state.today.is_reliable()
 
     for name in REPORTABLE_FEATURES:
         if name not in values:
@@ -181,24 +216,73 @@ def state_to_payload(state: BehaviourState, cfg: ReporterConfig) -> dict[str, An
         # hallucination rate on features the synthetic classifier never produces, which
         # is a reporter bug masquerading as a verifier failure.
         pct_defined = abs(ev.baseline_median) > 1e-9
-        rows.append(
-            {
-                "feature": name,
-                "evidence_ref": ev.ref,
-                "observed_value": round(ev.observed_value, 2),
-                "baseline_median": round(ev.baseline_median, 2),
-                "delta": round(ev.delta, 2),
-                "pct_change": round(ev.pct_change, 1) if pct_defined else None,
-                "robust_z": round(ev.robust_z, 2),
-                "direction": ev.direction,
-            }
-        )
+        observed = abs(ev.observed_value) > 1e-9
+        row = {
+            "feature": name,
+            "evidence_ref": ev.ref,
+            "observed_value": round(ev.observed_value, 2),
+            # PRESENCE IS EVIDENCE IN A SHORT WINDOW; ABSENCE IS NOT. Ten minutes can prove a
+            # fall happened. It cannot prove no meal was eaten today. That asymmetry is the
+            # whole rule, and it is why this flag is about the value rather than the window.
+            "observed_in_window": observed,
+            "baseline_comparable": not partial,
+        }
+        if partial:
+            # WITHHELD, not merely flagged. The previous fix for a related failure added a prompt
+            # instruction and left the number in place; the model used the number. A figure that
+            # cannot support a claim should not be in front of the model at all - the same lesson
+            # as the 2,000-character `summary` that filled with the model's own scratchpad.
+            row["baseline_median"] = None
+            row["pct_change"] = None
+            row["robust_z"] = None
+            # DIRECTION GOES TOO, and it was the last piece of this bug to be found. It is
+            # `sign(observed - baseline_median)`, so on a partial window it is the same invalid
+            # comparison wearing a word instead of a number - and words travel further. Observed:
+            # every claim rendered "· decrease", including `drinking_events 4.00 · decrease`, so a
+            # caregiver reading five decrease stamps would conclude decline from ten minutes of
+            # someone cooking. C4 is already vacuous when `claim.direction is None` (the same
+            # precedent as C3 on a null pct), so nothing downstream needs to change to accept it.
+            row["direction"] = None
+            row["why_withheld"] = (
+                f"the window covers {state.today.observed_hours * 3600:.0f}s, so this total is "
+                "not comparable to a full day's baseline")
+        else:
+            row["baseline_median"] = round(ev.baseline_median, 2)
+            row["delta"] = round(ev.delta, 2)
+            row["pct_change"] = round(ev.pct_change, 1) if pct_defined else None
+            row["robust_z"] = round(ev.robust_z, 2)
+            row["direction"] = ev.direction
+        rows.append(row)
 
     return {
         "report_day": day.isoformat(),
         "subject": state.subject_role.value,
         "history_days": state.history_days,
-        "observed_hours": round(state.today.observed_hours, 1),
+        # THREE DECIMALS, AND SECONDS. At one decimal a 45-second clip is `0.0`, so Agent 4 was
+        # told the observation window was ZERO HOURS - and it reasoned correctly from that: it
+        # wrote "zero observed hours ... consistent with a system or sensor issue" and recommended
+        # checking the equipment was powered. The model was not hallucinating, it was reading a
+        # number this function had rounded away. Seconds are given as well because "0.012 hours"
+        # is not a quantity anyone reasons about, and the whole point of a short window is that
+        # absence claims are unwarranted rather than alarming.
+        "observed_hours": round(state.today.observed_hours, 3),
+        "observed_seconds": round(state.today.observed_hours * 3600.0, 1),
+        "observation_is_reliable": bool(state.today.is_reliable()),
+        # THE SINGLE FIELD THE PROMPT DISPATCHES ON. True whenever the window is shorter than the
+        # 8 h `is_reliable` demands, in which case every feature row carries
+        # `baseline_comparable: false` with its comparison numbers withheld. Measured on why this
+        # has to exist: a 9m56s clip against a 22.9 h reference day is a 138x window mismatch, so
+        # every total read as a collapse (-99% to -100%) while the actual rate was normal, and the
+        # report recommended a healthcare contact for a person cooking and cleaning normally.
+        "window_is_partial": partial,
+        # `second_person_active` carries the only signal that fired for class 18
+        # (`interacting_with_person`, F1 0.022): a second tracked person was in shot.
+        # Exposing only the duration sum hides the cause; the model's best causal claim
+        # without this is "social time fell", which C5 will match the row and which still
+        # says nothing about WHY. With the flag it can name "no second person present".
+        # None means we have no tracker log at all, not the absence of a second person -
+        # the distinction matters at deployment time and the model is told so.
+        "second_person_active": state.today.visitor_count > 0,
         "features": rows,
         "alerts": [
             {
@@ -215,8 +299,14 @@ def state_to_payload(state: BehaviourState, cfg: ReporterConfig) -> dict[str, An
 CLAIM_SCHEMA: dict[str, Any] = {
     "type": "object",
     "properties": {
-        "summary": {"type": "string", "maxLength": 2000},
-        "recommendation": {"type": "string", "maxLength": 1000},
+        # 400 AND 300, NOT 2000 AND 1000. A hosted model handed 4096 completion tokens filled the
+        # summary with its own scratchpad - "This sentence is filler to meet length expectations",
+        # "Now generating claims. Selecting six features...", "Claim one: walking duration" - and
+        # C1-C5 did not catch a word of it, because the summary is PROSE and the checks verify
+        # CLAIMS. Nothing verifies this field, so the only defence is leaving no room to ramble.
+        # The claim sub-schema below is untouched, so every hallucination figure still stands.
+        "summary": {"type": "string", "maxLength": 400},
+        "recommendation": {"type": "string", "maxLength": 300},
         "escalate": {"type": "boolean"},
         "claims": {
             "type": "array",
@@ -264,30 +354,60 @@ alone. You are given ONLY structured behavioural statistics - never video or ima
 
 Rules:
 1. Every factual claim must cite one `evidence_ref` copied EXACTLY from the data given.
-2. Copy `claimed_value` and `claimed_pct_change` verbatim from the cited row. Do not \
-recompute, round differently, or estimate.
+2. Copy `claimed_value` and `claimed_pct_change` verbatim from the cited row - same \
+digits, same sign, same units in your prose. Do not recompute, round differently, or \
+estimate. If a row's value is 820.0, your `text` MUST contain the literal "820.0" (or \
+"820" - same number, same digits).
 2a. If a row's `pct_change` is null, the percentage is UNDEFINED (its baseline is zero). \
 Omit `claimed_pct_change` entirely and do not describe the change as a percentage.
 3. `direction` must match the cited row's `direction` field, and your prose must agree \
 with it. Never describe a decrease as an improvement or vice versa.
-4. Report at most {max_claims} claims. Prefer features with large |robust_z| and any \
-feature named in an alert.
+3a. If a row's `direction` is null, there is NO valid comparison for it. Omit `direction` \
+entirely and describe only what was observed - do not call it a rise, a fall, or unchanged.
+4. Report at most {max_claims} claims. When `window_is_partial` is false, prefer features \
+with large |robust_z| and any feature named in an alert. When it is TRUE, rule 4a replaces \
+this entirely.
+4a. When `window_is_partial` is true, the camera watched a FRACTION of the day, so rows with \
+`baseline_comparable: false` carry no pct_change and no robust_z and MUST NOT be claimed as \
+decreases, collapses or absences - a ten-minute window cannot show that something did not \
+happen today. Claim only rows with `observed_in_window: true`, describing what was observed \
+(`claimed_value` = the observed value, `claimed_pct_change` omitted, prose describes \
+occurrence, never decline). If an alert fired, report it - alerts are presence-based and \
+remain valid at any window length.
 5. Set `escalate` true only if an urgent or emergency alert is present.
 6. If a value looks unremarkable, say so plainly. Do not invent concern.
+7. `summary` is at most 400 characters and `recommendation` at most 300. Write only the \
+finished prose a caregiver reads: no working out, no restating these instructions, no \
+padding, and never the words "claim one" or "generating". Anything you would think through \
+belongs nowhere in this object.
+8. `observed_seconds` is how long the camera actually watched. When it is short, absence is \
+UNOBSERVED, not measured: say a feature was not seen in the window rather than that it fell, \
+and do not recommend clinical action on the strength of it. Rule 4a is what enforces this; \
+this rule is how to talk about it in prose.
+8a. When `window_is_partial` is true, `summary` must contain NO comparative word - not \
+"limited", "low", "reduced", "little", "only", "minimal", "below" or any synonym. There is \
+nothing to compare against, so such a word asserts something the data cannot support. State \
+the window length and what was observed. "Housework was observed for 173.65 s during a 596 s \
+window" is allowed; "showed limited housework activity" is not.
+
+Beneath the DATA block is a FILLED TEMPLATE block. For each claim, copy the \
+`claimed_value` digit-for-digit from the template's `value` cell into the JSON field of \
+the same name. The template and the JSON row must agree on every number; C5 in the \
+verifier catches any prose that does not.
 
 Reply with ONE JSON object and nothing else, using EXACTLY these keys:
 
 {{
-  "summary": "<two sentences>",
-  "recommendation": "<one sentence>",
+  "summary": "<two sentences, at most 400 characters>",
+  "recommendation": "<one sentence, at most 300 characters>",
   "escalate": <true or false>,
   "claims": [
     {{
       "claim_id": "c1",
-      "text": "<one sentence about this feature>",
+      "text": "<one sentence about this feature, with the value digit-for-digit>",
       "evidence_ref": "<the evidence_ref string, copied character for character>",
-      "claimed_value": <the row's observed_value>,
-      "claimed_pct_change": <the row's pct_change, or null if it is null>,
+      "claimed_value": <the template's value, copied digit-for-digit>,
+      "claimed_pct_change": <the template's pct, or null if it is null>,
       "direction": "<the row's direction: increase, decrease or unchanged>"
     }}
   ]
@@ -296,12 +416,44 @@ Reply with ONE JSON object and nothing else, using EXACTLY these keys:
 Output JSON only."""
 
 
+def _template_rows(state: BehaviourState, cfg: ReporterConfig) -> list[dict[str, Any]]:
+    """One pre-filled template row per feature, formatted as the model should COPY.
+
+    This is the digit-for-digit cell the prompt asks the model to copy from. Writing it
+    out so the digits are unmistakable ("claimed_value: 820.0", not just "820") reduces
+    paraphrasing - "about 800", "1.8k", "over 700" - which is the bulk of C2 failures on
+    the unconstrained arm and a non-trivial fraction of the constrained arm's residual.
+
+    The C5 check added to the verifier reads this back against the model's prose, so a
+    template that disagrees with the data is a bug - same field names, same JSON path.
+    """
+    payload = state_to_payload(state, cfg)
+    return [
+        {
+            "evidence_ref": r["evidence_ref"],
+            "feature": r["feature"],
+            "value": r["observed_value"],
+            "pct": r["pct_change"],
+            "direction": r["direction"],
+            # The flags rule 4a dispatches on. `pct: null` alone reads as "percentage undefined
+            # (zero baseline)" under rule 2a, which is a DIFFERENT condition - a partial window
+            # withholds the comparison entirely. Without the flags here the template could not
+            # tell those two apart, and neither could anyone auditing the prompt.
+            "observed_in_window": r["observed_in_window"],
+            "baseline_comparable": r["baseline_comparable"],
+        }
+        for r in payload["features"]
+    ]
+
+
 def build_prompt(state: BehaviourState, cfg: ReporterConfig) -> str:
     payload = state_to_payload(state, cfg)
     return (
         SYSTEM_PROMPT.format(max_claims=cfg.max_claims)
         + "\n\nDATA:\n"
         + json.dumps(payload, indent=2)
+        + "\n\nFILLED TEMPLATE - copy `value` and `pct` digit-for-digit into each claim:\n"
+        + json.dumps(_template_rows(state, cfg), indent=2)
         + "\n\nJSON:"
     )
 
@@ -315,7 +467,20 @@ def _rows(state: BehaviourState, cfg: ReporterConfig) -> list[dict[str, Any]]:
     payload = state_to_payload(state, cfg)
     rows = payload["features"]
     alerted = {ref for a in payload["alerts"] for ref in a["evidence_refs"]}
-    rows.sort(key=lambda r: (r["evidence_ref"] not in alerted, -abs(r["robust_z"])))
+
+    def rank(r: dict[str, Any]) -> tuple:
+        # An alerted feature outranks everything: an alert is presence-based and claimable at any
+        # window length. After that, `robust_z` ranks only where it EXISTS - on a partial window
+        # it is None by construction, and `abs(None)` is a TypeError that would take the reporter
+        # down on exactly the days the gate was built for. Rule 4a's order applies instead:
+        # observed before unobserved, because presence is evidence and absence is not.
+        if r["evidence_ref"] in alerted:
+            return (0, 0.0)
+        if r["baseline_comparable"]:
+            return (1, -abs(r["robust_z"] or 0.0))
+        return (2, 0.0 if r["observed_in_window"] else 1.0)
+
+    rows.sort(key=rank)
     return rows[: cfg.max_claims]
 
 
@@ -342,18 +507,40 @@ class FaithfulStubLLM:
         if self._state is None:
             raise RuntimeError("call bind(state) before generate()")
         rows = _rows(self._state, self.cfg)
+
+        def claim_text(r: dict[str, Any]) -> str:
+            # On a partial window the stub follows the same rule the prompt gives a real model:
+            # describe OCCURRENCE, never decline. The old text here - "showed a decrease at X
+            # versus a baseline of Y" - is precisely the prose the 138x window mismatch produced,
+            # and a control that commits the banned failure is not a control.
+            if not r["baseline_comparable"]:
+                if r["observed_in_window"]:
+                    return (f"{r['feature'].replace('_', ' ')} was observed at "
+                            f"{r['observed_value']} in the window.")
+                return (f"{r['feature'].replace('_', ' ')} was not observed in the "
+                        f"window (value 0.0).")
+            verb = {"decrease": "showed a decrease", "increase": "showed an increase"}.get(
+                r["direction"], "was stable at")
+            return (f"{r['feature'].replace('_', ' ')} {verb} "
+                    f"at {r['observed_value']} versus a baseline of {r['baseline_median']}.")
+
+        # Rule 4a, applied to the control: on a partial window, absence is not claimable - but an
+        # ALERT is, because alerts are presence-based and a fall observed in ten minutes is real.
+        alerted_refs = {ref for a in self._state.alerts for e in a.evidence
+                        for ref in (e.ref,)}
+        claimable = [r for r in rows
+                     if r["baseline_comparable"] or r["observed_in_window"]
+                     or r["evidence_ref"] in alerted_refs]
         claims = [
             {
                 "claim_id": f"c{i+1}",
-                "text": f"{r['feature'].replace('_', ' ')} showed a "
-                        f"{'decrease' if r['direction'] == 'decrease' else 'increase' if r['direction'] == 'increase' else 'stable reading'} "
-                        f"at {r['observed_value']} versus a baseline of {r['baseline_median']}.",
+                "text": claim_text(r),
                 "evidence_ref": r["evidence_ref"],
                 "claimed_value": r["observed_value"],
                 "claimed_pct_change": r["pct_change"],
                 "direction": r["direction"],
             }
-            for i, r in enumerate(rows)
+            for i, r in enumerate(claimable)
         ]
         severe = any(
             a.severity in (AlertSeverity.EMERGENCY, AlertSeverity.URGENT)
@@ -488,6 +675,49 @@ class HallucinatingStubLLM:
         )
 
 
+SAMPLING_FLAGS = ("temperature", "top_p", "top_k", "typical_p", "epsilon_cutoff",
+                  "eta_cutoff", "penalty_alpha", "repetition_penalty",
+                  "no_repeat_ngram_size")
+
+
+def force_greedy(model: Any) -> Any:
+    """Strip sampling out of a model's `generation_config`, in place.
+
+    This is not tidiness, it is the fix for a defect that inverted a headline result.
+
+    `ReporterConfig.temperature = 0.0` documents greedy decoding, and the free-decoding
+    path honoured it by passing `do_sample=False` to `generate()`. The grammar-constrained
+    path passed only `max_new_tokens` to `outlines`, so it silently inherited
+    Qwen2.5-Instruct's shipped `generation_config`: `do_sample=True, temperature=0.7,
+    top_p=0.8, top_k=20`. The two arms of a constrained-vs-free comparison were therefore
+    not decoding-matched - one was greedy, the other sampled at 0.7 - and the difference
+    between them measured temperature, not grammar.
+
+    It presented as irreproducibility. Across two runs of identical code on identical data
+    the free arm was bit-identical (509 claims, 476 faithful, both times) while the
+    constrained arm moved 498/457 to 504/452, and the significance verdict flipped from
+    p = 0.29 ("indistinguishable") to p = 0.03 ("a real difference"). Only the sampled arm
+    varied. Sampling also hurts precisely the thing being measured: at temperature 0.7 a
+    digit of a copied value can be resampled, and C2 value mismatches are ~95% of all
+    failures.
+
+    `repetition_penalty` goes too, for a related reason. Qwen2.5-Instruct ships 1.05, which
+    down-weights tokens that have already appeared - and this task is *deliberately*
+    repetitive: six claims each re-quoting an evidence ref and a number verbatim from the
+    payload. A penalty against repetition is a penalty against copying correctly. It applied
+    equally to both arms, so it was never a confound between them, but it inflates the
+    absolute rate the write-up headlines.
+    """
+    cfg = getattr(model, "generation_config", None)
+    if cfg is None:
+        return model
+    cfg.do_sample = False
+    for flag in SAMPLING_FLAGS:
+        if hasattr(cfg, flag):
+            setattr(cfg, flag, None)
+    return model
+
+
 class Qwen2_5Reporter:
     """Real backend: Qwen2.5-7B-Instruct with optional `outlines` grammar constraint.
 
@@ -510,18 +740,68 @@ class Qwen2_5Reporter:
         device: str = "cuda",
         dtype: str = "bfloat16",
         config: ReporterConfig | None = None,
+        max_memory: dict[int | str, str] | None = None,
     ) -> None:
+        """`device` is passed straight to `device_map`, so `"auto"` shards across GPUs.
+
+        That matters because of where this runs. Evaluation is offline on a single 96 GB
+        card, where `"cuda"` is right and sharding would be pointless. Serving is online on
+        T4 x2 - 16 GB each, 32 GB together - where a 9B model in 16-bit is ~18 GB of weights
+        and only fits split, while `device_map="cuda"` pins it to one device and OOMs.
+
+        `max_memory` bounds what `"auto"` may take per device, e.g.
+        `{0: "11GiB", 1: "13GiB"}`. It is not tuning: the perception child process opens its
+        own CUDA context for RTMO and OSNet on the same cards, so something has to leave it
+        room. Sharding is a deployment decision and all three knobs are passed through
+        rather than decided here.
+        """
         self.model_path = model_path
         self.device = device
         self.dtype = dtype
+        self.max_memory = max_memory
         self.cfg = config or ReporterConfig()
         self._model = None
         self._tok = None
         self._outlines = None
+        self._output_types: dict[str, Any] = {}
 
     @property
     def name(self) -> str:
-        return f"qwen2.5-7b-instruct({'constrained' if self.cfg.constrained else 'free'})"
+        """Derived from the weights on disk, never hardcoded.
+
+        This used to return the literal `qwen2.5-7b-instruct` whatever `model_path` pointed
+        at. That is fine until the moment somebody swaps the checkpoint - which is exactly
+        when it matters, because `name` is what labels each row of the hallucination
+        benchmark and what `report.model_name` shows in the UI. A comparison between two
+        models where both arms are labelled with the first model's name is unreadable, and
+        this project has already spent three two-hour reruns on a confound that a correct
+        label would have made obvious.
+        """
+        stem = pathlib.Path(str(self.model_path)).name.lower() or "unknown-model"
+        return f"{stem}({'constrained' if self.cfg.constrained else 'free'})"
+
+    @staticmethod
+    def canonical_id(name: str, *, space: str = "skeleton") -> int:
+        """Typed wrapper around tsm_id — forces the space choice at the call site.
+
+        The off-by-one between the two official trimmed id spaces is the single biggest
+        landmine in the corpus. Reading an RGB label file with the skeleton map shifts every
+        class by one and leaves a silent catch-all at 0. `canonical_id` forces the choice,
+        and `canonical_name` refuses the RGB sentinel 0 so it can't be silently misinterpreted.
+        """
+        if space not in ("skeleton", "rgb"):
+            raise ValueError(f"space must be 'skeleton' or 'rgb', got {space!r}")
+        return tsm_id(name, space=space)
+
+    @staticmethod
+    def canonical_name(idx: int, *, space: str = "skeleton") -> str:
+        """Inverse of canonical_id, refusing the RGB sentinel 0."""
+        if space == "rgb" and idx == TSM_RGB_UNMATCHED:
+            raise KeyError(
+                "id 0 in the RGB space is `_name_to_int`'s unmatched-name fallback, not a "
+                "class. A 0 in a released RGB label file means the name was not recognised."
+            )
+        return tsm_name(idx, space=space)
 
     def _load(self) -> None:
         if self._model is not None:
@@ -539,31 +819,131 @@ class Qwen2_5Reporter:
             return
 
         t0 = time.time()
+        # bf16 needs compute capability 8.0. The training card (sm_120) has it; the SERVING
+        # cards do not - T4 is sm_75 and P100 is sm_60 - so a bfloat16 load there is emulated
+        # rather than native and is slower for no accuracy gain. Warned, not overridden:
+        # silently switching to float16 would change the numerics under a measurement, and
+        # Qwen weights are bf16-trained so fp16 has its own overflow risk. The operator
+        # decides, with the fact in front of them.
+        if self.dtype == "bfloat16" and torch.cuda.is_available() and not (
+                getattr(torch.cuda, "is_bf16_supported", lambda: True)()):
+            print(f"[reporter] WARNING: {torch.cuda.get_device_name(0)} has no native "
+                  "bfloat16 (needs sm_80+). The load will be emulated and slow. Pass "
+                  "dtype='float16' if you accept the numerics change.", flush=True)
         self._tok = AutoTokenizer.from_pretrained(self.model_path, local_files_only=True)
+        kwargs: dict[str, Any] = {}
+        if self.max_memory:
+            # Only meaningful with device_map="auto". Needed because the perception child
+            # process allocates its OWN CUDA context on the same cards: RTMO's onnxruntime
+            # session plus that context is ~2 GB, and `auto` will otherwise fill both GPUs
+            # to the brim and leave the child nothing. PyTorch's caching allocator does not
+            # hand memory back, so the reservation has to be bounded up front rather than
+            # hoped away.
+            kwargs["max_memory"] = self.max_memory
         self._model = AutoModelForCausalLM.from_pretrained(
             self.model_path,
             torch_dtype=getattr(torch, self.dtype),
             device_map=self.device,
             local_files_only=True,
+            **kwargs,
         )
         self._model.eval()
+        force_greedy(self._model)
         # Printed, because "the LLM cell took 2.6 hours" was not decomposable after the
         # fact - load and generation were indistinguishable in the log.
-        print(f"[reporter] loaded {self.model_path} in {time.time() - t0:.0f}s",
+        placement = getattr(self._model, "hf_device_map", None)
+        print(f"[reporter] loaded {self.model_path} in {time.time() - t0:.0f}s"
+              f" (do_sample={self._model.generation_config.do_sample}"
+              f"{f', devices={sorted(set(placement.values()))}' if placement else ''})",
               flush=True)
+        self._assert_finite_logits()
         type(self)._CACHE[key] = (self._model, self._tok)
+
+    def _assert_finite_logits(self) -> None:
+        """One forward pass, checked for NaN/inf, before the model is trusted.
+
+        Cheap tripwire for a dtype problem. Qwen weights are bf16-trained, the serving cards
+        have no native bf16, and float16 has a narrower exponent range - so a cast that
+        overflows is a real possibility. Without this check the symptom would appear ~50 s
+        later as a garbage report, and with grammar-constrained decoding it would appear as
+        the FSM picking whatever token a NaN-poisoned logit row happened to rank first. That
+        failure would look like a bad model rather than a bad cast.
+
+        A short prompt cannot prove the whole context length is safe, so this is a tripwire,
+        not a guarantee. It catches the gross case for the price of one forward pass.
+        """
+        import torch  # noqa: PLC0415
+
+        try:
+            ids = self._tok("Report: walking duration fell to 820 s.",
+                            return_tensors="pt").input_ids
+            dev = next(self._model.parameters()).device
+            with torch.no_grad():
+                logits = self._model(ids.to(dev)).logits
+            bad = int((~torch.isfinite(logits)).sum())
+            if bad:
+                raise RuntimeError(
+                    f"{bad} non-finite values in the logits of a {self.dtype} forward pass. "
+                    "The cast is overflowing; do not measure anything with this. Try "
+                    "dtype='bfloat16' on an sm_80+ card, or float32 if memory allows."
+                )
+            print(f"[reporter] logit sanity ok: finite over {tuple(logits.shape)} "
+                  f"in {self.dtype}", flush=True)
+        except RuntimeError:
+            raise
+        except Exception as exc:                                   # noqa: BLE001
+            # A tripwire that breaks the load is worse than one that reports it failed.
+            print(f"[reporter] logit sanity check skipped: {type(exc).__name__}: {exc}",
+                  flush=True)
+
+    def _chat_text(self, prompt: str) -> str:
+        """Apply the instruct chat template. Used by BOTH arms, which is the point.
+
+        The free path applied it; the constrained path handed the raw prompt straight to
+        `outlines`, which does not template a bare string. So the two arms of the comparison
+        were sending *different text* to the model - one a properly delimited Qwen chat
+        turn, the other a naked instruction block. An instruct model without its template
+        follows instructions worse, and under a grammar it cannot express that by emitting
+        malformed JSON: it emits well-formed JSON with worse content, which lands as C2
+        value mismatches. That is exactly the direction the constrained arm was off.
+        """
+        return self._tok.apply_chat_template(
+            [{"role": "user", "content": prompt}],
+            tokenize=False, add_generation_prompt=True,
+        )
+
+    def _output_type(self, schema: dict[str, Any]):
+        """Compile the JSON-schema guide once per schema, not once per report.
+
+        `outlines.types.json_schema(schema)` was constructed fresh inside every call, so any
+        caching keyed on that object was defeated and the guide was rebuilt 116 times per
+        arm. The constrained arm ran at 49.0 s/report against the free arm's 6.5 - a 7.5x
+        gap on a 7B model that has no business being that slow - and turned this notebook
+        into a two-hour job.
+        """
+        import outlines  # noqa: PLC0415
+
+        key = json.dumps(schema, sort_keys=True)
+        if key not in self._output_types:
+            self._output_types[key] = outlines.types.json_schema(schema)
+        return self._output_types[key]
 
     def generate(self, prompt: str, *, constrained: bool, schema: dict[str, Any]) -> str:
         self._load()
+        text = self._chat_text(prompt)
         if constrained:
             try:
                 import outlines  # noqa: PLC0415
 
                 if self._outlines is None:
                     self._outlines = outlines.from_transformers(self._model, self._tok)
+                # do_sample=False belongs here as well as in generation_config: which one
+                # `outlines` honours is its business, and this measurement cannot depend on
+                # guessing. Passing both means the arm is greedy under either behaviour.
                 return str(
-                    self._outlines(prompt, outlines.types.json_schema(schema),
-                                   max_new_tokens=self.cfg.max_new_tokens)
+                    self._outlines(text, self._output_type(schema),
+                                   max_new_tokens=self.cfg.max_new_tokens,
+                                   do_sample=self.cfg.temperature > 0)
                 )
             except ImportError:
                 # Falling back silently would make the constrained-vs-free comparison a
@@ -576,10 +956,6 @@ class Qwen2_5Reporter:
 
         import torch  # noqa: PLC0415
 
-        messages = [{"role": "user", "content": prompt}]
-        text = self._tok.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
-        )
         inputs = self._tok(text, return_tensors="pt").to(self._model.device)
         with torch.no_grad():
             out = self._model.generate(
@@ -867,14 +1243,29 @@ class CaregiverReporter:
 
         verification = self.verifier.verify_all(claims, state)
 
+        def _prose(field: str, limit: int) -> str:
+            """Enforce the schema's own length, and SAY when it had to be enforced.
+
+            Cropping silently is the thing this class refuses to do everywhere else: a hosted model
+            wrote 2,000 characters of scratchpad into `summary` and a quiet `[:400]` would have left
+            a plausible-looking two sentences with no sign that the rest existed. Nothing verifies
+            this field - C1-C5 check claims, not prose - so the violation has to be reported.
+            """
+            raw = str(payload.get(field, ""))
+            if len(raw) > limit:
+                notes.append(f"{field} was {len(raw)} chars, over the {limit} the schema allows; "
+                             f"truncated. Nothing verifies this field, so over-length prose here "
+                             f"is usually the model's own working-out leaking into it.")
+            return raw[:limit]
+
         report = CaregiverReport(
             report_id=f"rep-{state.subject_role.value}-{state.report_day.isoformat()}",
             subject_role=state.subject_role,
             report_day=state.report_day,
             generated_at=datetime.now(),
-            summary=str(payload.get("summary", ""))[:2000],
+            summary=_prose("summary", 400),
             claims=claims,
-            recommendation=str(payload.get("recommendation", ""))[:1000],
+            recommendation=_prose("recommendation", 300),
             escalate=bool(payload.get("escalate", False)),
             verifications=list(verification.results),
             model_name=self.llm.name,
@@ -929,7 +1320,9 @@ __all__ = [
     "FaithfulStubLLM",
     "HallucinatingStubLLM",
     "Qwen2_5Reporter",
+    "SAMPLING_FLAGS",
     "build_prompt",
+    "force_greedy",
     "repair_claim",
     "state_to_payload",
 ]

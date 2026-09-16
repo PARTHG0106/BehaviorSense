@@ -1,0 +1,988 @@
+/* Components. Ordered as they appear: hero, ledger, bands, figures, close. */
+
+/* ── Hero ──────────────────────────────────────────────────────────────────────
+ * The blueprint grid is confined to the hero and fades out downward. Tiling it
+ * over the whole page would turn a texture into wallpaper.
+ */
+
+.hero {
+  position: relative;
+  padding: clamp(var(--sp-7), 8vw, var(--sp-9)) var(--sp-5) var(--sp-8);
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--ink) 7%, transparent) 0 1px, transparent 1px 100%),
+    linear-gradient(to bottom, color-mix(in srgb, var(--ink) 7%, transparent) 0 1px, transparent 1px 100%),
+    linear-gradient(to right, color-mix(in srgb, var(--ink) 3.5%, transparent) 0 1px, transparent 1px 100%),
+    linear-gradient(to bottom, color-mix(in srgb, var(--ink) 3.5%, transparent) 0 1px, transparent 1px 100%);
+  background-size: 96px 96px, 96px 96px, 12px 12px, 12px 12px;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 92%);
+  pointer-events: none;
+}
+.hero__inner { position: relative; max-width: var(--shell); margin: 0 auto; }
+
+/* ── The ledger: the one thing this page is remembered by ──────────────────── */
+
+.ledger {
+  margin-top: clamp(var(--sp-6), 5vw, var(--sp-8));
+  background: var(--sheet);
+  border-radius: var(--radius);
+  box-shadow: var(--lift-high);
+}
+
+.ledger__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-5);
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: var(--sp-5) clamp(var(--sp-4), 3vw, var(--sp-6));
+  border-bottom: 1px solid var(--rule);
+}
+.ledger__who { font-weight: 500; letter-spacing: -0.01em; margin-top: var(--sp-2); }
+
+.tally { display: flex; gap: clamp(var(--sp-4), 3vw, var(--sp-6)); }
+.tally__cell dt {
+  font: 400 var(--fs-micro)/1 var(--type-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.tally__cell dd {
+  font: 400 1.65rem/1 var(--type-mono);
+  font-variant-numeric: tabular-nums;
+  margin-top: var(--sp-2);
+}
+.tally__cell--pencil dd { color: var(--pencil); }
+
+.ledger__summary {
+  font-family: var(--type-doc);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  padding: var(--sp-5) clamp(var(--sp-4), 3vw, var(--sp-6)) 0;
+  max-width: 62ch;
+}
+
+/* A slip is one claim. Left: its number. Middle: the sentence, in the document
+ * face. Right: four cells, one per check. Failures are struck and annotated. */
+
+.slips { padding: var(--sp-5) 0 0; }
+
+.slip {
+  display: grid;
+  grid-template-columns: 3.25rem 1fr auto;
+  gap: 0 var(--sp-4);
+  align-items: start;
+  padding: var(--sp-4) clamp(var(--sp-4), 3vw, var(--sp-6));
+  border-top: 1px solid var(--rule-soft);
+}
+.slip:first-child { border-top: 0; }
+
+.slip__n {
+  font: 400 var(--fs-mono)/1.7 var(--type-mono);
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.slip__text {
+  position: relative;
+  font-family: var(--type-doc);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  text-decoration-color: var(--pencil);
+  text-decoration-thickness: 1.5px;
+  text-decoration-skip-ink: none;
+}
+
+/* Struck with `text-decoration` rather than a drawn stroke. A single SVG line across
+ * the block struck only the first line of any claim that wrapped — which on a phone is
+ * every claim — and read as a rendering fault. The hand-made mark moved to the stamp
+ * below, where it is a fixed-size object and cannot be broken by reflow. */
+.slip[data-verdict="withheld"] .slip__text { color: var(--ink-faint); }
+.slip[data-verdict="withheld"][data-resolved="1"] .slip__text { text-decoration-line: line-through; }
+
+/* The margin note is the auditor's hand: only present when something failed, and
+ * it shows the arithmetic rather than the word "error". */
+.slip__margin {
+  grid-column: 2;
+  display: none;
+  margin-top: var(--sp-3);
+  padding-left: var(--sp-4);
+  border-left: 2px solid var(--pencil);
+  font: 400 var(--fs-mono)/1.6 var(--type-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--pencil);
+  opacity: 0;
+  transition: opacity 300ms var(--ease) 380ms;
+}
+.slip[data-verdict="withheld"] .slip__margin { display: block; }
+.slip[data-verdict="withheld"][data-resolved="1"] .slip__margin { opacity: 1; }
+.slip__margin b { font-weight: 500; color: var(--ink); }
+.slip__fault {
+  display: block;
+  margin-top: var(--sp-1);
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+}
+
+/* The one hand-made mark on the page, and the audit vernacular the whole design is
+ * borrowing from: a document that failed a check gets stamped. Fixed size, so unlike a
+ * drawn strike it survives any reflow. */
+.stamp {
+  float: right;
+  margin: -2px 0 var(--sp-2) var(--sp-4);
+  padding: 0.28rem 0.5rem;
+  border: 1.5px solid var(--pencil);
+  border-radius: 1px;
+  box-shadow: inset 0 0 0 1px var(--sheet), inset 0 0 0 2.5px var(--pencil);
+  font: 500 var(--fs-micro)/1 var(--type-mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pencil);
+  transform: rotate(-1.6deg) scale(0.86);
+  opacity: 0;
+  transition: transform 240ms var(--ease) 300ms, opacity 200ms var(--ease) 300ms;
+}
+.slip[data-resolved="1"] .stamp { transform: rotate(-1.6deg) scale(1); opacity: 1; }
+
+.slip__cite {
+  grid-column: 2;
+  margin-top: var(--sp-3);
+  font: 400 var(--fs-micro)/1.6 var(--type-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-faint);
+}
+.slip__cite span {
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-right: var(--sp-2);
+}
+
+/* Four cells, one per check. Empty until the check has run — the resolve is the
+ * animation, so the page shows work being done rather than a result already in. */
+.gutter { display: flex; gap: 3px; padding-top: 2px; }
+
+.cell {
+  width: 2.1rem;
+  height: 2.1rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--rule);
+  background: var(--sheet-edge);
+  font: 500 var(--fs-micro)/1 var(--type-mono);
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  transition: background 200ms var(--ease), border-color 200ms var(--ease), color 200ms var(--ease);
+}
+.cell[data-state="pass"] { background: var(--ink); border-color: var(--ink); color: var(--sheet); }
+.cell[data-state="fail"] { background: var(--pencil-wash); border-color: var(--pencil); color: var(--pencil); }
+.cell[data-state="skip"] { border-style: dashed; }
+
+.ledger__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-5);
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: var(--sp-5);
+  padding: var(--sp-5) clamp(var(--sp-4), 3vw, var(--sp-6));
+  border-top: 1px solid var(--rule);
+  background: var(--sheet-edge);
+}
+.ledger__note {
+  font-size: var(--fs-body);
+  color: var(--ink-soft);
+  max-width: 46ch;
+}
+.ledger__note b { color: var(--ink); }
+
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); }
+.controls__label {
+  font: 400 var(--fs-micro)/1 var(--type-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-right: var(--sp-2);
+}
+
+.chip {
+  appearance: none;
+  padding: 0.44rem 0.7rem;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  font: 500 var(--fs-mono)/1 var(--type-mono);
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background 160ms var(--ease), color 160ms var(--ease), border-color 160ms var(--ease);
+}
+.chip:hover { border-color: var(--ink-soft); color: var(--ink); }
+.chip[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--sheet);
+}
+
+@media (max-width: 44rem) {
+  .slip { grid-template-columns: 2.25rem 1fr; }
+  .gutter { grid-column: 2; padding-top: var(--sp-3); }
+  .slip__margin, .slip__cite { grid-column: 2; }
+}
+
+/* ── Bands ─────────────────────────────────────────────────────────────────── */
+
+.band { padding: clamp(var(--sp-7), 7vw, var(--sp-9)) var(--sp-5); }
+.band--well { background: var(--well); border-block: 1px solid var(--rule); }
+.band__inner { max-width: var(--shell); margin: 0 auto; }
+.band__head { max-width: 52rem; }
+.band__head .h2 { margin-top: var(--sp-4); }
+
+/* ── The four checks. A definition list, not cards: they are one apparatus. ── */
+
+.checks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1px;
+  margin-top: var(--sp-7);
+  background: var(--rule-soft);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.check { background: var(--sheet); padding: var(--sp-5); }
+.check--sharp { background: var(--sheet-edge); box-shadow: inset 3px 0 0 var(--pencil); }
+
+.check__id {
+  font: 500 1.1rem/1 var(--type-mono);
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+}
+.check__name {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  margin-top: var(--sp-3);
+}
+.check__q {
+  font-family: var(--type-doc);
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin-top: var(--sp-2);
+}
+.check__n {
+  font: 400 var(--fs-mono)/1 var(--type-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--rule-soft);
+}
+.check__n b { font-size: 1.35rem; letter-spacing: 0; color: var(--ink); }
+.check--sharp .check__n b { color: var(--pencil); }
+.check__note { color: var(--ink-faint); margin-top: var(--sp-3); }
+
+/* ── Stages. Numbered because the order carries real information: each agent can
+ * only run on the previous one's schema output, and the gate is between 3 and 4. */
+
+.stages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--sp-4);
+  margin-top: var(--sp-7);
+}
+.stage {
+  position: relative;
+  background: var(--sheet);
+  border-radius: var(--radius);
+  box-shadow: var(--lift);
+  padding: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+}
+.stage--gate { box-shadow: var(--lift-high); background: var(--sheet-edge); }
+.stage--gate::before {
+  content: "verification gate";
+  position: absolute;
+  top: 0;
+  left: var(--sp-5);
+  transform: translateY(-50%);
+  padding: 0.2rem 0.5rem;
+  background: var(--ink);
+  color: var(--sheet);
+  font: 500 var(--fs-micro)/1.4 var(--type-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.stage__n {
+  font: 400 var(--fs-micro)/1 var(--type-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.stage__name {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  margin-top: var(--sp-2);
+}
+.stage__body { color: var(--ink-soft); margin-top: var(--sp-3); }
+
+.seam {
+  margin-top: auto;
+  padding-top: var(--sp-4);
+  font: 400 var(--fs-micro)/1.5 var(--type-mono);
+  color: var(--ink-faint);
+}
+.seam span { letter-spacing: 0.12em; text-transform: uppercase; }
+.seam code { display: block; margin-top: 2px; font-size: var(--fs-mono); color: var(--ink); }
+
+.boundary {
+  margin-top: var(--sp-6);
+  padding: var(--sp-5);
+  border-left: 2px solid var(--ink);
+  background: var(--sheet);
+  color: var(--ink-soft);
+  max-width: 56rem;
+}
+
+/* ── Readouts. One headline figure with its qualifying rows underneath, because a
+ * number quoted without its denominator is the thing this project exists to fix. */
+
+.readouts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--sp-4);
+  margin-top: var(--sp-7);
+}
+.readout {
+  background: var(--sheet);
+  border-radius: var(--radius);
+  box-shadow: var(--lift);
+  padding: var(--sp-5);
+}
+.readout__label {
+  font: 500 var(--fs-micro)/1 var(--type-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.readout__fig {
+  font: 400 clamp(2.1rem, 3.4vw, 2.7rem)/1 var(--type-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  margin-top: var(--sp-3);
+}
+.readout__unit {
+  display: block;
+  margin-top: var(--sp-2);
+  font: 400 var(--fs-micro)/1.4 var(--type-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.readout__rows { margin-top: var(--sp-4); border-top: 1px solid var(--rule-soft); }
+.readout__rows li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: 0.42rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: var(--fs-body);
+  color: var(--ink-soft);
+}
+.readout__rows b {
+  font-family: var(--type-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+  color: var(--ink);
+}
+.readout__note { color: var(--ink-faint); margin-top: var(--sp-4); }
+.readout__note.is-weak { box-shadow: inset 2px 0 0 var(--ochre); padding-left: var(--sp-3); }
+
+/* ── Figures ───────────────────────────────────────────────────────────────── */
+
+.calib {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--sp-5);
+  margin-top: var(--sp-7);
+  align-items: start;
+}
+@media (max-width: 62rem) { .calib { grid-template-columns: minmax(0, 1fr); } }
+
+.fig {
+  background: var(--sheet);
+  border-radius: var(--radius);
+  box-shadow: var(--lift);
+  padding: var(--sp-5);
+}
+.fig--wide { margin-top: var(--sp-5); }
+.fig__cap { display: flex; flex-direction: column; gap: var(--sp-2); }
+.fig__title { font-weight: 600; letter-spacing: -0.012em; }
+.fig__sub {
+  font: 400 var(--fs-micro)/1.5 var(--type-mono);
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+.fig__plot { margin-top: var(--sp-5); }
+.fig__note { color: var(--ink-faint); margin-top: var(--sp-4); max-width: 54ch; }
+
+.fig__legend { display: flex; gap: var(--sp-4); margin-top: var(--sp-4); }
+.key {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font: 400 var(--fs-micro)/1 var(--type-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.key__mark { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.key__mark--dot { background: var(--ink); }
+.key__mark--ring { border: 1.5px solid var(--ink-faint); }
+
+/* Chart internals are styled here rather than inline so the palette stays in one
+ * place. Only one hue carries data; the second series is distinguished by SHAPE,
+ * which keeps identity legible without colour vision and adds no new colour. */
+.plot { display: block; width: 100%; height: auto; overflow: visible; }
+.plot__axis { stroke: var(--rule); stroke-width: 1; }
+.plot__chance { stroke: var(--ink-faint); stroke-width: 1; stroke-dasharray: 3 3; }
+.plot__gap { stroke: var(--sheet); stroke-width: 4; }
+.plot__link { stroke: var(--rule); stroke-width: 1.5; }
+.plot__bar { fill: var(--ink); }
+.plot__dot { fill: var(--ink); }
+.plot__ring { fill: var(--sheet); stroke: var(--ink-faint); stroke-width: 1.5; }
+.plot__label { font: 400 var(--fs-micro) var(--type-mono); fill: var(--ink-soft); }
+.plot__value { font: 400 var(--fs-mono) var(--type-mono); fill: var(--ink); font-variant-numeric: tabular-nums; }
+.plot__row:hover .plot__bar { fill: var(--pencil); }
+.plot__row:hover .plot__dot { fill: var(--pencil); }
+
+/* ── The negative result. Set as a document, in the serif, because it is an
+ * argument being made rather than a value being displayed. */
+
+.finding {
+  background: var(--sheet-edge);
+  border-radius: var(--radius);
+  box-shadow: var(--lift);
+  padding: clamp(var(--sp-5), 3vw, var(--sp-6));
+}
+.finding__head {
+  font-family: var(--type-doc);
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-top: var(--sp-3);
+  text-wrap: balance;
+}
+.finding__body {
+  font-family: var(--type-doc);
+  font-size: 1.0625rem;
+  line-height: 1.58;
+  color: var(--ink-soft);
+  margin-top: var(--sp-4);
+}
+.finding__body b { color: var(--ink); font-weight: 500; }
+.finding__body em { color: var(--ink); }
+.finding__body--last {
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--rule-soft);
+  font-size: 1rem;
+  color: var(--ink-faint);
+}
+
+/* ── Close ─────────────────────────────────────────────────────────────────── */
+
+.todo { margin-top: var(--sp-6); max-width: 56rem; }
+.todo li {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: var(--sp-4);
+  align-items: baseline;
+  padding: var(--sp-4) 0;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-soft);
+}
+.todo li:last-child { border-bottom: 1px solid var(--rule); }
+.todo__state {
+  font: 500 var(--fs-micro)/1 var(--type-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.todo__state--now { color: var(--ink); }
+
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-top: var(--sp-6);
+}
+.btn {
+  display: inline-block;
+  padding: 0.72rem 1.15rem;
+  background: var(--ink);
+  color: var(--sheet);
+  border-radius: var(--radius);
+  font: 500 var(--fs-mono)/1 var(--type-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 160ms var(--ease);
+}
+.btn:hover { background: var(--pencil); }
+.cta__note {
+  font: 400 var(--fs-micro)/1.4 var(--type-mono);
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+
+.foot {
+  padding: var(--sp-6) var(--sp-5);
+  border-top: 1px solid var(--rule);
+  background: var(--desk-deep);
+}
+.foot__inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-5);
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.foot__mark { font-weight: 600; letter-spacing: -0.02em; }
+.foot__mark span {
+  display: block;
+  margin-top: var(--sp-2);
+  font: 400 var(--fs-micro)/1.5 var(--type-mono);
+  letter-spacing: 0.05em;
+  font-weight: 400;
+  color: var(--ink-faint);
+  max-width: 34ch;
+}
+.foot__meta { color: var(--ink-faint); max-width: 42ch; font-size: var(--fs-body); }
+
+/* ── The dock. A slip pulled out from under the rail, not a modal. ──────────── */
+
+.dock {
+  position: sticky;
+  top: 0;
+  z-index: 19;
+  background: var(--sheet);
+  border-bottom: 1px solid var(--rule);
+  box-shadow: var(--lift-high);
+}
+.dock__inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: var(--sp-5);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+  gap: var(--sp-6);
+  align-items: start;
+}
+.dock__title {
+  font: 600 var(--fs-h3)/1.2 var(--type-display);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--sp-2);
+}
+.dock__note {
+  font-size: var(--fs-body);
+  color: var(--ink-soft);
+  max-width: 46ch;
+  line-height: var(--lh-body);
+}
+.dock__note code {
+  font: 400 var(--fs-mono)/1 var(--type-mono);
+  background: var(--well);
+  padding: 1px 4px;
+  border-radius: 1px;
+}
+
+.dock__form { display: flex; flex-direction: column; gap: var(--sp-1); }
+.dock__label {
+  font: 500 var(--fs-micro)/1 var(--type-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: var(--sp-3);
+}
+.dock__label span { text-transform: none; letter-spacing: 0.02em; opacity: 0.7; }
+.dock__input {
+  width: 100%;
+  font: 400 var(--fs-mono)/1.4 var(--type-mono);
+  color: var(--ink);
+  background: var(--sheet-edge);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius);
+  padding: var(--sp-2) var(--sp-3);
+}
+.dock__input::placeholder { color: var(--ink-faint); opacity: 0.75; }
+.dock__input:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -1px;
+  background: #fff;
+}
+.dock__actions { display: flex; gap: var(--sp-2); margin-top: var(--sp-3); }
+
+.btn {
+  font: 500 var(--fs-mono)/1 var(--type-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sheet-edge);
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  padding: var(--sp-3) var(--sp-4);
+  cursor: pointer;
+  transition: background 160ms var(--ease), color 160ms var(--ease);
+}
+.btn:hover { background: var(--ink-soft); border-color: var(--ink-soft); }
+.btn:disabled { opacity: 0.45; cursor: default; }
+.btn--quiet { background: none; color: var(--ink-soft); border-color: var(--rule); }
+.btn--quiet:hover { background: var(--well); color: var(--ink); border-color: var(--rule); }
+
+.dock__status {
+  margin-top: var(--sp-3);
+  font: 400 var(--fs-mono)/1.55 var(--type-mono);
+  color: var(--ink-soft);
+  border-top: 1px solid var(--rule-soft);
+  padding-top: var(--sp-3);
+}
+.dock__status[data-tone="bad"] { color: var(--pencil); }
+.dock__status[data-tone="wait"] { color: var(--ochre); }
+.dock__status[data-tone="ok"] { color: var(--ink); }
+
+@media (max-width: 52rem) {
+  .dock__inner { grid-template-columns: 1fr; gap: var(--sp-4); }
+  .dock { position: static; }
+}
+
+/* The live banner inside the ledger. Ink on the well, not a coloured alert box: it is a
+ * statement of provenance, and provenance is not a warning. */
+.ledger__live {
+  font: 400 var(--fs-mono)/1.6 var(--type-mono);
+  color: var(--ink-soft);
+  background: var(--well);
+  border-left: 2px solid var(--ink);
+  padding: var(--sp-3) var(--sp-4);
+  margin-bottom: var(--sp-5);
+}
+.ledger__live b { color: var(--ink); font-weight: 500; }
+.ledger__live[data-tone="disagree"] {
+  border-left-color: var(--pencil);
+  color: var(--pencil);
+  background: var(--pencil-wash);
+}
+
+.chip--live { border-style: dashed; }
+.chip--live[aria-busy="true"] { opacity: 0.6; cursor: progress; }
+
+/* ── Footage: upload, overlay, per-person timelines. ────────────────────────── */
+
+.clip { display: grid; gap: var(--sp-4); }
+
+.clip__drop {
+  border: 1px dashed var(--rule);
+  border-radius: var(--radius);
+  background: var(--sheet);
+  padding: var(--sp-6);
+  text-align: center;
+  display: grid;
+  gap: var(--sp-3);
+  justify-items: center;
+  transition: border-color 160ms var(--ease), background 160ms var(--ease);
+}
+.clip__drop[data-over] { border-color: var(--ink); background: var(--sheet-edge); }
+/* Dimmed, not hidden: the feature should be discoverable before it is usable, and the
+ * status line underneath says what is missing. */
+.clip[data-ready="0"] .clip__drop { opacity: 0.55; }
+.clip[data-ready="0"] .clip__drop label { pointer-events: none; }
+
+.clip__cue { font-size: var(--fs-body); color: var(--ink-soft); }
+.clip__hint {
+  font: 400 var(--fs-mono)/1.5 var(--type-mono);
+  color: var(--ink-faint);
+  max-width: 44ch;
+}
+
+/* The enrol control, laid out as one row (label, input, note) rather than the stacked
+ * block the raw HTML produced: unstyled, the input spanned the drop zone at browser
+ * default width and the label sat on its own line, which read as a form that had been
+ * dropped into the page rather than designed with it. Mirrors the dock's input so the
+ * two places a name can be typed look like the same system. */
+.clip__enrol {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+}
+.clip__enrol label {
+  font: 500 var(--fs-mono)/1 var(--type-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.clip__enrol input {
+  font: 400 var(--fs-mono)/1.4 var(--type-mono);
+  color: var(--ink);
+  background: var(--sheet-edge);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius);
+  padding: var(--sp-2) var(--sp-3);
+  /* A fixed ch width, not min(24ch, 100%): the drop zone centers its grid items, so the
+   * enrol row is sized by its own content and a percentage width resolves against a
+   * content-sized ancestor - which collapsed the input to 54px. */
+  width: 24ch;
+}
+.clip__enrol input::placeholder { color: var(--ink-faint); opacity: 0.75; }
+.clip__enrol input:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -1px;
+  background: #fff;
+}
+.clip__enrol-hint {
+  font: 400 var(--fs-mono)/1.5 var(--type-mono);
+  color: var(--ink-faint);
+  max-width: 52ch;
+  margin: 0;
+}
+
+.clip__stage { display: grid; gap: var(--sp-4); }
+/* The canvas sits exactly on the video, so the frame is the positioning context and the
+ * video must fill it — any letterboxing inside the element would offset every joint. */
+.clip__frame {
+  position: relative;
+  background: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--lift);
+}
+.clip__frame video { display: block; width: 100%; height: auto; }
+.clip__frame canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;   /* the video's own controls stay reachable */
+}
+
+.clip__meta {
+  font: 400 var(--fs-mono)/1.6 var(--type-mono);
+  color: var(--ink-soft);
+}
+.clip__meta b { color: var(--pencil); font-weight: 500; }
+
+.clip__tracks { display: grid; gap: var(--sp-4); }
+
+.track { display: grid; gap: var(--sp-2); }
+.track__id {
+  font: 400 var(--fs-mono)/1 var(--type-mono);
+  color: var(--ink-faint);
+  display: flex;
+  gap: var(--sp-3);
+  align-items: baseline;
+}
+.track__id b {
+  color: var(--ink);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+/* Weight and fill carry identity in the overlay; the same distinction is repeated here so
+ * the timeline and the picture agree without introducing a colour for either. */
+.track[data-role="resident"] .track__bar { border-left-width: 3px; }
+.track[data-role="unknown"] .track__bar { opacity: 0.7; }
+
+.track__bar {
+  position: relative;
+  height: 22px;
+  background: var(--well);
+  border: 1px solid var(--rule-soft);
+  border-left: 1.5px solid var(--ink);
+  border-radius: 1px;
+}
+.seg {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  background: var(--ink-soft);
+  border-right: 1px solid var(--sheet);
+}
+/* A fall is the one activity that is an emergency, so it is the one that gets pencil. */
+.seg--fall { background: var(--pencil); }
+
+.track__list {
+  font: 400 var(--fs-mono)/1.6 var(--type-mono);
+  color: var(--ink-soft);
+}
+.track__fall {
+  display: inline-block;
+  margin-left: var(--sp-3);
+  color: var(--pencil);
+  border: 1px solid var(--pencil);
+  border-radius: 1px;
+  padding: 0 var(--sp-2);
+}
+
+/* Ochre, not ink: the subject slot on an uploaded clip is an ASSERTION, and ochre is the hue
+ * this system reserves for "watch this". Ink would read as an established fact, which is
+ * exactly what the role beside it is not — OSNet said unidentified and meant it. */
+.track__subject {
+  display: inline-block;
+  margin-left: var(--sp-3);
+  font: 400 var(--fs-mono)/1.6 var(--type-mono);
+  color: var(--ochre);
+  border: 1px dashed var(--ochre);
+  border-radius: 1px;
+  padding: 0 var(--sp-2);
+}
+
+.clip__status {
+  font: 400 var(--fs-mono)/1.6 var(--type-mono);
+  color: var(--ink-soft);
+  border-top: 1px solid var(--rule-soft);
+  padding-top: var(--sp-3);
+}
+.clip__status[data-tone="bad"] { color: var(--pencil); }
+.clip__status[data-tone="wait"] { color: var(--ochre); }
+
+.clip__empty { font-size: var(--fs-body); color: var(--ink-soft); max-width: 52ch; }
+.clip__caveat {
+  font-size: var(--fs-body);
+  color: var(--ink-soft);
+  max-width: 58ch;
+  border-left: 2px solid var(--rule);
+  padding-left: var(--sp-4);
+}
+
+/* ── Live stages. The same .stage component as the static pipeline diagram, stacked in
+ * one column instead of four.
+ *
+ * Reusing the component rather than styling a second kind of card is the point: the
+ * diagram above claims a four-agent architecture, and this is that architecture running on
+ * the visitor's own file. If the live view had its own look, the diagram would be a
+ * drawing of something else. One column because each card now carries real figures, and
+ * because a hand-off reads top to bottom — the arrow between agents is the layout. */
+
+.clip__pipeline { display: grid; gap: var(--sp-4); }
+.stages--live { grid-template-columns: 1fr; margin-top: 0; }
+.stage--live { padding: var(--sp-5); }
+.stage--live[data-status="skipped"] { box-shadow: none; border: 1px dashed var(--rule); }
+.stage--live[data-status="failed"] { box-shadow: inset 3px 0 0 var(--pencil), var(--lift); }
+.stage--live .readout__rows { margin-top: var(--sp-4); }
+.stage--live .clip__tracks { margin-top: var(--sp-4); }
+
+.stage__n { display: flex; align-items: center; gap: var(--sp-3); }
+.stage__pill {
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--rule);
+  letter-spacing: 0.1em;
+}
+.stage__pill[data-tone="ok"] { background: var(--ink); border-color: var(--ink); color: var(--sheet); }
+.stage__pill[data-tone="bad"] { background: var(--pencil-wash); border-color: var(--pencil); color: var(--pencil); }
+.stage__pill[data-tone="skip"] { border-style: dashed; }
+.stage__time { margin-left: auto; font-variant-numeric: tabular-nums; }
+
+.stage__sub {
+  margin-top: var(--sp-5);
+  font: 400 var(--fs-micro)/1 var(--type-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.stage__who { margin-top: var(--sp-3); font: 400 var(--fs-mono)/1.6 var(--type-mono); color: var(--ink); }
+
+/* Ochre is the hue reserved for "watch this", and a baseline that is not this person's own
+ * history is exactly that: not an error, not a pass, a thing to keep in mind while reading
+ * every figure underneath it. */
+.stage__flag {
+  margin-top: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  box-shadow: inset 2px 0 0 var(--ochre);
+  background: var(--sheet-edge);
+  font-size: var(--fs-body);
+  color: var(--ink-soft);
+}
+.stage__flag b { color: var(--ink); font-weight: 500; }
+
+.stage__alerts { margin-top: var(--sp-4); display: grid; gap: var(--sp-2); }
+.stage__alerts li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-2);
+  padding: var(--sp-2) 0;
+  border-top: 1px solid var(--rule-soft);
+  font: 400 var(--fs-mono)/1.5 var(--type-mono);
+}
+.stage__alerts b { color: var(--ink); font-weight: 500; }
+.stage__alerts span { color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.1em; }
+.stage__alerts li[data-severity="critical"] span,
+.stage__alerts li[data-severity="urgent"] span { color: var(--pencil); }
+.stage__alerts code { color: var(--ink-faint); }
+
+/* Newsreader, because the report is a document and the chrome is not — the same rule the
+ * ledger follows. */
+.stage__quote {
+  margin-top: var(--sp-4);
+  font-family: var(--type-doc);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 2px solid var(--ink);
+  padding-left: var(--sp-4);
+}
+.stage__rec { margin-top: var(--sp-3); font-size: var(--fs-body); color: var(--ink-soft); }
+.stage__rec span {
+  display: block;
+  font: 400 var(--fs-micro)/1 var(--type-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: var(--sp-1);
+}
+.seam em { display: block; font-style: normal; margin-top: 2px; color: var(--ink-faint); }
+
+.clip__checks { display: grid; gap: 0; }
+.clip__checks .slips { padding-top: var(--sp-2); }
+.clip__checks .clip__caveat { margin-top: var(--sp-4); }
+
+/* ── Reveal. One device, used once per band, on the way in only. ───────────── */
+
+.reveal { opacity: 0; transform: translateY(10px); }
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.is-in { opacity: 1; transform: none; transition: none; }
+  .slip__margin { transition: none; }
+  .stamp { transition: none; }
+  .cell { transition: none; }
+  .conn[data-mode="live"] .conn__dot { animation: none; }
+}
+
+
+
+
+
+
+
+
+
+

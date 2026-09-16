@@ -210,6 +210,41 @@ def main() -> None:
         if len(defaulted) > 20:
             print(f"  ... and {len(defaulted) - 20} more (full list in the TSV)")
 
+        # The fallback list alone was not enough. `walking` came out of the real extraction
+        # with 545 of 35,698 validation windows (1.5%) at F1 0.093 - implausible for the
+        # most pose-separable activity in a corpus of people moving around their homes - and
+        # nothing in the existing output pointed at why. Group the fallback by candidate
+        # theme so a misrouted FAMILY of classes is visible rather than 60 lines of prose.
+        #
+        # These probes are diagnostic only: they never assign a label. Adding a rule is a
+        # human decision, because a wrong rule teaches the model a wrong label and then
+        # costs a 6-hour re-extraction to undo.
+        PROBES = (
+            ("locomotion?", r"\bgoing\b|\bentering\b|\bleaving\b|\bexiting\b|\bstairs?\b|"
+                            r"\bdoorway\b|\bsomewhere\b.*\bwalk|\bthrough a door"),
+            ("posture?", r"\bstand|\bsit\b|\blie\b|\blying\b|\bcrouch|\bkneel"),
+            ("object-hold?", r"\bholding\b|\bputting\b|\btaking\b|\bgrasping\b|\bcarrying\b"),
+            ("door/window?", r"\bdoor\b|\bwindow\b|\bcloset\b|\bcabinet\b|\bdrawer\b"),
+            ("light/switch?", r"\blight\b|\bswitch\b|\blamp\b"),
+        )
+        print("\nfallback grouped by candidate theme (diagnostic only - no rule is implied):")
+        matched: set[str] = set()
+        for label, pat in PROBES:
+            hits = [(c, n) for c, n in defaulted if re.search(pat, n, re.I)]
+            matched.update(c for c, _ in hits)
+            if hits:
+                print(f"  {label:<14} {len(hits):>3} class(es)")
+                for cid, name in hits[:6]:
+                    print(f"                 {cid} {name}")
+                if len(hits) > 6:
+                    print(f"                 ... and {len(hits) - 6} more")
+        rest = [(c, n) for c, n in defaulted if c not in matched]
+        print(f"  {'unthemed':<14} {len(rest):>3} class(es)")
+        print("\nIf 'locomotion?' is non-empty, `walking` is being starved by the rules and")
+        print("every one of those windows is also inflating other_idle. Changing RULES means")
+        print("RE-EXTRACTING the shards (labels are baked in at extraction, ~6 h), so decide")
+        print("once, with this list in front of you.")
+
 
 if __name__ == "__main__":
     main()

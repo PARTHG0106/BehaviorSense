@@ -1,0 +1,2467 @@
+
+[M01815] 2026-08-23T04:35:47.237Z USER (conversation) [C035:1116; copies=9]
+notebook06:
+Successfully ran in 895.3s
+Accelerator
+None
+
+Environment
+Latest Container Image
+
+Output
+1.61 MB
+
+Time
+#
+Log Message
+9.6s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+9.6s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+9.6s	3	0.00s - to python to disable frozen modules.
+9.6s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+10.5s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+10.5s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+10.5s	7	0.00s - to python to disable frozen modules.
+10.5s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+842.4s	9	  code /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+842.4s	10	  attached ["annotation-v1-0 (top level: ['Annotation'])", "behaviorsense-code (top level: ['EmotionSense-Extended'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "depth-untrimmed (top level: ['Depth'])", "msmt17 (top level: ['MSMT17'])", "pose-untrimmed (top level: ['Skeleton'])", "rgb-untrimmed (top level: ['Videos_mp4'])", "toyota-smarthome-depth (top level: ['depth'])", "toyota-smarthome-rgb (top level: ['mp4'])", "toyota-smarthome-skeleton (top level: ['json'])", "toyota-smarthome-skeleton-v1-2 (top level: ['Cook.Cleandishes_p02_r00_v02_c03_pose3d.json', 'Cook.Cleandishes_p02_r00_v14_c03_pose3d.json', 'Cook.Cleandishes_p02_r00_v16_c06_pose3d.json', 'Cook.Cleandishes_p02_r01_v02_c03_pose3d.json', 'Cook.Cleandishes_p03_r00_v15_c03_pose3d.json', 'Cook.Cleandishes_p03_r00_v15_c06_pose3d.json'])"]
+842.4s	11	  contract 22/22 - mounted code is current
+842.5s	12	11 dataset mount(s):
+842.5s	13	  annotation-v1-0
+842.5s	14	  behaviorsense-code
+842.5s	15	  behavioursense-ww
+842.5s	16	  depth-untrimmed
+842.5s	17	  msmt17
+842.5s	18	  pose-untrimmed
+842.5s	19	  rgb-untrimmed
+842.5s	20	  toyota-smarthome-depth
+842.5s	21	  toyota-smarthome-rgb
+842.5s	22	  toyota-smarthome-skeleton
+842.5s	23	  toyota-smarthome-skeleton-v1-2
+842.5s	24	  annotation_csv           536 files   /kaggle/input/datasets/krishnagupta02468/annotation-v1-0/Annotation
+842.9s	25	  rgb_untrimmed            536 files   /kaggle/input/datasets/krishnagupta02468/rgb-untrimmed/Videos_mp4
+843.8s	26	  pose_untrimmed           536 files   /kaggle/input/datasets/krishnagupta02468/pose-untrimmed/Skeleton
+844.0s	27	  depth_untrimmed          536 files   /kaggle/input/datasets/krishnagupta02468/depth-untrimmed/Depth
+848.6s	28	  rgb_trimmed           16,115 files   /kaggle/input/datasets/krishnagupta02468/toyota-smarthome-rgb/mp4
+853.3s	29	  skel_trimmed_v11      16,115 files   /kaggle/input/datasets/krishnagupta02468/toyota-smarthome-skeleton/json
+873.9s	30	  skel_trimmed_v12      16,115 files   /kaggle/input/datasets/krishnagupta02468/toyota-smarthome-skeleton-v1-2
+877.9s	31	  depth_trimmed         16,115 files   /kaggle/input/datasets/krishnagupta02468/toyota-smarthome-depth/depth
+877.9s	32	resolved in 35.5s (the `**` version took 78 minutes)
+877.9s	33	
+877.9s	34	  annotation_csv           536 / 536  ok
+877.9s	35	  rgb_untrimmed            536 / 536  ok
+877.9s	36	  rgb_trimmed           16,115 / 16,115  ok
+878.3s	37	  smarthome_CS_51.json       799,504 bytes
+878.6s	38	  smarthome_CV_51.json       799,522 bytes
+878.6s	39	  Action_list                    878 bytes
+878.6s	40	  Action_list agrees with TSU_CLASSES on all 51 names
+881.7s	41	536 CSVs, 41,343 annotation rows, 53 distinct class names
+881.7s	42	
+881.7s	43	merges applied (4 aliases known):
+881.7s	44	  Make_tea.Insert_tea_bag      -> Insert_tea_bag           77 rows
+881.7s	45	  Make_coffee.Get_water        -> Get_water                39 rows
+881.7s	46	
+881.7s	47	GO: every name resolves into the 51-class space.
+881.9s	48	JSON: 536 videos, official CS partition verified on read
+881.9s	49	
+881.9s	50	raw P02T01C06.csv:
+881.9s	51	    event,start_frame,end_frame
+881.9s	52	    Enter,170,187
+881.9s	53	    Walk,181,222
+881.9s	54	    Make_coffee,233,1615
+881.9s	55	    Make_coffee.Get_water,236,502
+881.9s	56	parsed -> ((0, 170, 187), (1, 181, 222), (2, 233, 1615))
+882.3s	57	
+882.3s	58	CSV:  536 videos parsed
+882.3s	59	
+882.3s	60	cross-check: 536 videos compared, 454 agree, 82 disagree
+882.3s	61	  P02T01C07: csv 69 spans vs json 67, only_in_csv=[(2, 613, 829), (2, 10758, 10946)] only_in_json=[]
+882.3s	62	  P02T11C02: csv 101 spans vs json 100, only_in_csv=[(35, 200, 220), (35, 220, 18540)] only_in_json=[(35, 200, 14040)]
+882.3s	63	  P03T10C01: csv 44 spans vs json 43, only_in_csv=[(35, 0, 5200)] only_in_json=[]
+882.3s	64	  P03T15C03: csv 72 spans vs json 69, only_in_csv=[(15, 0, 240), (15, 11973, 12301), (15, 13236, 13609)] only_in_json=[]
+882.3s	65	  P03T16C03: csv 116 spans vs json 115, only_in_csv=[(2, 1340, 2960), (2, 2960, 2963)] only_in_json=[(2, 1480, 2963)]
+882.3s	66	
+882.3s	67	PARTIAL: the sources differ. The CSVs are what Inria ships and are
+882.3s	68	authoritative; the JSON is a derived mirror. Read the per-video lines above
+882.3s	69	before deciding which to train on - do not average them.
+882.4s	70	10,705,053 annotated frames = 118.9 h at 25 Hz
+882.4s	71	  CS   train 351  test 185
+882.4s	72	  CV1  train 75  val 107  test 60  unused 294
+882.4s	73	  CV2  train 369  val 107  test 60
+882.4s	74	
+882.4s	75	coarse class                  frames  share%
+882.4s	76	reading                    4,357,739  40.71
+882.4s	77	using_device               1,270,664  11.87
+882.4s	78	watching_tv                1,022,569   9.55
+882.4s	79	cooking_food_prep            941,557   8.80
+882.4s	80	cleaning_housework           667,346   6.23
+882.4s	81	object_interaction           594,330   5.55
+882.4s	82	walking                      572,460   5.35
+882.4s	83	eating                       454,025   4.24
+882.4s	84	using_phone                  311,282   2.91
+882.4s	85	drinking                     278,090   2.60
+882.4s	86	sitting_down                  77,081   0.72
+882.4s	87	standing_up                   71,428   0.67
+882.4s	88	taking_medication             60,229   0.56
+882.4s	89	lying_down                    16,893   0.16
+882.4s	90	personal_hygiene               9,360   0.09
+882.4s	91	
+882.4s	92	other_idle: 0 frames. Zero is the intended answer - every Toyota class is a real activity, so nothing needs the reject class.
+882.4s	93	unannotated: mean 0.328 median 0.230 max 0.988
+882.4s	94	A third of the corpus is gap. The 51-class benchmark head treats gaps as true
+882.4s	95	negatives; the unified head must MASK them, because a gap most likely contains the
+882.4s	96	sitting and standing that Toyota never labels.
+883.2s	97	untrimmed RGB (expect 25 fps, 640x480):
+883.2s	98	  [train] P15T17C03.mp4: decode=True frames=15,753 25fps 640x480  json duration 15753 (delta +0)
+883.2s	99	  [test] P18T10C01.mp4: decode=True frames=31,143 25fps 640x480  json duration 31143 (delta +0)
+883.2s	100	
+883.2s	101	trimmed RGB (expect 30 fps):
+883.3s	102	  Walk_p03_r01_v15_c07.mp4: Walk p03 c07 decode=True frames=163 20fps 640x480
+883.3s	103	  Sitdown_p20_r07_v09_c01.mp4: Sitdown p20 c01 decode=True frames=53 20fps 640x480
+883.3s	104	
+883.3s	105	V1.2 skeleton: Walk_p25_r12_v15_c06_pose3d.json -> Walk p25 tag='pose3d'
+883.3s	106	  (the tag group is why this archive parses at all - an anchored pattern without
+883.3s	107	   it rejects every file here and reports it as an empty mount)
+883.3s	108	wrote /kaggle/working/toyota_meta/ :
+883.3s	109	  Action_list                       878 bytes
+883.3s	110	  manifest.json                  13,497 bytes
+883.3s	111	  smarthome_CS_51.json          799,504 bytes
+883.3s	112	  smarthome_CV_51.json          799,522 bytes
+883.3s	113	
+883.3s	114	======================================================================
+883.3s	115	  Save Version -> create a PRIVATE dataset named behaviorsense-toyota-meta
+883.3s	116	======================================================================
+883.3s	117	The offline extraction notebook attaches that instead of reaching for GitHub.
+883.3s	118	
+883.3s	119	Do not commit these files to the repo: it is PUBLIC and this dataset is licensed
+883.3s	120	for academic research only. .gitignore already refuses them.
+887.4s	121	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+887.4s	122	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+887.6s	123	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+887.6s	124	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+888.5s	125	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+888.9s	126	[NbConvertApp] Writing 42400 bytes to __notebook__.ipynb
+892.5s	127	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+893.8s	128	[NbConvertApp] Writing 377268 bytes to __results__.html
+
+
+
+
+notebook04:
+Successfully ran in 6995.1s
+Accelerator
+GPU RTX Pro 6000
+
+Environment
+Latest Container Image
+
+Output
+13.12 MB
+
+Time
+#
+Log Message
+4.0s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.0s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.0s	3	0.00s - to python to disable frozen modules.
+4.0s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.3s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.3s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.3s	7	0.00s - to python to disable frozen modules.
+4.3s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+5.3s	9	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+5.3s	10	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+5.3s	11	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+5.3s	12	  attached  ["behaviorsense-adl-shards (top level: ['charades_map.yaml', 'charades_map_review.tsv', 'shards'])", "behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-fall-shards (top level: ['_decode_probe.py', 'decode_list.txt', 'decode_list_av.txt', 'decode_probe.tsv', 'decode_probe_av.tsv', 'shards'])", "behaviorsense-runs (top level: ['runs', 'train_bone.log', 'train_bone_motion.log', 'train_joint.log', 'train_joint_motion.log'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "qwen2-5-7b-instruct (top level: ['LICENSE', 'README.md', 'config.json', 'generation_config.json', 'gitattributes', 'merges.txt'])", 'arc-prize-2026-arc-agi-3']
+5.3s	13	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+5.3s	14	  contract 22/22 - mounted code is current
+9.7s	15	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+9.7s	16	Requirement already satisfied: transformers in /usr/local/lib/python3.12/dist-packages (5.0.0)
+9.7s	17	Requirement already satisfied: accelerate in /usr/local/lib/python3.12/dist-packages (1.13.0)
+...
+10.1s	155	Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (2.20.0)
+10.1s	156	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+10.7s	157	Installing collected packages: outlines_core, genson, diskcache, outlines
+10.9s	158	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+10.9s	159	Installing collected packages: outlines_core, genson, diskcache, outlines
+10.9s	160	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+133.1s	161	P1 split: video-id (proxy)
+133.1s	162	P1 val: 33044 windows, 1555 subjects
+174.5s	163	model              top1 mean-class  macro-F1    F1>=50
+174.5s	164	joint             0.367      0.320     0.225     0.233
+174.5s	165	bone              0.352      0.313     0.223     0.231
+174.5s	166	joint_motion      0.358      0.228     0.201     0.178
+174.5s	167	bone_motion       0.336      0.192     0.154     0.141
+181.4s	168	ENSEMBLE          0.391      0.281     0.256     0.244   <- headline P1
+181.4s	169	
+181.4s	170	macro-F1 averages 18 present classes; the last column averages the 17 with >= 50 val windows.
+181.4s	171	1 class(es) starved by the Charades label map (< 50 windows):
+181.4s	172	  class  6 bending_reaching       support    13
+181.4s	173	  Cause: Charades has no verb for these (e.g. 'Putting a box somewhere'),
+181.4s	174	  so build_charades_map.py routes them to other_idle. Report both columns.
+181.7s	175	wrote /kaggle/working/results/val_logits.npz - re-score without a GPU: PYTHONPATH=src python scripts/rescore_p1.py results/val_logits.npz
+181.9s	176	configuration                        top1  mean-class  macro-F1
+181.9s	177	ensemble, logit-avg (P1 headline)   0.391       0.281     0.256
+181.9s	178	best logit-avg subset: joint        0.367       0.320     0.225
+182.2s	179	best prob-avg subset: bone+joint    0.368       0.321     0.231
+182.2s	180	ensemble + logit-adjust tau=0.25    0.283       0.369     0.225
+182.2s	181	bone+joint + logit-adjust tau=0.25  0.228       0.373     0.192
+196.5s	182	ensemble + TTA flip                 0.392       0.274     0.257
+196.5s	183	second person visible in 2,412/33,044 val windows (7.3%); class 18 support 550
+196.5s	184	ensemble + second-person context    0.378       0.264     0.240
+196.5s	185	ens + logit-adjust 0.25 + 2nd-person  0.283       0.350     0.225
+196.5s	186	  class 18 without context: predicted   730, correct   97, recall 0.176
+196.5s	187	  class 18 with context: predicted  2288, correct  130, recall 0.236
+196.5s	188	
+196.5s	189	best mean-class: bone+joint + logit-adjust tau=0.25 at 0.373 (+0.092 vs the P1 headline)
+196.5s	190	Selected on the validation split, so report as validation-selected, not held-out.
+198.0s	191	fitted temperature T=0.58; mean confidence 0.420 vs accuracy 0.391
+198.0s	192	-> set ActivityConfig(temperature=0.58) in deployment
+199.4s	193	1521 sequences, 32992 windows (sequences of >=3 windows only)
+199.4s	194	fitted prior: mean self-transition 0.764 vs hand-set 0.90
+199.4s	195	decoding                                   top1  mean-class      frag
+199.4s	196	per-window argmax                         0.391       0.281      1.90
+199.7s	197	Viterbi, hand-set prior                   0.408       0.233      0.48
+200.0s	198	Viterbi, fitted prior                     0.408       0.238      0.49
+200.0s	199	argmax, logit-adjust tau=0.25             0.283       0.369      3.27
+200.1s	200	Viterbi fitted + logit-adjust tau=0.25    0.348       0.344      0.63
+200.1s	201	
+200.1s	202	best mean-class: argmax, logit-adjust tau=0.25 (0.369, +0.088 vs per-window argmax) at fragmentation 3.27x
+200.1s	203	Pick on BOTH columns: mean-class is label quality, frag is whether the segment
+200.1s	204	structure Agent 3 counts bouts from survives. Neither alone decides it.
+256.6s	205	fall head loaded from fall/best.pt, stream=joint, recorded best AUPRC 0.822
+256.6s	206	held-out          n  fall%  ADL-ens AUROC  FALL-HEAD AUROC
+257.0s	207	caucafall      1159  28.8%          0.603            0.970
+257.3s	208	gmdcsa          914  24.5%          0.471            0.928
+257.4s	209	le2i            752  34.7%          0.571            0.989
+257.4s	210	urfd            239  16.3%          0.560            0.991
+257.4s	211	
+257.4s	212	The FALL-HEAD column is the one the 0.822 AUPRC / 0.951-sensitivity claims belong to.
+257.4s	213	If it is far below its own validation AUROC, that operating point is in-domain only.
+269.1s	214	combination        top1 mean-class  macro-F1    F1>=50
+269.1s	215	logit-average     0.391      0.281     0.256     0.244   <- headline
+269.1s	216	prob-average      0.382      0.309     0.237     0.236
+269.1s	217	
+269.1s	218	Logit averaging is a product of experts, probability averaging a mixture. The
+269.1s	219	headline uses logits; this row is the ablation that justifies that choice rather
+269.1s	220	than asserting it.
+273.8s	221	Qwen at: /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct
+274.0s	222	116 analysed days (58 with alerts) from 6 scenarios
+274.0s	223	[grammar-constrained] 116 reports...
+274.2s	224	116 analysed days (58 with alerts) from 6 scenarios
+274.2s	225	[grammar-constrained] 116 reports...
+286.6s	226	`torch_dtype` is deprecated! Use `dtype` instead!
+286.8s	227	`torch_dtype` is deprecated! Use `dtype` instead!
+286.8s	228	
+286.8s	229	`torch_dtype` is deprecated! Use `dtype` instead!
+287.6s	230	
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 20460.02it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 10230.01it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 20460.02it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 10230.01it/s, Materializing param=lm_head.weight]
+...
+373.5s	331	
+Loading weights:  99%|█████████▉| 335/339 [01:25<00:00,  5.27it/s, Materializing param=model.layers.27.self_attn.o_proj.weight]
+Loading weights:  99%|█████████▉| 335/339 [01:25<00:00,  5.27it/s, Materializing param=model.layers.27.self_attn.q_proj.bias]  
+Loading weights:  99%|█████████▉| 335/339 [01:25<00:00,  5.27it/s, Materializing param=model.layers.27.self_attn.q_proj.bias]
+Loading weights:  99%|█████████▉| 336/339 [01:25<00:00,  5.27it/s, Materializing param=model.layers.27.self_attn.q_proj.weight]
+Loading weights:  99%|█████████▉| 336/339 [01:25<00:00,  5.27it/s, Materializing param=model.layers.27.self_attn.q_proj.weight]
+Loading weights:  99%|█████████▉| 337/339 [01:25<00:00,  5.27it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]  
+Loading weights:  99%|█████████▉| 337/339 [01:25<00:00,  5.27it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]
+Loading weights: 100%|█████████▉| 338/339 [01:25<00:00,  5.27it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+Loading weights: 100%|█████████▉| 338/339 [01:25<00:00,  5.27it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+Loading weights: 100%|██████████| 339/339 [01:25<00:00,  5.27it/s, Materializing param=model.norm.weight]                      
+Loading weights: 100%|██████████| 339/339 [01:25<00:00,  5.27it/s, Materializing param=model.norm.weight]
+Loading weights: 100%|██████████| 339/339 [01:25<00:00,  3.95it/s, Materializing param=model.norm.weight]
+373.6s	332	[reporter] loaded /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct in 87s (do_sample=False)
+373.8s	333	[reporter] logit sanity ok: finite over (1, 12, 152064) in bfloat16
+374.0s	334	[reporter] logit sanity ok: finite over (1, 12, 152064) in bfloat16
+1373.4s	335	[grammar-constrained] 20/116 reports, 101 claims emitted, 99 faithful, 55.0s/report, eta 88.0 min
+1373.6s	336	[grammar-constrained] 20/116 reports, 101 claims emitted, 99 faithful, 55.0s/report, eta 88.0 min
+2342.8s	337	[grammar-constrained] 40/116 reports, 200 claims emitted, 194 faithful, 51.7s/report, eta 65.5 min
+2343.0s	338	[grammar-constrained] 40/116 reports, 200 claims emitted, 194 faithful, 51.7s/report, eta 65.5 min
+3322.2s	339	[grammar-constrained] 60/116 reports, 299 claims emitted, 290 faithful, 50.8s/report, eta 47.4 min
+3322.4s	340	[grammar-constrained] 60/116 reports, 299 claims emitted, 290 faithful, 50.8s/report, eta 47.4 min
+4301.2s	341	[grammar-constrained] 80/116 reports, 396 claims emitted, 385 faithful, 50.3s/report, eta 30.2 min
+4301.4s	342	[grammar-constrained] 80/116 reports, 396 claims emitted, 385 faithful, 50.3s/report, eta 30.2 min
+5280.7s	343	[grammar-constrained] 100/116 reports, 494 claims emitted, 480 faithful, 50.1s/report, eta 13.4 min
+5280.9s	344	[grammar-constrained] 100/116 reports, 494 claims emitted, 480 faithful, 50.1s/report, eta 13.4 min
+6072.2s	345	[grammar-constrained] 116/116 reports, 575 claims emitted, 559 faithful, 50.0s/report, eta 0.0 min
+6072.2s	346	[unconstrained] 116 reports...
+6072.2s	347	[reporter] reusing already-loaded weights for /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct
+6072.4s	348	[grammar-constrained] 116/116 reports, 575 claims emitted, 559 faithful, 50.0s/report, eta 0.0 min
+6072.4s	349	[unconstrained] 116 reports...
+6072.4s	350	[reporter] reusing already-loaded weights for /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct
+6230.5s	351	[unconstrained] 20/116 reports, 91 claims emitted, 85 faithful, 7.9s/report, eta 12.7 min
+6230.7s	352	[unconstrained] 20/116 reports, 91 claims emitted, 85 faithful, 7.9s/report, eta 12.7 min
+6391.4s	353	[unconstrained] 40/116 reports, 188 claims emitted, 179 faithful, 8.0s/report, eta 10.1 min
+6391.6s	354	[unconstrained] 40/116 reports, 188 claims emitted, 179 faithful, 8.0s/report, eta 10.1 min
+6549.4s	355	[unconstrained] 60/116 reports, 282 claims emitted, 267 faithful, 8.0s/report, eta 7.4 min
+6549.6s	356	[unconstrained] 60/116 reports, 282 claims emitted, 267 faithful, 8.0s/report, eta 7.4 min
+6705.4s	357	[unconstrained] 80/116 reports, 376 claims emitted, 361 faithful, 7.9s/report, eta 4.7 min
+6705.6s	358	[unconstrained] 80/116 reports, 376 claims emitted, 361 faithful, 7.9s/report, eta 4.7 min
+6866.1s	359	[unconstrained] 100/116 reports, 475 claims emitted, 457 faithful, 7.9s/report, eta 2.1 min
+6866.3s	360	[unconstrained] 100/116 reports, 475 claims emitted, 457 faithful, 7.9s/report, eta 2.1 min
+6987.6s	361	[unconstrained] 116/116 reports, 545 claims emitted, 525 faithful, 7.9s/report, eta 0.0 min
+6987.6s	362	[unconstrained + format repair] 116 reports...
+6987.6s	363	[unconstrained + format repair] 20/116 reports, 91 claims emitted, 85 faithful, 0.0s/report, eta 0.0 min
+6987.6s	364	[unconstrained + format repair] 40/116 reports, 188 claims emitted, 179 faithful, 0.0s/report, eta 0.0 min
+6987.7s	365	[unconstrained + format repair] 60/116 reports, 282 claims emitted, 267 faithful, 0.0s/report, eta 0.0 min
+6987.7s	366	[unconstrained + format repair] 80/116 reports, 376 claims emitted, 361 faithful, 0.0s/report, eta 0.0 min
+6987.7s	367	[unconstrained + format repair] 100/116 reports, 475 claims emitted, 457 faithful, 0.0s/report, eta 0.0 min
+6987.7s	368	[unconstrained + format repair] 116/116 reports, 545 claims emitted, 525 faithful, 0.0s/report, eta 0.0 min
+6987.7s	369	
+6987.7s	370	# Hallucination rate
+6987.7s	371	
+6987.7s	372	- 116 analysed days (58 alerting) from 6 simulator scenarios
+6987.7s	373	- a claim is a hallucination if it fails any of C1-C4 (deterministic, no LLM)
+6987.7s	374	- `hallucination rate` is over SCHEMA-VALID claims (the verifier's view);
+6987.7s	375	  `unusable rate` is over ALL emitted claims, counting schema rejects as
+6987.7s	376	  unusable - which is what a caregiver actually experiences
+6987.7s	377	
+6987.7s	378	| condition | model | reports | emitted | scorable | repaired | faithful | hallucination rate | 95% CI | unusable rate | parse fail | schema rejected |
+6987.7s	379	|---|---|---|---|---|---|---|---|---|---|---|---|
+6987.7s	380	| grammar-constrained | `qwen2-5-7b-instruct(constrained)` | 116 | 575 | 575 | 0 | 559 | **2.8%** | 1.7%-4.5% | **2.8%** | 0 | 0 |
+6987.7s	381	| unconstrained | `qwen2-5-7b-instruct(free)` | 116 | 545 | 545 | 0 | 525 | **3.7%** | 2.4%-5.6% | **3.7%** | 0 | 0 |
+6987.7s	382	| unconstrained + format repair | `qwen2-5-7b-instruct(free)` | 116 | 545 | 545 | 0 | 525 | **3.7%** | 2.4%-5.6% | **3.7%** | 0 | 0 |
+6987.7s	383	
+6987.7s	384	## Does the grammar help?
+6987.7s	385	
+6987.7s	386	- constrained 2.8% vs free 3.7%: difference -0.9%, z = -0.84, two-sided p = 0.40 -> **indistinguishable**
+6987.7s	387	- the grammar's value is a *worst-case guarantee* of parseability, not
+6987.7s	388	  a faithfulness gain: it cannot emit an invalid claim, whereas the free
+6987.7s	389	  arm merely happened to emit none once the prompt stated the schema
+6987.7s	390	- and it is not free: see the per-report timings in the run log
+6987.7s	391	
+6987.7s	392	## Which check caught it (C1-C4)
+6987.7s	393	
+6987.7s	394	| condition | bad ref (C1) | value (C2) | pct (C3) | direction (C4) |
+6987.7s	395	|---|---|---|---|---|
+6987.7s	396	| grammar-constrained | 1 | 0 | 0 | 6 |
+6987.7s	397	| unconstrained | 0 | 0 | 0 | 7 |
+6987.7s	398	| unconstrained + format repair | 0 | 0 | 0 | 7 |
+6987.7s	399	
+6987.7s	400	Counts are per CHECK, not per claim - one claim can fail several - so rows do not sum to the unfaithful total. C4 is the clinically dangerous mode: a correct number narrated backwards. C3 alone is a copying error.
+6987.7s	401	
+6987.7s	402	## Note on the repair arm
+6987.7s	403	
+6987.7s	404	`repair_claim` coerces FORMAT only - whitespace, `"1800"` -> `1800.0`,
+6987.7s	405	`"Decreased"` -> `"decrease"`, `YYYY/MM/DD` -> `YYYY-MM-DD`. It never
+6987.7s	406	invents an evidence_ref, changes a number, or infers an unstated
+6987.7s	407	direction, so a repaired claim can move from unscorable to scored but
+6987.7s	408	never from false to faithful. The row separates *cannot emit our JSON*
+6987.7s	409	from *misstates the data*; only the latter is a faithfulness result.
+6987.7s	410	
+6987.7s	411	**0 of 545 claims needed repair**, so this row is identical to the unconstrained one by construction. That is the finding: once the prompt states the output contract, free decoding produced no malformed claims, and the 245 schema rejections in the first run were caused by our prompt withholding the field names - not by the model.
+6987.7s	412	
+6987.7s	413	The repair arm re-scored the unconstrained arm's cached responses, not fresh samples, so any delta is the repair alone.
+6987.7s	414	
+6987.7s	415	wrote /kaggle/working/results/hallucination_qwen.md
+6987.7s	416	wrote /kaggle/working/results/hallucination_qwen_claims.jsonl (1665 claims) - rescore this without a GPU
+6987.8s	417	[unconstrained] 116/116 reports, 545 claims emitted, 525 faithful, 7.9s/report, eta 0.0 min
+6987.8s	418	[unconstrained + format repair] 116 reports...
+6987.8s	419	[unconstrained + format repair] 20/116 reports, 91 claims emitted, 85 faithful, 0.0s/report, eta 0.0 min
+6987.8s	420	[unconstrained + format repair] 40/116 reports, 188 claims emitted, 179 faithful, 0.0s/report, eta 0.0 min
+6987.8s	421	[unconstrained + format repair] 60/116 reports, 282 claims emitted, 267 faithful, 0.0s/report, eta 0.0 min
+6987.8s	422	[unconstrained + format repair] 80/116 reports, 376 claims emitted, 361 faithful, 0.0s/report, eta 0.0 min
+6987.8s	423	[unconstrained + format repair] 100/116 reports, 475 claims emitted, 457 faithful, 0.0s/report, eta 0.0 min
+6987.8s	424	[unconstrained + format repair] 116/116 reports, 545 claims emitted, 525 faithful, 0.0s/report, eta 0.0 min
+6987.8s	425	
+6987.8s	426	# Hallucination rate
+6987.8s	427	
+6987.8s	428	- 116 analysed days (58 alerting) from 6 simulator scenarios
+6987.8s	429	- a claim is a hallucination if it fails any of C1-C4 (deterministic, no LLM)
+6987.8s	430	- `hallucination rate` is over SCHEMA-VALID claims (the verifier's view);
+6987.8s	431	  `unusable rate` is over ALL emitted claims, counting schema rejects as
+6987.8s	432	  unusable - which is what a caregiver actually experiences
+6987.8s	433	
+6987.8s	434	| condition | model | reports | emitted | scorable | repaired | faithful | hallucination rate | 95% CI | unusable rate | parse fail | schema rejected |
+6987.8s	435	|---|---|---|---|---|---|---|---|---|---|---|---|
+6987.8s	436	| grammar-constrained | `qwen2-5-7b-instruct(constrained)` | 116 | 575 | 575 | 0 | 559 | **2.8%** | 1.7%-4.5% | **2.8%** | 0 | 0 |
+6987.8s	437	| unconstrained | `qwen2-5-7b-instruct(free)` | 116 | 545 | 545 | 0 | 525 | **3.7%** | 2.4%-5.6% | **3.7%** | 0 | 0 |
+6987.8s	438	| unconstrained + format repair | `qwen2-5-7b-instruct(free)` | 116 | 545 | 545 | 0 | 525 | **3.7%** | 2.4%-5.6% | **3.7%** | 0 | 0 |
+6987.8s	439	
+6987.8s	440	## Does the grammar help?
+6987.8s	441	
+6987.8s	442	- constrained 2.8% vs free 3.7%: difference -0.9%, z = -0.84, two-sided p = 0.40 -> **indistinguishable**
+6987.8s	443	- the grammar's value is a *worst-case guarantee* of parseability, not
+6987.8s	444	  a faithfulness gain: it cannot emit an invalid claim, whereas the free
+6987.8s	445	  arm merely happened to emit none once the prompt stated the schema
+6987.8s	446	- and it is not free: see the per-report timings in the run log
+6987.8s	447	
+6987.8s	448	## Which check caught it (C1-C4)
+6987.8s	449	
+6987.8s	450	| condition | bad ref (C1) | value (C2) | pct (C3) | direction (C4) |
+6987.8s	451	|---|---|---|---|---|
+6987.8s	452	| grammar-constrained | 1 | 0 | 0 | 6 |
+6987.8s	453	| unconstrained | 0 | 0 | 0 | 7 |
+6987.8s	454	| unconstrained + format repair | 0 | 0 | 0 | 7 |
+6987.8s	455	
+6987.8s	456	Counts are per CHECK, not per claim - one claim can fail several - so rows do not sum to the unfaithful total. C4 is the clinically dangerous mode: a correct number narrated backwards. C3 alone is a copying error.
+6987.8s	457	
+6987.8s	458	## Note on the repair arm
+6987.8s	459	
+6987.8s	460	`repair_claim` coerces FORMAT only - whitespace, `"1800"` -> `1800.0`,
+6987.8s	461	`"Decreased"` -> `"decrease"`, `YYYY/MM/DD` -> `YYYY-MM-DD`. It never
+6987.8s	462	invents an evidence_ref, changes a number, or infers an unstated
+6987.8s	463	direction, so a repaired claim can move from unscorable to scored but
+6987.8s	464	never from false to faithful. The row separates *cannot emit our JSON*
+6987.8s	465	from *misstates the data*; only the latter is a faithfulness result.
+6987.8s	466	
+6987.8s	467	**0 of 545 claims needed repair**, so this row is identical to the unconstrained one by construction. That is the finding: once the prompt states the output contract, free decoding produced no malformed claims, and the 245 schema rejections in the first run were caused by our prompt withholding the field names - not by the model.
+6987.8s	468	
+6987.8s	469	The repair arm re-scored the unconstrained arm's cached responses, not fresh samples, so any delta is the repair alone.
+6987.8s	470	
+6987.8s	471	wrote /kaggle/working/results/hallucination_qwen.md
+6987.8s	472	wrote /kaggle/working/results/hallucination_qwen_claims.jsonl (1665 claims) - rescore this without a GPU
+6991.0s	473	- evaluation.md (3826 bytes)
+6991.0s	474	- hallucination_qwen.md (2728 bytes)
+6991.0s	475	
+6991.0s	476	Save Version, then create/update dataset behaviorsense-results from the output -
+6991.0s	477	these tables are the dissertation numbers and the session log is not a record.
+6992.8s	478	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+6992.8s	479	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+6992.8s	480	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+6992.8s	481	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+6993.1s	482	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+6993.3s	483	[NbConvertApp] Writing 87416 bytes to __notebook__.ipynb
+6994.4s	484	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+6994.8s	485	[NbConvertApp] Writing 482741 bytes to __results__.html
+
+
+[M01816] 2026-08-23T04:37:15.336Z ASSISTANT (conversation) [C035:1119; copies=9]
+Both ran — and they surfaced one serious problem plus one major correction. Let me check the P1 split logic first.
+
+
+[M01817] 2026-08-23T04:59:19.355Z ASSISTANT (conversation) [C035:1252; copies=9]
+Both ran. One result is excellent, one is unusable, and the second is my fault. `179/179` passing after the fixes.
+
+## Notebook 06 — GO, with two findings
+
+The merges were exactly the two documented ones: **`Make_tea.Insert_tea_bag` (77 rows)** and **`Make_coffee.Get_water` (39 rows)**, 53 names collapsing to 51. Resolve time **35.5s, down from 78 minutes**.
+
+**The 82 "disagreements" are mostly benign.** Your examples showed the pattern: the CSVs carry *finer* spans and the JSON *merges adjacent same-class intervals*. `(2,1340,2960)+(2,2960,2963)` vs `(2,1480,2963)` is two span lists describing nearly the same frames. Span-set equality was the wrong yardstick — frames are what the model sees. I reproduced your three examples and scored them at frame level:
+
+| case | frame agreement | cells differing |
+|---|---|---|
+| pure split (CSV finer, JSON merged) | **1.00000** | **0** |
+| P03T16C03 (boundary moved 140 frames) | 0.99931 | 140 |
+| P02T11C02 (end 18540 vs 14040) | 0.99559 | 4,500 |
+
+`cross_check_annotations` now reports mean/worst frame agreement and gives a quantitative verdict instead of "PARTIAL, read the lines".
+
+**Trimmed RGB is 20 fps, not 30.** Both probes said 20; `i3d_smarthome`'s README says 30. 163 frames is 8.2 s at 20 and 5.4 s at 30 — 8 s is the plausible walk. `TSM_FPS = 20.0` (measured) and `TSM_FPS_DOCUMENTED = 30.0` now coexist so the conflict is visible, and the extractor must read fps per file.
+
+Also fixed: `attached_mounts()` was calling `sorted(...)[:6]` on directory listings — a full FUSE read of 16,115 entries per mount. That's most of the 842 s cell 2 still cost. Now `islice(..., 6)`.
+
+## Notebook 04 — the numbers are unusable, and that's on me
+
+```
+P1 split: video-id (proxy)
+P1 val: 33044 windows, 1555 subjects
+```
+
+**`charades-480p` wasn't attached, so `Charades_v1_train.csv` was missing and P1 silently fell back to the leaky split.** 1,555 "subjects" are video ids. Every activity number in that run — macro-F1 0.256, mean-class 0.281, T=0.58, `bone+joint`+τ 0.373 — is inflated by actor leakage and must not go near the actor-disjoint tables. Two hours of Blackwell for scrollback.
+
+I built that fallback with one printed line of warning. In a 7,000-line log, a printed warning is not a guard. **P1 now raises** and names the fix; `BS_ALLOW_VIDEO_SPLIT=1` overrides if you ever want the leaky protocol deliberately. The e2e harness now ships a synthetic subject CSV so it exercises the protocol of record.
+
+## The good result: the fall head does transfer
+
+```
+held-out     ADL-ens AUROC   FALL-HEAD AUROC
+caucafall        0.603          0.970
+gmdcsa           0.471          0.928
+le2i             0.571          0.989
+urfd             0.560          0.991
+```
+
+**`evaluation.md` said the fall head doesn't generalise. That was wrong** — P2 was scoring the ADL ensemble's fall-class posterior while `runs/fall/best.pt` sat unloaded. With both columns, 0.928–0.991 on four unseen setups against val 1.000. **0.822 AUPRC and 0.951 sensitivity @ 0.99 FA/h are portable claims**, not in-domain ceilings. I've corrected `evaluation.md` and the memory entry. This is the dual-column P2 earning its keep — one column couldn't say which model it measured.
+
+## Hallucination: 7.9% → 2.8% / 3.7%
+
+```
+                bad ref(C1)  value(C2)  pct(C3)  direction(C4)
+constrained          1           0         0          6
+unconstrained        0           0         0          7
+```
+
+**C2 went from 39/42 to zero.** The FILLED TEMPLATE block eliminated numeric misquotes outright. Constrained 2.8% vs free 3.7%, p=0.40 — still indistinguishable, which is the stable finding.
+
+But the arithmetic doesn't close: 575−559 = 16 unfaithful, and C1–C4 account for 7. The other ~9 are **C5** (prose not echoing the value) and the table doesn't show them. Same free-arm: 20 unfaithful, 7 explained. So C5 is catching ~1.6–2.4% of claims that were previously invisible. The breakdown now prints a C5 column.
+
+---
+
+# Re-run notebook 04
+
+**Republish the code first** — the P1 guard, the C5 column, and the frame-level cross-check are all in this session's changes:
+
+```bash
+python scripts/publish_code_dataset.py -m "P1 refuses video-id split, C5 in breakdown, frame-level cross-check, TSM_FPS=20"
+```
+
+Then `04_evaluate_blackwell_offline.ipynb`, **OFFLINE / Blackwell**, attaching **six** datasets — one more than last time:
+
+| attach | |
+|---|---|
+| `behaviorsense-code` | new version |
+| `behavioursense-ww` | |
+| `behaviorsense-adl-shards` | |
+| `behaviorsense-fall-shards` | |
+| `behaviorsense-runs` | |
+| **`charades-480p`** | **the one that was missing** |
+| Kaggle Model `Qwen2.5-7B-Instruct` | |
+
+First line to check: `P1 split: actor-id (N actors, ...%  mapped)`. If it raises instead, `charades-480p` still isn't attached — that's the guard doing its job, not a bug.
+
+Expect ~35,698 val windows over ~41 actors, and macro-F1 near 0.128 rather than 0.256. The lower number is the real one.
+
+For notebook 06, also **Save Version → `behaviorsense-toyota-meta`** if you haven't — and paste me the new cross-check block. If frame agreement is ≥0.999 I'll write the extraction notebook against the JSON for comparability with PDAN's 32.7% f-mAP.
+
+
+[M01818] 2026-08-23T05:19:05.035Z USER (conversation) [C035:1254; copies=9]
+does notebook06 require rerunning
+
+
+[M01819] 2026-08-23T05:20:38.036Z ASSISTANT (conversation) [C035:1257; copies=9]
+Not to unblock me — but yes, worth it, because you're republishing anyway.
+
+## What notebook 06 already settled permanently
+
+- CSV schema confirmed: `event,start_frame,end_frame` with class names
+- Vocabulary: **GO**, 53 names → 51 via the two documented merges (77 + 39 rows)
+- Counts: 536/536 and 16,115/16,115
+- Untrimmed 25 fps / 640×480, durations matching the JSON exactly (`delta +0` on both probes)
+- Trimmed container rate: 20 fps
+
+None of that changes. The vocabulary GO in particular is the gate I actually needed, and it passed.
+
+## What a re-run would add
+
+**One decision-grade number: frame-level agreement across all 82 disagreeing videos.** I scored your three printed examples locally — 1.00000 for a pure split, 0.99931 for a 140-frame boundary shift, 0.99559 for the 4,500-frame one. Extrapolating from 454 videos at exactly 1.0, the mean is almost certainly ≥0.999, which would say "train on the JSON for comparability with PDAN's 32.7% f-mAP". But that's my arithmetic on 3 of 82, not a measurement.
+
+If it came back below 0.99 the plan would change — the CSVs would become the training source and we'd lose baseline comparability. Low probability, but finding out during a 6-hour extraction instead of now is the expensive version.
+
+It also regenerates `manifest.json` with the agreement figures recorded, and `TSM_FPS` is now 20 so the trimmed probe reports which value the container actually matched instead of silently disagreeing with the constant.
+
+## The thing that *is* required
+
+**Did you Save Version → `behaviorsense-toyota-meta`?** The log shows the four files written to `/kaggle/working/toyota_meta/`, but that's the output directory — it only becomes an attachable dataset if you saved it. The extraction notebook attaches it instead of reaching for GitHub, because it runs offline.
+
+If you didn't, you need one more 06 run regardless.
+
+## Order
+
+```bash
+python scripts/publish_code_dataset.py -m "P1 refuses video-id split, C5 in breakdown, frame-level cross-check, TSM_FPS=20"
+```
+
+Then:
+1. **04** — the important one. Six datasets this time, `charades-480p` included. ~2 h.
+2. **06** — same attachments as before. Should be well under the last 15 minutes now that `attached_mounts()` stops reading 16,115-entry listings in full, though I haven't measured that on Kaggle. Save Version as `behaviorsense-toyota-meta`.
+
+Run 04 first — it's the one whose last output can't be used. 06 can go while it's running, different accelerator class.
+
+I'll write the extraction notebook now rather than waiting; it'll default to the JSON and print its own frame-agreement check on the way past, so if the number surprises us it surfaces before the expensive part starts.
+
+
+[M01820] 2026-08-23T14:52:52.046Z USER (conversation) [C035:1258; copies=9]
+noteboook06:
+Successfully ran in 939.7s
+Accelerator
+None
+
+Environment
+Latest Container Image
+
+Output
+1.61 MB
+
+Time
+#
+Log Message
+8.8s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+8.8s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+8.8s	3	0.00s - to python to disable frozen modules.
+8.8s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.5s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+9.5s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+9.5s	7	0.00s - to python to disable frozen modules.
+9.5s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+854.3s	9	  code /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+854.3s	10	  attached ["annotation-v1-0 (top level: ['Annotation'])", "behaviorsense-code (top level: ['EmotionSense-Extended'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "depth-untrimmed (top level: ['Depth'])", "msmt17 (top level: ['MSMT17'])", "pose-untrimmed (top level: ['Skeleton'])", "rgb-untrimmed (top level: ['Videos_mp4'])", "toyota-smarthome-depth (top level: ['depth'])", "toyota-smarthome-rgb (top level: ['mp4'])", "toyota-smarthome-skeleton (top level: ['json'])", "toyota-smarthome-skeleton-v1-2 (top level: ['Cook.Cut_p04_r02_v17_c07_pose3d.json', 'Cook.Usestove_p11_r00_v13_c07_pose3d.json', 'Drink.Fromcan_p03_r00_v18_c03_pose3d.json', 'Leave_p03_r02_v18_c03_pose3d.json', 'Walk_p25_r12_v15_c06_pose3d.json', 'WatchTV_p02_r00_v05_c05_pose3d.json'])"]
+854.3s	11	  contract 22/22 - mounted code is current
+854.4s	12	11 dataset mount(s):
+854.4s	13	  annotation-v1-0
+854.4s	14	  behaviorsense-code
+854.4s	15	  behavioursense-ww
+854.4s	16	  depth-untrimmed
+854.4s	17	  msmt17
+854.4s	18	  pose-untrimmed
+854.4s	19	  rgb-untrimmed
+854.4s	20	  toyota-smarthome-depth
+854.4s	21	  toyota-smarthome-rgb
+854.4s	22	  toyota-smarthome-skeleton
+854.4s	23	  toyota-smarthome-skeleton-v1-2
+854.4s	24	  annotation_csv           536 files   /kaggle/input/datasets/krishnagupta02468/annotation-v1-0/Annotation
+855.3s	25	  rgb_untrimmed            536 files   /kaggle/input/datasets/krishnagupta02468/rgb-untrimmed/Videos_mp4
+855.8s	26	  pose_untrimmed           536 files   /kaggle/input/datasets/krishnagupta02468/pose-untrimmed/Skeleton
+855.8s	27	  depth_untrimmed          536 files   /kaggle/input/datasets/krishnagupta02468/depth-untrimmed/Depth
+860.9s	28	  rgb_trimmed           16,115 files   /kaggle/input/datasets/krishnagupta02468/toyota-smarthome-rgb/mp4
+873.4s	29	  skel_trimmed_v11      16,115 files   /kaggle/input/datasets/krishnagupta02468/toyota-smarthome-skeleton/json
+911.5s	30	  skel_trimmed_v12      16,115 files   /kaggle/input/datasets/krishnagupta02468/toyota-smarthome-skeleton-v1-2
+915.6s	31	  depth_trimmed         16,115 files   /kaggle/input/datasets/krishnagupta02468/toyota-smarthome-depth/depth
+915.6s	32	resolved in 61.3s (the `**` version took 78 minutes)
+915.6s	33	
+915.6s	34	  annotation_csv           536 / 536  ok
+915.6s	35	  rgb_untrimmed            536 / 536  ok
+915.6s	36	  rgb_trimmed           16,115 / 16,115  ok
+916.2s	37	  smarthome_CS_51.json       799,504 bytes
+916.5s	38	  smarthome_CV_51.json       799,522 bytes
+916.5s	39	  Action_list                    878 bytes
+916.5s	40	  Action_list agrees with TSU_CLASSES on all 51 names
+920.5s	41	536 CSVs, 41,343 annotation rows, 53 distinct class names
+920.5s	42	
+920.5s	43	merges applied (4 aliases known):
+920.5s	44	  Make_tea.Insert_tea_bag      -> Insert_tea_bag           77 rows
+920.5s	45	  Make_coffee.Get_water        -> Get_water                39 rows
+920.5s	46	
+920.5s	47	GO: every name resolves into the 51-class space.
+920.7s	48	JSON: 536 videos, official CS partition verified on read
+920.7s	49	
+920.7s	50	raw P02T01C06.csv:
+920.7s	51	    event,start_frame,end_frame
+920.7s	52	    Enter,170,187
+920.7s	53	    Walk,181,222
+920.7s	54	    Make_coffee,233,1615
+920.7s	55	    Make_coffee.Get_water,236,502
+920.7s	56	parsed -> ((0, 170, 187), (1, 181, 222), (2, 233, 1615))
+921.4s	57	
+921.4s	58	CSV:  536 videos parsed
+929.4s	59	
+929.4s	60	cross-check: 536 videos compared, 454 span-identical, 82 span-different
+929.4s	61	FRAME-level agreement: mean 0.99889  worst 0.97828  videos below 0.999: 59
+929.4s	62	
+929.4s	63	Span equality is the wrong yardstick on its own and the first run showed why: the
+929.4s	64	CSVs carry FINER spans and the JSON merges adjacent same-class intervals, so
+929.4s	65	(2,1340,2960)+(2,2960,2963) against (2,1480,2963) counts as a disagreement while
+929.4s	66	describing almost the same frames. Frames are what the model sees, so that is what
+929.4s	67	is scored. A pure split scores 1.00000; only a moved boundary costs anything.
+929.4s	68	
+929.4s	69	  P02T01C07: csv 69 spans vs json 67, frame agreement 0.99955 (406 cells differ)
+929.4s	70	  P02T11C02: csv 101 spans vs json 100, frame agreement 0.99611 (3,971 cells differ)
+929.4s	71	  P03T10C01: csv 44 spans vs json 43, frame agreement 0.98691 (5,201 cells differ)
+929.4s	72	  P03T15C03: csv 72 spans vs json 69, frame agreement 0.99904 (944 cells differ)
+929.4s	73	  P03T16C03: csv 116 spans vs json 115, frame agreement 0.99988 (121 cells differ)
+929.4s	74	
+929.4s	75	GO WITH A CAVEAT. Frame agreement is 0.99-0.999, so a minority of videos have
+929.4s	76	genuinely moved boundaries rather than merged spans. Train on the JSON for
+929.4s	77	comparability and record the agreement figure next to the numbers.
+929.5s	78	10,705,053 annotated frames = 118.9 h at 25 Hz
+929.5s	79	  CS   train 351  test 185
+929.5s	80	  CV1  train 75  val 107  test 60  unused 294
+929.5s	81	  CV2  train 369  val 107  test 60
+929.5s	82	
+929.5s	83	coarse class                  frames  share%
+929.5s	84	reading                    4,357,739  40.71
+929.5s	85	using_device               1,270,664  11.87
+929.5s	86	watching_tv                1,022,569   9.55
+929.5s	87	cooking_food_prep            941,557   8.80
+929.5s	88	cleaning_housework           667,346   6.23
+929.5s	89	object_interaction           594,330   5.55
+929.5s	90	walking                      572,460   5.35
+929.5s	91	eating                       454,025   4.24
+929.5s	92	using_phone                  311,282   2.91
+929.5s	93	drinking                     278,090   2.60
+929.5s	94	sitting_down                  77,081   0.72
+929.5s	95	standing_up                   71,428   0.67
+929.5s	96	taking_medication             60,229   0.56
+929.5s	97	lying_down                    16,893   0.16
+929.5s	98	personal_hygiene               9,360   0.09
+929.5s	99	
+929.5s	100	other_idle: 0 frames. Zero is the intended answer - every Toyota class is a real activity, so nothing needs the reject class.
+929.5s	101	unannotated: mean 0.328 median 0.230 max 0.988
+929.5s	102	A third of the corpus is gap. The 51-class benchmark head treats gaps as true
+929.5s	103	negatives; the unified head must MASK them, because a gap most likely contains the
+929.5s	104	sitting and standing that Toyota never labels.
+930.2s	105	untrimmed RGB (expect 25 fps, 640x480):
+930.2s	106	  [train] P15T17C03.mp4: decode=True frames=15,753 25fps 640x480  json duration 15753 (delta +0)
+930.3s	107	  [test] P18T10C01.mp4: decode=True frames=31,143 25fps 640x480  json duration 31143 (delta +0)
+930.3s	108	
+930.3s	109	trimmed RGB (expect 20 fps from the container, 30 in the README):
+930.3s	110	  Walk_p03_r01_v15_c07.mp4: Walk p03 c07 decode=True frames=163 20fps 640x480  -> matches the container constant
+930.3s	111	      163 frames = 8.2s at the container rate, 5.4s at the README's 30
+930.3s	112	  Sitdown_p20_r07_v09_c01.mp4: Sitdown p20 c01 decode=True frames=53 20fps 640x480  -> matches the container constant
+930.3s	113	      53 frames = 2.6s at the container rate, 1.8s at the README's 30
+930.3s	114	  The README and the files disagree, so the extractor reads fps PER FILE and this
+930.3s	115	  cell is what says which value to expect. Assuming either one silently rescales
+930.3s	116	  every trimmed duration by 1.5x.
+930.3s	117	
+930.3s	118	V1.2 skeleton: Walk_p25_r12_v15_c06_pose3d.json -> Walk p25 tag='pose3d'
+930.3s	119	  (the tag group is why this archive parses at all - an anchored pattern without
+930.3s	120	   it rejects every file here and reports it as an empty mount)
+930.3s	121	wrote /kaggle/working/toyota_meta/ :
+930.3s	122	  Action_list                       878 bytes
+930.3s	123	  manifest.json                  13,613 bytes
+930.3s	124	  smarthome_CS_51.json          799,504 bytes
+930.3s	125	  smarthome_CV_51.json          799,522 bytes
+930.3s	126	
+930.3s	127	======================================================================
+930.3s	128	  Save Version -> create a PRIVATE dataset named behaviorsense-toyota-meta
+930.3s	129	======================================================================
+930.3s	130	The offline extraction notebook attaches that instead of reaching for GitHub.
+930.3s	131	
+930.3s	132	Do not commit these files to the repo: it is PUBLIC and this dataset is licensed
+930.3s	133	for academic research only. .gitignore already refuses them.
+933.5s	134	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+933.5s	135	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+933.7s	136	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+933.7s	137	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+934.4s	138	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+934.8s	139	[NbConvertApp] Writing 46129 bytes to __notebook__.ipynb
+937.7s	140	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+938.8s	141	[NbConvertApp] Writing 385644 bytes to __results__.html
+
+
+notebook04:
+Successfully ran in 7491.4s
+Accelerator
+GPU RTX Pro 6000
+
+Environment
+Latest Container Image
+
+Output
+14.1 MB
+
+Time
+#
+Log Message
+3.9s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+3.9s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+3.9s	3	0.00s - to python to disable frozen modules.
+3.9s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.2s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.2s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.2s	7	0.00s - to python to disable frozen modules.
+4.2s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+5.4s	9	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+5.4s	10	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+5.4s	11	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+5.4s	12	  attached  ["behaviorsense-adl-shards (top level: ['charades_map.yaml', 'charades_map_review.tsv', 'shards'])", "behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-fall-shards (top level: ['_decode_probe.py', 'decode_list.txt', 'decode_list_av.txt', 'decode_probe.tsv', 'decode_probe_av.tsv', 'shards'])", "behaviorsense-runs (top level: ['runs', 'train_bone.log', 'train_bone_motion.log', 'train_joint.log', 'train_joint_motion.log'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "charades-480p (top level: ['Charades_annotations', 'Charades_v1_480'])", "qwen2-5-7b-instruct (top level: ['LICENSE', 'config.json', 'merges.txt', 'model-00001-of-00004.safetensors', 'model-00003-of-00004.safetensors', 'model.safetensors.index.json'])", 'arc-prize-2026-arc-agi-3']
+5.4s	13	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+5.4s	14	  contract 22/22 - mounted code is current
+9.6s	15	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+9.6s	16	Requirement already satisfied: transformers in /usr/local/lib/python3.12/dist-packages (5.0.0)
+...
+10.0s	156	Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface-hub<2.0,>=1.3.0->transformers) (0.1.2)
+10.7s	157	Installing collected packages: outlines_core, genson, diskcache, outlines
+10.8s	158	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+10.9s	159	Installing collected packages: outlines_core, genson, diskcache, outlines
+10.9s	160	Successfully installed diskcache-5.6.3 genson-1.4.0 outlines-1.3.3 outlines_core-0.2.14
+268.3s	161	P1 split: actor-id (209 actors, 100% mapped)
+268.3s	162	P1 val: 35698 windows, 41 subjects
+360.5s	163	model              top1 mean-class  macro-F1    F1>=50
+360.5s	164	joint             0.327      0.181     0.141     0.149
+360.5s	165	bone              0.324      0.187     0.146     0.155
+360.5s	166	joint_motion      0.344      0.121     0.094     0.099
+360.5s	167	bone_motion       0.333      0.121     0.090     0.095
+368.0s	168	ENSEMBLE          0.375      0.156     0.128     0.136   <- headline P1
+368.0s	169	
+368.0s	170	macro-F1 averages 18 present classes; the last column averages the 17 with >= 50 val windows.
+368.0s	171	1 class(es) starved by the Charades label map (< 50 windows):
+368.0s	172	  class  6 bending_reaching       support    26
+368.0s	173	  Cause: Charades has no verb for these (e.g. 'Putting a box somewhere'),
+368.0s	174	  so build_charades_map.py routes them to other_idle. Report both columns.
+368.3s	175	wrote /kaggle/working/results/val_logits.npz - re-score without a GPU: PYTHONPATH=src python scripts/rescore_p1.py results/val_logits.npz
+368.5s	176	configuration                        top1  mean-class  macro-F1
+368.5s	177	ensemble, logit-avg (P1 headline)   0.375       0.156     0.128
+368.5s	178	best logit-avg subset: bone         0.324       0.187     0.146
+368.8s	179	best prob-avg subset: bone+joint    0.333       0.187     0.144
+368.8s	180	ensemble + logit-adjust tau=0.25    0.239       0.209     0.135
+368.8s	181	bone+joint + logit-adjust tau=0.25  0.185       0.219     0.133
+384.2s	182	ensemble + TTA flip                 0.376       0.156     0.129
+384.2s	183	second person visible in 2,689/35,698 val windows (7.5%); class 18 support 614
+384.2s	184	ensemble + second-person context    0.364       0.152     0.125
+384.2s	185	ens + logit-adjust 0.25 + 2nd-person  0.245       0.205     0.134
+384.2s	186	  class 18 without context: predicted   950, correct   37, recall 0.060
+384.2s	187	  class 18 with context: predicted  2549, correct   91, recall 0.148
+384.2s	188	
+384.2s	189	best mean-class: bone+joint + logit-adjust tau=0.25 at 0.219 (+0.063 vs the P1 headline)
+384.2s	190	Selected on the validation split, so report as validation-selected, not held-out.
+385.9s	191	fitted temperature T=0.63; mean confidence 0.381 vs accuracy 0.375
+385.9s	192	-> set ActivityConfig(temperature=0.63) in deployment
+387.2s	193	1629 sequences, 35660 windows (sequences of >=3 windows only)
+387.2s	194	fitted prior: mean self-transition 0.764 vs hand-set 0.90
+387.2s	195	decoding                                   top1  mean-class      frag
+387.2s	196	per-window argmax                         0.375       0.156      1.86
+387.6s	197	Viterbi, hand-set prior                   0.403       0.124      0.48
+387.9s	198	Viterbi, fitted prior                     0.403       0.126      0.48
+387.9s	199	argmax, logit-adjust tau=0.25             0.239       0.209      3.32
+388.1s	200	Viterbi fitted + logit-adjust tau=0.25    0.298       0.194      0.62
+388.1s	201	
+388.1s	202	best mean-class: argmax, logit-adjust tau=0.25 (0.209, +0.053 vs per-window argmax) at fragmentation 3.32x
+388.1s	203	Pick on BOTH columns: mean-class is label quality, frag is whether the segment
+388.1s	204	structure Agent 3 counts bouts from survives. Neither alone decides it.
+560.2s	205	fall head loaded from fall/best.pt, stream=joint, recorded best AUPRC 0.822
+560.2s	206	held-out          n  fall%  ADL-ens AUROC  FALL-HEAD AUROC
+560.6s	207	caucafall      1159  28.8%          0.603            0.970
+560.8s	208	gmdcsa          914  24.5%          0.471            0.928
+561.0s	209	le2i            752  34.7%          0.571            0.989
+561.0s	210	urfd            239  16.3%          0.560            0.991
+561.0s	211	
+561.0s	212	The FALL-HEAD column is the one the 0.822 AUPRC / 0.951-sensitivity claims belong to.
+561.0s	213	If it is far below its own validation AUROC, that operating point is in-domain only.
+653.1s	214	combination        top1 mean-class  macro-F1    F1>=50
+653.1s	215	logit-average     0.375      0.156     0.128     0.136   <- headline
+653.1s	216	prob-average      0.358      0.169     0.131     0.139
+653.1s	217	
+653.1s	218	Logit averaging is a product of experts, probability averaging a mixture. The
+653.1s	219	headline uses logits; this row is the ablation that justifies that choice rather
+653.1s	220	than asserting it.
+734.4s	221	Qwen at: /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct
+734.6s	222	116 analysed days (58 with alerts) from 6 scenarios
+734.6s	223	[grammar-constrained] 116 reports...
+734.8s	224	116 analysed days (58 with alerts) from 6 scenarios
+734.8s	225	[grammar-constrained] 116 reports...
+747.3s	226	`torch_dtype` is deprecated! Use `dtype` instead!
+747.5s	227	`torch_dtype` is deprecated! Use `dtype` instead!
+747.5s	228	
+747.5s	229	`torch_dtype` is deprecated! Use `dtype` instead!
+748.2s	230	
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 21076.90it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 10433.59it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 21076.90it/s, Materializing param=lm_head.weight]
+Loading weights:   0%|          | 1/339 [00:00<00:00, 10433.59it/s, Materializing param=lm_head.weight]
+...
+888.0s	347	
+Loading weights:  99%|█████████▉| 336/339 [02:19<00:01,  2.93it/s, Materializing param=model.layers.27.self_attn.q_proj.bias]
+Loading weights:  99%|█████████▉| 336/339 [02:19<00:01,  2.93it/s, Materializing param=model.layers.27.self_attn.q_proj.weight]
+Loading weights:  99%|█████████▉| 336/339 [02:19<00:01,  2.93it/s, Materializing param=model.layers.27.self_attn.q_proj.weight]
+Loading weights:  99%|█████████▉| 337/339 [02:19<00:00,  2.93it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]  
+Loading weights:  99%|█████████▉| 337/339 [02:19<00:00,  2.93it/s, Materializing param=model.layers.27.self_attn.v_proj.bias]
+Loading weights: 100%|█████████▉| 338/339 [02:19<00:00,  2.93it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+Loading weights: 100%|█████████▉| 338/339 [02:19<00:00,  2.93it/s, Materializing param=model.layers.27.self_attn.v_proj.weight]
+Loading weights: 100%|██████████| 339/339 [02:19<00:00,  2.93it/s, Materializing param=model.norm.weight]                      
+Loading weights: 100%|██████████| 339/339 [02:19<00:00,  2.93it/s, Materializing param=model.norm.weight]
+Loading weights: 100%|██████████| 339/339 [02:19<00:00,  2.43it/s, Materializing param=model.norm.weight]
+888.1s	348	[reporter] loaded /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct in 141s (do_sample=False)
+888.3s	349	[reporter] logit sanity ok: finite over (1, 12, 152064) in bfloat16
+888.5s	350	[reporter] logit sanity ok: finite over (1, 12, 152064) in bfloat16
+1885.6s	351	[grammar-constrained] 20/116 reports, 101 claims emitted, 99 faithful, 57.5s/report, eta 92.1 min
+1885.8s	352	[grammar-constrained] 20/116 reports, 101 claims emitted, 99 faithful, 57.5s/report, eta 92.1 min
+2858.8s	353	[grammar-constrained] 40/116 reports, 200 claims emitted, 194 faithful, 53.1s/report, eta 67.3 min
+2859.0s	354	[grammar-constrained] 40/116 reports, 200 claims emitted, 194 faithful, 53.1s/report, eta 67.3 min
+3835.2s	355	[grammar-constrained] 60/116 reports, 299 claims emitted, 290 faithful, 51.7s/report, eta 48.2 min
+3835.5s	356	[grammar-constrained] 60/116 reports, 299 claims emitted, 290 faithful, 51.7s/report, eta 48.2 min
+4809.6s	357	[grammar-constrained] 80/116 reports, 396 claims emitted, 385 faithful, 50.9s/report, eta 30.6 min
+4809.8s	358	[grammar-constrained] 80/116 reports, 396 claims emitted, 385 faithful, 50.9s/report, eta 30.6 min
+5783.6s	359	[grammar-constrained] 100/116 reports, 494 claims emitted, 480 faithful, 50.5s/report, eta 13.5 min
+5783.8s	360	[grammar-constrained] 100/116 reports, 494 claims emitted, 480 faithful, 50.5s/report, eta 13.5 min
+6568.8s	361	[grammar-constrained] 116/116 reports, 575 claims emitted, 559 faithful, 50.3s/report, eta 0.0 min
+6568.8s	362	[unconstrained] 116 reports...
+6568.8s	363	[reporter] reusing already-loaded weights for /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct
+6569.0s	364	[grammar-constrained] 116/116 reports, 575 claims emitted, 559 faithful, 50.3s/report, eta 0.0 min
+6569.0s	365	[unconstrained] 116 reports...
+6569.0s	366	[reporter] reusing already-loaded weights for /kaggle/input/datasets/ragnar123/qwen2-5-7b-instruct
+6727.1s	367	[unconstrained] 20/116 reports, 91 claims emitted, 85 faithful, 7.9s/report, eta 12.7 min
+6727.3s	368	[unconstrained] 20/116 reports, 91 claims emitted, 85 faithful, 7.9s/report, eta 12.7 min
+6887.9s	369	[unconstrained] 40/116 reports, 188 claims emitted, 179 faithful, 8.0s/report, eta 10.1 min
+6888.1s	370	[unconstrained] 40/116 reports, 188 claims emitted, 179 faithful, 8.0s/report, eta 10.1 min
+7045.8s	371	[unconstrained] 60/116 reports, 282 claims emitted, 267 faithful, 8.0s/report, eta 7.4 min
+7046.0s	372	[unconstrained] 60/116 reports, 282 claims emitted, 267 faithful, 8.0s/report, eta 7.4 min
+7201.8s	373	[unconstrained] 80/116 reports, 376 claims emitted, 361 faithful, 7.9s/report, eta 4.7 min
+7202.0s	374	[unconstrained] 80/116 reports, 376 claims emitted, 361 faithful, 7.9s/report, eta 4.7 min
+7362.4s	375	[unconstrained] 100/116 reports, 475 claims emitted, 457 faithful, 7.9s/report, eta 2.1 min
+7362.6s	376	[unconstrained] 100/116 reports, 475 claims emitted, 457 faithful, 7.9s/report, eta 2.1 min
+7483.9s	377	[unconstrained] 116/116 reports, 545 claims emitted, 525 faithful, 7.9s/report, eta 0.0 min
+7483.9s	378	[unconstrained + format repair] 116 reports...
+7483.9s	379	[unconstrained + format repair] 20/116 reports, 91 claims emitted, 85 faithful, 0.0s/report, eta 0.0 min
+7483.9s	380	[unconstrained + format repair] 40/116 reports, 188 claims emitted, 179 faithful, 0.0s/report, eta 0.0 min
+7484.0s	381	[unconstrained + format repair] 60/116 reports, 282 claims emitted, 267 faithful, 0.0s/report, eta 0.0 min
+7484.0s	382	[unconstrained + format repair] 80/116 reports, 376 claims emitted, 361 faithful, 0.0s/report, eta 0.0 min
+7484.0s	383	[unconstrained + format repair] 100/116 reports, 475 claims emitted, 457 faithful, 0.0s/report, eta 0.0 min
+7484.0s	384	[unconstrained + format repair] 116/116 reports, 545 claims emitted, 525 faithful, 0.0s/report, eta 0.0 min
+7484.0s	385	
+7484.0s	386	# Hallucination rate
+7484.0s	387	
+7484.0s	388	- 116 analysed days (58 alerting) from 6 simulator scenarios
+7484.0s	389	- a claim is a hallucination if it fails any of C1-C4 (deterministic, no LLM)
+7484.0s	390	- `hallucination rate` is over SCHEMA-VALID claims (the verifier's view);
+7484.0s	391	  `unusable rate` is over ALL emitted claims, counting schema rejects as
+7484.0s	392	  unusable - which is what a caregiver actually experiences
+7484.0s	393	
+7484.0s	394	| condition | model | reports | emitted | scorable | repaired | faithful | hallucination rate | 95% CI | unusable rate | parse fail | schema rejected |
+7484.0s	395	|---|---|---|---|---|---|---|---|---|---|---|---|
+7484.0s	396	| grammar-constrained | `qwen2-5-7b-instruct(constrained)` | 116 | 575 | 575 | 0 | 559 | **2.8%** | 1.7%-4.5% | **2.8%** | 0 | 0 |
+7484.0s	397	| unconstrained | `qwen2-5-7b-instruct(free)` | 116 | 545 | 545 | 0 | 525 | **3.7%** | 2.4%-5.6% | **3.7%** | 0 | 0 |
+7484.0s	398	| unconstrained + format repair | `qwen2-5-7b-instruct(free)` | 116 | 545 | 545 | 0 | 525 | **3.7%** | 2.4%-5.6% | **3.7%** | 0 | 0 |
+7484.0s	399	
+7484.0s	400	## Does the grammar help?
+7484.0s	401	
+7484.0s	402	- constrained 2.8% vs free 3.7%: difference -0.9%, z = -0.84, two-sided p = 0.40 -> **indistinguishable**
+7484.0s	403	- the grammar's value is a *worst-case guarantee* of parseability, not
+7484.0s	404	  a faithfulness gain: it cannot emit an invalid claim, whereas the free
+7484.0s	405	  arm merely happened to emit none once the prompt stated the schema
+7484.0s	406	- and it is not free: see the per-report timings in the run log
+7484.0s	407	
+7484.0s	408	## Which check caught it (C1-C5)
+7484.0s	409	
+7484.0s	410	| condition | bad ref (C1) | value (C2) | pct (C3) | direction (C4) | prose (C5) |
+7484.0s	411	|---|---|---|---|---|---|
+7484.0s	412	| grammar-constrained | 1 | 0 | 0 | 6 | 9 |
+7484.0s	413	| unconstrained | 0 | 0 | 0 | 7 | 13 |
+7484.0s	414	| unconstrained + format repair | 0 | 0 | 0 | 7 | 13 |
+7484.0s	415	
+7484.0s	416	Counts are per CHECK, not per claim - one claim can fail several - so rows do not sum to the unfaithful total. C4 is the clinically dangerous mode: a correct number narrated backwards. C3 alone is a copying error.
+7484.0s	417	
+7484.0s	418	C5 asks whether the claim's PROSE echoes the number in `claimed_value`. It exists because C2 compares the field against the evidence row and is blind to a claim whose row is right and whose sentence is not - and the sentence is what a caregiver reads. A run where C2 is 0 and C5 is not is a run where the model is copying into the field correctly and paraphrasing in the text.
+7484.0s	419	
+7484.0s	420	## Note on the repair arm
+7484.0s	421	
+7484.0s	422	`repair_claim` coerces FORMAT only - whitespace, `"1800"` -> `1800.0`,
+7484.0s	423	`"Decreased"` -> `"decrease"`, `YYYY/MM/DD` -> `YYYY-MM-DD`. It never
+7484.0s	424	invents an evidence_ref, changes a number, or infers an unstated
+7484.0s	425	direction, so a repaired claim can move from unscorable to scored but
+7484.0s	426	never from false to faithful. The row separates *cannot emit our JSON*
+7484.0s	427	from *misstates the data*; only the latter is a faithfulness result.
+7484.0s	428	
+7484.0s	429	**0 of 545 claims needed repair**, so this row is identical to the unconstrained one by construction. That is the finding: once the prompt states the output contract, free decoding produced no malformed claims, and the 245 schema rejections in the first run were caused by our prompt withholding the field names - not by the model.
+7484.0s	430	
+7484.0s	431	The repair arm re-scored the unconstrained arm's cached responses, not fresh samples, so any delta is the repair alone.
+7484.0s	432	
+7484.0s	433	wrote /kaggle/working/results/hallucination_qwen.md
+7484.0s	434	wrote /kaggle/working/results/hallucination_qwen_claims.jsonl (1665 claims) - rescore this without a GPU
+7484.1s	435	[unconstrained] 116/116 reports, 545 claims emitted, 525 faithful, 7.9s/report, eta 0.0 min
+7484.1s	436	[unconstrained + format repair] 116 reports...
+7484.1s	437	[unconstrained + format repair] 20/116 reports, 91 claims emitted, 85 faithful, 0.0s/report, eta 0.0 min
+7484.1s	438	[unconstrained + format repair] 40/116 reports, 188 claims emitted, 179 faithful, 0.0s/report, eta 0.0 min
+7484.1s	439	[unconstrained + format repair] 60/116 reports, 282 claims emitted, 267 faithful, 0.0s/report, eta 0.0 min
+7484.1s	440	[unconstrained + format repair] 80/116 reports, 376 claims emitted, 361 faithful, 0.0s/report, eta 0.0 min
+7484.1s	441	[unconstrained + format repair] 100/116 reports, 475 claims emitted, 457 faithful, 0.0s/report, eta 0.0 min
+7484.1s	442	[unconstrained + format repair] 116/116 reports, 545 claims emitted, 525 faithful, 0.0s/report, eta 0.0 min
+7484.1s	443	
+7484.1s	444	# Hallucination rate
+7484.1s	445	
+7484.1s	446	- 116 analysed days (58 alerting) from 6 simulator scenarios
+7484.1s	447	- a claim is a hallucination if it fails any of C1-C4 (deterministic, no LLM)
+7484.1s	448	- `hallucination rate` is over SCHEMA-VALID claims (the verifier's view);
+7484.1s	449	  `unusable rate` is over ALL emitted claims, counting schema rejects as
+7484.1s	450	  unusable - which is what a caregiver actually experiences
+7484.1s	451	
+7484.1s	452	| condition | model | reports | emitted | scorable | repaired | faithful | hallucination rate | 95% CI | unusable rate | parse fail | schema rejected |
+7484.1s	453	|---|---|---|---|---|---|---|---|---|---|---|---|
+7484.1s	454	| grammar-constrained | `qwen2-5-7b-instruct(constrained)` | 116 | 575 | 575 | 0 | 559 | **2.8%** | 1.7%-4.5% | **2.8%** | 0 | 0 |
+7484.1s	455	| unconstrained | `qwen2-5-7b-instruct(free)` | 116 | 545 | 545 | 0 | 525 | **3.7%** | 2.4%-5.6% | **3.7%** | 0 | 0 |
+7484.1s	456	| unconstrained + format repair | `qwen2-5-7b-instruct(free)` | 116 | 545 | 545 | 0 | 525 | **3.7%** | 2.4%-5.6% | **3.7%** | 0 | 0 |
+7484.1s	457	
+7484.1s	458	## Does the grammar help?
+7484.1s	459	
+7484.1s	460	- constrained 2.8% vs free 3.7%: difference -0.9%, z = -0.84, two-sided p = 0.40 -> **indistinguishable**
+7484.1s	461	- the grammar's value is a *worst-case guarantee* of parseability, not
+7484.1s	462	  a faithfulness gain: it cannot emit an invalid claim, whereas the free
+7484.1s	463	  arm merely happened to emit none once the prompt stated the schema
+7484.1s	464	- and it is not free: see the per-report timings in the run log
+7484.1s	465	
+7484.1s	466	## Which check caught it (C1-C5)
+7484.1s	467	
+7484.1s	468	| condition | bad ref (C1) | value (C2) | pct (C3) | direction (C4) | prose (C5) |
+7484.1s	469	|---|---|---|---|---|---|
+7484.1s	470	| grammar-constrained | 1 | 0 | 0 | 6 | 9 |
+7484.1s	471	| unconstrained | 0 | 0 | 0 | 7 | 13 |
+7484.1s	472	| unconstrained + format repair | 0 | 0 | 0 | 7 | 13 |
+7484.1s	473	
+7484.1s	474	Counts are per CHECK, not per claim - one claim can fail several - so rows do not sum to the unfaithful total. C4 is the clinically dangerous mode: a correct number narrated backwards. C3 alone is a copying error.
+7484.1s	475	
+7484.1s	476	C5 asks whether the claim's PROSE echoes the number in `claimed_value`. It exists because C2 compares the field against the evidence row and is blind to a claim whose row is right and whose sentence is not - and the sentence is what a caregiver reads. A run where C2 is 0 and C5 is not is a run where the model is copying into the field correctly and paraphrasing in the text.
+7484.1s	477	
+7484.1s	478	## Note on the repair arm
+7484.1s	479	
+7484.1s	480	`repair_claim` coerces FORMAT only - whitespace, `"1800"` -> `1800.0`,
+7484.1s	481	`"Decreased"` -> `"decrease"`, `YYYY/MM/DD` -> `YYYY-MM-DD`. It never
+7484.1s	482	invents an evidence_ref, changes a number, or infers an unstated
+7484.1s	483	direction, so a repaired claim can move from unscorable to scored but
+7484.1s	484	never from false to faithful. The row separates *cannot emit our JSON*
+7484.1s	485	from *misstates the data*; only the latter is a faithfulness result.
+7484.1s	486	
+7484.1s	487	**0 of 545 claims needed repair**, so this row is identical to the unconstrained one by construction. That is the finding: once the prompt states the output contract, free decoding produced no malformed claims, and the 245 schema rejections in the first run were caused by our prompt withholding the field names - not by the model.
+7484.1s	488	
+7484.1s	489	The repair arm re-scored the unconstrained arm's cached responses, not fresh samples, so any delta is the repair alone.
+7484.1s	490	
+7484.1s	491	wrote /kaggle/working/results/hallucination_qwen.md
+7484.1s	492	wrote /kaggle/working/results/hallucination_qwen_claims.jsonl (1665 claims) - rescore this without a GPU
+7487.2s	493	- evaluation.md (3823 bytes)
+7487.2s	494	- hallucination_qwen.md (3137 bytes)
+7487.2s	495	
+7487.2s	496	Save Version, then create/update dataset behaviorsense-results from the output -
+7487.2s	497	these tables are the dissertation numbers and the session log is not a record.
+7489.0s	498	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+7489.0s	499	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+7489.1s	500	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+7489.1s	501	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+7489.4s	502	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+7489.6s	503	[NbConvertApp] Writing 90276 bytes to __notebook__.ipynb
+7490.7s	504	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+7491.2s	505	[NbConvertApp] Writing 486870 bytes to __results__.html
+
+
+[M01821] 2026-08-23T14:54:20.258Z ASSISTANT (conversation) [C035:1261; copies=9]
+Both runs are clean, and the numbers are worth reading carefully.
+
+
+[M01822] 2026-08-23T15:00:24.897Z ASSISTANT (conversation) [C035:1271; copies=9]
+API Error: 524 {"type":"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-524/","title":"Error 524: A timeout occurred","status":524,"detail":"The origin web server did not return a complete response within the 120-second Proxy Read Timeout window. The connection was established, but the origin took too long to respond.","instance":"a2faf984db464f45","error_code":524,"error_name":"origin_response_timeout","error_category":"origin","ray_id":"a2faf984db464f45","timestamp":"2026-08-23T15:00:24Z","zone":"gorouter.app","cloudflare_error":true,"retryable":true,"retry_after":120,"owner_action_required":true,"what_you_should_do":"**Wait and retry.** Back off for at least 120 seconds. If the error persists, the website operator should check for long-running processes or an overloaded origin.","footer":"This error was generated by Cloudflare on behalf of the website owner."}. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (gorouter.app).
+
+
+[M01823] 2026-08-23T15:03:35.870Z USER (conversation) [C035:1272; copies=15]
+Continue
+
+
+[M01824] 2026-08-23T15:29:59.956Z ASSISTANT (conversation) [C035:1328; copies=9]
+API Error: 524 {"type":"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-524/","title":"Error 524: A timeout occurred","status":524,"detail":"The origin web server did not return a complete response within the 120-second Proxy Read Timeout window. The connection was established, but the origin took too long to respond.","instance":"a2fb24dc7f0c4f45","error_code":524,"error_name":"origin_response_timeout","error_category":"origin","ray_id":"a2fb24dc7f0c4f45","timestamp":"2026-08-23T15:30:00Z","zone":"gorouter.app","cloudflare_error":true,"retryable":true,"retry_after":120,"owner_action_required":true,"what_you_should_do":"**Wait and retry.** Back off for at least 120 seconds. If the error persists, the website operator should check for long-running processes or an overloaded origin.","footer":"This error was generated by Cloudflare on behalf of the website owner."}. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (gorouter.app).
+
+
+[M01825] 2026-08-23T15:40:44.339Z USER (context) [C035:1329; copies=7]
+Continue from where you left off.
+
+
+[M01826] 2026-08-23T15:40:44.339Z ASSISTANT (conversation) [C035:1330; copies=7]
+No response requested.
+
+
+[M01827] 2026-08-23T15:41:10.913Z USER (context) [C035:1331; copies=4]
+<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+
+<command-name>/model</command-name>
+            <command-message>model</command-message>
+            <command-args>anthropic/stealth/ox-alpha[1m]</command-args>
+
+<local-command-stdout>Set model to anthropic/stealth/ox-alpha[1m]</local-command-stdout>
+
+get the entire context from this chat
+
+
+[M01828] 2026-08-23T15:41:10.913Z USER (context) [C068:1457; copies=3]
+<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+
+
+[M01829] 2026-08-23T15:41:10.913Z USER (control) [C068:1458; copies=5]
+<command-name>/model</command-name>
+            <command-message>model</command-message>
+            <command-args>anthropic/stealth/ox-alpha[1m]</command-args>
+
+
+[M01830] 2026-08-23T15:41:10.913Z USER (control) [C068:1459; copies=5]
+<local-command-stdout>Set model to anthropic/stealth/ox-alpha[1m]</local-command-stdout>
+
+
+[M01831] 2026-08-23T15:41:11.015Z USER (conversation) [C068:1460; copies=5]
+get the entire context from this chat
+
+
+[M01832] 2026-08-23T15:49:14.212Z ASSISTANT (conversation) [C035:1338; copies=9]
+Full context, reconstructed from this session end to end.
+
+# BehaviorSense — complete session state (as of 2026-08-23)
+
+## The project
+
+**BehaviorSense AI** — identity-aware multi-agent behaviour monitoring for elderly care. Final-year engineering project → dissertation/publication/demo. 4-agent architecture: (1) RTMO pose + tracking + OSNet ReID + roles, (2) ST-GCN++ window classification → calibrate → fuse → Viterbi → abstain → segments, (3) robust median/MAD baselines + robust-z + CUSUM → alerts, (4) Qwen2.5-7B constrained report generation → **deterministic C1–C5 faithfulness verifier** (the publishable core). Hardware: Blackwell RTX Pro 6000 96GB **offline** for training; T4×2/P100 **online** for serving. Timeline: ~1 month.
+
+## What happened this session, in order
+
+### 1. Web UI: all four agents visible on user-uploaded video
+- New [stages.js](web/scripts/stages.js): one card per agent with status/timing/figures + schema hand-off names; C1–C4 per claim in the ledger's own `.slip` markup
+- [upload.js](web/scripts/upload.js) rewritten; fixed drift where it read retired fields (`n_windows`, `fall_posterior`, `report_unavailable_because`)
+- [dev_backend.py](web/dev_backend.py) returns the full staged payload (two-person synthetic clip, one falls); **demo runs with no GPU**
+- `tests/test_web_contract.py` (5 tests): stub↔notebook-05 AST parity, JS-read fields, no retired fields, one claim fails with real arithmetic
+- Agent 3/4 run on single clips against a **declared simulated baseline** (ochre banner above figures); C1–C4 still check against state computed from *this* video
+
+### 2. Toyota Smarthome ingestion library — [toyota.py](src/behaviorsense/data/toyota.py)
+- 51 untrimmed / 31 trimmed / 19 CV classes, **both official trimmed id spaces** (skeleton 0-indexed vs RGB 1-indexed; RGB 0 = unmatched-name sentinel, refused)
+- `TSM_FPS = 20.0` (**measured from containers**) vs `TSM_FPS_DOCUMENTED = 30.0` (README); `TSU_FPS = 25.0` (untrimmed, x1.25 speed)
+- CS partition: train {3,4,6,7,9,12,13,15,17,19,25} / test {2,10,11,14,16,18,20} — verified from both official repos
+- `TSU_ALIASES`: the two README-mandated merges (`Make_coffee.Get_water`→`Get_water` 39 rows; `Make_tea.Insert_tea_bag`→`Insert_tea_bag` 77 rows)
+- `survey_annotation_csvs()` — surveys ALL 536 CSVs' vocabulary in one pass instead of dying on the first unknown name
+- `cross_check_annotations()` — **frame-level** agreement, not just span-set (a pure split scores 1.00000)
+- Taxonomy **v1.1**: ids 20–21 appended (`using_device`, `object_interaction`) without renumbering 0–19; `other_idle` gets **0 frames** from Toyota (vs Charades where the fallback was the largest class)
+- `tests/test_toyota.py`: **21 tests** (T1–T21)
+- `scripts/audit_toyota_map.py` + review TSV committed (safe: class names + aggregates only)
+
+### 3. Verifier C5 + reporter improvements
+- **C5**: claim prose must echo `claimed_value` numerically (2% rel tol; hand-written tokenizer handles "1,800", "1800.0 s", "1.8k"); `prose_quoted_value` on `VerificationResult`; own column in `failure_breakdown`
+- **FILLED TEMPLATE** block in the prompt — model copies `value`/`pct` digit-for-digit
+- `visitor_count` in REPORTABLE_FEATURES + `second_person_active` in payload
+- `Qwen2_5Reporter.name` derived from checkpoint path (was hardcoded — would have mislabelled a model comparison)
+- `device`/`dtype`/`max_memory` pass through for T4×2 sharding; bf16 warning; **logit sanity check** at load (NaN/inf tripwire)
+
+### 4. P1 now REFUSES the video-id split
+Notebook 04 raises without `Charades_v1_train.csv` (`BS_ALLOW_VIDEO_SPLIT=1` overrides). Cause: a 2h session ran without `charades-480p`, printed one line, and produced macro-F1 0.256 vs the real 0.128 — unquotable. Memory: `p1-refuses-the-video-id-split`.
+
+### 5. Notebook 06 preflight — **ran clean, twice**
+- 536/536 untrimmed + CSVs, 16,115/16,115 trimmed; 41,343 rows, 53 names → 51 after merges, **GO**
+- Frame agreement CSV-vs-JSON: **mean 0.99889**, worst 0.97828, 59/536 below 0.999 → **train on the JSON** for PDAN comparability, quote 0.99889
+- Untrimmed: 25 fps 640×480, durations match exactly (delta +0). Trimmed: **20 fps** (README says 30)
+- Resolve time 35.5s (was 78 min — `**` globs over ~130k files replaced with bounded-depth `os.scandir`)
+- Output: `behaviorsense-toyota-meta` (private dataset) — **user must confirm they saved this**
+
+### 6. Notebook 04 re-run — **all numbers now valid and recorded**
+- `P1 split: actor-id (209 actors, 100% mapped)` — 35,698 val windows, 41 subjects. **Activity tables reproduced identically across three sessions.**
+- **Fall head DOES transfer**: 0.928–0.991 held-out AUROC (caucafall 0.970, gmdcsa 0.928, le2i 0.989, urfd 0.991). The old "0.471–0.603, doesn't transfer" was the **ADL ensemble** — `fall/best.pt` was never loaded. `evaluation.md` corrected; memory corrected.
+- **Hallucination: 2.8% constrained / 3.7% free** (was 7.7%/8.2%). **C2 = 0** (was 39/42 — the FILLED TEMPLATE eliminated field misquotes). Failures now sum exactly: constrained 1×C1 + 6×C4 + **9×C5**; free 7×C4 + 13×C5. p=0.40 — grammar still not a faithfulness gain, 6.4× slower.
+
+### 7. NEW: Notebook 07 — Toyota extraction ([_generate.py](notebooks/_generate.py))
+7 cells, OFFLINE Blackwell, two modes:
+- `MODE = "trimmed"` (default): 16,115 clips, ~2h → clip-level 31-class windows
+- `MODE = "untrimmed"`, `UNTRIMMED_SIDE = "test"`: 185 CS test videos ~3.5h → dense labels
+- `FPS_SAMPLE = 12.5` (serving parity: video.py stride-2 on 25fps CCTV); fps read **per file** (containers lie vs README)
+- Shards carry BOTH `labels` (coarse) + `fine_labels` (31/51); resume via clip lists in shards; CS disjointness asserted on written subjects; content-verified before Save Version
+- Test N23 pins the whole contract. **180/180 tests pass.**
+
+### 8. Repo hygiene (repo is PUBLIC — github.com/PARTHG0106/BehaviorSense)
+- `.gitignore` refuses `Toyota_Smarthome/`, `Annotation/`, `smarthome_C[SV]_51.json`, `MSMT17/` etc.
+- `publish_code_dataset.py`: warns on restricted corpora in tree, **refuses** if any reaches the staged copy (48 files / 28.8 MB verified clean)
+- `behaviorsense-code` currently contains MSMT17 (65,242 crops) — uploaded via `create -p .` before the guard existed; harmless to notebooks but should be moved out
+
+## Current measured results (the dissertation numbers)
+
+| metric | value |
+|---|---|
+| P1 (actor-disjoint) ensemble | top-1 0.375 / mean-class 0.156 / macro-F1 0.128 |
+| best single stream (`bone`) | 0.324 / **0.187** / **0.146** |
+| best lever (`bone+joint`+τ0.25) | mean-class **0.219** |
+| deployment decode | Viterbi fitted + τ0.25: 0.194 mean-class, frag 0.62 |
+| temperature | T=0.63 |
+| fall head | val AUPRC 0.822, sens 0.951 @ 0.99 FA/h, **held-out AUROC 0.928–0.991** |
+| ADL-ensemble fall posterior | 0.471–0.603 (the thing that doesn't transfer) |
+| hallucination | **2.8%** constrained / 3.7% free (p=0.40); C1:1 C2:0 C3:0 C4:6 C5:9 |
+| Toyota preflight | 0.99889 frame agreement; 20fps trimmed; GO |
+
+## What to run next (in order)
+
+1. **Republish code** (required — notebook 07 + all session changes): `python scripts/publish_code_dataset.py -m "..."`
+2. **Notebook 07** `MODE="trimmed"` — OFFLINE Blackwell. Attach: `behaviorsense-code`, `behavioursense-WW`, `behaviorsense-toyota-meta`, `toyota-smarthome-rgb`. ~2h → Save Version as `behaviorsense-toyota-shards`
+3. **Notebook 07 again** `MODE="untrimmed"`, `UNTRIMMED_SIDE="test"` — attach `behaviorsense-toyota-shards` (resume) + `rgb-untrimmed`. ~3.5h
+4. Then: extend notebook 03/04 for Toyota training (fine 31-class head + coarse 22 via `collapse_matrix`, partial-label mask, τ/T/Viterbi refit, PDAN 32.7% f-mAP as the gate)
+
+**Deferred/known-open**: RT-DETR wiring into `fuse_objects()` (biggest latent gain; 3 object-dependent classes at F1<0.08); `walking` starvation in Charades map (audit vs real classes file); Qwen3.5-4B ablation; `behaviorsense-results` dataset update from notebook 04 output; P3 staged→wild.
+
+## Standing directives (preserve)
+- Never blindly agree; justify engineering decisions; no accuracy compromises
+- Edit `notebooks/_generate.py`, never `.ipynb` directly
+- After edits: state which notebook to start from + whether `behaviorsense-code` needs re-upload
+- Kaggle mounts: `/kaggle/input/datasets/<owner>/<slug>/`; resolve by CONTENT, never by name
+- Toyota = academic-research-only; derived features to Kaggle, never video; nothing restricted in the public repo
+- 3-person team, 30h GPU quota each; "keep working until it's done"
+
+
+[M01833] 2026-08-23T15:50:04.446Z USER (conversation) [C035:1340; copies=9]
+do previous notebooks not require rerun?
+also list what needs to be done next
+
+
+[M01834] 2026-08-23T15:52:08.772Z ASSISTANT (conversation) [C035:1346; copies=9]
+Before answering, one flaw of my own to fix — notebook 07's resume glob uses `**`, the exact pattern I just spent a session eliminating.
+
+
+[M01835] 2026-08-23T15:59:20.054Z ASSISTANT (conversation) [C035:1356; copies=9]
+## Do previous notebooks need re-running? No — none of them.
+
+Per notebook, with the reason:
+
+| notebook | rerun? | why |
+|---|---|---|
+| 00 stage assets | no | `behavioursense-ww` exists; deps unchanged |
+| 01a stage charades | no | `charades-480p` exists |
+| 01 ADL shards | no | `behaviorsense-adl-shards` exists (165,109 windows). The session's changes to the *file* are speed fixes that ship with the `.ipynb`, not with the data — re-running would take ~6 h to produce byte-identical shards |
+| 02 fall shards | no | `behaviorsense-fall-shards` exists (3,064 windows) |
+| 03 train | no | `behaviorsense-runs` is complete: all four streams peaked at ep 3–9 and self-terminated at patience. Re-training reproduces the same checkpoints |
+| 04 evaluate | **no — just ran clean** | actor-id split, C5 column, all results recorded in `evaluation.md`. The activity tables have now reproduced identically across three sessions; another run reproduces them a fourth time |
+| 05 serve | no | run-on-demand when you want the demo live |
+| 06 preflight | no | ran clean twice, GO verdict, meta written |
+
+The key subtlety: the speed fixes (bounded-depth resolve, islice) live in the **notebook cells**, which you upload as `.ipynb` files — not in `behaviorsense-code`. So old *artifacts* stay valid and new *notebook files* carry their own fixes.
+
+**And no republish is needed either.** I verified every import notebook 07 makes (`parse_tsu_filename`, `frame_mask`, `collapse_matrix`, `TSM_TO_COARSE`, …) already exists in the code version your last 06/04 runs exercised. Your published `behaviorsense-code` is current for everything 00–07.
+
+One thing to **confirm rather than run**: did you Save Version on notebook 06's last run and create the private dataset **`behaviorsense-toyota-meta`**? Notebook 07 asserts on it at cell 4 — if it's missing you'll get a named error, not a silent one.
+
+## What needs to be done next
+
+**1. Upload `notebooks/07_toyota_extract_offline.ipynb` to Kaggle** (it's new — generated locally, 7 cells, all syntax- and import-checked).
+
+**2. Run 07, `MODE = "trimmed"`** — OFFLINE, Blackwell, ~2 h.
+Attach: `behaviorsense-code`, `behavioursense-WW`, `behaviorsense-toyota-meta`, `toyota-smarthome-rgb`.
+First checks in the log: `onnxruntime providers` includes CUDA, then `MODE=trimmed FPS_SAMPLE=12.5`, then `16,115 clips in the 31-class space`. It prints progress every 500 clips with ETA. End: content verification (label ranges, CS disjointness, per-class histogram, `other_idle = 0`) → **Save Version → private `behaviorsense-toyota-shards`**.
+
+**3. Run 07 again, `MODE = "untrimmed"`, `UNTRIMMED_SIDE = "test"`** — ~3.5 h.
+Same attachments **plus** `rgb-untrimmed` **and** `behaviorsense-toyota-shards` (resume — carried shards are kept, done clips skipped). This extracts only the 185 CS test videos; the 351 training videos are a later session if the dense labels prove their worth.
+
+**4. Send me both outputs.** The histograms from step 2 are what I need to write the Toyota training extension — specifically the fine-class support (whether any of the 31 classes is starved the way Charades starved `bending_reaching`) and the realized windows-per-clip.
+
+**5. Then I write the training extension** (extended notebook 03): fine 31-class head + coarse 22 via `collapse_matrix`, partial-label masked loss against the existing Charades/fall shards, τ/T/Viterbi refit, and the **PDAN 32.7% f-mAP reproduction gate** before any of our own numbers count.
+
+**Queued behind that, in priority order:** RT-DETR wired into `fuse_objects()` (the biggest remaining accuracy lever — `taking_medication`/`watching_tv`/`using_phone` are all pose-ambiguous and the detector is already staged in `behavioursense-ww`); the Charades `walking` starvation audit; update `behaviorsense-results` from 04's output; the Qwen3.5-4B ablation if time allows.
+
+
+[M01836] 2026-08-23T16:02:36.054Z USER (conversation) [C035:1358; copies=7]
+why are we not using toyota smarthome datasets other than rgb trimmed and untrimmed
+
+
+[M01837] 2026-08-23T16:03:56.213Z ASSISTANT (conversation) [C035:1361; copies=7]
+Fair challenge — especially given your standing "use everything" directive. The honest answer is one principle plus three legitimate uses I'm *not* using yet, ranked.
+
+## The principle: serving parity
+
+The deployment input is fixed: **arbitrary user-uploaded RGB → RTMO → 17-joint COCO 2D**. A phone video or CCTV feed has no Kinect. So anything that must exist at *serving* time can only be built from RGB. That kills depth and 3D skeletons as **direct model inputs** — not because they're low-quality (V1.2 is the opposite), but because a model that consumes them is a model you can never run for a user.
+
+This isn't hypothetical caution. This project has already paid twice for train/serve skew: `normalise()` erased falls (AUROC 0.466), and the fall head's val AUROC 1.000 sat next to held-out 0.47 because in-domain negatives were separable by nuisance cues. Adding a third instance of that class of bug is the risk.
+
+But "can't be an input" ≠ "can't help." Here's what each mount is actually for:
+
+| mount | as direct input | legitimate train-time use |
+|---|---|---|
+| `toyota-smarthome-skeleton-v1-2` (16,115) | ✗ 15-joint 3D LCR-Net, serving is 17-joint 2D RTMO | **QA reference** + **extra occlusion-robust training windows** |
+| `toyota-smarthome-skeleton` (V1.1) | ✗ | nothing — **superseded by V1.2** (SSTA-PRS refined it for exactly occlusion/truncation). Using both invites citing the wrong version |
+| `pose-untrimmed` (536) | ✗ | same as V1.2, untrimmed half — only relevant if the untrimmed extraction proves its worth |
+| `toyota-smarthome-depth` (both) | ✗ no depth at serving | **distillation teacher only** (train with depth, infer without) |
+| `msmt17` | ✗ | already used — the ReID operating point τ=0.355 is *fitted on it* |
+
+## The three real uses, ranked by gain-per-day
+
+**1. V1.2 as a QA reference for the extraction — cheap, do it first (~2–3 h).**
+SSTA-PRS refined these skeletons specifically to fix occlusion and truncation — which is precisely RTMO's weakness. Sampling ~100 clips and comparing RTMO's per-joint visibility against V1.2's gives you a *measured* answer to "how often does our pose estimator fail, and on which activities" — the exact failure mode that produces confident nonsense windows. That number also belongs in the dissertation as a perception-quality result.
+
+**2. V1.2 converted to COCO-17 windows as extra training data — real lever, decide after the first Toyota numbers (~1 day).**
+The conversion is mechanical: project 3D→2D (orthographic + bbox scaling; our `normalise()` makes windows scale/translation invariant, so pixel-exactness matters less than it seems), map 15→17 joints, set the 5 missing face joints to confidence 0. That yields occlusion-robust windows for exactly the classes that are starving — `personal_hygiene` at 9,360 frames and `taking_medication` at 0.56% are the ones where extra windows could actually move F1. The risk is estimator-domain gap (LCR-Net 2D ≠ RTMO 2D distribution), which is why I'd **measure first**: if the plain RTMO-trained 31-class head lands near the published ceiling already, the marginal gain is small and this stays cut; if the tail classes are starving, this is the cheapest fix available.
+
+**3. Depth via privileged distillation — the big one, and the one to cut (~2 days + retraining).**
+Train a teacher on depth+3D (where occlusion doesn't exist), distill its logits into the RTMO student. Literature gain is 1–3 points and it's the only way depth contributes at serving. But it's a second model family, a distillation harness, and a retraining cycle — with one month left, Toyota base training and RT-DETR wiring both outrank it.
+
+## What I'd actually do
+
+- **Now:** nothing changes for notebook 07 — it's tested and ready; run it as-is.
+- **With 07's output in hand:** I add the V1.2 QA comparison (use 1) — it's a small standalone step, and it needs the extraction's RTMO output to compare against anyway.
+- **Decision point:** use 2 goes in only if the first Toyota training shows starving tail classes. Use 3 stays cut unless everything else lands early.
+
+The meta-point: "not used as input" was never "not used." V1.2 and depth are mounted and licensed; the question is only which of the three train-time roles earns its integration cost before your deadline. If the first extraction histogram shows starvation, use 2 jumps the queue.
+
+
+[M01838] 2026-08-23T16:07:53.652Z USER (conversation) [C068:1501; copies=2]
+while the notebook07 is running prepare the website so it is ready to receive the model as input so we can present it working to the project guide
+i have already explained previously how i would like it to be inferenced and used
+
+
+[M01839] 2026-08-23T16:09:52.976Z ASSISTANT (conversation) [C068:1505; copies=2]
+The site's one real gap against the current model: the verifier is now **five checks** (C5 landed this session, and the live run proved it catches 9–13 claims the other four miss), but the page still renders four cells — and a claim withheld only by C5 would appear as "4 green cells, withheld", which is exactly the kind of inconsistency a guide will poke at. I'll wire C5 through the whole page, then verify in the browser.
+
+
+[M01840] 2026-08-23T16:13:22.501Z ASSISTANT (conversation) [C068:1516; copies=5]
+API Error: Request rejected (429) · Provider returned error
+
+
+[M01841] 2026-08-23T16:16:00.498Z USER (conversation) [C035:1363; copies=7]
+Version 1 failed to run after 542.9s
+Accelerator
+GPU RTX Pro 6000
+
+Environment
+Latest Container Image
+
+Output
+0 B
+
+Time
+#
+Log Message
+4.4s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.4s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.4s	3	0.00s - to python to disable frozen modules.
+4.4s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.8s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.8s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.8s	7	0.00s - to python to disable frozen modules.
+4.8s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+6.8s	9	WARNING: Skipping onnxruntime as it is not installed.
+7.0s	10	WARNING: Skipping onnxruntime as it is not installed.
+7.0s	11	
+7.0s	12	WARNING: Skipping onnxruntime as it is not installed.
+7.3s	13	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.3s	14	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+7.4s	15	Installing collected packages: rtmlib
+7.4s	16	Successfully installed rtmlib-0.0.16
+7.5s	17	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.5s	18	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+7.5s	19	Installing collected packages: rtmlib
+7.5s	20	Successfully installed rtmlib-0.0.16
+7.8s	21	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.9s	22	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+8.0s	23	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+8.0s	24	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+10.2s	25	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+10.2s	26	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+10.2s	27	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+10.2s	28	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+10.2s	29	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+10.2s	30	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+10.4s	31	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+10.4s	32	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+10.4s	33	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+10.4s	34	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+10.4s	35	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+10.4s	36	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+11.0s	37	Installing collected packages: onnxruntime-gpu
+11.2s	38	Installing collected packages: onnxruntime-gpu
+13.5s	39	Successfully installed onnxruntime-gpu-1.26.0
+13.5s	40	Successfully installed onnxruntime-gpu-1.26.0
+13.5s	41	MODE=trimmed  FPS_SAMPLE=12.5  installed from /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+538.8s	42	  code /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+538.8s	43	  attached ["behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-toyota-meta (top level: ['toyota_meta'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "rgb-untrimmed (top level: ['Videos_mp4'])", "toyota-smarthome-rgb (top level: ['mp4'])", 'arc-prize-2026-arc-agi-3']
+538.8s	44	  contract 22/22 - mounted code is current
+539.0s	45	onnxruntime providers: ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
+539.3s	46	Traceback (most recent call last):
+539.3s	47	  File "<string>", line 1, in <module>
+539.3s	48	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 131, in execute_notebook
+539.3s	49	    raise_for_execution_errors(nb, output_path)
+539.3s	50	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+539.3s	51	    raise error
+539.3s	52	papermill.exceptions.PapermillExecutionError: 
+539.3s	53	---------------------------------------------------------------------------
+539.3s	54	Exception encountered at "In [3]":
+539.3s	55	---------------------------------------------------------------------------
+539.3s	56	AssertionError                            Traceback (most recent call last)
+539.3s	57	/tmp/ipykernel_65/3570094649.py in <cell line: 0>()
+539.3s	58	     29 
+539.3s	59	     30 META, _ = find_dir("", "smarthome_CS_51.json")
+539.3s	60	---> 31 assert META is not None, ("attach behaviorsense-toyota-meta (notebook 06's output). This "
+539.3s	61	     32                           "notebook is OFFLINE and cannot fetch the annotations.")
+539.3s	62	     33 if MODE == "trimmed":
+539.3s	63	
+539.3s	64	AssertionError: attach behaviorsense-toyota-meta (notebook 06's output). This notebook is OFFLINE and cannot fetch the annotations.
+539.3s	65	
+540.4s	66	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+540.4s	67	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+540.5s	68	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+540.5s	69	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+540.8s	70	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+541.0s	71	[NbConvertApp] Writing 39135 bytes to __notebook__.ipynb
+542.1s	72	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+542.5s	73	[NbConvertApp] Writing 385313 bytes to __results__.html
+
+
+[M01842] 2026-08-23T16:18:00.858Z USER (conversation) [C068:1531; copies=2]
+Try again
+
+
+[M01843] 2026-08-23T16:18:44.790Z ASSISTANT (conversation) [C035:1366; copies=7]
+The screenshot shows exactly what's wrong: notebook 06 wrote to `/kaggle/working/toyota_meta/`, and Save Version nested that folder — so the JSONs are at `behaviorsense-toyota-meta/toyota_meta/smarthome_CS_51.json`, one level below where notebook 07 looks. My `find_dir("", ...)` only scans the slug root.
+
+And the log exposes a second, bigger problem: cell 2 took **~525s**. That's my depth-bounded glob being depth-bounded but not *cost*-bounded — matching `datasets/*/*/*/rtmo-l.onnx` makes pathlib scandir every slug's children, including a 16k-file skeleton root and MSMT17's 65k crops. Let me fix both.
+
+
+[M01844] 2026-08-23T16:20:31.295Z ASSISTANT (conversation) [C068:1542; copies=2]
+Now I have the full picture. Executing the C5 wiring end-to-end — verifier port, ledger, fixtures, stub, notebook 05, page copy, contract tests — then browser verification.
+
+
+[M01845] 2026-08-23T16:24:06.885Z ASSISTANT (conversation) [C068:1553; copies=1]
+API Error: Request rejected (429) · Provider returned error
+
+
+[M01846] 2026-08-23T16:24:31.506Z ASSISTANT (conversation) [C035:1378; copies=7]
+API Error: API returned an empty or malformed response (HTTP 200) — check for a proxy or gateway intercepting the request. Response: content-type json, body is JSON but not a Message, size unknown, request-id present but not Anthropic-issued, server cloudflare, intermediary headers cf-ray content-encoding transfer-encoding. This was the non-streaming retry of streaming request (no Anthropic request-id), which failed with: other; 0 stream events received.
+
+
+[M01847] 2026-08-23T16:31:23.891Z USER (conversation) [C035:1379; copies=6]
+Continue
+
+
+[M01848] 2026-08-23T16:32:55.362Z ASSISTANT (conversation) [C035:1382; copies=7]
+Now fix notebook 07's META lookup and the resume glob:
+
+
+[M01849] 2026-08-23T16:35:23.783Z USER (conversation) [C068:1572; copies=1]
+Continue
+
+
+[M01850] 2026-08-23T16:38:42.322Z USER (context) [C068:1574; copies=1]
+[Your previous response had no visible output. Please continue and produce a user-visible response.]
+
+
+[M01851] 2026-08-23T16:44:33.627Z ASSISTANT (conversation) [C035:1396; copies=7]
+Now the deeper issue — `find_fast`'s stat loop misses the code dataset because it nests one level (`behaviorsense-code/EmotionSense-Extended/src/...`), which would push SRC resolution onto the slow deep-search path every run. Adding the known staging prefixes:
+
+
+[M01852] 2026-08-23T16:45:56.807Z ASSISTANT (conversation) [C068:1596; copies=2]
+API Error: API returned an empty or malformed response (HTTP 200) — check for a proxy or gateway intercepting the request. Response: content-type json, body is JSON but not a Message, size unknown, request-id present but not Anthropic-issued, server cloudflare, intermediary headers cf-ray content-encoding transfer-encoding. This was the non-streaming retry of streaming request (no Anthropic request-id), which failed with: other; 0 stream events received.
+
+
+[M01853] 2026-08-23T16:46:00.285Z ASSISTANT (conversation) [C035:1402; copies=7]
+Now the Charades CSV lookups in notebooks 03/04 — both use `**` globs directly:
+
+
+[M01854] 2026-08-23T16:49:20.375Z ASSISTANT (conversation) [C035:1410; copies=7]
+Notebook 01a's site is fine (it runs with almost nothing attached). Add a dedicated probe to the shared RESOLVE_CODE for 03/04:
+
+
+[M01855] 2026-08-23T16:52:02.419Z USER (conversation) [C068:1603; copies=1]
+Continue
+
+
+[M01856] 2026-08-23T16:54:28.576Z ASSISTANT (conversation) [C035:1430; copies=7]
+The count mystery solved: `_ann_csv = ...` (notebook 01a, which doesn't embed RESOLVE_CODE) *contains* `_csv = ...` as a substring — a blind replace would have corrupted 01a into calling an undefined function. Line-targeted edits instead:
+
+
+[M01857] 2026-08-23T16:58:02.098Z ASSISTANT (conversation) [C035:1444; copies=7]
+The on-disk `dev_backend.py` gained a C5 mirror but its `verdict()` may not return the new key — `FAITHFUL` would KeyError. Check and fix:
+
+
+[M01858] 2026-08-23T16:59:50.022Z ASSISTANT (conversation) [C035:1452; copies=7]
+The on-disk version is complete and works. Now regenerate everything and run the full suite:
+
+
+[M01859] 2026-08-23T17:02:21.966Z ASSISTANT (conversation) [C035:1460; copies=7]
+The trip was my own over-broad assertion — it matched the *comment* quoting the bad pattern. The remaining `datasets/*/*/wheels/*.whl` in cell 1 is the wheel finder, which the first run already proved fast (13.5s). Fix the test pin to target the actual code shape:
+
+
+[M01860] 2026-08-23T17:03:49.113Z ASSISTANT (conversation) [C068:1667; copies=1]
+API Error: Request rejected (429) · Provider returned error
+
+
+[M01861] 2026-08-23T17:04:35.179Z USER (conversation) [C068:1694; copies=1]
+Continue
+
+
+[M01862] 2026-08-23T17:29:42.210Z ASSISTANT (conversation) [C068:1758; copies=1]
+API Error: Request rejected (429) · Provider returned error
+
+
+[M01863] 2026-08-23T17:35:14.727Z USER (context) [C068:1762; copies=1]
+Continue from where you left off.
+
+
+[M01864] 2026-08-23T17:35:14.728Z ASSISTANT (conversation) [C068:1763; copies=1]
+No response requested.
+
+
+[M01865] 2026-08-23T17:38:11.933Z USER (conversation) [C068:1764; copies=1]
+Continue
+
+
+[M01866] 2026-08-23T17:43:02.705Z ASSISTANT (conversation) [C068:1781; copies=2]
+Cell 0 defines the helper, cell 4 calls it — the notebook is correct (it ran on Kaggle), but `test_n10c` execs the shard cell in isolation. Fix: give the test the real function, extracted from the resolver cell.
+
+
+[M01867] 2026-08-23T18:01:42.831Z ASSISTANT (conversation) [C068:1830; copies=2]
+The carry cell calls it too, under a fresh `ns2`. Share the lifted prelude with both namespaces:
+
+
+[M01868] 2026-08-23T18:12:39.766Z ASSISTANT (conversation) [C068:1851; copies=2]
+All 180 pass. Fixing the stale comment in upload.js, then verifying the page in the browser:
+
+
+[M01869] 2026-08-23T18:14:34.444Z ASSISTANT (conversation) [C068:1865; copies=2]
+That edit corrupted the comment block — repairing it:
+
+
+[M01870] 2026-08-23T18:18:01.705Z ASSISTANT (conversation) [C068:1886; copies=2]
+Five cells render, c3 correctly withheld. But the comment I wrote in `checkCells` promises a backend-version warning I haven't actually implemented — making it real:
+
+
+[M01871] 2026-08-23T18:24:56.435Z ASSISTANT (conversation) [C068:1908; copies=2]
+The page is running the pre-banner `stages.js` — browsers cache ES modules hard. Hard-reloading:
+
+
+[M01872] 2026-08-23T18:26:29.769Z USER (context) [C035:1465; copies=6]
+Continue from where you left off.
+
+
+[M01873] 2026-08-23T18:26:29.770Z ASSISTANT (conversation) [C035:1466; copies=6]
+No response requested.
+
+
+[M01874] 2026-08-23T18:26:59.291Z ASSISTANT (conversation) [C068:1917; copies=2]
+Both paths verified. Console check and screenshot:
+
+
+[M01875] 2026-08-23T18:27:24.513Z USER (conversation) [C035:1467; copies=6]
+Continue
+
+
+[M01876] 2026-08-23T18:32:49.104Z ASSISTANT (conversation) [C068:1942; copies=2]
+The pane isn't compositing — verifying the C5 card via the DOM instead:
+
+
+[M01877] 2026-08-23T18:34:46.779Z ASSISTANT (conversation) [C035:1478; copies=7]
+All 180 pass. One parity check — the on-disk web stack now renders C1–C5, so notebook 05's `/video` must emit the C5 field too:
+
+
+[M01878] 2026-08-23T18:35:34.021Z ASSISTANT (conversation) [C035:1484; copies=7]
+The whole web stack is now C5-aligned on disk. One last consistency check — the browser-side verifier port:
+
+
+[M01879] 2026-08-23T18:36:42.854Z ASSISTANT (conversation) [C035:1489; copies=7]
+Everything is green — `180/180`. The failure is fixed, and your log exposed a second problem I've now fixed properly.
+
+## What went wrong
+
+**The assert was looking one level too shallow.** Your screenshot shows it: notebook 06 wrote to `/kaggle/working/toyota_meta/`, and Save Version nests the working directory — so the files sit at `behaviorsense-toyota-meta/toyota_meta/smarthome_CS_51.json`, not the slug root. Notebook 07's `find_dir("", ...)` only scanned the root. The mount was attached the whole time.
+
+**And the log's 525s resolver cell was my earlier "fix" not being good enough.** My depth-bounded globs (`datasets/*/*/*/rtmo-l.onnx`) were depth-bounded but not *cost*-bounded — to match at depth 3–4, pathlib scandirs every slug's child directories, including the 16k skeleton root and MSMT17's 65k crops. Two assets × expensive sibling scans ≈ 8.5 minutes.
+
+## What changed
+
+- **Resolver is now mount-indexed**: enumerate the 11 slugs once, resolve everything with `is_file()` stats — one metadata call per mount per candidate, never a sibling listing. Known staging prefixes handled (`weights/`, `kaggle/working/`, and the code dataset's `EmotionSense-Extended/` nesting). Expect the resolver cell in **seconds**, not 525s. This is in the shared `RESOLVE_CODE`, so notebooks 01/03/04/06/07 all get it.
+- **07's META lookup** tries `<slug>/toyota_meta/` first, then root, and the error names what it saw.
+- **07's resume** and **03/04's Charades CSV** lookups are mount-indexed too (03/04 were still using `**` globs — minutes per run, hidden inside the Qwen timing until now).
+- One near-miss caught during the edit: a blind string replace would have corrupted notebook 01a (its `_ann_csv = ...` contains the 04 pattern as a substring). Caught by the assertion, fixed line-by-line.
+
+Also noted: the web stack on disk is now fully C5-aligned — `verifier.js` ports C5, `stages.js` renders five cells, `dev_backend.py` mirrors the tokenizer, notebook 05 emits `C5_prose_quoted_value`, and the web-contract parity tests all pass against these versions. Coherent end to end; nothing for me to redo there.
+
+## What to do
+
+**No republish of `behaviorsense-code`** — every change is in the notebook cells themselves, which ship with the `.ipynb`. No other notebook needs a re-run.
+
+1. Take a fresh copy of `notebooks/07_toyota_extract_offline.ipynb` and upload it to Kaggle (replacing the failed one).
+2. Same attachments as your failed run: `behaviorsense-code`, `behavioursense-WW`, `behaviorsense-toyota-meta`, `toyota-smarthome-rgb`. `MODE = "trimmed"`.
+3. Run — OFFLINE, Blackwell, ~2 h.
+
+What to expect in the log, in order:
+
+```
+MODE=trimmed  FPS_SAMPLE=12.5  installed from .../wheels     ← seconds
+  code /kaggle/input/.../EmotionSense-Extended               ← resolver now seconds, not 525s
+  contract 22/22 - mounted code is current
+onnxruntime providers: [... CUDAExecutionProvider ...]
+  meta   /kaggle/input/.../behaviorsense-toyota-meta/toyota_meta
+  video  /kaggle/input/.../toyota-smarthome-rgb/mp4  (16,115 files)
+  rtmo   /kaggle/input/.../behavioursense-ww/weights/rtmo-l.onnx
+16,115 clips in the 31-class space, 0 outside it or unparseable
+  500/16,115 clips, ... eta NN min                           ← progress every 500
+```
+
+Then the content verification (label ranges, CS disjointness, per-class histogram, `other_idle = 0`) → **Save Version → private `behaviorsense-toyota-shards`**.
+
+Paste me the final histogram block — the fine-class support table is what decides whether the V1.2-skeleton extra-windows lever gets pulled before training, and it's the input I need to write the Toyota training extension.
+
+
+[M01880] 2026-08-23T18:39:08.372Z ASSISTANT (conversation) [C068:1963; copies=2]
+The website is ready for the demo. `180/180` tests pass.
+
+## What changed while notebook 07 runs
+
+**The verifier band now shows five checks with the measured counts** from the latest 1,120-claim run — C1: 1, C2: **0** (with the note explaining it *was* the whole residual until the filled template), C3: 0, C4: 13, **C5: 22** as a new card. The counts on the page had been stale from an old session; they now match `evaluation.md` exactly.
+
+**New "Report faithfulness" readout card**: 3.2% hallucination rate, 1,120 claims, constrained 2.8% / free 3.7%, with the honest note that the grammar's p-value is 0.40 — its value is parseability, not truthfulness. Verified rendering in the browser (screenshot above).
+
+**C1–C5 through the live path**: each claim in your-own-footage results now draws five cells. And a guard I'd promised in a comment but hadn't built: if the connected backend predates C5 (key absent from the payload), the page renders **"This backend predates check C5"** instead of letting a missing check silently read as a pass. Both paths browser-tested — patched-fetch simulation for pre-C5, real stub for current.
+
+**Fixed a broken test my own refactor caused**: `test_n10c` exec'd notebook 03's shard cell in isolation, but the CSV lookup had moved to the shared resolver helper — NameError. The harness now lifts the real function + `_SLUGS` index out of the resolver cell and runs the actual lookup. Also repaired a comment block in `upload.js` I mangled mid-edit.
+
+## Demo runbook for your project guide
+
+**Zero-GPU fallback (works right now, no Kaggle):**
+```bash
+python web/dev_backend.py
+```
+Serve `web/` (`python -m http.server 5173 --directory web`), click the header state indicator, paste `http://127.0.0.1:8899`, Connect. Upload any small video file — the stub returns the full four-agent chain over a synthetic two-person clip where one person falls: all four stage cards, per-person timelines, and a claim visibly **withheld** with the failing arithmetic printed beside it. The page states plainly that it's a stub.
+
+**Live demo (notebook 05, T4×2, internet ON):** attach `behaviorsense-code`, `behaviorsense-runs`, `behaviorsense-weights`/`-ww`, `behaviorsense-results`, Qwen2.5-7B model → run → paste the tunnel address → upload a real clip of one or several people. RTMO skeletons over the playing video, per-person activity timelines, Agent 3's measured features under the declared-reference banner, Agent 4's report with five cells settling per claim.
+
+The presentation story the page now tells by itself: the four agents hand off named schema types, the baseline is *declared* rather than hidden, and a claim with the right number told backwards is struck in red pencil with `pct mismatch: claimed +78.0%, actual -78.0%` printed next to it.
+
+**One caveat for the live path:** notebook 05 hasn't been re-run since the C5/prompt changes, so its first live run will show the new five-cell table — if anything looks off there, paste me the log. The static page and stub path are fully verified; the live contract is pinned by `test_web_contract.py` reading notebook 05's own AST.
+
+
+[M01881] 2026-08-23T18:41:24.960Z USER (conversation) [C035:1491; copies=7]
+i have attached both rgb trimmed and untrimmed
+
+
+[M01882] 2026-08-23T18:42:59.993Z ASSISTANT (conversation) [C035:1494; copies=7]
+That's fine — no change needed. Notebook 07 picks by `MODE`, not by what's attached:
+
+- `MODE = "trimmed"` → resolves `toyota-smarthome-rgb/mp4/` (16,115 clips), ignores `rgb-untrimmed`
+- `MODE = "untrimmed"` → resolves `rgb-untrimmed/Videos_mp4/` (536 videos), ignores the trimmed mount
+
+The resolver identifies each by content (`mp4/` vs `Videos_mp4/` layouts), so having both attached costs nothing — the mount-indexed lookups stat specific paths and never enumerate siblings.
+
+It's actually the convenient setup: when the trimmed run finishes and you Save Version as `behaviorsense-toyota-shards`, the follow-up untrimmed session attaches **that same shards dataset back** (resume) plus `rgb-untrimmed` — and you can leave the trimmed mount attached or drop it, either works.
+
+One expectation to hold for this run's log: the resolver cell that took **525s** last time should now print its four lines in seconds. If `meta` shows `.../behaviorsense-toyota-meta/toyota_meta`, the earlier fix landed. Then ~2 h of extraction with progress every 500 clips.
+
+Paste the final verification block when it's done — the fine-class histogram decides whether we pull the V1.2-skeleton lever before training, and it's what I need to write the training extension against.
+
+
+[M01883] 2026-08-23T18:49:29.798Z USER (conversation) [C101:1678; copies=2]
+Version 2 failed to run after 370.7s
+Accelerator
+GPU RTX Pro 6000
+
+Environment
+Latest Container Image
+
+Output
+0 B
+
+Time
+#
+Log Message
+4.3s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.3s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.3s	3	0.00s - to python to disable frozen modules.
+4.3s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+4.6s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.6s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.6s	7	0.00s - to python to disable frozen modules.
+4.6s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+6.5s	9	WARNING: Skipping onnxruntime as it is not installed.
+6.7s	10	WARNING: Skipping onnxruntime as it is not installed.
+6.7s	11	
+6.7s	12	WARNING: Skipping onnxruntime as it is not installed.
+7.0s	13	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.0s	14	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+7.0s	15	Installing collected packages: rtmlib
+7.0s	16	Successfully installed rtmlib-0.0.16
+7.2s	17	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.2s	18	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+7.2s	19	Installing collected packages: rtmlib
+7.2s	20	Successfully installed rtmlib-0.0.16
+7.5s	21	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.5s	22	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+7.7s	23	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+7.7s	24	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+10.7s	25	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+10.7s	26	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+10.7s	27	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+10.7s	28	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+10.7s	29	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+10.7s	30	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+10.9s	31	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+10.9s	32	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+10.9s	33	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+10.9s	34	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+10.9s	35	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+10.9s	36	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+11.5s	37	Installing collected packages: onnxruntime-gpu
+11.7s	38	Installing collected packages: onnxruntime-gpu
+14.0s	39	Successfully installed onnxruntime-gpu-1.26.0
+14.0s	40	Successfully installed onnxruntime-gpu-1.26.0
+14.0s	41	MODE=trimmed  FPS_SAMPLE=12.5  installed from /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+363.4s	42	  code /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+363.4s	43	  attached ["behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-toyota-meta (top level: ['toyota_meta'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "rgb-untrimmed (top level: ['Videos_mp4'])", "toyota-smarthome-rgb (top level: ['mp4'])", 'arc-prize-2026-arc-agi-3']
+363.4s	44	  contract 22/22 - mounted code is current
+363.6s	45	onnxruntime providers: ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
+367.2s	46	Traceback (most recent call last):
+367.2s	47	  File "<string>", line 1, in <module>
+367.2s	48	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 131, in execute_notebook
+367.2s	49	    raise_for_execution_errors(nb, output_path)
+367.2s	50	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+367.2s	51	    raise error
+367.2s	52	papermill.exceptions.PapermillExecutionError: 
+367.2s	53	---------------------------------------------------------------------------
+367.2s	54	Exception encountered at "In [3]":
+367.2s	55	---------------------------------------------------------------------------
+367.2s	56	NameError                                 Traceback (most recent call last)
+367.2s	57	/tmp/ipykernel_65/3621224965.py in <cell line: 0>()
+367.2s	58	     45     VIDEO_DIR, N_VID = find_dir("Videos_mp4", "P*T*C*.mp4")
+367.2s	59	     46 assert VIDEO_DIR is not None, f"no {MODE} RGB mount. Mounts: {[r.name for r in ROOTS]}"
+367.2s	60	---> 47 RTMO_PATH = str(find_asset("**/rtmo-l.onnx", "rtmo"))
+367.2s	61	     48 print(f"meta   {META}")
+367.2s	62	     49 print(f"video  {VIDEO_DIR}  ({N_VID:,} files)")
+367.2s	63	
+367.2s	64	NameError: name 'find_asset' is not defined
+367.2s	65	
+368.3s	66	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+368.3s	67	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+368.4s	68	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+368.4s	69	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+368.7s	70	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+368.8s	71	[NbConvertApp] Writing 40486 bytes to __notebook__.ipynb
+369.9s	72	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+370.3s	73	[NbConvertApp] Writing 387950 bytes to __results__.html
+
+
+[M01884] 2026-08-23T18:53:22.008Z USER (context) [C101:1687; copies=2]
+This session is being continued from a previous conversation that ran out of context. The summary below covers the earlier portion of the conversation.
+
+Summary:
+## 1. Primary Request and Intent
+
+**Project**: BehaviorSense AI — "Identity-Aware Multi-Agent Behaviour Monitoring and Explainable Healthcare Assistance System for Elderly Care". Final-year engineering project → dissertation/publication/demo. ~1 month timeline.
+
+**Standing directives carried from prior sessions (preserve verbatim):**
+- I act as Senior AI Research Scientist / ML Engineer / CV Engineer / Systems Architect / Technical Project Mentor.
+- **"Never blindly agree with proposed ideas. If a better architecture exists, explain why. Always justify engineering decisions."**
+- **"Training notebooks have no internet. Therefore: Every required asset must already exist inside Kaggle datasets."**
+- **"The LLM MUST NOT perform perception. The LLM receives structured outputs only."**
+- **"dont try to read every image, there are many"** (re MSMT17)
+- **"Derived Kaggle datasets from Charades / Market-1501 / MSMT17 must be PRIVATE (no redistribution); DukeMTMC-reID must not be used."**
+- **"Edit `notebooks/_generate.py`, never the `.ipynb` files directly."**
+- **"yes dont keep asking, keep working until its done"**
+- **"dont worry about the gpu quota, since this project is in a 3-member team, each has 30hr quota, leave the worries for it"**
+- **"after finishing any edits, always tell me what notebook we have to start from and whether we have to reupload behaviorsense-code or not"**
+- **"always tell the steps to take clearly after making changes"**
+
+**This session's explicit requests, in order:**
+1. Toyota Smarthome access granted by email (credentials expire 30 days from 2026-08-19). Find the proven public training pipeline; use ALL provided modalities if they improve accuracy "even by a tiny bit"; redesign the entire workflow for maximum accuracy with no compromises.
+2. Website must accept user-uploaded video (camera/CCTV) and display **each agent's output stage-by-stage** (Agent 1 → 2 → 3 → 4), with C1–C4 individual outputs visible, so the project can be shown to project guides and an external examiner.
+3. Check the three GitHub links (`dairui01/Toyota_Smarthome`, `YangDi666/2s-AGCN-For-Daily-Living`, `srijandas07/i3d_smarthome`).
+4. Hardware clarification: backend runs on Kaggle behind an API/tunnel while frontend is local/hosted; **serving is online → T4×2/P100 only; training is offline → Blackwell RTX PRO 6000 96GB**.
+5. "wouldnt we have to retrain for toyota dataset, also shouldnt we use qwen 3.5 9b instead of qwen 2.5 7b?"
+6. "we can just split it on the t4x2 gpu (total 32gb vram)" + list the steps to maximize accuracy.
+7. "check if any accuracy improvements can be done" → "make whatever changes u want in the codes to improve the accuracy, everything is upto you to decide"
+8. "do whatever u want and just list what i have to run on kaggle and which notebook after you are done"
+9. Datasets uploaded to Kaggle as private (9 mounts, owner `krishnagupta02468`).
+10. "why are we not using toyota smarthome datasets other than rgb trimmed and untrimmed"
+11. Debug three Kaggle run failures (06 twice, 07 once) and two successful runs.
+12. "i have attached both rgb trimmed and untrimmed"
+
+**Security/licence constraints (must persist):**
+- The repo `github.com/PARTHG0106/BehaviorSense` is **PUBLIC**. Toyota Smarthome is **academic-research-only, granted per-request to one institutional address**. Nothing from it may be committed: not video, not the per-video CSVs, not `smarthome_C[SV]_51.json`, not Inria's LICENCE PDFs.
+- Only **derived features** go to Kaggle, never video. Kaggle datasets holding restricted corpora must be **private**.
+- `kaggle datasets version -p .` / `create -p .` upload the working tree verbatim and `.kaggleignore` is NOT read by the Kaggle CLI — never run them in this repo.
+
+## 2. Key Technical Concepts
+
+- **Content-based Kaggle asset resolution** — never resolve mounts by dataset name; identify by a file only that asset has. Mounts sit at `/kaggle/input/datasets/<owner>/<slug>/`.
+- **Mount-indexed resolution** (this session's key perf fix) — enumerate slugs once at depth 2, then resolve with `is_file()` stats. `**` globs AND fixed-depth globs both scandir large sibling directories.
+- **Repo contract** — 22 feature-detection tokens checked against the mounted code copy so a stale snapshot fails at cell 1.
+- **Person-disjoint vs video-disjoint splits** — Charades `subject` column (267 actors, 209 mapped, ~30 videos each).
+- **Toyota protocols** — CS (11 train / 7 test subjects), CV1 (train c01, val c05, test c02), CV2 (train c01,03,04,06,07).
+- **Two official trimmed id spaces** — skeleton 0-indexed (0..30) vs RGB 1-indexed (1..31) where 0 = unmatched-name fallback.
+- **Pre-merge 53-name vocabulary** vs post-merge 51-class `Action_list`.
+- **Frame-level vs span-set annotation agreement** — a pure span split scores 1.00000 at frame level.
+- **Fine-then-pool** — train on 51/31 fine classes, derive coarse via logsumexp over `collapse_matrix()` members. Collapsing before the loss destroys discriminative supervision.
+- **Partial-label masked loss** — each corpus supervises the classes it defines and abstains on the rest.
+- **C1–C5 verifier**: C1 ref_exists, C2 value_matches, C3 pct_matches, C4 direction_consistent, **C5 prose_quoted_value** (new).
+- **Privileged-information distillation** — train with depth/3D, infer without.
+- **Serving parity** — deployment input is fixed as RGB → RTMO → 17-joint COCO 2D.
+- Grammar-constrained decoding via `outlines`; `force_greedy()`; two hallucination denominators (schema-valid vs emitted).
+
+## 3. Files and Code Sections
+
+### `src/behaviorsense/data/toyota.py` (NEW, ~700 lines) — the Toyota ingestion library
+Every constant read from official artefacts, not memory.
+
+```python
+TSU_FPS = 25.0
+TSM_FPS = 20.0            # MEASURED from shipped mp4s on Kaggle
+TSM_FPS_DOCUMENTED = 30.0 # what i3d_smarthome's README claims
+
+TSU_CLASSES: tuple[str, ...] = (51 names, index == official id, from Action_list)
+TSM_CLASSES: tuple[str, ...] = (31 names, from smarthome_gendata.py action_classes)
+TSM_CV_CLASSES: tuple[str, ...] = (19 names)
+TSM_SKELETON_JOINTS = 15
+
+ALL_SUBJECTS = (2,3,4,6,7,9,10,11,12,13,14,15,16,17,18,19,20,25)
+CS_TRAIN_SUBJECTS = (3,4,6,7,9,12,13,15,17,19,25)
+CS_TEST_SUBJECTS  = (2,10,11,14,16,18,20)
+CV1_TRAIN_CAMERAS = (1,); CV1_VAL_CAMERAS = (5,); CV1_TEST_CAMERAS = (2,)
+CV2_TRAIN_CAMERAS = (1,3,4,6,7)
+
+TSM_ID_SPACES = ("skeleton", "rgb"); TSM_RGB_OFFSET = 1; TSM_RGB_UNMATCHED = 0
+
+TSU_ALIASES = {   # README-mandated merges; CSVs ship 53 names
+    "Make_coffee.Get_water": "Get_water",
+    "Make_tea.Insert_tea_bag": "Insert_tea_bag",
+    "Get Water": "Get_water", "Get water": "Get_water",
+}
+
+_TSM_NAME = re.compile(
+    r"^(?P<activity>[A-Za-z.]+)_p(?P<subject>\d{2})_r(?P<take>\d{2})_"
+    r"(?P<view>[a-z]?\d{2})_c(?P<camera>\d{2})"
+    r"(?:_(?P<tag>[A-Za-z0-9+.]+))?$")   # tag group: without it the whole V1.2 archive is rejected
+
+@dataclass(frozen=True)
+class VideoId:
+    subject: int; take: int; camera: int
+    activity: str | None = None; tag: str | None = None
+    @property
+    def tsu(self) -> str: return f"P{self.subject:02d}T{self.take:02d}C{self.camera:02d}"
+```
+
+Key functions: `slug()`, `tsu_id()`, `tsm_id(name, *, space, cross_view)`, `tsm_name()`, `parse_tsu_name()`, `parse_tsu_filename()` (searches for the id, refuses two ids), `parse_tsm_name()`, `protocol_side()`, `load_tsu_annotations()`, `_assert_subset_matches_protocol()` (containment not equality, so subsets load), `frame_multilabel(video, n_steps, *, official=True)` (official strict `>`/`<` for baseline parity), `frame_mask()`, `iter_videos()`, `load_trimmed_split()`, `read_annotation_csv(path, *, classes, unknown=None)` (schema sniffing; `unknown=[]` collects instead of raising), `survey_annotation_csvs()`, `load_tsu_annotations_from_csv(root, durations, *, subsets, unknown)` (durations required, no default), `cross_check_annotations(csv_side, json_side, *, n_steps=0)` (frame-level + span-level), `COARSE_V11` (22 names), `assert_coarse_parity()`, `TSU_TO_COARSE`, `TSM_TO_COARSE`, `collapse_matrix()` (raises on unmapped), `supervised_coarse()`, `to_coarse()`, `frame_counts()`, `canonical_tsu_class()`.
+
+### `notebooks/_generate.py` (3,900+ lines) — single source of truth for 9 notebooks
+
+**`RESOLVE_CODE` (shared, latest version — the mount-indexed resolver):**
+```python
+_SLUGS = (sorted((INPUT / "datasets").glob("*/*"))
+          + sorted((INPUT / "competitions").glob("*")))
+
+def find_fast(tail, what, required=True):
+    prefixes = ("", "EmotionSense-Extended/", "kaggle/working/")
+    tails = [tail] if "/" in tail else [
+        p + w + tail for p in prefixes for w in ("", "weights/")]
+    for t in tails:
+        hits = [s / t for s in _SLUGS if (s / t).is_file()]
+        if hits: return hits[0]
+    hits = sorted(INPUT.glob(f"**/{tail}"))   # last resort
+    ...
+
+def find_charades_csv():
+    for slug in _SLUGS:
+        if "charades" not in slug.name.lower(): continue
+        for base in (slug, slug / "Charades_annotations", slug / "Charades_v1_480",
+                     slug / "kaggle" / "working"):
+            p = base / "Charades_v1_train.csv"
+            if p.is_file(): return [p]
+    return sorted(INPUT.glob("**/Charades_v1_train.csv"))
+```
+`attached_mounts()` now uses `sorted(islice((q.name for q in ds.iterdir()), 6))` instead of `sorted(...)[:6]`.
+
+**Notebook 04's P1 cell — now REFUSES the leaky split:**
+```python
+_csv = find_charades_csv()
+split_subjects, SPLIT_MODE = ds.subjects, "video-id (proxy)"
+if _csv:
+    split_subjects, _cov = remap_subjects(ds.subjects, load_subject_map(_csv[0]))
+    if _cov >= 0.5: SPLIT_MODE = f"actor-id ({len(set(split_subjects))} actors, {_cov:.0%} mapped)"
+    ...
+import os
+if SPLIT_MODE.startswith("video-id") and not os.environ.get("BS_ALLOW_VIDEO_SPLIT"):
+    raise AssertionError(
+        "P1 would run on the VIDEO-ID split, which leaks actors between train and val ...\n"
+        "  FIX: attach the `charades-480p` dataset - it carries the CSV.\n"
+        "  To measure the leaky protocol deliberately, set BS_ALLOW_VIDEO_SPLIT=1.")
+```
+
+**`N06` — `06_toyota_preflight_online.ipynb` (9 cells, ONLINE, CPU).** Bounded-depth `ASSETS` table of `(subdir, pattern, required)` resolved with `os.scandir`; downloads the JSON/Action_list from GitHub; `survey_annotation_csvs()` gate; `cross_check_annotations()` with frame-level verdict thresholds (≥0.999 GO / ≥0.99 GO WITH A CAVEAT / else STOP); distribution table; cv2 probes; writes `/kaggle/working/toyota_meta/`.
+
+**`N07` — `07_toyota_extract_offline.ipynb` (7 cells, OFFLINE, Blackwell) — NEW this session.**
+```python
+MODE = "trimmed"           # "trimmed" (~2 h) or "untrimmed" (~3.5 h for CS test side)
+UNTRIMMED_SIDE = "test"
+FPS_SAMPLE = 12.5          # video.py stride-2 on a 25 fps camera == 12.5 Hz
+MAX_CLIPS = 99999
+WINDOWS_PER_SHARD = 8000
+```
+META lookup (the fix for run 1's failure):
+```python
+META, _ = find_dir("toyota_meta", "smarthome_CS_51.json")
+if META is None:
+    META, _ = find_dir("", "smarthome_CS_51.json")
+assert META is not None, (
+    "attach behaviorsense-toyota-meta (notebook 06's output). This notebook is OFFLINE "
+    "and cannot fetch the annotations. Looked for <mount>/toyota_meta/smarthome_CS_51.json "
+    f"and <mount>/smarthome_CS_51.json. Mounts: {[r.name for r in ROOTS]}")
+```
+Mount-indexed resume:
+```python
+_prev_hits: list = []
+for _slug in ROOTS:
+    for _cand in (_slug / "shards", _slug / "kaggle" / "working" / "shards"):
+        if _cand.is_dir(): _prev_hits += list(_cand.glob(f"{PREFIX}_*.npz"))
+```
+`poses_for()` reads `cv2.CAP_PROP_FPS` per file. Shard writer:
+```python
+np.savez_compressed(OUT / f"{PREFIX}_{shard_idx:04d}.npz",
+    skeletons=np.stack(skels).astype(np.float16),   # [N,30,2,17,3]
+    labels=np.asarray(coarse, dtype=np.int64),      # COARSE
+    fine_labels=np.asarray(fine, dtype=np.int64),   # 31/51-class
+    subjects=np.asarray(subs, dtype="<U32"),
+    datasets=np.asarray(srcs, dtype="<U32"),
+    clips=np.asarray(clips, dtype="<U64"))
+```
+Uses `prepare_skeletons`' `WINDOW_FRAMES`, `assign_slots`, `window_clip`. Content verification before Save Version.
+
+### `src/behaviorsense/agents/reasoning/verifier.py` — C5 added
+```python
+require_prose_quoted_value: bool = True
+prose_value_rel_tol: float = 0.02
+
+@staticmethod
+def _numbers_in_text(text: str) -> list[float]:
+    # Hand-written tokenizer, NOT regex: "1,800" scanned as 1 then 800 in the regex version.
+    # Handles thousands separators, decimals, k/K/m/M scale suffixes.
+
+def _prose_quotes_value(self, text: str, value: float) -> bool: ...
+```
+In `verify_claim`, after C4:
+```python
+prose_quoted = True
+if claim.claimed_value is not None:
+    prose_quoted = self._prose_quotes_value(claim.text, claim.claimed_value)
+    if not prose_quoted:
+        notes.append(f"prose does not echo claimed_value {claim.claimed_value:g}: a "
+                     "caregiver would read the prose number, not the row - flagged")
+```
+`failure_breakdown()` gained `prose_quoted_value_mismatch`.
+
+### `src/behaviorsense/schemas.py`
+`VerificationResult` gained `prose_quoted_value: bool = True` (defaults True for backward compat) and `is_faithful` now requires it.
+
+### `src/behaviorsense/agents/reasoning/reporter.py`
+- `REPORTABLE_FEATURES` gained `visitor_count`; `sleep_proxy_duration_s` → `lying_duration_s`
+- `SYSTEM_PROMPT` rule 2 demands digit-for-digit prose; new FILLED TEMPLATE instruction
+- `_template_rows(state, cfg)` + `build_prompt` appends the template block
+- `state_to_payload` gained `"second_person_active": state.today.visitor_count > 0`
+- `name` property derived from `pathlib.Path(self.model_path).name.lower()` (was hardcoded)
+- `__init__` gained `max_memory`; `_load()` passes `max_memory` to `from_pretrained`, prints `hf_device_map` devices, warns when bf16 is unsupported, calls `_assert_finite_logits()`
+
+### `web/` — staged agent output
+- **`web/scripts/stages.js` (NEW ~300 lines)** — `SEAMS` (schema type per agent), `timelineMarkup()`, `perceptionBody/activityBody/behaviourBody/reportBody`, `stageCard()`, `checkCells()` (C1 fail → C2–C5 drawn `skip`), `checkRow()` (reuses `.slip`/`.gutter`/`.stamp`), `renderStages(payload, {pipelineEl, checksEl})`
+- **`web/scripts/upload.js`** — rewritten; renders all four stages; fixed drift (`n_windows`, `fall_posterior`, `peak_fall_posterior`, `report_unavailable_because` all retired)
+- **`web/scripts/verifier.js`** — C5 ported (`proseQuotesValue`, comma form matched first)
+- **`web/dev_backend.py`** — returns the full staged payload; `verdict()` emits real arithmetic notes in `verifier.py`'s wording; `prose_quoted_value` / `C5_prose_quoted_value`
+- **`web/index.html`**, **`styles/components.css`**, **`web/README.md`** updated
+
+### `tests/` — 180 tests across 12 suites
+- `tests/test_toyota.py` — 21 tests (T1–T21). T13 = the off-by-one between id spaces; T14 = 20 vs 30 vs 25 fps; T16 = real Kaggle filenames; T17 = 6 CSV layouts + 5 malformed; T19 = the exact failing rows + merges; T20 = survey reports both unknown names; T21 = frame-level scoring of the three real disagreements
+- `tests/test_web_contract.py` — 5 tests, AST-based notebook-05 ↔ stub parity
+- `tests/test_notebooks.py` — 35 tests; N22 (notebook 06 imports + bounded-depth asset entries), N23 (notebook 07 contract: both label spaces, fps read per file, mount-indexed resume, CS disjointness)
+- `tests/test_notebook04_e2e.py` — now writes a synthetic `charades-480p/Charades_v1_train.csv` so it exercises the actor-disjoint protocol
+- `tests/test_verifier.py` — 17 tests; V12–V16 for C5
+
+### Other files
+- `configs/taxonomy.yaml` — v1.1, `n_classes: 22`, `n_classes_v10: 20`, ids 20–21 appended, stale `toyota_smarthome` block replaced with a pointer + `_cannot_supervise` list
+- `scripts/audit_toyota_map.py` (NEW) — audit not generator; selftest + review TSV
+- `scripts/eval_hallucination.py` — C1–C5 breakdown table with a C5 column and explanation
+- `scripts/publish_code_dataset.py` — `RESTRICTED_AT_ROOT`, `check_no_restricted_corpora()`, warns on working-tree corpora, **refuses** if one reaches the staged manifest
+- `.gitignore` — Toyota block (video, CSVs, JSON, PDFs)
+- `docs/07_kaggle_plan.md` — notebook 05/06/07 rows, hardware-splits-by-internet section, nine-mount table
+- `results/evaluation.md` — P2 dual-column, fall-head correction, Agent 4 rewritten (2.8%/3.7%, C5), Toyota section
+- `run_tests.py` — added Toyota + web-contract suites
+- Memory: `toyota-access-window-and-what-ships-to-kaggle`, `kaggle-hardware-splits-by-internet`, `p1-refuses-the-video-id-split`, corrected `fall-head-does-not-transfer`
+
+## 4. Errors and Fixes
+
+1. **`apply_patch` tool unavailable** (start of session) — acknowledged there was no file-editing tool in that turn rather than pretending otherwise.
+
+2. **Workflow tool parse error** — `Script parse error: Unexpected token (12:11) import json;`. Workflow scripts must be plain JavaScript. Abandoned the workflow and did the audit directly.
+
+3. **Notebook 06 run 1 (5602s, FAILED)**: `ValueError: 'Make_coffee.Get_water' is neither an integer class id nor one of the 51 known class names`.
+   - Cause: CSVs ship the pre-merge 53-name vocabulary; the README mandates two merges I had read but not implemented.
+   - Fix: `TSU_ALIASES` + `canonical_tsu_class()`.
+   - **The worse bug was the failure mode** — it examined 1 file of 536 and told us nothing about `Make_tea.Insert_tea_bag` four lines later. Fix: `survey_annotation_csvs()` reports every unknown name with its file in one pass; `read_annotation_csv(..., unknown=[])` collects instead of raising; the raising path names the escape hatch.
+
+4. **78 of 93 minutes were glob time** — nine `**` patterns over ~130k mounted files. First fix: bounded-depth `(subdir, pattern)` + `os.scandir`. Result: 35.5s for the asset cell.
+
+5. **`Walk_p25_r12_v15_c06_pose3d.json` rejected** — anchored `_TSM_NAME` would have rejected the entire V1.2 archive and reported "0 files matched" (reads as an unattached dataset). Fix: optional `(?:_(?P<tag>...))?
+
+ group.
+
+6. **Untrimmed ids decorated three ways** — bare, bare, `results_..._lcrnet+v3d`. Fix: `parse_tsu_filename()` searches rather than full-matches, and refuses a filename containing two ids.
+
+7. **Notebook 04 ran the LEAKY split** — `charades-480p` wasn't attached, `P1 split: video-id (proxy)`, macro-F1 0.256 vs the real 0.128. Two hours of Blackwell wasted on unquotable numbers. **This was my fault** — I built the fallback with one printed warning line. Fix: P1 now **raises** with the fix named; `BS_ALLOW_VIDEO_SPLIT=1` overrides. The e2e harness now supplies a synthetic subject CSV.
+
+8. **`evaluation.md` said the fall head doesn't transfer — WRONG.** P2 was scoring the ADL ensemble's fall-class posterior while `runs/fall/best.pt` sat unloaded. Dual-column P2 revealed fall head 0.928–0.991 vs ADL ensemble 0.471–0.603. Corrected `evaluation.md` and the memory entry.
+
+9. **C5's regex tokenizer broke on "1,800"** (`ValueError: could not convert string to float: '1,800'`). Fix: hand-written character-walking tokenizer handling thousands separators, decimals and k/m suffixes.
+
+10. **5 verifier tests + test_v10 failed after C5** — fixtures didn't echo values in prose. Fixed the fixtures (the correct fix — the check is right).
+
+11. **`test_t15` absorbed the runner block** — an Edit consumed the `if __name__ == "__main__":` header, so the file ran and printed nothing with exit 0. Same failure mode as the earlier `test_n8` incident. Fixed by restoring the header.
+
+12. **`write("00_stage_assets_online.ipynb", N00)` accidentally deleted** by my N06 insertion — notebook 00 silently stopped being generated. Caught by grep, restored.
+
+13. **`TSM_FPS` was 30, containers report 20** — both probes said 20 fps; the i3d_smarthome README says 30. Fix: `TSM_FPS = 20.0` (measured) + `TSM_FPS_DOCUMENTED = 30.0`, and the extractor reads fps per file.
+
+14. **Span-set equality over-reported disagreement** — 82/536 "disagreeing" was mostly the JSON merging adjacent same-class spans. Fix: frame-level agreement in `cross_check_annotations`. Verified locally: pure split → 1.00000 / 0 cells; 140-frame boundary → 0.99931 / 140 cells; 4,500-frame → 0.99559.
+
+15. **Notebook 07 run 1 (542.9s, FAILED)**: `AssertionError: attach behaviorsense-toyota-meta` — but the user's screenshot showed it attached with `toyota_meta/`. Cause: Save Version nests the working directory, so files are at `<slug>/toyota_meta/`, and `find_dir("", ...)` only scanned the root. Fix: try `toyota_meta/` first, then root, and name both paths in the error.
+
+16. **The resolver cell still took 525s in notebook 07** — my "depth-bounded" globs were depth-bounded but not cost-bounded; `datasets/*/*/*/rtmo-l.onnx` makes pathlib scandir every slug child including the 16k skeleton root and MSMT17's 65k crops. Fix: mount-indexed `is_file()` stats with `_SLUGS` enumerated once; known prefixes `("", "EmotionSense-Extended/", "kaggle/working/")` × `("", "weights/")`.
+
+17. **A blind string replace would have corrupted notebook 01a** — its `_ann_csv = sorted(INPUT.glob("**/Charades_v1_train.csv"))` contains notebook 04's `_csv = sorted(...)` pattern as a substring. Caught by an assertion (`old4 count: 2`); did line-by-line edits instead.
+
+18. **MSMT17 (65,242 crops) is inside `behaviorsense-code`** — uploaded by the original `kaggle datasets create -p .`. Publisher now warns (not refuses — it stages an explicit subset, so refusing would block necessary work) and refuses only if a restricted path reaches the staged manifest.
+
+## 5. Problem Solving
+
+**Toyota Smarthome research** — identified the proven pipelines: untrimmed = `dairui01/Toyota_Smarthome` (I3D features + PDAN, **32.7% f-mAP CS**) and `dairui01/MS-TCT`; trimmed skeleton = `YangDi666/2s-AGCN-For-Daily-Living`; trimmed RGB = `srijandas07/i3d_smarthome` (which ships `models/rgb_SH_CS.pt`, I3D trained on Smarthome CS with **SSD person crops** — the same input shape our RTMO boxes produce).
+
+**The redesign** — retarget Agent 2 from Charades (actor-disjoint macro-F1 0.128) to Toyota (18 subjects aged 60–80, seven fixed cameras, real ADL taxonomy including `Take_pills`). Train fine, pool coarse. Append taxonomy ids 20–21 rather than renumbering (shards store only the coarse id, so re-partitioning 0–19 would need the ~6 h re-extraction). Toyota supervises 15 of 22 coarse classes; the other 7 must be masked.
+
+**Modality decisions** (answering "why not the other datasets") — serving parity is the principle: deployment is RGB → RTMO → 17-joint COCO 2D, so depth and 15-joint 3D skeletons can't be direct inputs. Three legitimate train-time roles ranked: V1.2 as QA reference (~2–3 h, do first); V1.2→COCO-17 as extra occlusion-robust windows (~1 day, gated on whether the first Toyota training shows starving tail classes); depth via privileged distillation (~2 days, cut for now). V1.1 is superseded by V1.2.
+
+**Qwen3.5-9B analysis** — exists (Feb 2026, Apache-2.0, hybrid Gated DeltaNet, 262K context, natively multimodal), but: 18 GB weights don't fit one 16 GB serving card; DeltaNet needs `causal_conv1d`/`fla` or it "silently falls back to slower and more memory-hungry" paths; needs `transformers>=5.2` under `outlines>=1.0`; multimodality weakens the pixel-boundary claim from structural to procedural; and the gain is on the wrong axis (verifier catches unfaithful claims regardless). Recommended keeping 2.5-7B as the measured baseline, trying 3.5-4B as an ablation, and routing Agent 4 through AgentRouter for the live demo.
+
+**Measured results (current, all reproduced):**
+- P1 actor-disjoint (35,698 val windows / 41 actors): ensemble 0.375 top-1 / 0.156 mean-class / 0.128 macro-F1; `bone` alone 0.324/0.187/**0.146**; `bone+joint`+τ0.25 mean-class **0.219**; T=0.63
+- Segments: argmax 1.86 frag, Viterbi 0.48, argmax+adj 3.32, Viterbi fitted+adj **0.62** (deployment choice, 0.194 mean-class)
+- Fall head: val AUPRC 0.822, sens 0.951 @ 0.99 FA/h, **held-out AUROC 0.928–0.991**
+- ADL-ensemble fall posterior: 0.471–0.603 (the thing that doesn't transfer)
+- Hallucination: **2.8% constrained / 3.7% free**, p=0.40; C1:1 C2:**0** C3:0 C4:6 **C5:9** (constrained) and 0/0/0/7/**13** (free) — counts sum exactly to the unfaithful totals
+- Toyota preflight: 536/536, 16,115/16,115, 41,343 rows, 53→51 names, frame agreement **mean 0.99889** / worst 0.97828 / 59 below 0.999 → train on the JSON; untrimmed 25 fps (delta +0 vs `duration`); trimmed 20 fps; `other_idle` = 0 frames; 32.8% mean unannotated gap
+
+## 6. All user messages
+
+1. (Session-opening continuation instruction to resume without acknowledging the summary.)
+2. `/compact` command output — "Compacted. Continue from where you left off."
+3. `/effort max`, then: "Continue / also i got reply from the owner of toyota smarthome dataset: Hello Parth, Thanks for your interest in our dataset... USERNAME: .... PASSWORD: ..... This authentication will expire automatically after 30 days. Here are the links for downloading the trimmed data - RGB data, Skeleton data (V1.1), Refined Skeleton data (V1.2), Depth data... untrimmed data: RGB, Pose, Depth, Annotation... **also we require our website to be capable of such that users can upload a downloaded video from a camera and cctv so that we can atleast show the project implementation to our project guides and external examiner. the website should have this: when a user uploads a video, it goes to agent 1: the website should show what agent 1 produced and display it on there, then shows that agent 1's output went to agent 2 and what it did should be displayed on the website too, similarly with agent 3 and agent 4. finally when the report is passed to c1 to c4, their individual outputs should be visible too for the user. there should be no compromises on accuracy** ... see if u can find the training pipeline actually used on toyota smarthome dataset previously if the code is publicly available (dont pickup any of the public available code, pick the one that is well known or is proved to be accurate), we have blackwell rtx pro 6000 96gb vram gpu, we have no excuses to compromise on accuracy ... **we are provided with all these datasets in the email, dont leave anything if it improves accuracy even by a tiny bit** ... **if needed redesign and make the changes in the entire workflow, make no accuracy compromisations, goal is to get maximum accuracy**"
+4. "[Request interrupted by user] Continue, also we have the msmt dataset in our repo too"
+5. "i will upload the datasets on kaggle as private: [the 8 download links] ... the last 3 links can be accessed by you, check these github links. **also remember our backend would be running on kaggle while our frontend is running locally or hosted somewhere, whenever we would need to run our project, we would run our backend notebook on kaggle and use an api or link or something to connect the backend and frontend so video processing requests are carried out on kaggle rather than locally, for inferencing since we would need internet we would have access to t4x2/p100 gpus and not blackwell rtx pro 6000 96gb vram one, however since the training can be carried out offline on kaggle in no internet environment, we still have access to the better 96gb gpu**"
+6. "wouldnt we have to retrain for toyota dataset, also shouldnt we use qwen 3.5 9b instead of qwen 2.5 7b?"
+7. `/model claude-opus-5[1m]`, then: "we can just split it on the t4x2 gpu (total 32gb vram) / also list the steps for me to do after redesigning the workflow to maximize accuracy according to your research"
+8. `/model claude-fable-5[1m]`, then: "check if this workflow can have any more accuracy improvements and implement them, no compromise on accuracy since we have a very good training gpu (blackwell rtx pro 6000 96gb)"
+9. "do whatever u want and just list what i have to run on kaggle and which notebook after you are done"
+10. "we are done with uploading all the datasets to kaggle / when running this cell with all datasets attached: [os.walk listing showing 9 mounts under krishnagupta02468] / what to do next"
+11. "should i reupload the behaviorsense-code first?"
+12. "what should be ran after updating it"
+13. "what datasets for 04?"
+14. "notebook06: Version 4 failed to run after 5602.0s ... ValueError: P02T01C06.csv line 4: 'Make_coffee.Get_water' is neither an integer class id nor one of the 51 known class names" [full log]
+15. "does notebook06 require rerunning"
+16. "noteboook06: Successfully ran in 939.7s [...] notebook04: Successfully ran in 6995.1s [...] P1 split: video-id (proxy)" [full logs]
+17. "Continue"
+18. `/model anthropic/stealth/ox-alpha[1m]`, then: "get the entire context from this chat"
+19. "why are we not using toyota smarthome datasets other than rgb trimmed and untrimmed"
+20. "Version 1 failed to run after 542.9s ... AssertionError: attach behaviorsense-toyota-meta (notebook 06's output). This notebook is OFFLINE and cannot fetch the annotations." [full log + screenshot showing `behaviorsense-toyota-meta / toyota_meta / {Action_list, manifest.json, smarthome_CS_51.json, smarthome_CV_51.json}`]
+21. "Continue from where you left off." (×2)
+22. "Continue"
+23. "i have attached both rgb trimmed and untrimmed"
+
+## 7. Pending Tasks
+
+1. **Re-upload `notebooks/07_toyota_extract_offline.ipynb`** to Kaggle (fresh copy — the previous one failed) and re-run in `MODE="trimmed"`, OFFLINE/Blackwell, ~2 h. Attach `behaviorsense-code`, `behavioursense-WW`, `behaviorsense-toyota-meta`, `toyota-smarthome-rgb` (user has now also attached `rgb-untrimmed`, which is harmless). Then **Save Version → private `behaviorsense-toyota-shards`**.
+2. Run 07 again in `MODE="untrimmed"`, `UNTRIMMED_SIDE="test"` (~3.5 h), attaching `behaviorsense-toyota-shards` for resume + `rgb-untrimmed`.
+3. **Write the Toyota training extension** (extended notebook 03) once the trimmed histogram is available: fine 31-class head + coarse 22 via `collapse_matrix`, partial-label masked loss, τ/T/Viterbi refit, with the **PDAN 32.7% f-mAP reproduction as a gate** before our own numbers count.
+4. **V1.2 skeleton QA comparison** (~2–3 h) after 07's output exists — measures how often RTMO fails, and on which activities.
+5. Deferred/conditional: V1.2→COCO-17 extra windows (gated on tail-class starvation in the first Toyota training); RT-DETR wired into `fuse_objects()` (biggest remaining lever — `taking_medication`/`watching_tv`/`using_phone` all pose-ambiguous, `rtdetr-l.onnx` already staged in `behavioursense-ww`); Charades `walking` starvation audit; update `behaviorsense-results` from notebook 04's output; Qwen3.5-4B ablation; depth privileged distillation; P3 staged→wild.
+
+## 8. Current Work
+
+Immediately before this summary request I had finished fixing both defects from notebook 07's first failed run and verified the whole suite green at **180/180 across 12 suites**.
+
+The two fixes:
+
+**(a) The META lookup** — notebook 07 asserted `behaviorsense-toyota-meta` wasn't attached when the user's screenshot proved it was. Save Version nests `/kaggle/working/`, so the files live at `<slug>/toyota_meta/`. Now:
+```python
+META, _ = find_dir("toyota_meta", "smarthome_CS_51.json")
+if META is None:
+    META, _ = find_dir("", "smarthome_CS_51.json")
+assert META is not None, (
+    "attach behaviorsense-toyota-meta (notebook 06's output). This notebook is OFFLINE "
+    "and cannot fetch the annotations. Looked for <mount>/toyota_meta/smarthome_CS_51.json "
+    f"and <mount>/smarthome_CS_51.json. Mounts: {[r.name for r in ROOTS]}")
+```
+
+**(b) The 525s resolver cell** — replaced fixed-depth globs with mount-indexed `is_file()` stats in the shared `RESOLVE_CODE` (so notebooks 01/03/04/06/07 all benefit), plus `find_charades_csv()` for notebooks 03/04 and a mount-indexed resume lookup in 07.
+
+I also added a regression pin to test N23:
+```python
+assert '_cand in (_slug / "shards"' in joined, (
+    "resume must stat <slug>/shards/ per mount instead of globbing across mounts")
+```
+
+Last verification run:
+```
+  Toyota Smarthome ingestion     21/21
+  Web /video contract              5/5
+  Notebook validation            35/35
+  Notebook 04 end-to-end           1/1
+180/180 individual tests passed across 12 suites — ALL SUITES PASSED
+```
+
+I also confirmed the web stack is fully C5-coherent end to end (`verifier.js` ports C5, `stages.js` renders five cells, `dev_backend.py` mirrors the tokenizer and emits `C5_prose_quoted_value`, notebook 05 emits it too, contract parity tests pass), and confirmed **no republish of `behaviorsense-code` is needed** — all this session's remaining changes live in notebook cells, which ship with the `.ipynb`.
+
+The user's final message, "i have attached both rgb trimmed and untrimmed", confirms they are set up to re-run notebook 07. Both mounts attached is harmless: `MODE="trimmed"` resolves `mp4/*_p##_r*_c##.mp4` and ignores `Videos_mp4/`, and having both means switching `MODE` later needs no re-attaching.
+
+## 9. Optional Next Step
+
+Confirm to the user that having both RGB mounts attached is correct and harmless, and restate the notebook 07 re-run instruction — this is the task in flight. From my most recent message:
+
+> "1. Take a fresh copy of `notebooks/07_toyota_extract_offline.ipynb` and upload it to Kaggle (replacing the failed one). 2. Same attachments as your failed run: `behaviorsense-code`, `behavioursense-WW`, `behaviorsense-toyota-meta`, `toyota-smarthome-rgb`. `MODE = "trimmed"`. 3. Run — OFFLINE, Blackwell, ~2 h."
+
+and
+
+> "Paste me the final histogram block — the fine-class support table is what decides whether the V1.2-skeleton extra-windows lever gets pulled before training, and it's the input I need to write the Toyota training extension."
+
+No code changes are required for this step; the notebook is regenerated, syntax-checked, import-checked and pinned by test N23. The next substantive build (the Toyota training extension in notebook 03) is gated on notebook 07's output histogram.
+
+If you need specific details from before compaction (like exact code snippets, error messages, or content you generated), read the full transcript at: C:\Users\Admin\.claude\projects\C--Users-Admin-Desktop-EmotionSense-Extended\71720001-d185-449b-bd4d-577467736beb.jsonl
+Continue the conversation from where it left off without asking the user any further questions. Resume directly — do not acknowledge the summary, do not recap what was happening, do not preface with "I'll continue" or similar. Pick up the last task as if the break never happened.
+
+
+[M01885] 2026-08-23T18:55:44.352Z ASSISTANT (conversation) [C101:1753; copies=2]
+Now the refactor — one shared mount index instead of two divergent copies.
+
+
+[M01886] 2026-08-23T18:56:38.085Z ASSISTANT (conversation) [C101:1765; copies=2]
+Now splice `RESOLVE` onto the same prelude so the two can't diverge again.
+
+
+[M01887] 2026-08-23T18:56:56.435Z ASSISTANT (conversation) [C101:1773; copies=2]
+Deleting the now-duplicated block inside `RESOLVE` (lines 292–376).
+
+
+[M01888] 2026-08-23T18:58:46.417Z USER (control) [C101:1816; copies=2]
+[Request interrupted by user for tool use]
+
+
+[M01889] 2026-08-23T19:00:34.213Z USER (conversation) [C035:1495; copies=5]
+Version 2 failed to run after 370.7s
+
+Accelerator
+
+GPU RTX Pro 6000
+
+
+
+Environment
+
+Latest Container Image
+
+
+
+Output
+
+0 B
+
+
+
+Time
+
+#
+
+Log Message
+
+4.3s	1	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+
+4.3s	2	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+
+4.3s	3	0.00s - to python to disable frozen modules.
+
+4.3s	4	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+
+4.6s	5	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+
+4.6s	6	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+
+4.6s	7	0.00s - to python to disable frozen modules.
+
+4.6s	8	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+
+6.5s	9	WARNING: Skipping onnxruntime as it is not installed.
+
+6.7s	10	WARNING: Skipping onnxruntime as it is not installed.
+
+6.7s	11	
+
+6.7s	12	WARNING: Skipping onnxruntime as it is not installed.
+
+7.0s	13	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+
+7.0s	14	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+
+7.0s	15	Installing collected packages: rtmlib
+
+7.0s	16	Successfully installed rtmlib-0.0.16
+
+7.2s	17	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+
+7.2s	18	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+
+7.2s	19	Installing collected packages: rtmlib
+
+7.2s	20	Successfully installed rtmlib-0.0.16
+
+7.5s	21	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+
+7.5s	22	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+
+7.7s	23	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+
+7.7s	24	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+
+10.7s	25	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+
+10.7s	26	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+
+10.7s	27	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+
+10.7s	28	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+
+10.7s	29	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+
+10.7s	30	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+
+10.9s	31	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+
+10.9s	32	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+
+10.9s	33	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+
+10.9s	34	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+
+10.9s	35	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+
+10.9s	36	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+
+11.5s	37	Installing collected packages: onnxruntime-gpu
+
+11.7s	38	Installing collected packages: onnxruntime-gpu
+
+14.0s	39	Successfully installed onnxruntime-gpu-1.26.0
+
+14.0s	40	Successfully installed onnxruntime-gpu-1.26.0
+
+14.0s	41	MODE=trimmed  FPS_SAMPLE=12.5  installed from /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+
+363.4s	42	  code /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+
+363.4s	43	  attached ["behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-toyota-meta (top level: ['toyota_meta'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "rgb-untrimmed (top level: ['Videos_mp4'])", "toyota-smarthome-rgb (top level: ['mp4'])", 'arc-prize-2026-arc-agi-3']
+
+363.4s	44	  contract 22/22 - mounted code is current
+
+363.6s	45	onnxruntime providers: ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
+
+367.2s	46	Traceback (most recent call last):
+
+367.2s	47	  File "<string>", line 1, in <module>
+
+367.2s	48	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 131, in execute_notebook
+
+367.2s	49	    raise_for_execution_errors(nb, output_path)
+
+367.2s	50	  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+
+367.2s	51	    raise error
+
+367.2s	52	papermill.exceptions.PapermillExecutionError: 
+
+367.2s	53	---------------------------------------------------------------------------
+
+367.2s	54	Exception encountered at "In [3]":
+
+367.2s	55	---------------------------------------------------------------------------
+
+367.2s	56	NameError                                 Traceback (most recent call last)
+
+367.2s	57	/tmp/ipykernel_65/3621224965.py in <cell line: 0>()
+
+367.2s	58	     45     VIDEO_DIR, N_VID = find_dir("Videos_mp4", "P*T*C*.mp4")
+
+367.2s	59	     46 assert VIDEO_DIR is not None, f"no {MODE} RGB mount. Mounts: {[r.name for r in ROOTS]}"
+
+367.2s	60	---> 47 RTMO_PATH = str(find_asset("**/rtmo-l.onnx", "rtmo"))
+
+367.2s	61	     48 print(f"meta   {META}")
+
+367.2s	62	     49 print(f"video  {VIDEO_DIR}  ({N_VID:,} files)")
+
+367.2s	63	
+
+367.2s	64	NameError: name 'find_asset' is not defined
+
+367.2s	65	
+
+368.3s	66	/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+
+368.3s	67	  cells[i][c] = re.sub('\\\\\|', '|', cell)
+
+368.4s	68	/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+
+368.4s	69	  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+
+368.7s	70	[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+
+368.8s	71	[NbConvertApp] Writing 40486 bytes to __notebook__.ipynb
+
+369.9s	72	[NbConvertApp] Converting notebook __notebook__.ipynb to html
+
+370.3s	73	[NbConvertApp] Writing 387950 bytes to __results__.html
+
+
+[M01890] 2026-08-23T19:25:54.186Z ASSISTANT (conversation) [C035:1552; copies=5]
+Fixed, and I've added the test that should have caught it. `181/181`.
+
+## What broke
+
+`NameError: name 'find_asset' is not defined` — and the cause is a mistake I made, not your setup.
+
+There are two resolver cells in the generator: `RESOLVE_CODE` (repo only — prints just `code`) and `RESOLVE` (repo **plus** wheels and weights — prints all three). I gave notebook 07 the *lighter* one, then had cell 3 call `find_asset`, which at that point only the fuller cell exported. Your log shows it exactly: one `code` line where notebooks 03/04 print three.
+
+Notebook 07 now uses `RESOLVE`, and the RTMO path comes from the `WEIGHTS` variable that cell already resolved — so the fragile second lookup is gone entirely rather than patched.
+
+**The 363s is also explained.** That was the old depth-bounded-glob resolver still in the uploaded file; the mount-indexed version wasn't in the notebook you ran. It's in this build.
+
+## The test gap, closed
+
+N23 only checked `behaviorsense.*` module attributes — it couldn't see notebook-level helpers. New **N24** does static name resolution across every notebook's cells in execution order: 10 helpers (`find_asset`, `find_dir`, `find_wheel_dir`, `sm120_ok`, …) and 9 resolved variables (`WEIGHTS`, `SRC`, `_SLUGS`, …) must each be defined by an earlier cell.
+
+It found one false positive on the first run — `RESOLVE_CODE`'s own comment contains the words `if not sm120_ok()` as prose about a past bug — so it now strips comments and string literals before scanning. And I ran a negative control: reintroducing the exact version-2 bug into a temp copy makes it fail with `cell 3: calls find_asset() before any cell defines it`. It catches the thing it was written for.
+
+## Run it again
+
+Re-upload `notebooks/07_toyota_extract_offline.ipynb` (fresh copy), same attachments, `MODE = "trimmed"`.
+
+The two lines that tell you within seconds whether this build is live:
+
+```
+  wheels   /kaggle/input/.../behavioursense-ww/wheels
+  weights  /kaggle/input/.../behavioursense-ww/weights
+  code     /kaggle/input/.../EmotionSense-Extended
+```
+
+**Three lines, not one** — that's `RESOLVE` instead of `RESOLVE_CODE`. And they should appear in **seconds**, not 363s. If you see one line, or a long pause, it's the old file.
+
+Then:
+```
+  meta   .../behaviorsense-toyota-meta/toyota_meta
+  video  .../toyota-smarthome-rgb/mp4  (16,115 files)
+  rtmo   .../behavioursense-ww/weights/rtmo-l.onnx
+16,115 clips in the 31-class space, 0 outside it or unparseable
+  500/16,115 clips, ... eta NN min
+```
+
+Two failed 6-minute sessions on resolver plumbing is two too many — that's what N24 is for, and it now runs in the local suite before anything reaches Kaggle.
+
+
+[M01891] 2026-08-23T19:34:39.060Z USER (conversation) [C035:1554; copies=5]
+going fine?
+Running for 463.9s
+Accelerator
+GPU RTX Pro 6000
+
+Environment
+Latest Container Image
+
+Output
+0 B
+
+Time
+#
+Log Message
+4.9s	0	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.9s	1	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.9s	2	0.00s - to python to disable frozen modules.
+4.9s	3	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+5.3s	4	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+5.3s	5	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+5.3s	6	0.00s - to python to disable frozen modules.
+5.3s	7	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+7.4s	8	WARNING: Skipping onnxruntime as it is not installed.
+7.6s	9	WARNING: Skipping onnxruntime as it is not installed.
+7.6s	10	
+7.6s	11	WARNING: Skipping onnxruntime as it is not installed.
+7.9s	12	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+8.0s	13	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+8.0s	14	Installing collected packages: rtmlib
+8.0s	15	Successfully installed rtmlib-0.0.16
+8.2s	16	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+8.2s	17	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+8.2s	18	Installing collected packages: rtmlib
+8.2s	19	Successfully installed rtmlib-0.0.16
+8.5s	20	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+8.5s	21	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+8.7s	22	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+8.7s	23	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+12.0s	24	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+12.0s	25	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+12.0s	26	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+12.0s	27	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+12.0s	28	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+12.0s	29	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+12.2s	30	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+12.2s	31	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+12.2s	32	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+12.2s	33	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+12.2s	34	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+12.2s	35	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+12.8s	36	Installing collected packages: onnxruntime-gpu
+13.0s	37	Installing collected packages: onnxruntime-gpu
+15.3s	38	Successfully installed onnxruntime-gpu-1.26.0
+15.4s	39	Successfully installed onnxruntime-gpu-1.26.0
+15.4s	40	MODE=trimmed  FPS_SAMPLE=12.5  installed from /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+15.5s	41	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+15.5s	42	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+15.5s	43	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+15.5s	44	  attached  ["behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-toyota-meta (top level: ['toyota_meta'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "rgb-untrimmed (top level: ['Videos_mp4'])", "toyota-smarthome-rgb (top level: ['mp4'])", 'arc-prize-2026-arc-agi-3']
+15.5s	45	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+15.6s	46	  contract 22/22 - mounted code is current
+15.8s	47	onnxruntime providers: ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
+4.9s	48	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+4.9s	49	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+4.9s	50	0.00s - to python to disable frozen modules.
+4.9s	51	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+5.3s	52	0.00s - Debugger warning: It seems that frozen modules are being used, which may
+5.3s	53	0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+5.3s	54	0.00s - to python to disable frozen modules.
+5.3s	55	0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+7.4s	56	WARNING: Skipping onnxruntime as it is not installed.
+7.6s	57	WARNING: Skipping onnxruntime as it is not installed.
+7.6s	58	
+7.6s	59	WARNING: Skipping onnxruntime as it is not installed.
+44.4s	60	[0;93m2026-08-23 19:27:38.144755177 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+44.4s	61	[0;93m2026-08-23 19:27:38.146445715 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+44.4s	62	[0;93m2026-08-23 19:27:38.146450095 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+44.6s	63	[0;93m2026-08-23 19:27:38.144755177 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+44.6s	64	[0;93m2026-08-23 19:27:38.146445715 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+44.6s	65	[0;93m2026-08-23 19:27:38.146450095 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+44.6s	66	
+44.6s	67	[0;93m2026-08-23 19:27:38.144755177 [W:onnxruntime:, transformer_memcpy.cc:111 ApplyImpl] 10 Memcpy nodes are added to the graph torch_jit for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+44.6s	68	[0;93m2026-08-23 19:27:38.146445715 [W:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+44.6s	69	[0;93m2026-08-23 19:27:38.146450095 [W:onnxruntime:, session_state.cc:1369 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+7.9s	70	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+8.0s	71	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+8.0s	72	Installing collected packages: rtmlib
+8.0s	73	Successfully installed rtmlib-0.0.16
+8.2s	74	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+8.2s	75	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/rtmlib-0.0.16-py3-none-any.whl
+8.2s	76	Installing collected packages: rtmlib
+8.2s	77	Successfully installed rtmlib-0.0.16
+8.5s	78	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+8.5s	79	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+8.7s	80	Looking in links: /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+8.7s	81	Processing /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels/onnxruntime_gpu-1.26.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+12.0s	82	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+12.0s	83	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+12.0s	84	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+12.0s	85	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+12.0s	86	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+12.0s	87	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+12.2s	88	Requirement already satisfied: opencv-python-headless in /usr/local/lib/python3.12/dist-packages (4.13.0.92)
+12.2s	89	Requirement already satisfied: PyYAML in /usr/local/lib/python3.12/dist-packages (6.0.3)
+12.2s	90	Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (25.12.19)
+12.2s	91	Requirement already satisfied: numpy>=1.21.6 in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (2.0.2)
+12.2s	92	Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (26.1)
+12.2s	93	Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime-gpu) (5.29.5)
+12.8s	94	Installing collected packages: onnxruntime-gpu
+13.0s	95	Installing collected packages: onnxruntime-gpu
+15.3s	96	Successfully installed onnxruntime-gpu-1.26.0
+15.4s	97	Successfully installed onnxruntime-gpu-1.26.0
+15.4s	98	MODE=trimmed  FPS_SAMPLE=12.5  installed from /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+15.5s	99	  wheels   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/wheels
+15.5s	100	  weights  /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights
+15.5s	101	  code     /kaggle/input/datasets/krishnagupta02468/behaviorsense-code/EmotionSense-Extended
+15.5s	102	  attached  ["behaviorsense-code (top level: ['EmotionSense-Extended'])", "behaviorsense-toyota-meta (top level: ['toyota_meta'])", "behavioursense-ww (top level: ['rtdetr-l.onnx', 'rtdetr-l.pt', 'weights', 'wheels'])", "rgb-untrimmed (top level: ['Videos_mp4'])", "toyota-smarthome-rgb (top level: ['mp4'])", 'arc-prize-2026-arc-agi-3']
+15.5s	103	NOTE: if you restart the kernel below, re-run from THIS cell - these names are what every later cell uses.
+15.6s	104	  contract 22/22 - mounted code is current
+15.8s	105	onnxruntime providers: ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
+41.7s	106	meta   /kaggle/input/datasets/krishnagupta02468/behaviorsense-toyota-meta/toyota_meta
+41.7s	107	video  /kaggle/input/datasets/krishnagupta02468/toyota-smarthome-rgb/mp4  (16,115 files)
+41.7s	108	rtmo   /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx
+41.9s	109	carried forward 0 shard(s), 0 clip(s) already extracted
+41.9s	110	16,115 clips in the 31-class space, 0 outside it or unparseable
+41.9s	111	16,115 to do this session
+44.6s	112	load /kaggle/input/datasets/krishnagupta02468/behavioursense-ww/weights/rtmo-l.onnx with onnxruntime backend
+
+
+[M01892] 2026-08-23T19:35:57.756Z ASSISTANT (conversation) [C035:1560; copies=5]
+Yes — going fine, and the fixes all landed. Two things to watch.
+
+## What the log confirms
+
+| | |
+|---|---|
+| resolver cell | **15.5s** (was 363–525s) — three lines, `contract 22/22` |
+| `meta` | `behaviorsense-toyota-meta/toyota_meta` ✓ the nesting fix worked |
+| `rtmo` | resolved from `WEIGHTS`, no `find_asset` call ✓ |
+| filename parsing | **16,115 clips in the 31-class space, 0 outside it or unparseable** |
+| RTMO | loaded on CUDA at 44.6s |
+
+That "0 unparseable" line is a strong result in itself: `parse_tsm_name` and `TSM_TO_COARSE` both hold against all 16,115 real filenames, not just the four I tested locally. The onnxruntime memcpy warnings are normal for RTMO's ONNX graph — CUDA is in use.
+
+## Watch the first progress line
+
+It prints at clip 500, and two numbers on it matter.
+
+**`n_empty` — this is the one I'd check first.** The trimmed containers are 20 fps, so `step = round(20/12.5) = 2`, giving an effective **10 Hz** — not the 12.5 I documented (you can't hit 12.5 from 20 with integer striding; it's 20 or 10). At 10 Hz a 30-frame window spans **3.0 s**, so **a clip needs ≥3.0 s of source to yield even one window.** Your own preflight showed `Sitdown_p20_r07_v09_c01.mp4` at 53 frames = 2.65 s — that clip gets dropped.
+
+Which means the short-transition classes (`Sitdown`, `Getup`, `Drink.From*`) are the ones at risk of being starved, and those are exactly the classes Charades already starved. If `n_empty` is more than ~15% of clips seen, the fix is one line — `FPS_SAMPLE = 20` gives `step = 1`, a 1.5 s minimum clip, and recovers them. Cost of restarting is only the ~8 minutes already spent.
+
+**Timing.** No progress line at 464s means under 500 clips in ~420s of extraction, so >0.84 s/clip → **~3.75 h** rather than the ~2 h I estimated. Still comfortably inside a 12 h session; my estimate assumed more frames/sec than RTMO-l is actually giving on 640×640 input.
+
+So: let it reach clip 500, then send me that one line. If `n_empty` is small, let it run to completion and Save Version. If it's large, kill it — I'll flip `FPS_SAMPLE` to 20 and you lose eight minutes rather than four hours of windows skewed away from the transition classes.

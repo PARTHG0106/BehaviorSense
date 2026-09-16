@@ -210,7 +210,12 @@ class ActivitySegment(BaseModel):
     segment_id: str
     track_id: int = Field(ge=0)
     role: Role
-    activity_id: int = Field(ge=0, le=19)
+    # Upper bound is 21, not 19: taxonomy v1.1 appends `using_device` (20) and
+    # `object_interaction` (21), which only the Toyota mapping emits. A 20-class Charades model
+    # can never produce them, so nothing loosens for the existing path - but a 22-class model
+    # would have every segment rejected by validation, three minutes into a served demo, for a
+    # class its own taxonomy defines. See agents.activity.EXTENDED_CLASS_NAMES.
+    activity_id: int = Field(ge=0, le=21)
     activity_name: str
     start_time: datetime
     end_time: datetime
@@ -536,6 +541,10 @@ class VerificationResult(BaseModel):
     value_matches: bool
     pct_matches: bool
     direction_consistent: bool
+    prose_quoted_value: bool = True
+    """C5: does the claim text echo the quoted number numerically? Defaults True so a
+    verifier built before C5 was added still reports a faithful verdict; the new check
+    sets it to False when text is inconsistent with `claimed_value`."""
     notes: list[str] = Field(default_factory=list)
 
     @property
@@ -545,6 +554,7 @@ class VerificationResult(BaseModel):
             and self.value_matches
             and self.pct_matches
             and self.direction_consistent
+            and self.prose_quoted_value
         )
 
 

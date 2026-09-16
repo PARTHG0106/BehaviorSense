@@ -115,7 +115,10 @@ def test_v0_index_and_ground_truth() -> None:
 def test_v1_faithful_claim_passes() -> None:
     claim = Claim(
         claim_id="c1",
-        text="Walking time decreased compared with the two-week baseline.",
+        text=(
+            f"Walking duration fell to {TRUE_EV.observed_value:g} s "
+            f"compared with a baseline of {TRUE_EV.baseline_median:g} s."
+        ),
         evidence_ref=WALK_REF,
         claimed_value=TRUE_EV.observed_value,
         claimed_pct_change=TRUE_EV.pct_change,
@@ -190,7 +193,10 @@ def test_v4_invented_value_caught() -> None:
 def test_v5_wrong_percentage_caught() -> None:
     claim = Claim(
         claim_id="c5",
-        text="Walking time decreased by roughly 12%.",
+        text=(
+            f"Walking time fell to {TRUE_EV.observed_value:g} s, "
+            "decreased by roughly 12%."
+        ),
         evidence_ref=WALK_REF,
         claimed_value=TRUE_EV.observed_value,
         claimed_pct_change=-12.0,  # actual ~ -50%
@@ -209,7 +215,10 @@ def test_v6_inverted_direction_caught() -> None:
     """
     claim = Claim(
         claim_id="c6",
-        text="Walking time improved, rising well above the usual level.",
+        text=(
+            f"Walking time improved to {TRUE_EV.observed_value:g} s, rising well above "
+            "the usual level."
+        ),
         evidence_ref=WALK_REF,
         claimed_value=TRUE_EV.observed_value,       # correct
         claimed_pct_change=abs(TRUE_EV.pct_change), # correct magnitude, wrong sign
@@ -228,7 +237,10 @@ def test_v7_prose_contradicts_field() -> None:
     """Structured field right, prose wrong - internally inconsistent output."""
     claim = Claim(
         claim_id="c7",
-        text="Mobility has clearly increased and the resident is more active.",
+        text=(
+            f"Mobility has clearly increased to {TRUE_EV.observed_value:g} s and the "
+            "resident is more active."
+        ),
         evidence_ref=WALK_REF,
         claimed_value=TRUE_EV.observed_value,
         direction="decrease",  # field correct, prose contradicts it
@@ -272,13 +284,17 @@ def test_v9_rounding_tolerated() -> None:
 def test_v10_corpus_metric() -> None:
     """Hallucination rate over a mixed batch, plus the failure breakdown."""
     claims = [
-        Claim(claim_id="k1", text="Walking decreased.", evidence_ref=WALK_REF,
+        Claim(claim_id="k1", text=f"Walking decreased to {900}.",
+              evidence_ref=WALK_REF,
               claimed_value=900.0, direction="decrease"),
-        Claim(claim_id="k2", text="Walking decreased by half.", evidence_ref=WALK_REF,
+        Claim(claim_id="k2", text=f"Walking dropped to {900} s, half the usual level.",
+              evidence_ref=WALK_REF,
+              claimed_value=900.0,
               claimed_pct_change=TRUE_EV.pct_change, direction="decrease"),
         Claim(claim_id="k3", text="Bathing decreased.",
               evidence_ref=f"feat:bathing_duration_s:{DAY_STR}", direction="decrease"),
-        Claim(claim_id="k4", text="Walking rose sharply.", evidence_ref=WALK_REF,
+        Claim(claim_id="k4", text=f"Walking rose sharply to {900}.",
+              evidence_ref=WALK_REF,
               claimed_value=900.0, direction="increase"),
         Claim(claim_id="k5", text="Walking decreased to 1600s.", evidence_ref=WALK_REF,
               claimed_value=1600.0, direction="decrease"),
@@ -321,6 +337,115 @@ def test_v11_unconstrained_baseline_scoring() -> None:
     report = strict.verify_all(claims, STATE)
     print(f"  V11 vague-but-referenced claim: faithful={report.n_faithful}/1 "
           f"(prose 'less active' matches actual decrease)")
+
+
+def test_v12_prose_quoted_value_caught() -> None:
+    """C5: prose and `claimed_value` must agree numerically.
+
+    The dangerous mode for a caregiver: the row is right, the prose says something
+    different. C2 already passes (the value matches) - the inconsistency hides behind
+    the formal field, and the human reader walks away with the prose.
+    """
+    claim = Claim(
+        claim_id="c12",
+        text="Walking fell to 1800 seconds today.",
+        evidence_ref=WALK_REF,
+        claimed_value=TRUE_EV.observed_value,   # 900, not 1800
+        direction="decrease",
+    )
+    r = VERIFIER.verify_claim(claim, INDEX)
+    assert r.ref_exists and r.value_matches and not r.prose_quoted_value, (
+        "C5 should fail when prose says 1800 and claimed_value is 900")
+    assert not r.is_faithful
+    print(f"  V12 prose-row mismatch caught (prose 1800 vs claimed "
+          f"{TRUE_EV.observed_value:g}): {r.notes[-1]}")
+
+
+def test_v13_prose_quoted_value_tolerates_formatting() -> None:
+    """Forgiving numeric comparison: commas, units, trailing punctuation.
+
+    A caregiver says "1,800 s" or "1800.0s". A 2% relative tolerance absorbs both. The
+    check must not over-reject a faithful sentence.
+    """
+    for text in (
+        "Walking dropped to 1800 seconds.",
+        "Walking time, 1800.0 s, is below usual.",
+        "Went down to 1,800 seconds today.",
+    ):
+        claim = Claim(
+            claim_id=f"c-{hash(text) & 0xffff}",
+            text=text,
+            evidence_ref=WALK_REF,
+            claimed_value=1800.0,
+            direction="decrease",
+        )
+        r = VERIFIER.verify_claim(claim, INDEX)
+        assert r.prose_quoted_value, f"over-rejected {text!r}: {r.notes}"
+    print("  V13 C5 tolerates commas, units, and trailing punctuation")
+
+
+def test_v14_prose_quoted_value_skipped_when_no_value() -> None:
+    """A claim with `claimed_value=None` has nothing to echo. C5 must be vacuous.
+
+    Otherwise a sentence with no numeric claim becomes a free failure, which is the same
+    trap C2 sets up against itself.
+    """
+    claim = Claim(
+        claim_id="c14",
+        text="No particular activity to report today.",
+        evidence_ref=WALK_REF,
+        claimed_value=None,
+        direction="unchanged",
+    )
+    r = VERIFIER.verify_claim(claim, INDEX)
+    assert r.prose_quoted_value, "C5 must not reject a claim with no claimed_value"
+    assert "no prose_quoted_value" not in " ".join(r.notes).lower()
+    print("  V14 C5 vacuous when claimed_value is None")
+
+
+def test_v15_c5_can_be_disabled_for_fixtures() -> None:
+    """`require_prose_quoted_value=False` is for fixtures that intentionally don't echo.
+
+    The deployment default is ON, and the disabling path is tested so a future fixture that
+    quotes a value-free claim (e.g. a system prompt audit) can opt out cleanly.
+    """
+    cfg = VerifierConfig(require_prose_quoted_value=False)
+    lenient = FaithfulnessVerifier(cfg)
+    claim = Claim(
+        claim_id="c15",
+        text="Walking fell dramatically today.",   # no number, prose
+        evidence_ref=WALK_REF,
+        claimed_value=TRUE_EV.observed_value,       # 900
+        direction="decrease",
+    )
+    r = lenient.verify_claim(claim, INDEX)
+    assert r.prose_quoted_value, "C5 must be vacuous when disabled"
+    print("  V15 C5 disabled path is honored when fixture asks for it")
+
+
+def test_v16_failure_breakdown_counts_prose() -> None:
+    """The report's `failure_breakdown` exposes C5 separately, not as part of C2.
+
+    A combined counter would make C2 look worse than it is (it already catches most
+    misquotes) and C5 invisible. Each check has its own column in the error breakdown.
+    """
+    claims = [
+        Claim(claim_id="p1", text=f"Walking fell to {TRUE_EV.observed_value:g}.",
+              evidence_ref=WALK_REF, claimed_value=TRUE_EV.observed_value,
+              direction="decrease"),
+        Claim(claim_id="p2", text="Walking fell to 1800 seconds.",  # prose mismatch
+              evidence_ref=WALK_REF, claimed_value=TRUE_EV.observed_value,
+              direction="decrease"),
+        Claim(claim_id="p3", text=f"Walking fell to {TRUE_EV.observed_value:g}.",
+              evidence_ref=WALK_REF, claimed_value=1600.0, direction="decrease"),
+    ]
+    report = VERIFIER.verify_all(claims, STATE)
+    breakdown = report.failure_breakdown()
+    assert breakdown["prose_quoted_value_mismatch"] == 1, breakdown
+    assert breakdown["value_mismatch"] == 1, breakdown
+    assert breakdown["missing_or_bad_ref"] == 0
+    print(f"  V16 breakdown keys include prose=1, value=1 separately: "
+          f"{sorted(breakdown.items())}")
 
 
 if __name__ == "__main__":

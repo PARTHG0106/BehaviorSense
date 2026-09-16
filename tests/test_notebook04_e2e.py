@@ -88,6 +88,25 @@ def save_ckpt(path: Path, stream: str, seed: int) -> None:
     )
 
 
+def save_fall_ckpt(path: Path, stream: str = "joint", seed: int = 50) -> None:
+    """A `FallHead`-shaped checkpoint: STGCNpp(n_classes=1) under a `net.` prefix.
+
+    The harness must exercise the fall-head branch of P2, not just the ADL-ensemble one.
+    Without this fixture that branch printed "no runs/fall/best.pt" and reported `nan`,
+    which is a pass that proves nothing - the exact pattern that let three notebook-04
+    defects reach Kaggle.
+    """
+    torch.manual_seed(seed)
+    inner = STGCNpp(n_classes=1)
+    state = {f"net.{k}": v for k, v in inner.state_dict().items()}
+    path.parent.mkdir(parents=True, exist_ok=True)
+    torch.save(
+        {"model": state, "ema": state, "epoch": 59, "global_step": 100, "best": 0.822,
+         "args": {"stream": stream, "epochs": 60, "smoke": False}, "metrics": {}},
+        path,
+    )
+
+
 def build_input_tree(root: Path) -> None:
     """The Kaggle mount layout: /kaggle/input/datasets/<owner>/<name>/..."""
     ds = root / "datasets" / "someowner"
@@ -105,6 +124,8 @@ def build_input_tree(root: Path) -> None:
     for i, stream in enumerate(("joint", "bone", "joint_motion", "bone_motion")):
         save_ckpt(runs / f"adl_{stream}" / "best.pt", stream, seed=i)
         save_ckpt(runs / f"adl_{stream}" / "last.pt", stream, seed=i)
+    save_fall_ckpt(runs / "fall" / "best.pt")
+    save_fall_ckpt(runs / "fall" / "last.pt")
 
     # The code dataset must be a REAL copy of the checkout, not a stub: the resolver cell
     # enforces the repo contract, so a fixture holding only __init__.py is correctly
@@ -119,6 +140,22 @@ def build_input_tree(root: Path) -> None:
     save_ckpt(code / "runs" / "adl" / "last.pt", "joint", seed=99)
     make_shard(code / "data" / "shards" / "_smoke_fall.npz", n=20, seed=99,
                datasets=["smoke"], fall_frac=0.5)
+
+    # `charades-480p` carries Charades_v1_train.csv, and notebook 04 now REFUSES to run P1
+    # without it rather than falling back to the video-id split. That refusal exists because
+    # a real session fell back silently and produced macro-F1 0.256 against the recorded
+    # actor-disjoint 0.128 - two hours of Blackwell time for unquotable numbers.
+    #
+    # So the harness supplies it, which also means this test exercises the PROTOCOL OF
+    # RECORD instead of the leaky one. Ten videos per actor over the 40 shard video ids
+    # gives 4 actors, enough for a non-degenerate 20% split.
+    c480 = ds / "charades-480p"
+    c480.mkdir(parents=True, exist_ok=True)
+    rows = ["id,subject,scene,quality,relevance,verified,script,objects,descriptions,"
+            "actions,length"]
+    for i in range(40):
+        rows.append(f"v{i:03d},A{i // 10:02d},Kitchen,,,,,,,,10.0")
+    (c480 / "Charades_v1_train.csv").write_text("\n".join(rows) + "\n", encoding="utf-8")
 
     ww = ds / "behavioursense-ww"
     (ww / "weights").mkdir(parents=True)
@@ -189,10 +226,31 @@ def main() -> int:
             # The cells printed their own tables above; assert the load-bearing names
             # exist so a cell that silently no-ops cannot pass.
             for name in ("ADL", "clf", "X", "y", "ens_logits", "T",
-                         "P1_ROWS", "P2_ROWS", "ABLATION_ROWS"):
+                         "P1_ROWS", "P2_ROWS", "ABLATION_ROWS", "LEVERS", "SEGMENT_ROWS"):
                 assert name in ns, f"cell ran but never bound {name!r}"
             assert ns["X"].shape[1:] == (30, 2, 17, 3), ns["X"].shape
             assert ns["ens_logits"].shape[1] == N_CLASSES
+            # The levers cell must actually measure several configurations, not just echo
+            # the headline: a version that appended one row would look like it ran.
+            assert len(ns["LEVERS"]) >= 7, f"only {len(ns['LEVERS'])} lever rows"
+            assert any("TTA" in r[0] for r in ns["LEVERS"]), "TTA row missing"
+            assert any("logit-adjust" in r[0] for r in ns["LEVERS"]), "logit-adjust missing"
+            assert any("second-person" in r[0] or "2nd-person" in r[0]
+                       for r in ns["LEVERS"]), "second-person context row missing"
+            assert len(ns["SEGMENT_ROWS"]) >= 4, ns["SEGMENT_ROWS"]
+            seg_labels = [r[0] for r in ns["SEGMENT_ROWS"]]
+            assert any("hand-set" in s for s in seg_labels), seg_labels
+            assert any("fitted" in s for s in seg_labels), seg_labels
+            assert any("logit-adjust" in s for s in seg_labels), seg_labels
+            # And the saved logits must be re-scorable: this is the artefact that turns
+            # every future accuracy experiment into a CPU job.
+            npz = results / "val_logits.npz"
+            assert npz.is_file(), f"P1 cell wrote no val_logits.npz into {results}"
+            with np.load(npz) as z:
+                streams = [k for k in z.files if k.startswith("logits_")]
+                assert "logits_ensemble" in streams
+                assert len(streams) >= 5, f"only {streams} saved"
+                assert z["y"].shape[0] == ns["ens_logits"].shape[0]
 
             # A written file, with the numbers in it. Globbing for *.md would pass on an
             # empty directory, which is exactly how the old bundler reported success
@@ -201,12 +259,22 @@ def main() -> int:
             assert report.is_file(), f"bundling cell wrote no evaluation.md into {results}"
             text = report.read_text(encoding="utf-8")
             for needle in ("# P1", "## Calibration", "## P2", "## Ablation",
+                           "## Accuracy levers", "## Segment-level accuracy",
                            "ENSEMBLE", "logit-average"):
                 assert needle in text, f"evaluation.md is missing {needle!r}"
             # Every P2 fold must appear by name: a table that silently drops a corpus
-            # looks complete and is not.
+            # looks complete and is not. And the fall-head column must be REAL, not nan -
+            # the branch that loads runs/fall/best.pt is the one the 0.822 AUPRC and the
+            # 0.951-sensitivity operating point actually belong to.
             for held, *_ in ns["P2_ROWS"]:
                 assert held in text, f"P2 fold {held!r} missing from evaluation.md"
+            assert all(len(r) == 5 for r in ns["P2_ROWS"]), ns["P2_ROWS"][:1]
+            head_col = [r[4] for r in ns["P2_ROWS"]]
+            assert all(v == v for v in head_col), (
+                f"fall-head AUROC is nan for {sum(v != v for v in head_col)} fold(s) - the "
+                "dedicated head was not loaded, so P2 is scoring only the ADL ensemble "
+                "while the write-up attributes its numbers to the fall head"
+            )
         except AssertionError as exc:
             print(f"\n  FAIL: {exc}")
             print("\n0/1 passed")

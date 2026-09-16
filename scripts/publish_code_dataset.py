@@ -47,6 +47,30 @@ INCLUDE = ("src", "scripts", "configs", "weights")
 EXCLUDE_DIRS = {"__pycache__", ".git", ".venv", ".pytest_cache", "runs", "shards"}
 EXCLUDE_SUFFIX = {".pyc", ".pyo", ".npz", ".db", ".log"}
 
+# Licence-restricted corpora that must never reach a Kaggle dataset through this script.
+# `INCLUDE` already makes that structurally true - only src/scripts/configs/weights are
+# staged - so this check is about a different failure: the dataset was FIRST created with
+# `kaggle datasets create -p .`, which uploads the working tree verbatim, and
+# `behaviorsense-code` consequently carries MSMT17's 65,242 person crops to this day.
+#
+# The cost was not only the licence. Notebook 06's first run spent 78 minutes resolving
+# mounts because every `**` glob descended through those 65k files, then died on a parse
+# error it could have reached in seconds. So this refuses to publish while a restricted
+# corpus sits at the repo root, and names the fix.
+RESTRICTED_AT_ROOT = ("MSMT17", "Market-1501", "Charades_v1_480", "Toyota_Smarthome",
+                      "Annotation", "Le2i", "CAUCAFall", "URFD")
+
+
+def check_no_restricted_corpora() -> list[str]:
+    """Directories at the repo root that must not be published. Empty list = safe."""
+    found = []
+    for name in RESTRICTED_AT_ROOT:
+        for candidate in ROOT.glob(f"{name}*"):
+            if candidate.is_dir():
+                n = sum(1 for _ in candidate.rglob("*"))
+                found.append(f"{candidate.name}/ ({n:,} entries)")
+    return found
+
 
 def is_fixture(path: Path) -> bool:
     """Synthetic test DATA, by this repo's naming convention.
@@ -96,6 +120,29 @@ def main() -> int:
               "(see docs/07_kaggle_plan.md Step 0)")
         return 1
 
+    restricted = check_no_restricted_corpora()
+    if restricted:
+        # WARN, not refuse. This script stages only src/scripts/configs/weights, so an
+        # upload through it is safe by construction - refusing here would block a necessary
+        # publish to guard against a danger this path does not have, and a tool that blocks
+        # safe work is a tool people route around.
+        #
+        # The real danger is the OTHER path: `kaggle datasets create -p .` and
+        # `kaggle datasets version -p .` upload the working tree verbatim, and
+        # .kaggleignore is not read by the Kaggle CLI. That is how behaviorsense-code came
+        # to carry MSMT17's 65,242 crops, which cost notebook 06 seventy-eight minutes of
+        # glob time before it reached a parse error. The staged manifest is checked below.
+        print("WARNING - licence-restricted corpora are in the working tree:")
+        for r in restricted:
+            print(f"  {r}")
+        print("  This script will NOT upload them (it stages an explicit subset), but")
+        print("  `kaggle datasets version -p .` would. Never run that in this repo.")
+        print("  Moving MSMT17 out also removes it from every notebook's glob path:")
+        print("    mv MSMT17 ../corpora/")
+        print("  Nothing reads it from here - the ReID operating point is already fitted")
+        print("  and committed in results/reid_eval.md.")
+        print()
+
     with tempfile.TemporaryDirectory() as td:
         dest = Path(td)
         manifest = stage(dest)
@@ -126,6 +173,17 @@ def main() -> int:
                 print(f"  {m}")
             return 1
         print("  contract: all tokens present in the staged copy")
+
+        # The staged manifest is where a restricted path would actually do harm, so this is
+        # the check that refuses rather than warns.
+        leaked = [rel for rel, _ in manifest
+                  if any(rel.startswith(n) or f"/{n}" in rel for n in RESTRICTED_AT_ROOT)]
+        if leaked:
+            print(f"\nREFUSING: {len(leaked)} restricted file(s) reached the STAGED copy:")
+            for rel in leaked[:8]:
+                print(f"  {rel}")
+            return 1
+        print(f"  licence: no restricted path in the {len(manifest)} staged files")
 
         # And prove the leak that motivated this cannot recur.
         leaked = [r for r, _ in manifest
