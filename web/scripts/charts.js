@@ -63,45 +63,58 @@ function barPath(x0, x1, y, h, r = 4) {
     + `V${y + h - rad} A${rad} ${rad} 0 0 1 ${x0 + w - rad} ${y + h} H${x0} Z`;
 }
 
-/** Leave-one-corpus-out AUROC. One measure, one hue, chance marked. */
+/** Source-stratified AUROC, two models per corpus. Source groups include training
+ *  windows for the dedicated fall head, so neither column is a held-out transfer
+ *  estimate. The point of the figure is the gap, which is what the two-model design
+ *  rests on: the 20-class ADL ensemble's fall-class posterior sits below chance on
+ *  one corpus, the dedicated binary head does not. */
 export function drawLodo(mount) {
   const data = [
-    { label: "CAUCAFall", value: 0.734, n: 1159 },
-    { label: "URFD", value: 0.722, n: 239 },
-    { label: "Le2i", value: 0.586, n: 752 },
-    { label: "GMDCSA", value: 0.545, n: 914 },
+    { label: "CAUCAFall", n: 1159, adl: 0.603, head: 0.970 },
+    { label: "GMDCSA",    n: 914,  adl: 0.471, head: 0.928 },
+    { label: "Le2i",      n: 752,  adl: 0.571, head: 0.989 },
+    { label: "URFD",      n: 239,  adl: 0.560, head: 0.991 },
   ];
-  const W = 760, rowH = 42, padL = 104, padR = 92, padT = 10;
-  const H = padT + data.length * rowH + 30;
-  const lo = 0.4, hi = 0.8;
+  const W = 980, rowH = 50, padL = 104, padR = 96, padT = 10;
+  const H = padT + data.length * rowH + 70;
+  const lo = 0.4, hi = 1.0;
   const x = (v) => padL + ((v - lo) / (hi - lo)) * (W - padL - padR);
+  const barH = 14;
+  const gap = 4;
 
   const svg = el("svg", {
     class: "plot", viewBox: `0 0 ${W} ${H}`, role: "img",
-    "aria-label": "AUROC by held-out corpus: CAUCAFall 0.734, URFD 0.722, Le2i 0.586, GMDCSA 0.545. Chance is 0.5.",
+    "aria-label": "Source-stratified AUROC, both models. Dedicated fall head: CAUCAFall 0.970, GMDCSA 0.928, Le2i 0.989, URFD 0.991. 20-class ADL ensemble fall posterior: CAUCAFall 0.603, GMDCSA 0.471, Le2i 0.571, URFD 0.560. Chance is 0.50.",
   });
 
   data.forEach((d, i) => {
-    const y = padT + i * rowH;
+    const y = padT + i * rowH + 6;
     const g = el("g", { class: "plot__row" });
-    const name = el("text", { class: "plot__label", x: padL - 14, y: y + rowH / 2 + 4, "text-anchor": "end" });
+    const name = el("text", { class: "plot__label", x: padL - 14, y: y + rowH / 2 - 2, "text-anchor": "end" });
     name.textContent = d.label;
     g.append(name);
-    g.append(el("path", { class: "plot__bar", d: barPath(padL, x(d.value), y + 11, rowH - 22) }));
-    const value = el("text", { class: "plot__value", x: x(d.value) + 12, y: y + rowH / 2 + 4 });
-    value.textContent = `${d.value.toFixed(3)}`;
-    g.append(value);
+
+    // ADL-ensemble bar (top): shorter, hollow-toned.
+    g.append(el("path", { class: "plot__bar plot__bar--adl", d: barPath(padL, x(d.adl), y + 4, barH) }));
+    const adlVal = el("text", { class: "plot__value", x: x(d.adl) + 8, y: y + 4 + barH - 2 });
+    adlVal.textContent = `${d.adl.toFixed(3)}`;
+    g.append(adlVal);
+
+    // Dedicated fall head bar (bottom): the long one — same model as the AUPRC headline.
+    g.append(el("path", { class: "plot__bar", d: barPath(padL, x(d.head), y + 4 + barH + gap, barH) }));
+    const headVal = el("text", { class: "plot__value", x: x(d.head) + 8, y: y + 4 + 2 * barH + gap - 2 });
+    headVal.textContent = `${d.head.toFixed(3)}`;
+    g.append(headVal);
+
     const count = el("text", {
-      class: "plot__label", x: W - 6, y: y + rowH / 2 + 4, "text-anchor": "end",
+      class: "plot__label", x: W - 6, y: y + rowH / 2 - 2, "text-anchor": "end",
     });
     count.textContent = `${d.n.toLocaleString("en-GB")} windows`;
     g.append(count);
     svg.append(g);
   });
 
-  // Chance is drawn LAST, over the bars, with a surface-coloured halo behind the
-  // stroke. Drawn first it disappeared under every bar that crosses 0.5 — which is
-  // most of them, and they are exactly the ones the line is there to qualify.
+  // Chance line.
   const cx = x(0.5);
   const y2 = padT + data.length * rowH;
   svg.append(el("line", { class: "plot__gap", x1: cx, y1: padT, x2: cx, y2 }));
@@ -111,6 +124,20 @@ export function drawLodo(mount) {
   });
   chanceLabel.textContent = "chance 0.50";
   svg.append(chanceLabel);
+
+  // Legend on its own line, below the chance label, so the two don't collide.
+  // Both swatches sit on the left so neither label can fall outside the viewBox.
+  const legendY = y2 + 44;
+  const swatch1 = el("rect", { class: "plot__swatch plot__swatch--adl", x: padL, y: legendY - 8, width: 12, height: 12, rx: 2 });
+  svg.append(swatch1);
+  const leg1 = el("text", { class: "plot__label", x: padL + 20, y: legendY + 2, "text-anchor": "start" });
+  leg1.textContent = "ADL ensemble (fall posterior)";
+  svg.append(leg1);
+  const swatch2 = el("rect", { class: "plot__swatch", x: padL + 230, y: legendY - 8, width: 12, height: 12, rx: 2 });
+  svg.append(swatch2);
+  const leg2 = el("text", { class: "plot__label", x: padL + 250, y: legendY + 2, "text-anchor": "start" });
+  leg2.textContent = "Dedicated fall head";
+  svg.append(leg2);
 
   mount.replaceChildren(svg);
 }

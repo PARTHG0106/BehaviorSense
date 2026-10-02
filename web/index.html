@@ -8,9 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles/tokens.css?v=2026-09-13g">
-<link rel="stylesheet" href="styles/base.css?v=2026-09-13g">
-<link rel="stylesheet" href="styles/components.css?v=2026-09-13g">
+<link rel="stylesheet" href="styles/tokens.css?v=2026-10-02a">
+<link rel="stylesheet" href="styles/base.css?v=2026-10-02a">
+<link rel="stylesheet" href="styles/components.css?v=2026-10-02a">
 </head>
 <body>
 <a class="skip" href="#ledger">Skip to the report</a>
@@ -304,12 +304,15 @@
         <ul class="readout__rows">
           <li><span>Sensitivity</span><b>0.951</b></li>
           <li><span>False alarms</span><b>0.99 / hour</b></li>
-          <li><span>Held-out AUROC, 4 unseen corpora</span><b>0.928&ndash;0.991</b></li>
+          <li><span>Source-stratified AUROC, 4 corpora</span><b>0.928&ndash;0.991</b></li>
         </ul>
         <p class="readout__note">AUPRC, not AUROC &mdash; at a 0.49% positive rate AUROC
-          flatters. The held-out range is the dedicated fall head scoring corpora it never
-          saw; the 20-class activity ensemble&rsquo;s own fall posterior sits at
-          0.47&ndash;0.60 on the same folds, which is why the two-model design exists.</p>
+          flatters. The 0.928&ndash;0.991 range is one binary checkpoint scored on each
+          source&rsquo;s shards, which include training windows; it is <em>not</em> a
+          leave-one-corpus-out transfer estimate, and the fitted operating point has not
+          been validated on an unseen recording setup. The 20-class activity
+          ensemble&rsquo;s own fall posterior sits at 0.47&ndash;0.60 on the same folds,
+          which is why the two-model design exists.</p>
       </article>
 
       <article class="readout">
@@ -317,18 +320,26 @@
         <p class="readout__fig">0.187<span class="readout__unit">mean-class, 20 classes</span></p>
         <ul class="readout__rows">
           <li><span>Best single stream</span><b>bone</b></li>
-          <li><span>Ensemble top&#8209;1</span><b>0.375</b></li>
+          <li><span>Best macro&#8209;F1 (deployed)</span><b>0.146</b></li>
+          <li><span>Ensemble top&#8209;1 / macro&#8209;F1</span><b>0.375 / 0.128</b></li>
           <li><span>Chance</span><b>0.050</b></li>
-          <li><span>Toyota cross-subject, served</span><b>0.736</b></li>
+          <li><span>Toyota CS, 3D historical (13 cls)</span><b>0.736</b></li>
+          <li><span>Toyota RTMO, served (15 cls)</span><b>0.600</b></li>
         </ul>
         <p class="readout__note is-weak">The weak result is the hard protocol: Charades,
-          measured actor-disjoint over 41 held-out actors. Four of the worst classes have
-          no skeleton-visible evidence at all &mdash; a pill bottle and a phone are the same
-          pose &mdash; which is why object context is part of the architecture rather than an
-          afterthought. The served checkpoint is trained on Toyota Smarthome instead, where
-          the same model family reaches 0.736 mean-class over 13 coarse classes
-          (cross-subject); on RTMO-extracted poses in deployment it measures 0.600. Both
-          numbers are in <code>results/evaluation.md</code>.</p>
+          measured actor-disjoint over 41 held-out actors. On the metric the behaviour layer
+          actually consumes, <code>bone</code> alone wins macro&#8209;F1 (0.146) and ties
+          mean-class (0.187); the four-stream ensemble buys top&#8209;1 but loses 1.8
+          macro&#8209;F1 points, so the served configuration drops the ensemble. Four
+          classes have no skeleton-visible evidence at all &mdash; a pill bottle and a
+          phone are the same pose &mdash; which is why object context is part of the
+          architecture rather than an afterthought. The Toyota row carries two
+          numbers, not one: <b>0.736</b> is the historical 3D head on INRIA poses,
+          <em>test&#8209;selected</em> on the CS test subjects (epoch 48 of 60, picked by
+          their score); <b>0.600</b> is the served RTMO checkpoint, 22 classes, 20 Hz,
+          over the 15 classes present in its test partition. They differ in input,
+          checkpoint, selection protocol and class support, so their gap does not isolate
+          the cost of live pose extraction. Both are in <code>results/evaluation.md</code>.</p>
       </article>
 
       <article class="readout">
@@ -425,12 +436,15 @@
     <figure class="fig fig--wide" id="fig-lodo">
       <figcaption class="fig__cap">
         <span class="fig__title">Fall detection on a recording setup it was never trained on</span>
-        <span class="fig__sub">leave-one-corpus-out &middot; AUROC &middot; 3,064 windows across four corpora</span>
+        <span class="fig__sub">source-stratified &middot; AUROC &middot; 3,064 windows across four corpora</span>
       </figcaption>
       <div class="fig__plot" id="lodo-plot"></div>
-      <p class="fig__note">Transfer is uneven and two corpora sit close to chance. Falls in
-        these datasets are acted, and camera geometry differs per site; the honest reading
-        is that a new home needs its own calibration, not that the model generalises.</p>
+      <p class="fig__note">One binary checkpoint, trained across all four fall corpora,
+        scored on each source&rsquo;s shards &mdash; which include training windows.
+        Unseen&#8209;corpus transfer and the fitted operating point&rsquo;s behaviour off
+        its own validation set are not measured here. Falls in these datasets are acted,
+        and camera geometry differs per site; the honest reading is that a new home needs
+        its own calibration, not that the model generalises.</p>
     </figure>
   </div>
 </section>
@@ -485,19 +499,19 @@
 <script type="importmap">
 {
   "imports": {
-    "bs/api": "./scripts/api.js?v=2026-09-13g",
-    "bs/charts": "./scripts/charts.js?v=2026-09-13g",
-    "bs/dock": "./scripts/dock.js?v=2026-09-13g",
-    "bs/fixtures": "./scripts/fixtures.js?v=2026-09-13g",
-    "bs/ledger": "./scripts/ledger.js?v=2026-09-13g",
-    "bs/main": "./scripts/main.js?v=2026-09-13g",
-    "bs/overlay": "./scripts/overlay.js?v=2026-09-13g",
-    "bs/stages": "./scripts/stages.js?v=2026-09-13g",
-    "bs/upload": "./scripts/upload.js?v=2026-09-13g",
-    "bs/verifier": "./scripts/verifier.js?v=2026-09-13g"
+    "bs/api": "./scripts/api.js?v=2026-10-02a",
+    "bs/charts": "./scripts/charts.js?v=2026-10-02a",
+    "bs/dock": "./scripts/dock.js?v=2026-10-02a",
+    "bs/fixtures": "./scripts/fixtures.js?v=2026-10-02a",
+    "bs/ledger": "./scripts/ledger.js?v=2026-10-02a",
+    "bs/main": "./scripts/main.js?v=2026-10-02a",
+    "bs/overlay": "./scripts/overlay.js?v=2026-10-02a",
+    "bs/stages": "./scripts/stages.js?v=2026-10-02a",
+    "bs/upload": "./scripts/upload.js?v=2026-10-02a",
+    "bs/verifier": "./scripts/verifier.js?v=2026-10-02a"
   }
 }
 </script>
-<script type="module" src="scripts/main.js?v=2026-09-13g"></script>
+<script type="module" src="scripts/main.js?v=2026-10-02a"></script>
 </body>
 </html>

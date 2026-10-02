@@ -459,11 +459,15 @@
 .plot__gap { stroke: var(--sheet); stroke-width: 4; }
 .plot__link { stroke: var(--rule); stroke-width: 1.5; }
 .plot__bar { fill: var(--ink); }
+.plot__bar--adl { fill: var(--ink-faint); }
+.plot__swatch { fill: var(--ink); }
+.plot__swatch--adl { fill: var(--ink-faint); }
 .plot__dot { fill: var(--ink); }
 .plot__ring { fill: var(--sheet); stroke: var(--ink-faint); stroke-width: 1.5; }
 .plot__label { font: 400 var(--fs-micro) var(--type-mono); fill: var(--ink-soft); }
 .plot__value { font: 400 var(--fs-mono) var(--type-mono); fill: var(--ink); font-variant-numeric: tabular-nums; }
 .plot__row:hover .plot__bar { fill: var(--pencil); }
+.plot__row:hover .plot__bar--adl { fill: var(--ink-soft); }
 .plot__row:hover .plot__dot { fill: var(--pencil); }
 
 /* ── The negative result. Set as a document, in the serif, because it is an
