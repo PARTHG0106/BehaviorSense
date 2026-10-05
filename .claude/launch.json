@@ -4,8 +4,9 @@
     {
       "name": "web",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "5175", "--directory", "web"],
-      "port": 5175
+      "runtimeArgs": ["scripts/serve_web.py", "web"],
+      "port": 5175,
+      "autoPort": true
     },
     {
       "name": "dev-api",

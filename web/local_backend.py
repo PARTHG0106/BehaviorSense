@@ -330,6 +330,18 @@ class Handler(http.server.BaseHTTPRequestHandler):
     # being closed mid-analysis.
     _dead = False
 
+    # Suppress the readline-side of the same disconnect. The default `BaseServer.handle_error`
+    # prints the full traceback for ANY exception raised by the handler, including the one in
+    # `handle_one_request` that fires when the browser tab closes mid-request: the kernel returns
+    # WinError 10053 from `rfile.readline(65537)` BEFORE `_emit`/`_close_stream` ever see it,
+    # so the `_dead` plumbing cannot help. The server keeps running; the traceback is just noise.
+    def handle_error(self, request, client_address) -> None:    # noqa: D401
+        import sys
+        exc = sys.exc_info()[1]
+        if isinstance(exc, (ConnectionAbortedError, ConnectionResetError, BrokenPipeError, OSError)):
+            return
+        super().handle_error(request, client_address)
+
     def _cors(self) -> None:
         # The page is served from :5175 and this from :8899, so CORS is required for the same
         # reason it is on Kaggle - but only across localhost, never across a tunnel.
