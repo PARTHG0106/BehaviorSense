@@ -190,13 +190,13 @@ export class SkeletonOverlay {
   /** A caption in the corner, for facts about the whole frame rather than about one person. */
   notice(text) {
     const ctx = this.ctx;
-    ctx.font = '500 10px "IBM Plex Mono", ui-monospace, monospace';
+    ctx.font = '500 13px "IBM Plex Mono", ui-monospace, monospace';
     const w = ctx.measureText(text).width;
     ctx.globalAlpha = 0.92;
     ctx.fillStyle = SHEET;
-    ctx.fillRect(6, 6, w + 10, 16);
+    ctx.fillRect(6, 6, w + 10, 22);
     ctx.fillStyle = INK;
-    ctx.fillText(text, 11, 17);
+    ctx.fillText(text, 11, 22);
     ctx.globalAlpha = 1;
   }
 
@@ -206,13 +206,13 @@ export class SkeletonOverlay {
     const conf = person.role_confidence;
     const text = `${role}${conf ? ` ${Math.round(conf * 100)}%` : ""}`
       + `${suffix ? ` · ${suffix}` : ""}`;
-    ctx.font = '500 10px "IBM Plex Mono", ui-monospace, monospace';
+    ctx.font = '500 13px "IBM Plex Mono", ui-monospace, monospace';
     const w = ctx.measureText(text).width;
     const px = Math.max(2, Math.min(x - w / 2, this.cssW - w - 6));
-    const py = Math.max(11, y);
+    const py = Math.max(16, y);
     ctx.globalAlpha = 0.92;
     ctx.fillStyle = SHEET;
-    ctx.fillRect(px - 3, py - 9, w + 6, 12);
+    ctx.fillRect(px - 3, py - 13, w + 6, 18);
     ctx.fillStyle = INK;
     ctx.fillText(text, px, py);
   }

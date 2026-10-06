@@ -20,14 +20,28 @@
  *            the evidence they were checked against, and this page re-verifies them here.
  */
 
+import { createTranslationQueue } from "bs/translation-queue";
+import { getLanguage } from "bs/i18n";
+
 const HEALTH_TIMEOUT = 6000;   // a cold tunnel takes a second or two to route
 const POLL_MS = 15000;
 const STORE = "bs.api";
 const STORE_TOKEN = "bs.token";
 
+// Storage can be disabled in private/embedded browsers. A saved preference must never
+// prevent the report itself from opening.
+function stored(key) {
+  try { return localStorage.getItem(key) || ""; } catch { return ""; }
+}
+function remember(key, value) {
+  try {
+    if (value) localStorage.setItem(key, value); else localStorage.removeItem(key);
+  } catch { /* This session still works without persistence. */ }
+}
+
 export const state = {
-  base: localStorage.getItem(STORE) || "",
-  token: localStorage.getItem(STORE_TOKEN) || "",
+  base: stored(STORE),
+  token: stored(STORE_TOKEN),
   mode: "replay",
   health: null,
 };
@@ -78,8 +92,14 @@ async function ask(path, { timeout = HEALTH_TIMEOUT, method = "GET" } = {}) {
  * http, and the browser reports it as a generic network error. */
 export function validate(raw) {
   const url = raw.trim().replace(/\/+$/, "");
-  if (!url) return { error: "Paste the address the notebook printed." };
-  if (!/^https?:\/\//i.test(url)) return { error: "Needs to start with https://" };
+  if (!url) return { error: "Enter the local bridge address, usually http://127.0.0.1:8899." };
+  if (!/^https?:\/\//i.test(url)) return { error: "The address must start with http:// or https://." };
+  try {
+    const parsed = new URL(url);
+    if (parsed.username || parsed.password || parsed.search || parsed.hash) {
+      return { error: "Use the backend address without credentials, query parameters or a fragment." };
+    }
+  } catch { return { error: "Enter a valid backend address." }; }
   if (url.startsWith("http://") && location.protocol === "https:") {
     return { error: "This page is on https, so it cannot call an http address." };
   }
@@ -115,8 +135,8 @@ export async function connect(rawUrl, token = "") {
 
   state.base = url;
   state.token = token.trim();
-  localStorage.setItem(STORE, state.base);
-  localStorage.setItem(STORE_TOKEN, state.token);
+  remember(STORE, state.base);
+  remember(STORE_TOKEN, state.token);
 
   setMode("checking");
   const health = await refresh();
@@ -132,8 +152,8 @@ export function disconnect() {
   poll = null;
   state.base = "";
   state.token = "";
-  localStorage.removeItem(STORE);
-  localStorage.removeItem(STORE_TOKEN);
+  remember(STORE, "");
+  remember(STORE_TOKEN, "");
   setMode("replay");
 }
 
@@ -247,6 +267,33 @@ async function askStream(path, {
 export function fetchDemo(scenario = 0, { onEvent = null } = {}) {
   return askStream(`/demo?scenario=${scenario}`, { onEvent });
 }
+
+/** Translate the report's prose only. Numeric findings are rendered locally from the
+ * checked source fields; a failed translation never replaces them or the English source. */
+async function requestTranslation({ language, summary, recommendation }) {
+  // Translation needs the local hosted client, even if the Kaggle video session has ended.
+  if (!state.base) throw new Error("No translation backend connected.");
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 70000);
+  try {
+    const response = await fetch(`${state.base}/translate`, {
+      method: "POST",
+      headers: { ...reqHeaders(), "Content-Type": "application/json" },
+      signal: controller.signal,
+      body: JSON.stringify({ language, summary, recommendation }),
+    });
+    const translated = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(translated.detail || "Translation unavailable.");
+    if (translated.language !== language || typeof translated.summary !== "string"
+        || typeof translated.recommendation !== "string") {
+      throw new Error("The translation response was incomplete.");
+    }
+    return translated;
+  } finally { clearTimeout(timer); }
+}
+
+export const translateReport = createTranslationQueue(requestTranslation,
+  ({ language }) => language === getLanguage());
 
 /** Upload a clip. Streams one stage per agent, then the full payload.
  *

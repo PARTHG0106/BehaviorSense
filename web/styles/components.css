@@ -61,8 +61,8 @@
 
 .ledger__summary {
   font-family: var(--type-doc);
-  font-size: 1.0625rem;
-  line-height: 1.55;
+  font-size: var(--fs-report);
+  line-height: var(--lh-report);
   color: var(--ink-soft);
   padding: var(--sp-5) clamp(var(--sp-4), 3vw, var(--sp-6)) 0;
   max-width: 62ch;
@@ -75,7 +75,7 @@
 
 .slip {
   display: grid;
-  grid-template-columns: 3.25rem 1fr auto;
+  grid-template-columns: 3.25rem minmax(0, 1fr) auto;
   gap: 0 var(--sp-4);
   align-items: start;
   padding: var(--sp-4) clamp(var(--sp-4), 3vw, var(--sp-6));
@@ -92,8 +92,8 @@
 .slip__text {
   position: relative;
   font-family: var(--type-doc);
-  font-size: 1.0625rem;
-  line-height: 1.5;
+  font-size: var(--fs-report);
+  line-height: var(--lh-report);
   text-decoration-color: var(--pencil);
   text-decoration-thickness: 1.5px;
   text-decoration-skip-ink: none;
@@ -212,11 +212,13 @@
 
 .chip {
   appearance: none;
+  min-height: var(--target-size);
+  min-width: var(--target-size);
   padding: 0.44rem 0.7rem;
   background: transparent;
   border: 1px solid var(--rule);
   border-radius: var(--radius);
-  font: 500 var(--fs-mono)/1 var(--type-mono);
+  font: 500 var(--fs-mono)/1.4 var(--type-mono);
   letter-spacing: 0.06em;
   color: var(--ink-soft);
   cursor: pointer;
@@ -229,8 +231,8 @@
   color: var(--sheet);
 }
 
-@media (max-width: 44rem) {
-  .slip { grid-template-columns: 2.25rem 1fr; }
+@media (max-width: 52rem) {
+  .slip { grid-template-columns: 2.25rem minmax(0, 1fr); }
   .gutter { grid-column: 2; padding-top: var(--sp-3); }
   .slip__margin, .slip__cite { grid-column: 2; }
 }
@@ -247,7 +249,7 @@
 
 .checks {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
   gap: 1px;
   margin-top: var(--sp-7);
   background: var(--rule-soft);
@@ -294,7 +296,7 @@
 
 .stages {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
   gap: var(--sp-4);
   margin-top: var(--sp-7);
 }
@@ -359,7 +361,7 @@
 
 .readouts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
   gap: var(--sp-4);
   margin-top: var(--sp-7);
 }
@@ -400,6 +402,7 @@
   color: var(--ink-soft);
 }
 .readout__rows b {
+  flex-shrink: 0;
   font-family: var(--type-mono);
   font-variant-numeric: tabular-nums;
   font-weight: 400;
@@ -459,11 +462,15 @@
 .plot__gap { stroke: var(--sheet); stroke-width: 4; }
 .plot__link { stroke: var(--rule); stroke-width: 1.5; }
 .plot__bar { fill: var(--ink); }
+.plot__bar--adl { fill: var(--ink-faint); }
+.plot__swatch { fill: var(--ink); }
+.plot__swatch--adl { fill: var(--ink-faint); }
 .plot__dot { fill: var(--ink); }
 .plot__ring { fill: var(--sheet); stroke: var(--ink-faint); stroke-width: 1.5; }
-.plot__label { font: 400 var(--fs-micro) var(--type-mono); fill: var(--ink-soft); }
+.plot__label { font: 400 0.75rem var(--type-mono); fill: var(--ink-soft); }
 .plot__value { font: 400 var(--fs-mono) var(--type-mono); fill: var(--ink); font-variant-numeric: tabular-nums; }
 .plot__row:hover .plot__bar { fill: var(--pencil); }
+.plot__row:hover .plot__bar--adl { fill: var(--ink-soft); }
 .plot__row:hover .plot__dot { fill: var(--pencil); }
 
 /* ── The negative result. Set as a document, in the serif, because it is an
@@ -486,8 +493,8 @@
 }
 .finding__body {
   font-family: var(--type-doc);
-  font-size: 1.0625rem;
-  line-height: 1.58;
+  font-size: var(--fs-report);
+  line-height: var(--lh-report);
   color: var(--ink-soft);
   margin-top: var(--sp-4);
 }
@@ -530,7 +537,11 @@
   margin-top: var(--sp-6);
 }
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--target-size);
+  min-width: var(--target-size);
   padding: 0.72rem 1.15rem;
   background: var(--ink);
   color: var(--sheet);
@@ -577,8 +588,7 @@
 /* ── The dock. A slip pulled out from under the rail, not a modal. ──────────── */
 
 .dock {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 19;
   background: var(--sheet);
   border-bottom: 1px solid var(--rule);
@@ -604,6 +614,7 @@
   max-width: 46ch;
   line-height: var(--lh-body);
 }
+.dock__help { margin-top: var(--sp-3); }
 .dock__note code {
   font: 400 var(--fs-mono)/1 var(--type-mono);
   background: var(--well);
@@ -622,14 +633,14 @@
 .dock__label span { text-transform: none; letter-spacing: 0.02em; opacity: 0.7; }
 .dock__input {
   width: 100%;
-  font: 400 var(--fs-mono)/1.4 var(--type-mono);
+  font: 400 1rem/1.5 var(--type-display);
   color: var(--ink);
   background: var(--sheet-edge);
   border: 1px solid var(--rule-soft);
   border-radius: var(--radius);
   padding: var(--sp-2) var(--sp-3);
 }
-.dock__input::placeholder { color: var(--ink-faint); opacity: 0.75; }
+.dock__input::placeholder { color: var(--ink-faint); opacity: 1; }
 .dock__input:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: -1px;
@@ -638,7 +649,7 @@
 .dock__actions { display: flex; gap: var(--sp-2); margin-top: var(--sp-3); }
 
 .btn {
-  font: 500 var(--fs-mono)/1 var(--type-mono);
+  font: 500 var(--fs-mono)/1.4 var(--type-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--sheet-edge);
@@ -692,7 +703,7 @@
 
 /* ── Footage: upload, overlay, per-person timelines. ────────────────────────── */
 
-.clip { display: grid; gap: var(--sp-4); }
+.clip { display: grid; gap: var(--sp-4); margin-top: var(--sp-5); }
 
 .clip__drop {
   border: 1px dashed var(--rule);
@@ -706,10 +717,13 @@
   transition: border-color 160ms var(--ease), background 160ms var(--ease);
 }
 .clip__drop[data-over] { border-color: var(--ink); background: var(--sheet-edge); }
-/* Dimmed, not hidden: the feature should be discoverable before it is usable, and the
- * status line underneath says what is missing. */
-.clip[data-ready="0"] .clip__drop { opacity: 0.55; }
+/* Keep setup instructions legible while the connection is unavailable. */
+.clip[data-ready="0"] .clip__drop { border-style: dashed; }
 .clip[data-ready="0"] .clip__drop label { pointer-events: none; }
+.clip__drop:has(#clip-input:focus-visible) label[for="clip-input"] {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
 
 .clip__cue { font-size: var(--fs-body); color: var(--ink-soft); }
 .clip__hint {
@@ -725,30 +739,34 @@
  * two places a name can be typed look like the same system. */
 .clip__enrol {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: baseline;
   gap: var(--sp-3);
   margin-top: var(--sp-2);
+  width: 100%;
+  max-width: 36rem;
 }
 .clip__enrol label {
-  font: 500 var(--fs-mono)/1 var(--type-mono);
+  font: 500 var(--fs-mono)/1.5 var(--type-mono);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--ink-soft);
-  white-space: nowrap;
+  white-space: normal;
 }
 .clip__enrol input {
-  font: 400 var(--fs-mono)/1.4 var(--type-mono);
+  font: 400 1rem/1.5 var(--type-display);
   color: var(--ink);
   background: var(--sheet-edge);
   border: 1px solid var(--rule-soft);
   border-radius: var(--radius);
   padding: var(--sp-2) var(--sp-3);
-  /* A fixed ch width, not min(24ch, 100%): the drop zone centers its grid items, so the
-   * enrol row is sized by its own content and a percentage width resolves against a
-   * content-sized ancestor - which collapsed the input to 54px. */
-  width: 24ch;
+  flex: 1 1 15rem;
+  width: 26ch;
+  max-width: 100%;
+  min-width: 0;
 }
-.clip__enrol input::placeholder { color: var(--ink-faint); opacity: 0.75; }
+.clip__enrol input::placeholder { color: var(--ink-faint); opacity: 1; }
 .clip__enrol input:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: -1px;
@@ -789,9 +807,10 @@
 
 .track { display: grid; gap: var(--sp-2); }
 .track__id {
-  font: 400 var(--fs-mono)/1 var(--type-mono);
+  font: 400 var(--fs-mono)/1.5 var(--type-mono);
   color: var(--ink-faint);
   display: flex;
+  flex-wrap: wrap;
   gap: var(--sp-3);
   align-items: baseline;
 }
@@ -885,7 +904,7 @@
 .stage--live .readout__rows { margin-top: var(--sp-4); }
 .stage--live .clip__tracks { margin-top: var(--sp-4); }
 
-.stage__n { display: flex; align-items: center; gap: var(--sp-3); }
+.stage__n { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-3); line-height: 1.5; }
 .stage__pill {
   padding: 0.1rem 0.4rem;
   border: 1px solid var(--rule);
@@ -939,8 +958,8 @@
 .stage__quote {
   margin-top: var(--sp-4);
   font-family: var(--type-doc);
-  font-size: 1.0625rem;
-  line-height: 1.55;
+  font-size: var(--fs-report);
+  line-height: var(--lh-report);
   color: var(--ink);
   border-left: 2px solid var(--ink);
   padding-left: var(--sp-4);
@@ -960,6 +979,84 @@
 .clip__checks .slips { padding-top: var(--sp-2); }
 .clip__checks .clip__caveat { margin-top: var(--sp-4); }
 
+/* Caregiver view: the readable report comes first; the original evidence remains
+ * available in a native, keyboard-accessible disclosure. */
+.caregiver-host:empty { display: none; }
+.caregiver {
+  padding: clamp(var(--sp-4), 3vw, var(--sp-6));
+  background: var(--sheet-edge);
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.clip__stage .caregiver { box-shadow: var(--lift); }
+.caregiver__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--sp-2) var(--sp-5); }
+.caregiver__head h3 { font-size: clamp(1.3rem, 2vw, 1.5rem); line-height: 1.4; font-weight: 600; letter-spacing: -0.015em; }
+.caregiver__meta { font-size: var(--fs-mono); line-height: 1.6; color: var(--ink-soft); }
+.caregiver__section { margin-top: var(--sp-5); max-width: 68ch; }
+.caregiver__section h4 { margin-bottom: var(--sp-2); font-size: 1rem; line-height: 1.6; font-weight: 600; }
+.caregiver__section p, .caregiver__findings > li > p { font-size: var(--fs-report); line-height: var(--lh-report); }
+.caregiver__section p + p { margin-top: var(--sp-3); }
+.caregiver__notice, .caregiver__status {
+  margin-top: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  border-left: 3px solid var(--rule);
+  background: var(--sheet);
+  font-size: var(--fs-body);
+  line-height: 1.7;
+}
+.caregiver__notice--caution { border-left-color: var(--ochre); }
+.caregiver__findings { display: grid; margin-top: var(--sp-4); }
+.caregiver__findings > li { padding: var(--sp-4) 0; border-top: 1px solid var(--rule-soft); }
+.caregiver__findings > li > p { max-width: 68ch; }
+.caregiver__findings small { display: block; margin-top: var(--sp-2); color: var(--ink-soft); font-size: var(--fs-micro); line-height: 1.6; }
+.caregiver__counts { margin-top: var(--sp-4); color: var(--ink-soft); font-size: var(--fs-mono); line-height: 1.65; }
+.caregiver__empty { color: var(--ink-soft); }
+.caregiver__escalation { margin-top: var(--sp-5); padding: var(--sp-4); border: 1px solid var(--rule); font-size: var(--fs-report); line-height: 1.7; }
+.caregiver__escalation--urgent { border-color: var(--pencil); color: var(--pencil); background: var(--pencil-wash); }
+.caregiver__scope { margin-top: var(--sp-4); font-size: var(--fs-mono); line-height: 1.7; color: var(--ink-soft); max-width: 76ch; }
+.caregiver__source { margin-top: var(--sp-5); border-top: 1px solid var(--rule); }
+.caregiver__source > summary, .report-audit > summary {
+  min-height: var(--target-size);
+  padding: var(--sp-3) 0;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  font-weight: 500;
+  cursor: pointer;
+}
+.caregiver__source > div { padding-top: var(--sp-3); font-size: var(--fs-report); line-height: var(--lh-report); }
+.caregiver__source p + p { margin-top: var(--sp-3); }
+.caregiver__source ul { list-style: disc; padding-left: var(--sp-5); margin-top: var(--sp-3); }
+.caregiver__source li + li { margin-top: var(--sp-3); }
+.caregiver:lang(hi), .caregiver:lang(mr) { font-family: var(--type-display); --lh-report: 1.9; }
+.report-audit { border-top: 1px solid var(--rule); }
+.report-audit > summary { padding-inline: clamp(var(--sp-4), 3vw, var(--sp-6)); background: var(--sheet); }
+.report-audit[open] > summary { border-bottom: 1px solid var(--rule-soft); }
+.report-audit__scope { padding: var(--sp-4) clamp(var(--sp-4), 3vw, var(--sp-6)) 0; color: var(--ink-soft); font-size: var(--fs-mono); line-height: 1.7; }
+.report-audit .ledger__summary { padding-top: var(--sp-3); }
+.report-audit .ledger__note { max-width: none; padding: var(--sp-5) clamp(var(--sp-4), 3vw, var(--sp-6)); border-top: 1px solid var(--rule-soft); }
+.report-audit + .ledger__foot { margin-top: 0; }
+
+@media (max-width: 40rem) {
+  .hero, .band { padding-inline: var(--sp-4); }
+  .hero { padding-top: var(--sp-7); }
+  .ledger__head { align-items: flex-start; gap: var(--sp-4); }
+  .tally { width: 100%; justify-content: space-between; }
+  .tally__cell dt { letter-spacing: 0.03em; line-height: 1.5; }
+  .clip__drop, .stage--live, .readout, .fig { padding: var(--sp-4); }
+  .clip__enrol { flex-direction: column; align-items: stretch; gap: var(--sp-2); }
+  .clip__enrol input { flex: auto; width: 100%; }
+  .clip__enrol label { text-align: left; }
+  .slip { column-gap: var(--sp-2); grid-template-columns: 1.5rem minmax(0, 1fr); }
+  .gutter { flex-wrap: wrap; }
+  .slip__margin, .slip__cite { grid-column: 1 / -1; }
+  .stamp { float: none; display: table; margin: 0 0 var(--sp-2); }
+  .todo li { grid-template-columns: minmax(0, 1fr); gap: var(--sp-2); }
+  .stage__time { margin-left: 0; }
+  .readout__rows li { flex-wrap: wrap; }
+  .readout__rows b { margin-left: auto; min-width: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+  .fig__legend { flex-wrap: wrap; }
+}
+
 /* ── Reveal. One device, used once per band, on the way in only. ───────────── */
 
 .reveal { opacity: 0; transform: translateY(10px); }
@@ -974,7 +1071,8 @@
   .slip__margin { transition: none; }
   .stamp { transition: none; }
   .cell { transition: none; }
-  .conn[data-mode="live"] .conn__dot { animation: none; }
+  .conn .conn__dot { animation: none !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 
 

@@ -58,6 +58,7 @@ from behaviorsense.agents.reasoning.openrouter import (  # noqa: E402
 from behaviorsense.agents.reasoning.reporter import CaregiverReporter, ReporterConfig  # noqa: E402
 from behaviorsense.schemas import ActivitySegment, Role  # noqa: E402
 from behaviorsense.service.staging import agents_3_and_4, assert_subject  # noqa: E402
+from behaviorsense.service.translation import ProseTranslator, serve_translation  # noqa: E402
 
 PORT = 8899
 BASE = datetime(2026, 1, 1, 9, 0, 0)
@@ -322,6 +323,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
     upstream: Upstream
     reporter: object
+    translator: ProseTranslator
     gallery: GalleryStore
     # Set once the client's socket is gone. Every write checks it, because the alternative is what
     # this file used to do: a `ConnectionAbortedError` inside `_emit`, then a second one from the
@@ -441,6 +443,9 @@ class Handler(http.server.BaseHTTPRequestHandler):
                     "ready": bool(up.get("ready"))})
 
     def do_POST(self) -> None:                                      # noqa: N802
+        if self.path.split("?", 1)[0] == "/translate":
+            serve_translation(self, self.translator.translate, self._json)
+            return
         if not self.path.startswith("/video"):
             self._json({"detail": f"no route {self.path}"}, 404)
             return
@@ -493,9 +498,10 @@ class Handler(http.server.BaseHTTPRequestHandler):
                                     "matched_this_clip": bool(gu.get("matched")),
                                     "caveats": [
                                         f"Enrolled from the best {used} crops of this clip's "
-                                        "subject track. The gallery is a local file on this "
-                                        "machine and never leaves it; delete the file to "
-                                        "forget the enrolment."]}}})
+                                        "subject track. The gallery is stored on this machine; "
+                                        "enrolled names, roles and embedding templates are sent "
+                                        "to the Kaggle backend with uploads for matching. Delete "
+                                        "the local file to remove the saved enrolment."]}}})
                 else:
                     self._emit({"event": "stage", "stage": {
                         "agent": 1, "name": "enrolment", "status": "failed",
@@ -581,6 +587,11 @@ def main() -> int:
     Handler.gallery = GalleryStore(Path(args.gallery))
     llm = OpenRouterLLM(args.model, keys=keys)
     Handler.reporter = CaregiverReporter(llm, config=ReporterConfig(constrained=True))
+    # The hosted client keeps mutable retry/budget state. Translation has its own bounded
+    # client using the same selected model and credentials, so it cannot disturb a report.
+    Handler.translator = ProseTranslator(OpenRouterLLM(
+        args.model, keys=keys, max_tokens=4096, timeout=45.0,
+        deadline_s=60.0, attempts=2, sweeps=1))
 
     print(f"local backend on http://127.0.0.1:{args.port}")
     print(f"  agents 1-2 (GPU)  -> {args.kaggle}")

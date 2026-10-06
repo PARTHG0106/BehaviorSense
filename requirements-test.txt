@@ -1,0 +1,3 @@
+# CPU test dependencies; GPU extraction and hosted LLM access are not needed.
+-r requirements-serve.txt
+torch>=2.7

@@ -21,7 +21,14 @@ import math
 import os
 import re
 import socketserver
+import sys
 import time
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from behaviorsense.service.translation import (  # noqa: E402
+    TranslationError, serve_translation, validate_request, validate_translation,
+)
 
 PORT = 8899
 # Fake per-agent latency so the progressive reveal is visible locally. The real chain takes
@@ -441,6 +448,37 @@ def _video_payload() -> dict:
     }
 
 
+_FIXTURE_TRANSLATIONS = {
+    "hi": {
+        "summary": "अलग-अलग मापों के अनुसार, इस निवासी की गतिशीलता, भोजन और सामाजिक संपर्क लगातार तीसरे दिन उनके अपने आधार स्तर से कम हैं।",
+        "recommendation": "आज फोन करें; यदि कल तक चलने-फिरने में सुधार न हो, तो समीक्षा की व्यवस्था करें।",
+    },
+    "mr": {
+        "summary": "स्वतंत्र मोजमापांनुसार, या रहिवाशाची हालचाल, जेवण आणि सामाजिक संपर्क सलग तिसऱ्या दिवशी त्यांच्या स्वतःच्या नेहमीच्या पातळीपेक्षा कमी आहेत.",
+        "recommendation": "आज फोन करा; उद्यापर्यंत चालण्यात सुधारणा झाली नाही तर आढाव्याची व्यवस्था करा.",
+    },
+}
+
+
+def translate_fixture(payload: object) -> dict:
+    """Only the known fixture prose is translated; unknown text needs the real bridge."""
+    source = validate_request(payload)
+    language = source["language"]
+    if any(source[field] and source[field] != DEMO[field]
+           for field in ("summary", "recommendation")):
+        detail = (
+            "इस डेमो में केवल नमूना रिपोर्ट का अनुवाद उपलब्ध है। मूल अंग्रेज़ी रिपोर्ट दिखाई जा रही है।"
+            if language == "hi" else
+            "या डेमोमध्ये फक्त नमुना अहवालाचे भाषांतर उपलब्ध आहे. मूळ इंग्रजी अहवाल दाखवला जात आहे."
+        )
+        raise TranslationError("fixture_translation_unavailable", detail, 503)
+    result = {"language": language, **{
+        field: _FIXTURE_TRANSLATIONS[language][field] if source[field] else ""
+        for field in ("summary", "recommendation")
+    }}
+    return validate_translation(json.dumps(result, ensure_ascii=False), source)
+
+
 class Handler(http.server.BaseHTTPRequestHandler):
     # Chunked transfer needs HTTP/1.1; the default HTTP/1.0 makes the client read to EOF and
     # the explicit chunk headers would be delivered as body bytes. Every `_send` reply sets
@@ -494,6 +532,9 @@ class Handler(http.server.BaseHTTPRequestHandler):
             pass                      # the page navigated away mid-stream; nothing to report
 
     def do_POST(self) -> None:
+        if self.path.split("?", 1)[0] == "/translate":
+            serve_translation(self, translate_fixture, self._send)
+            return
         if not self.path.startswith("/video"):
             self._send({"detail": f"no route {self.path}"}, 404)
             return

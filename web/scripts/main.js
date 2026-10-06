@@ -5,6 +5,7 @@ import { drawAnchors, drawLodo } from "bs/charts";
 import { boot as bootApi, fetchDemo, onChange } from "bs/api";
 import { mountDock } from "bs/dock";
 import { mountUpload } from "bs/upload";
+import { initI18n, t } from "bs/i18n";
 
 function revealOnEntry() {
   const targets = document.querySelectorAll(".band__head, .checks, .stages, .boundary, .calib, .fig--wide, .todo, .cta, .clip");
@@ -29,10 +30,9 @@ function revealOnEntry() {
  * minute of nothing is indistinguishable from a hang, and the honest fix is to name the
  * wait rather than fake a progress bar. */
 async function generateLive(ledger, chip) {
-  const label = chip.textContent;
   chip.setAttribute("aria-busy", "true");
   chip.disabled = true;
-  chip.textContent = "Generating…";
+  chip.textContent = t("generating");
   const status = document.getElementById("dock-status");
   try {
     // The response is streamed, so the button can report which half of the wait it is in.
@@ -41,26 +41,28 @@ async function generateLive(ledger, chip) {
     ledger.showLive(await fetchDemo(0, {
       onEvent: (ev) => {
         if (ev.event === "accepted") {
-          chip.textContent = ev.cached ? "Fetching…" : "Simulating days…";
+          chip.textContent = t(ev.cached ? "fetching" : "simulating");
         } else if (ev.event === "progress" && ev.step === "state_ready") {
-          chip.textContent = "Model writing…";
+          chip.textContent = t("writing");
         }
       },
     }));
   } catch (err) {
     if (status) {
       status.dataset.tone = "bad";
-      status.textContent = `Live generation failed: ${err.message}`;
+      status.textContent = t("generationFailed");
+      status.title = err.message;
     }
     document.getElementById("dock")?.removeAttribute("hidden");
   } finally {
     chip.removeAttribute("aria-busy");
     chip.disabled = false;
-    chip.textContent = label;
+    chip.textContent = t("generateLive");
   }
 }
 
 function boot() {
+  initI18n();
   const ledger = mountLedger();
   drawAnchors(document.getElementById("anchors-plot"));
   drawLodo(document.getElementById("lodo-plot"));

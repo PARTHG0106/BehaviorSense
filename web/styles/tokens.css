@@ -36,21 +36,24 @@
   /* Ochre — watch level only. Never decorative. */
   --ochre:       #6e5614;
 
-  --type-display: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
-  --type-doc:     "Newsreader", Georgia, "Times New Roman", serif;
-  --type-mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  --type-display: "Instrument Sans", "Nirmala UI", ui-sans-serif, system-ui, sans-serif;
+  --type-doc:     "Newsreader", "Nirmala UI", Georgia, "Times New Roman", serif;
+  --type-mono:    "IBM Plex Mono", "Nirmala UI", ui-monospace, "SFMono-Regular", monospace;
 
   /* Fluid scale. Display is set tight; the mono is set wide. */
   --fs-display: clamp(2.35rem, 5.4vw, 4.15rem);
   --fs-h2:      clamp(1.45rem, 2.5vw, 2.05rem);
   --fs-h3:      1.0625rem;
-  --fs-lede:    clamp(1rem, 1.15vw, 1.0625rem);
-  --fs-body:    0.9375rem;
-  --fs-mono:    0.75rem;
-  --fs-micro:   0.6875rem;
+  --fs-lede:    clamp(1.0625rem, 1.25vw, 1.125rem);
+  --fs-body:    1rem;
+  --fs-report:  1.125rem;
+  --fs-mono:    0.875rem;
+  --fs-micro:   0.8125rem;
 
   --lh-tight: 1.04;
-  --lh-body:  1.62;
+  --lh-body:  1.65;
+  --lh-report: 1.75;
+  --target-size: 2.75rem;
 
   --sp-1: 0.25rem;
   --sp-2: 0.5rem;
