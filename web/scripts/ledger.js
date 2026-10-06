@@ -6,16 +6,23 @@
  * worth watching: that the checking is mechanical.
  */
 
-import { EVIDENCE, SUMMARY, RECOMMENDATION, claimsFor, SCENARIOS } from "bs/fixtures";
+import { DAY, EVIDENCE, SUMMARY, RECOMMENDATION, claimsFor, SCENARIOS } from "bs/fixtures";
 import { verifyAll, escapeHtml } from "bs/verifier";
+import { mountCaregiverReport } from "bs/caregiver";
+import { translateReport } from "bs/api";
+import { demoReport } from "bs/report-data";
+import { getLanguage, onLanguageChange } from "bs/i18n";
 
 const CELL_STEP = 85;   // ms between checks within a claim
 const ROW_STEP  = 130;  // ms between claims
 
 const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const num = (n) => n.toLocaleString("en-GB", { maximumFractionDigits: 1 });
-const signed = (n) => `${n > 0 ? "+" : "−"}${num(Math.abs(n))}`;
+const num = (n) => typeof n === "number" && Number.isFinite(n)
+  ? n.toLocaleString("en-GB", { maximumFractionDigits: 1 }) : "—";
+const signed = (n) => typeof n !== "number" || !Number.isFinite(n) ? "—"
+  : `${n > 0 ? "+" : n < 0 ? "−" : ""}${num(Math.abs(n))}`;
+let caregiver = null;
 
 /* Which evidence table the slips are being measured against. The stored day by default; the
  * backend's own index once a live report replaces it. Held here rather than threaded through
@@ -111,6 +118,12 @@ function render(scenario) {
   list.innerHTML = results.map((r, i) => slipMarkup(r, i + 1)).join("");
   paintTallies(results);
   document.getElementById("summary").textContent = `${SUMMARY} ${RECOMMENDATION}`;
+  const day = document.getElementById("ledger-day");
+  day.dateTime = DAY;
+  day.textContent = new Date(DAY + "T00:00:00").toLocaleDateString("en-GB",
+    { day: "numeric", month: "long", year: "numeric" });
+  caregiver?.update(demoReport({ summary: SUMMARY, recommendation: RECOMMENDATION,
+    evidence: EVIDENCE, day: DAY }, results));
   return list;
 }
 
@@ -126,6 +139,7 @@ export function renderLive(payload) {
   activeEvidence = payload.evidence || {};
   const claims = payload.claims || [];
   const results = verifyAll(claims, activeEvidence);
+  caregiver?.update(demoReport(payload, results));
   const list = document.getElementById("slips");
 
   list.innerHTML = results.length
@@ -163,8 +177,8 @@ export function renderLive(payload) {
     const rate = results.length
       ? `${((withheld / results.length) * 100).toFixed(0)}%` : "—";
     const parts = [
-      `<b>Live</b> · ${payload.model || "model"} generated ${payload.emitted ?? results.length}`,
-      `claim${(payload.emitted ?? results.length) === 1 ? "" : "s"} for ${payload.day || "this day"}`,
+      `<b>Live</b> · ${escapeHtml(payload.model || "model")} generated ${Number(payload.emitted) || results.length}`,
+      `claim${(payload.emitted ?? results.length) === 1 ? "" : "s"} for ${escapeHtml(payload.day || "this day")}`,
       `· ${withheld} withheld (${rate})`,
     ];
     if (payload.schema_rejected) parts.push(`· ${payload.schema_rejected} rejected by schema`);
@@ -196,11 +210,24 @@ export function renderLive(payload) {
 
 /** Wire the fault controls and run the first pass. */
 export function mountLedger() {
+  caregiver = mountCaregiverReport(document.getElementById("caregiver-ledger"),
+    { translate: translateReport });
+  const localizeDay = () => {
+    const day = document.getElementById("ledger-day");
+    const value = new Date(day.dateTime + "T00:00:00");
+    if (Number.isFinite(value.getTime())) {
+      day.textContent = value.toLocaleDateString({ en: "en-GB", hi: "hi-IN", mr: "mr-IN" }[getLanguage()],
+        { day: "numeric", month: "long", year: "numeric" });
+      day.lang = getLanguage();
+    }
+  };
+  onLanguageChange(localizeDay);
   const chips = [...document.querySelectorAll(".chip[data-rate]")];
   let started = false;
 
   const show = (rate, animate) => {
     const list = render(SCENARIOS[rate] ?? "some");
+    localizeDay();
     if (animate) resolve(list); else {
       list.querySelectorAll(".cell").forEach((c) => { c.dataset.state = c.dataset.want; });
       list.querySelectorAll(".slip").forEach((s) => { s.dataset.resolved = "1"; });
@@ -251,6 +278,7 @@ export function mountLedger() {
       document.getElementById("chip-live")?.setAttribute("aria-pressed", "true");
       started = true;                   // the observer must not re-resolve over this
       resolve(renderLive(payload));
+      localizeDay();
     },
   };
 }

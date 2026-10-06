@@ -7,6 +7,7 @@
  */
 
 import { state, connect, disconnect, onChange, validate } from "bs/api";
+import { getLanguage, onLanguageChange, t } from "bs/i18n";
 
 const node = (id) => document.getElementById(id);
 
@@ -110,12 +111,12 @@ export function mountDock({ onLive } = {}) {
       return;
     }
     submit.disabled = true;
-    submit.textContent = "Connecting…";
+    submit.textContent = t("connectionChecking");
     try {
       await connect(url.value, token.value);
     } finally {
       submit.disabled = false;
-      submit.textContent = "Connect";
+      submit.textContent = t("connect");
     }
   });
 
@@ -129,17 +130,27 @@ export function mountDock({ onLive } = {}) {
     chip.addEventListener("click", () => onLive(chip));
   }
 
-  onChange((s) => {
+  const sync = (s) => {
     const { label, tone, text } = describe(s);
+    const labelKey = { live: "connectionLive", loading: "connectionLoading",
+      checking: "connectionChecking", replay: "connectionReplay" }[s.mode] || "connectionDown";
+    const statusKey = { live: "connectionReady", loading: "connectionWaiting",
+      checking: "connectionProbe", replay: "connectionDemo" }[s.mode] || "connectionError";
     conn.dataset.mode = s.mode;
-    conn.querySelector(".conn__text").textContent = label;
-    conn.title = s.base ? `${s.base} — ${label.toLowerCase()}` : "No backend connected";
+    conn.querySelector(".conn__text").textContent = t(labelKey);
+    conn.lang = getLanguage();
+    conn.title = s.base ? `${s.base} — ${label.toLowerCase()}` : t("connectionNone");
     status.dataset.tone = tone;
-    status.textContent = text;
+    status.textContent = t(statusKey);
+    status.lang = getLanguage();
+    status.title = text;
     // The live control appears only when it would work. A disabled button people cannot
     // explain is worse than a control that is simply not there yet.
     if (chip) chip.hidden = s.mode !== "live";
-  });
+  };
+  onChange(sync);
+  onLanguageChange(() => sync(state));
+  sync(state);
 
   return { open: () => setOpen(true) };
 }

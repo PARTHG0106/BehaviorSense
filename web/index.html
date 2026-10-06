@@ -3,30 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BehaviorSense — verified behaviour monitoring</title>
-<meta name="description" content="Identity-aware behaviour monitoring for elderly care. A language model writes the daily summary; five deterministic checks decide whether it is allowed to be read.">
+<title>BehaviorSense — caregiver reports with checked evidence</title>
+<meta name="description" content="A research prototype for identity-aware behaviour monitoring. Caregiver reports pair readable summaries with structured claims checked against recorded evidence.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles/tokens.css?v=2026-09-13g">
-<link rel="stylesheet" href="styles/base.css?v=2026-09-13g">
-<link rel="stylesheet" href="styles/components.css?v=2026-09-13g">
+<link rel="stylesheet" href="styles/tokens.css?v=2026-10-06c">
+<link rel="stylesheet" href="styles/base.css?v=2026-10-06c">
+<link rel="stylesheet" href="styles/components.css?v=2026-10-06c">
 </head>
 <body>
-<a class="skip" href="#ledger">Skip to the report</a>
+<a class="skip" href="#ledger" data-i18n="skipContent">Skip to the report</a>
 
 <header class="rail">
   <div class="rail__mark">
     <span class="rail__name">BehaviorSense</span>
-    <span class="rail__sub">verified behaviour monitoring</span>
+    <span class="rail__sub" data-i18n="brandSubtitle">Caregiver reports with checked evidence</span>
   </div>
   <nav class="rail__nav" aria-label="Sections">
-    <a href="#checks">Checks</a>
-    <a href="#footage">Footage</a>
-    <a href="#pipeline">Pipeline</a>
-    <a href="#measurements">Measurements</a>
-    <a href="#calibration">Calibration</a>
+    <a href="#ledger" data-i18n="navReport">Report</a>
+    <a href="#footage" data-i18n="navFootage">Upload a clip</a>
+    <a href="#checks" data-i18n="navEvidence">Evidence checks</a>
+    <a href="#pipeline" data-i18n="navPipeline">How it works</a>
+    <a href="#measurements" data-i18n="navResults">Results</a>
   </nav>
+  <div class="rail__language">
+    <label for="report-language" data-i18n="languageLabel">Report language</label>
+    <select id="report-language" name="report-language">
+      <option value="en" lang="en">English</option>
+      <option value="hi" lang="hi">हिन्दी</option>
+      <option value="mr" lang="mr">मराठी</option>
+    </select>
+  </div>
   <button class="conn" id="conn" data-mode="replay" type="button"
           aria-expanded="false" aria-controls="dock">
     <span class="conn__dot" aria-hidden="true"></span>
@@ -34,29 +42,25 @@
   </button>
 </header>
 
-<!-- The backend is a Kaggle notebook behind a tunnel whose address changes every session,
-     so it is pasted, not configured. Kept as a slip under the rail rather than a modal:
-     nothing about this page needs to be blocked while you fill in a field. -->
+<!-- The local bridge forwards perception to Kaggle and keeps reporting credentials on
+     the operator's machine. Connection settings remain in an inline panel. -->
 <div class="dock" id="dock" hidden>
   <div class="dock__inner">
     <div class="dock__copy">
-      <p class="dock__title">Inference backend</p>
-      <p class="dock__note">RTMO pose and the ST&#8209;GCN++ activity model run in a Kaggle notebook on a
-        GPU; the report is written by a hosted model called from the operator&rsquo;s machine,
-        which is also where its keys stay. Run
-        <code>notebooks/05_serve_inference_online.ipynb</code>, then paste the address it
-        prints. It is a new one every session.</p>
+      <p class="dock__title" data-i18n="backendHeading">Connect the inference backend</p>
+      <p class="dock__note" data-i18n="backendIntro">Connect to the local bridge at http://127.0.0.1:8899. It sends the clip to the Kaggle GPU and asks a hosted model to write from structured evidence. Reporting keys stay on the operator's machine.</p>
+      <p class="dock__note dock__help" data-i18n="backendHelp">For setup, run notebook 05, then start web/local_backend.py with its tunnel address using --kaggle. Enter the local bridge address here. The optional token is for a direct connection to a protected notebook.</p>
     </div>
     <form class="dock__form" id="dock-form" autocomplete="off">
-      <label class="dock__label" for="api-url">Address</label>
+      <label class="dock__label" for="api-url" data-i18n="backendLabel">Backend address</label>
       <input class="dock__input" id="api-url" type="url" spellcheck="false"
-             placeholder="https://something-random.trycloudflare.com">
-      <label class="dock__label" for="api-token">Token <span>optional</span></label>
+             placeholder="http://127.0.0.1:8899" data-i18n-placeholder="backendUrlPlaceholder">
+      <label class="dock__label" for="api-token" data-i18n="tokenLabel">Token (optional)</label>
       <input class="dock__input" id="api-token" type="password" spellcheck="false"
-             placeholder="set BS_TOKEN in the notebook to require one">
+             placeholder="For a protected direct notebook connection" data-i18n-placeholder="tokenPlaceholder">
       <div class="dock__actions">
-        <button class="btn" type="submit" id="dock-connect">Connect</button>
-        <button class="btn btn--quiet" type="button" id="dock-forget">Forget</button>
+        <button class="btn" type="submit" id="dock-connect" data-i18n="connect">Connect</button>
+        <button class="btn btn--quiet" type="button" id="dock-forget" data-i18n="forget">Forget</button>
       </div>
       <p class="dock__status" id="dock-status" role="status" aria-live="polite">
         Not connected. The ledger below is replaying a stored day.</p>
@@ -68,47 +72,49 @@
 
 <section class="hero">
   <div class="hero__inner">
-    <p class="eyebrow">Agent 4 &middot; claim verification</p>
-    <h1 class="display">No claim reaches a caregiver until the arithmetic agrees.</h1>
-    <p class="standfirst">BehaviorSense watches for decline in an older adult living
-      alone. A language model writes the daily summary &mdash; but it never sees video,
-      and it never decides whether it told the truth. Five deterministic checks do
-      that, and anything that fails one is withheld rather than flagged.</p>
+    <p class="eyebrow" data-i18n="reportEyebrow">Behaviour monitoring &middot; research prototype</p>
+    <h1 class="display" data-i18n="reportHeadline">A clearer daily report, with evidence you can check.</h1>
+    <p class="standfirst" data-i18n="reportIntro">Read a caregiver summary alongside findings checked against recorded evidence. Five deterministic checks cover the structured claims. The model's summary and recommendation remain separate, unverified prose.</p>
 
     <div class="ledger" id="ledger">
       <div class="ledger__head">
         <div class="ledger__id">
-          <p class="eyebrow eyebrow--bare">Daily report</p>
-          <p class="ledger__who" id="ledger-who">Resident &middot;
+          <p class="eyebrow eyebrow--bare" data-i18n="dailyReport">Daily report</p>
+          <p class="ledger__who" id="ledger-who"><span data-i18n="resident">Resident</span> &middot;
             <time datetime="2026-02-22" id="ledger-day">22 February 2026</time></p>
         </div>
         <dl class="tally">
-          <div class="tally__cell"><dt>Claims</dt><dd id="t-total">&mdash;</dd></div>
-          <div class="tally__cell"><dt>Shown</dt><dd id="t-shown">&mdash;</dd></div>
-          <div class="tally__cell tally__cell--pencil"><dt>Withheld</dt><dd id="t-withheld">&mdash;</dd></div>
+          <div class="tally__cell"><dt data-i18n="totalClaimsLabel">Claims</dt><dd id="t-total">&mdash;</dd></div>
+          <div class="tally__cell"><dt data-i18n="shownClaimsLabel">Shown</dt><dd id="t-shown">&mdash;</dd></div>
+          <div class="tally__cell tally__cell--pencil"><dt data-i18n="withheldClaimsLabel">Withheld</dt><dd id="t-withheld">&mdash;</dd></div>
         </dl>
       </div>
 
       <!-- Only meaningful once a backend answers, so it stays out of the way until then. -->
       <p class="ledger__live" id="ledger-live" hidden></p>
 
-      <p class="ledger__summary" id="summary"></p>
+      <section class="caregiver-host" id="caregiver-ledger" aria-label="Caregiver report"></section>
 
-      <ol class="slips" id="slips" aria-live="polite"></ol>
-
-      <div class="ledger__foot">
-        <div class="controls" role="group" aria-label="Choose what the ledger shows">
-          <span class="controls__label">Inject faults</span>
-          <button type="button" class="chip" data-rate="0">None</button>
-          <button type="button" class="chip" data-rate="0.34" aria-pressed="true">1 in 3</button>
-          <button type="button" class="chip" data-rate="1">Every claim</button>
-          <button type="button" class="chip chip--live" id="chip-live" hidden
-                  data-live="1">Generate live</button>
-        </div>
+      <details class="report-audit" lang="en">
+        <summary data-i18n="auditDetails">Evidence and original English report</summary>
+        <p class="report-audit__scope" data-i18n="originalProseLabel">Original model summary and recommendation. These paragraphs are not verified by C1–C5.</p>
+        <p class="ledger__summary" id="summary"></p>
+        <ol class="slips" id="slips" aria-live="polite"></ol>
         <p class="ledger__note" id="ledger-note">The checks below each claim are the real
           arithmetic, run in your browser against the same evidence table the model was
           given. Faults are injected here so the checks are visible &mdash; in the measured
           run, the language model failed <b>2.8&ndash;3.7%</b> of its claims unprompted.</p>
+      </details>
+
+      <div class="ledger__foot">
+        <div class="controls" role="group" aria-label="Choose what the ledger shows">
+          <span class="controls__label" data-i18n="injectFaults">Demo faults</span>
+          <button type="button" class="chip" data-rate="0" data-i18n="faultNone">None</button>
+          <button type="button" class="chip" data-rate="0.34" aria-pressed="true" data-i18n="faultSome">1 in 3</button>
+          <button type="button" class="chip" data-rate="1" data-i18n="faultAll">Every claim</button>
+          <button type="button" class="chip chip--live" id="chip-live" hidden
+                  data-live="1" data-i18n="liveGenerate">Generate live</button>
+        </div>
       </div>
     </div>
   </div>
@@ -182,33 +188,23 @@
 <section class="band" id="footage">
   <div class="band__inner">
     <header class="band__head">
-      <p class="eyebrow">On your own footage</p>
-      <h2 class="h2">Upload a clip and watch all four agents work, one hand-off at a time.</h2>
-      <p class="lede">RTMO extracts COCO&#8209;17 poses for every person in shot, the tracker
-        holds an identity across frames, OSNet decides which of them is the resident, and the
-        ST&#8209;GCN++ ensemble labels each person&rsquo;s activity independently. Then the
-        behaviour layer measures the day, a hosted language model writes the report from
-        those numbers alone, and C1&ndash;C5 check every sentence before you see it. Each stage below shows
-        what it produced and what it handed on.</p>
+      <p class="eyebrow" data-i18n="footageEyebrow">On your own footage</p>
+      <h2 class="h2" data-i18n="footageHeading">Upload a clip to see the observations and caregiver report.</h2>
+      <p class="lede" data-i18n="uploadIntro">Choose a video to see the recorded activities and a caregiver report. The report shows which findings passed the evidence checks.</p>
     </header>
 
     <div class="clip" id="upload" data-ready="0">
       <div class="clip__drop" id="clip-drop">
-        <p class="clip__cue">Drop a clip here, or</p>
-        <label class="btn" for="clip-input">Choose a file</label>
-        <input id="clip-input" type="file" accept="video/*" hidden>
-        <p class="clip__hint">Up to 60&nbsp;MB and ten minutes of footage. Longer uploads are
-          refused rather than silently cut short. One person or several: each identity is
-          tracked, classified and timelined separately.</p>
+        <p class="clip__cue" data-i18n="dropClip">Drop a clip here, or</p>
+        <label class="btn" for="clip-input" data-i18n="chooseFile">Choose a file</label>
+        <input class="visually-hidden" id="clip-input" type="file" accept="video/*" aria-describedby="clip-limits clip-status">
+        <p class="clip__hint" id="clip-limits" data-i18n="uploadLimits">Up to 60 MB and 12,000 retained frames, about ten minutes at 20 Hz. Longer uploads are refused. Each tracked person's activity is shown separately.</p>
         <p class="clip__enrol">
-          <label for="clip-enrol">Enrol the subject as</label>
+          <label for="clip-enrol" data-i18n="enrolSubject">Enrol the subject as</label>
           <input id="clip-enrol" type="text" maxlength="40" autocomplete="off"
-                 placeholder="leave empty to just analyse">
+                 placeholder="Leave empty to just analyse" data-i18n-placeholder="enrolPlaceholder" aria-describedby="enrol-disclosure">
         </p>
-        <p class="clip__enrol-hint">A name here enrolls this clip's subject from their best
-          crops and turns on recognition for future uploads. The gallery is one local file on
-          the operator's machine &mdash; it never reaches Kaggle &mdash; and deleting it
-          forgets the enrolment.</p>
+        <p class="clip__enrol-hint" id="enrol-disclosure" data-i18n="enrolDisclosure">Optional enrollment saves the subject's name and an identity embedding on this machine. Saved names, roles and embeddings are sent to Kaggle for matching on later uploads. To forget enrollment, stop the bridge, delete its gallery file and restart it.</p>
       </div>
 
       <div class="clip__stage" id="clip-stage" hidden>
@@ -217,6 +213,7 @@
           <canvas id="clip-canvas" aria-hidden="true"></canvas>
         </div>
         <p class="clip__meta" id="clip-meta"></p>
+        <section class="caregiver-host" id="caregiver-video" aria-label="Caregiver report from this clip" hidden></section>
         <div class="clip__pipeline" id="clip-pipeline"></div>
         <div class="clip__checks" id="clip-checks"></div>
       </div>
@@ -224,13 +221,7 @@
       <p class="clip__status" id="clip-status" role="status" aria-live="polite">
         Connect a backend to analyse a clip.</p>
 
-      <p class="clip__caveat">The feature values Agent&nbsp;3 reports are measured from your
-        clip and are real. The baseline they are compared against is a declared simulated
-        reference, because a rolling multi&#8209;day median cannot come from one upload &mdash;
-        so read every deviation as &ldquo;unlike the reference&rdquo;, never as &ldquo;this
-        person has declined&rdquo;. C1&ndash;C5 still check each claim against the state
-        computed from this video, so a wrong figure or an inverted direction is caught
-        arithmetically either way.</p>
+      <p class="clip__caveat" data-i18n="uploadCaution">Activity values come from this clip. Comparisons use a simulated reference, not this person's recorded daily history. A short clip cannot establish a personal daily decline.</p>
     </div>
   </div>
 </section>
@@ -266,7 +257,7 @@
       <li class="stage">
         <p class="stage__n">Agent 3</p>
         <h3 class="stage__name">Behaviour</h3>
-        <p class="stage__body">Thirty-day robust baselines per person, drift detection, and
+        <p class="stage__body">Fourteen-day robust baselines per person, drift detection, and
           ten alert rules. Statistical rather than learned, because a decline has to be
           explainable to the person acting on it.</p>
         <p class="seam"><span>emits</span> <code>BehaviourState</code></p>
@@ -274,16 +265,18 @@
       <li class="stage stage--gate">
         <p class="stage__n">Agent 4</p>
         <h3 class="stage__name">Report</h3>
-        <p class="stage__body">Writes the summary as separate, citable claims &mdash; then
-          every claim goes through C1&ndash;C5 before anyone sees it.</p>
+        <p class="stage__body">Writes a summary, recommendation and separate citable claims.
+          C1&ndash;C5 check the structured claims; the summary and recommendation remain
+          unverified model prose.</p>
         <p class="seam"><span>emits</span> <code>CaregiverReport</code></p>
       </li>
     </ol>
 
-    <p class="boundary">The model receives a <code>BehaviourState</code>: numbers,
-      baselines, deviations, alerts. No endpoint accepts video, and none returns
-      unverified output &mdash; so &ldquo;the model never sees pixels&rdquo; is a property
-      of the interface rather than a promise about how carefully it is called.</p>
+    <p class="boundary">The reporting model receives a <code>BehaviourState</code>: numbers,
+      baselines, deviations and alerts. Uploaded video goes to the perception pipeline on
+      Kaggle. Only structured evidence is sent to the reporting provider, and accepted
+      claims must pass C1&ndash;C5. The report's free-text summary and recommendation are
+      outside those checks.</p>
   </div>
 </section>
 
@@ -304,12 +297,15 @@
         <ul class="readout__rows">
           <li><span>Sensitivity</span><b>0.951</b></li>
           <li><span>False alarms</span><b>0.99 / hour</b></li>
-          <li><span>Held-out AUROC, 4 unseen corpora</span><b>0.928&ndash;0.991</b></li>
+          <li><span>Source-stratified AUROC, 4 corpora</span><b>0.928&ndash;0.991</b></li>
         </ul>
         <p class="readout__note">AUPRC, not AUROC &mdash; at a 0.49% positive rate AUROC
-          flatters. The held-out range is the dedicated fall head scoring corpora it never
-          saw; the 20-class activity ensemble&rsquo;s own fall posterior sits at
-          0.47&ndash;0.60 on the same folds, which is why the two-model design exists.</p>
+          flatters. The 0.928&ndash;0.991 range is one binary checkpoint scored on each
+          source&rsquo;s shards, which include training windows; it is <em>not</em> a
+          leave-one-corpus-out transfer estimate, and the fitted operating point has not
+          been validated on an unseen recording setup. The 20-class activity
+          ensemble&rsquo;s own fall posterior sits at 0.47&ndash;0.60 on the same folds,
+          which is why the two-model design exists.</p>
       </article>
 
       <article class="readout">
@@ -317,18 +313,26 @@
         <p class="readout__fig">0.187<span class="readout__unit">mean-class, 20 classes</span></p>
         <ul class="readout__rows">
           <li><span>Best single stream</span><b>bone</b></li>
-          <li><span>Ensemble top&#8209;1</span><b>0.375</b></li>
+          <li><span>Best macro&#8209;F1 (deployed)</span><b>0.146</b></li>
+          <li><span>Ensemble top&#8209;1 / macro&#8209;F1</span><b>0.375 / 0.128</b></li>
           <li><span>Chance</span><b>0.050</b></li>
-          <li><span>Toyota cross-subject, served</span><b>0.736</b></li>
+          <li><span>Toyota CS, 3D historical (13 cls)</span><b>0.736</b></li>
+          <li><span>Toyota RTMO, served (15 cls)</span><b>0.600</b></li>
         </ul>
         <p class="readout__note is-weak">The weak result is the hard protocol: Charades,
-          measured actor-disjoint over 41 held-out actors. Four of the worst classes have
-          no skeleton-visible evidence at all &mdash; a pill bottle and a phone are the same
-          pose &mdash; which is why object context is part of the architecture rather than an
-          afterthought. The served checkpoint is trained on Toyota Smarthome instead, where
-          the same model family reaches 0.736 mean-class over 13 coarse classes
-          (cross-subject); on RTMO-extracted poses in deployment it measures 0.600. Both
-          numbers are in <code>results/evaluation.md</code>.</p>
+          measured actor-disjoint over 41 held-out actors. On the metric the behaviour layer
+          actually consumes, <code>bone</code> alone wins macro&#8209;F1 (0.146) and ties
+          mean-class (0.187); the four-stream ensemble buys top&#8209;1 but loses 1.8
+          macro&#8209;F1 points, so the served configuration drops the ensemble. Four
+          classes have no skeleton-visible evidence at all &mdash; a pill bottle and a
+          phone are the same pose &mdash; which is why object context is part of the
+          architecture rather than an afterthought. The Toyota row carries two
+          numbers, not one: <b>0.736</b> is the historical 3D head on INRIA poses,
+          <em>test&#8209;selected</em> on the CS test subjects (epoch 48 of 60, picked by
+          their score); <b>0.600</b> is the served RTMO checkpoint, 22 classes, 20 Hz,
+          over the 15 classes present in its test partition. They differ in input,
+          checkpoint, selection protocol and class support, so their gap does not isolate
+          the cost of live pose extraction. Both are in <code>results/evaluation.md</code>.</p>
       </article>
 
       <article class="readout">
@@ -424,13 +428,16 @@
 
     <figure class="fig fig--wide" id="fig-lodo">
       <figcaption class="fig__cap">
-        <span class="fig__title">Fall detection on a recording setup it was never trained on</span>
-        <span class="fig__sub">leave-one-corpus-out &middot; AUROC &middot; 3,064 windows across four corpora</span>
+        <span class="fig__title">Fall detection scored separately on four training sources</span>
+        <span class="fig__sub">source-stratified &middot; AUROC &middot; 3,064 windows across four corpora</span>
       </figcaption>
       <div class="fig__plot" id="lodo-plot"></div>
-      <p class="fig__note">Transfer is uneven and two corpora sit close to chance. Falls in
-        these datasets are acted, and camera geometry differs per site; the honest reading
-        is that a new home needs its own calibration, not that the model generalises.</p>
+      <p class="fig__note">One binary checkpoint, trained across all four fall corpora,
+        scored on each source&rsquo;s shards &mdash; which include training windows.
+        Unseen&#8209;corpus transfer and the fitted operating point&rsquo;s behaviour off
+        its own validation set are not measured here. Falls in these datasets are acted,
+        and camera geometry differs per site; the honest reading is that a new home needs
+        its own calibration, not that the model generalises.</p>
     </figure>
   </div>
 </section>
@@ -451,12 +458,13 @@
         streams completed at its patience limits; segment-level accuracy after temporal
         smoothing is measured and in <code>results/evaluation.md</code>.</li>
     </ul>
-    <p class="lede lede--close">Nothing on this page is a mock-up. The report at the top
-      runs the verifier's arithmetic; every measurement is reproducible from the
-      repository with one command.</p>
+    <p class="lede lede--close">The replay report runs the verifier's arithmetic on stored
+      evidence. Live uploads use the connected backend; the development backend returns
+      synthetic fixtures. Training protocols and evaluation commands are documented in
+      the repository.</p>
     <p class="cta">
       <a class="btn" href="https://github.com/PARTHG0106/BehaviorSense">Read the code</a>
-      <span class="cta__note">Backend, agents, notebooks and 217 tests</span>
+      <span class="cta__note">Backend, agents, notebooks and automated checks</span>
     </p>
   </div>
 </section>
@@ -485,19 +493,25 @@
 <script type="importmap">
 {
   "imports": {
-    "bs/api": "./scripts/api.js?v=2026-09-13g",
-    "bs/charts": "./scripts/charts.js?v=2026-09-13g",
-    "bs/dock": "./scripts/dock.js?v=2026-09-13g",
-    "bs/fixtures": "./scripts/fixtures.js?v=2026-09-13g",
-    "bs/ledger": "./scripts/ledger.js?v=2026-09-13g",
-    "bs/main": "./scripts/main.js?v=2026-09-13g",
-    "bs/overlay": "./scripts/overlay.js?v=2026-09-13g",
-    "bs/stages": "./scripts/stages.js?v=2026-09-13g",
-    "bs/upload": "./scripts/upload.js?v=2026-09-13g",
-    "bs/verifier": "./scripts/verifier.js?v=2026-09-13g"
+    "bs/api": "./scripts/api.js?v=2026-10-06c",
+    "bs/caregiver": "./scripts/caregiver.js?v=2026-10-06c",
+    "bs/charts": "./scripts/charts.js?v=2026-10-06c",
+    "bs/dock": "./scripts/dock.js?v=2026-10-06c",
+    "bs/fixtures": "./scripts/fixtures.js?v=2026-10-06c",
+    "bs/i18n": "./scripts/i18n.js?v=2026-10-06c",
+    "bs/ledger": "./scripts/ledger.js?v=2026-10-06c",
+    "bs/main": "./scripts/main.js?v=2026-10-06c",
+    "bs/overlay": "./scripts/overlay.js?v=2026-10-06c",
+    "bs/report-data": "./scripts/report-data.js?v=2026-10-06c",
+    "bs/stages": "./scripts/stages.js?v=2026-10-06c",
+    "bs/translation-queue": "./scripts/translation-queue.js?v=2026-10-06c",
+    "bs/upload": "./scripts/upload.js?v=2026-10-06c",
+    "bs/verifier": "./scripts/verifier.js?v=2026-10-06c",
+    "./scripts/i18n.js": "./scripts/i18n.js?v=2026-10-06c",
+    "./scripts/fixtures.js": "./scripts/fixtures.js?v=2026-10-06c"
   }
 }
 </script>
-<script type="module" src="scripts/main.js?v=2026-09-13g"></script>
+<script type="module" src="scripts/main.js?v=2026-10-06c"></script>
 </body>
 </html>

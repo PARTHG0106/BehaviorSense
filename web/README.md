@@ -10,88 +10,135 @@ python -m http.server 5173 --directory web
 
 ## What it is
 
-A single page whose hero is the product rather than a picture of it. The daily report at the
-top is verified in the browser: `scripts/verifier.js` is a faithful port of
+A single page with a report ledger, evidence checks and a video upload workflow. The
+ledger's structured claims are verified in the browser: `scripts/verifier.js` is a port of
 `src/behaviorsense/agents/reasoning/verifier.py` — same tolerances (2% relative on values,
 2 percentage points on changes), same direction word lists, same treatment of a percentage
-quoted against a zero baseline. The four cells beside each claim are real check results, and
+quoted against a zero baseline. The five cells beside each claim are real check results, and
 the arithmetic under a withheld claim is the actual comparison that failed.
+
+C1–C5 apply to the separate structured claims, including the text inside each claim. They
+do not verify the free-text summary or recommendation. Those remain visible as model prose
+and carry no arithmetic guarantee. Passing the checks establishes consistency with the
+recorded evidence, not that the perception model or the clinical interpretation is correct.
 
 The fault controls mirror `HallucinatingStubLLM`: the same six corruptions the Python test
 suite injects, applied as fixed scripts rather than at random so the page is reproducible and
 each slip can name the fault it was given.
 
 One deliberate difference from the Python. When a citation does not resolve, the verifier
-returns C2–C4 as `false` because there is nothing left to compare against; here they are drawn
-as *not reached* instead, because showing four failures for one fault overstates what went
+returns C2–C5 as `false` because there is nothing left to compare against; here they are drawn
+as *not reached* instead, because showing five failures for one fault overstates what went
 wrong. The verdict — unfaithful, withheld — is identical.
 
-## The backend does not run here
+## Run the current inference path
 
-Qwen2.5-7B needs ~16 GB in bf16 and the ADL ensemble needs a GPU to be worth calling. Neither
-fits a laptop, and quantising to fit would trade the numbers in `results/evaluation.md` for
-ones nobody has measured. So the models live in a Kaggle notebook and this page talks to them
-over a tunnel:
+### Caregiver report languages
+
+Use **Report language** in the page header to choose **English, हिन्दी or मराठी**.
+The choice is remembered on this browser. The caregiver report, its controls, upload
+instructions and progress messages use the selected language; detailed research and
+engineering sections remain in English.
+
+The caregiver view contains only accepted claims. Hindi and Marathi numeric findings are
+rendered from the original structured values with localized feature names and units; missing
+comparison fields remain absent. The original English report and evidence audit remain
+available in collapsible sections. The source verifier is unchanged: its checks do not
+certify the prose translation, summary, recommendation, or medical interpretation.
+
+The stored replay has complete Hindi/Marathi prose translations and works offline. For a new
+report, the local bridge's `POST /translate` translates only its summary and recommendation
+using the existing OpenRouter model and credentials. Restart the bridge after updating the
+code. The endpoint accepts `{language, summary, recommendation}`, supports `hi` and `mr`,
+and rejects incomplete output or changed numeric tokens. It needs no GPU or additional key.
+Requests are serialized across report widgets, and obsolete language responses cannot replace
+the selected language. If prose translation fails, translated findings remain visible with a
+retry button and access to the original English text.
+
+`web/dev_backend.py` translates its known fixture reports without external requests; it
+returns an explicit unavailable response for arbitrary prose. A direct connection to an older
+Kaggle notebook or the separate structured-ingest API does not supply this translation route.
+
+Run the relevant isolated checks with:
+
+```bash
+python run_tests.py --suite test_web_contract --suite test_translation --suite test_web_localization
+```
+
+### Connect the inference bridge
+
+The browser connects to `web/local_backend.py` on the operator's machine. That process sends
+the video to notebook 05 for Agents 1–2, then runs Agent 3 and calls a hosted OpenRouter model
+for Agent 4. The API keys stay on the operator's machine; the reporting provider receives
+structured evidence, not video.
 
 ```
-web/ (static, anywhere)  ──fetch──▶  https://…trycloudflare.com  ──▶  Kaggle T4/P100
-                                                                       Qwen2.5-7B
-                                                                       4 ADL streams
+browser :5173  ──fetch──▶  local backend :8899  ──tunnel──▶  Kaggle GPU
+                         Agent 3                          Agent 1: RTMO + tracking
+                         Agent 4: OpenRouter call         Agent 2: ST-GCN++
+                         C1–C5 verification
 ```
 
-1. Run `notebooks/05_serve_inference_online.ipynb` with **internet ON** and a GPU. Attach
-   `behaviorsense-code`, `behaviorsense-runs`, and the Qwen2.5-7B-Instruct Kaggle Model.
+1. Run `notebooks/05_serve_inference_online.ipynb` with **internet ON** and a P100 GPU. Attach
+   the current code and trained runs, `rtmo-l.onnx`, and OSNet weights if using enrollment.
+   Qwen weights are optional for serving; the split path uses the local bridge's hosted
+   reporter and does not load a local language model on Kaggle.
 2. The last cell prints an address. **Leave that cell running** — the tunnel dies with it.
-3. Click the state indicator in the page header, paste the address, Connect.
+3. On the operator's machine, configure `OPENROUTER_API_KEY_LIST` (comma-separated) or
+   `OPENROUTER_API_KEY_1..N` in the environment, then run:
 
-The address is different every session. That is inherent to a quick tunnel with no account,
-which is why it is pasted rather than configured — a hard-coded one would be wrong within the
-hour, and a page that pretended otherwise would be the decorative "live" badge this project
-argues against.
+   ```bash
+   python web/local_backend.py --kaggle https://YOUR-SESSION.trycloudflare.com
+   ```
+
+4. Serve the page with the static-server command above. In the page header, connect to
+   `http://127.0.0.1:8899`. If the notebook requires `BS_TOKEN`, pass that value to the local
+   backend with `--token`; its upstream requests carry `X-BS-Token`.
+
+The bridge calls `/video?stages=12`, rebuilds `ActivitySegment` objects, and uses the shared
+`behaviorsense.service.staging` implementation for Agents 3–4. The notebook currently prefers
+the Toyota checkpoint and the bone stream; `/health` and stage cards report the assets that
+actually loaded. The served tracker is `SimpleTracker`. Qwen2.5-7B remains the measured
+reporting arm in the evaluation; hosted demo
+output should not be assigned those evaluation scores.
+
+The tunnel address changes each session, so restart the bridge with the new address. A direct
+browser-to-Kaggle connection is also possible when the notebook has its own hosted reporter
+configured, but the local bridge is the path that keeps reporting keys on this machine. The
+Docker service in `src/behaviorsense/service/api.py` has a different structured-ingest API and
+is not a substitute for these `/demo` and `/video` routes.
 
 ### Why both slow endpoints stream
 
-The quick tunnel drops a request whose origin has not answered in about two minutes. Measured
-2026-08-25 against a live T4: `/demo` was cut at **125.8 s with Cloudflare's 524** while the
-model was still generating, on two separate sessions. `/video` is strictly slower — RTMO over
-up to 900 frames, then ST-GCN++, then that same Qwen pass.
-
-So neither can be a single synchronous JSON reply. The obvious alternatives were to shorten the
-report or lower `max_frames`, and both trade measured behaviour for a timeout. The cap is on
-*time-to-first-byte*, so the fix is to answer immediately and keep sending: both endpoints
-return newline-delimited JSON.
+The quick tunnel previously cut slow synchronous requests before inference completed. Both
+`/demo` and `/video` now use newline-delimited JSON. Stages describe completed agent output;
+heartbeats keep the connection active during longer computations and hosted-model calls.
 
 ```
-{"event":"accepted"}                first, immediately — stops the 524 clock
-{"event":"stage","stage":{...}}     one per agent, as it finishes        (/video)
-{"event":"progress",...}            named waypoints                      (/demo)
-{"event":"result","payload":{...}}  the whole payload, unchanged
-{"event":"error","detail":"..."}    in-band
+{"event":"accepted"}                request accepted
+{"event":"stage","stage":{...}}     completed agent output
+{"event":"heartbeat",...}           computation is still running
+{"event":"progress",...}            named waypoint, where emitted
+{"event":"result","payload":{...}}  final payload
+{"event":"error","detail":"..."}    error after streaming began
 ```
 
-Errors travel in-band because by the time one happens the response headers are long gone and
-there is no HTTP status left to carry it. Rejections that happen *before* the stream — 413 for
-an oversized upload, 422 for an empty one — are still real statuses, which is why the upload is
-read to completion before the first chunk goes out.
-
-The client timeout is a **watchdog on silence**, not on total duration: a ceiling on the whole
-request would abort a legitimately slow report, whereas what actually indicates a dead session
-is no bytes at all. Every line resets it.
-
-This is the rare case where the workaround and the feature are the same code. The page already
-wanted to draw each agent as it finished; the tunnel made that mandatory rather than merely
-nice.
+Errors after the response begins travel in-band. Pre-stream rejections use HTTP statuses;
+when the bridge has already opened its own stream, it forwards upstream failures as error
+events. The browser times out after **90 seconds without bytes**, not after a fixed total
+duration. The bridge forwards GPU heartbeats and emits its own during local work. In the
+current bridge, Agent 3 and Agent 4 cards arrive together after local reporting completes.
 
 ### What connecting buys
 
 `Generate live` in the ledger runs `/demo` on the backend: the same simulator the evaluation
-uses picks a day that actually alerts, Qwen writes the report, and the response carries the
-claims, the server's own C1–C4 verdicts, **and the evidence table they were checked against**.
+uses picks a day that alerts, the configured hosted model writes the report, and the response
+carries the claims, the server's C1–C5 verdicts, **and the evidence table used to check them**.
+This is live model output over simulated behavior, not a resident's observed history.
 
 The page then re-derives the verdicts from that evidence with its own verifier and compares.
-Two independent implementations — Python on a GPU, JavaScript in a browser — agreeing on live
-model output is worth more than either asserting a number, so agreement is stated explicitly
-and **disagreement is reported as a warning not to trust the page**, rather than smoothed over.
+Agreement between Python and JavaScript is stated explicitly; disagreement produces a warning.
+The video result instead displays the Python per-claim checks supplied in its staged payload.
 
 ### States, and why each is named
 
@@ -99,29 +146,29 @@ and **disagreement is reported as a warning not to trust the page**, rather than
 |---|---|
 | `Replay` | no backend. The ledger runs a stored day, verified locally. Fully useful. |
 | `Checking` | probing `/health`. |
-| `Loading` | the tunnel answers, weights are still materialising (~2–3 min). |
-| `Live` | ready. `/health` reported the GPU, the streams that loaded, and τ. |
+| `Loading` | the backend answers, but its GPU-side models are not ready. |
+| `Live` | ready. `/health` reported loaded streams, GPU information and the reporting model. |
 | `No answer` | nothing responded. Session ended, or the wrong address. |
 | `Wrong service` | something answered but did not identify as BehaviorSense. |
-| `Backend error` | `/health` returned a load failure; the traceback is in the notebook. |
+| `Backend error` | `/health` returned a load or upstream failure; inspect the local process and notebook. |
 
-The backend loads models on a background thread specifically so it can report `loading`
-instead of timing out — a three-minute silence is indistinguishable from a crash, and that
-distinction is the difference between waiting and debugging.
+The notebook loads models in the background. The bridge's health response includes upstream
+readiness, so a running local process cannot by itself make the page claim GPU availability.
 
 ## Upload a clip
 
 The **On your own footage** band takes a video and runs **all four agents** over it, showing
 each stage's own output where it was produced:
 
-- **Agent 1** — **RTMO** extracts COCO-17 poses for every person in shot, the tracker holds
-  an identity across frames, **OSNet** decides which one is the resident
+- **Agent 1** — **RTMO** extracts COCO-17 poses, `SimpleTracker` associates detections across
+  frames, and **OSNet** can match them to an enrolled resident when weights and a gallery
+  are available. Without a match, the subject is selected by a declared presence heuristic.
 - **Agent 2** — **ST-GCN++** labels each person's activity independently, on their own
   windows, at the τ and temperature notebook 04 selected; one timeline per person, falls
   struck in pencil
 - **Agent 3** — durations, transition counts, fall count and observed span measured from the
   clip, then robust-z and the alert rules
-- **Agent 4** — Qwen2.5-7B writes the report from those numbers alone, and **C1–C5 are shown
+- **Agent 4** — the configured hosted model writes from those numbers alone, and **C1–C5 are shown
   per claim**, in the same `.slip`/`.gutter` markup the replay ledger uses. C5 asks whether
   the sentence actually quotes the figure the field records — the check the latest measured
   run justified, where C2 was zero and prose paraphrase was the largest failure category. A
@@ -142,6 +189,16 @@ A person who is tracked but too occluded to classify is drawn as a **dashed box 
 "pose unusable"** rather than omitted. "Present, unreadable" and "not there" are different
 facts, and Agent 2 abstains on the first rather than guessing.
 
+### Enrollment and the gallery
+
+An optional name in the upload form enrolls the selected subject from usable OSNet embeddings.
+The bridge saves a normalized centroid and name in `gallery.json` outside the static `web/`
+directory. On later uploads, it sends the saved gallery's names, roles and centroids to Kaggle
+for matching. The persistent file is local; its contents are transmitted for inference.
+To clear enrollment, stop the bridge, delete the local file and restart it; the running
+process also holds the gallery in memory. The store contains identity embeddings rather
+than raw crops, and is gitignored.
+
 ### The baseline is declared, because one clip cannot supply fourteen days
 
 Agent 3 does two separable things and only one of them needs history:
@@ -149,14 +206,12 @@ Agent 3 does two separable things and only one of them needs history:
 | | needs history? | on one clip |
 |---|---|---|
 | feature extraction — durations, transition counts, falls, observed span | no | **real, measured from your video** |
-| deviation detection — robust-z and CUSUM against a 14-day rolling median | yes | against a **declared simulated reference** |
+| deviation detection — robust-z and CUSUM against a rolling baseline | yes | against a **declared simulated reference**; deviations are withheld when observation coverage is insufficient |
 
-Earlier versions refused Agents 3 and 4 outright. The science was right and the remedy was
-wrong: it left a visitor unable to see the verifier work on their own footage, which is the
-part of this system that is actually novel. So the stages run, `baseline_provenance` says in
-the payload what the comparison point is, and `stages.js` draws that as an **ochre banner
-above the figures** — not a footnote under them, because a caveat printed below a number is a
-caveat nobody reads.
+Staging primes the behavior analyzer with 21 simulated reference days and dates the clip
+after that window. `baseline_provenance` records this in the payload, and `stages.js` draws
+an **ochre banner above the figures**. Clips below the daily coverage requirement are marked
+unreliable and do not display daily deviations. Measured clip features remain available.
 
 C1–C5 are unaffected, and that is the point. Every claim is still checked against the state
 computed from *this* video, so an invented figure, a wrong percentage, an inverted
@@ -167,7 +222,9 @@ the response and both are on screen.
 
 ### Limits, and why they are refusals rather than truncations
 
-60 MB and 900 frames (about a minute at 15 Hz). A longer upload is **rejected**, not silently
+60 MB and **12,000 retained frames**, about ten minutes at the current 20 Hz target rate.
+The rate is matched to the selected checkpoint; sources below that rate are not upsampled,
+so duration at the frame cap depends on the actual sampling rate. A longer upload is **rejected**, not silently
 cut short: a report over the first twenty seconds of a ten-minute video, presented as a report
 over the video, is the kind of quiet misrepresentation this project keeps finding and removing.
 
@@ -175,7 +232,7 @@ Decode runs in a **child process** (`behaviorsense.video.extract_isolated`). cv2
 ffmpeg, ffmpeg raises SIGSEGV/SIGABRT on malformed streams, and a signal is not an exception —
 `try/except` cannot see it and the interpreter simply stops. Notebook 02 lost finished corpora
 to exactly this. Inline, one bad upload would kill the kernel, the tunnel and the demo
-together; behind the boundary it is a 422 that names the signal.
+together; behind the boundary it is a reported extraction error rather than a kernel crash.
 
 ## Developing the live path without a GPU
 
@@ -184,6 +241,10 @@ Booking a GPU session to check that a banner renders is absurd, so there is a st
 ```bash
 python web/dev_backend.py          # http://127.0.0.1:8899
 ```
+
+This fixture server and the local bridge use the same default port. Run only one there, or
+set `BS_PORT` to another port for the fixture server and connect the page to that address.
+It reads and discards the upload; the returned poses and activities do not describe the file.
 
 Same routes, same shapes, no model. Three things about its fixtures are deliberate: the report
 fixture contains one claim with a right number told backwards, so the page can be seen
@@ -210,14 +271,19 @@ schema objects (W6). A stub that drifts is worse than no stub.
 
 The Kaggle API is **unauthenticated by default**. Anyone with the URL can post to it while the
 session lives. That is acceptable for a demo you start and stop deliberately; it is not a
-deployment. Set `BS_TOKEN` in the notebook to require a shared secret — the page has a field
-for it, sent as `X-BS-Token`.
+deployment. Set `BS_TOKEN` in the notebook to require a shared secret. In the split setup,
+give it to the bridge with `--token`; for a direct Kaggle connection, use the page's token
+field. The local bridge binds to `127.0.0.1`, accepts cross-origin requests and does not
+enforce an incoming browser token.
 
-Live claims are arbitrary text written by a language model, arriving over that unauthenticated
-tunnel, and they are rendered into the page. Every field that reaches `innerHTML` is escaped
-(`escapeHtml` in `scripts/verifier.js`): the claim body, the evidence reference, the direction
-and the model name. This is not hypothetical hygiene — the moment the page stopped rendering
-its own fixtures and started rendering model output, escaping stopped being optional.
+The browser saves its connection address and optional token in localStorage. The local
+bridge keeps OpenRouter credentials in its environment, uploads the video and saved gallery
+contents to Kaggle, and sends structured evidence to the reporting provider. Keep those
+distinct data flows in mind when deciding what footage to use in the demo.
+
+Model-generated text is untrusted. Claim bodies and evidence references are escaped through
+`escapeHtml` in `scripts/verifier.js` when rendered. The arithmetic verifier is a claim
+consistency check; it does not provide authentication or validate arbitrary HTML.
 
 ## Files
 
@@ -226,22 +292,23 @@ index.html            structure and all copy
 styles/tokens.css     colour, type and spacing tokens, with the reasoning behind them
 styles/base.css       reset, type roles, the sticky rail, connection states
 styles/components.css ledger, checks, stages, readouts, figures, dock, footage, close
-scripts/verifier.js   C1-C4, ported from the Python, plus escapeHtml
+scripts/verifier.js   C1-C5, ported from the Python, plus escapeHtml
 scripts/fixtures.js   one analysed day + the six fault transforms
 scripts/ledger.js     renders the report, resolves the checks, swaps in live payloads
 scripts/charts.js     the two figures, hand-drawn SVG
 scripts/api.js        the backend connection: validation, health polling, /demo, /video
 scripts/dock.js       the paste-an-address panel and every state message
 scripts/overlay.js    COCO-17 skeletons drawn over the playing video
-scripts/stages.js     the four agent cards and the per-claim C1-C4 table
+scripts/stages.js     the four agent cards and the per-claim C1-C5 table
 scripts/upload.js     the clip panel: upload, overlay, wiring
 scripts/main.js       wiring
+local_backend.py      Kaggle bridge, local behavior/reporting, and gallery persistence
 dev_backend.py        a stand-in backend for developing the live path
 ```
 
-A note for anyone iterating on the scripts: browsers cache ES modules hard, and a plain
-`http.server` sends no cache headers to argue with. If an edit appears not to take, hard-reload
-(`Ctrl`/`Cmd`+`Shift`+`R`) rather than assuming the change was wrong.
+When changing scripts or styles, update the version strings in `index.html` so the import map
+and stylesheet links request the new files. A hard reload (`Ctrl`/`Cmd`+`Shift`+`R`) also clears
+stale module responses during development.
 
 ## Design notes
 

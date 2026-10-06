@@ -307,8 +307,7 @@ function enrolmentCard(stage) {
   const p = stage.payload || {};
   return `<li class="stage stage--live" data-status="${escapeHtml(stage.status)}">
     <p class="stage__n">Re-ID gallery
-      <span class="stage__pill" data-tone="${STATUS_TONE[stage.status] || "skip"}">$
-        {escapeHtml(stage.status)}</span></p>
+      <span class="stage__pill" data-tone="${STATUS_TONE[stage.status] || "skip"}">${escapeHtml(stage.status)}</span></p>
     <h4 class="stage__name">enrolment</h4>
     ${stage.status === "done"
       ? `<p class="stage__body"><b>${escapeHtml(p.enrolled || "?")}</b> enrolled from the

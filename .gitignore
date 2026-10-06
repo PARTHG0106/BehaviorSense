@@ -60,7 +60,10 @@ weights/
 # --- Derived data and session output ---
 # data/shards/_smoke*.npz are synthetic fixtures, regenerable on CPU in seconds - and one
 # of them once contaminated a real fall corpus when it rode along in an upload.
-data/
+# The pattern is the ROOT `data/` dir and any `data/shards/` tree, NOT
+# `src/behaviorsense/data/` (the source package, deliberately tracked).
+/data/
+data/shards/
 datasets/
 runs/
 results/embeddings/

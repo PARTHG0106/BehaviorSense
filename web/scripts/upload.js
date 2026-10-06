@@ -22,9 +22,12 @@
  * which is the part of this system that is actually novel.
  */
 
-import { state, uploadVideo } from "bs/api";
+import { state, uploadVideo, translateReport } from "bs/api";
 import { SkeletonOverlay } from "bs/overlay";
 import { renderStages } from "bs/stages";
+import { mountCaregiverReport } from "bs/caregiver";
+import { videoReport } from "bs/report-data";
+import { getLanguage, onLanguageChange, t } from "bs/i18n";
 
 const node = (id) => document.getElementById(id);
 
@@ -32,10 +35,9 @@ const node = (id) => document.getElementById(id);
  * the line always names the stage the user is currently waiting on rather than the one
  * already on screen. Agent 4 has none: when it lands, the run is over. */
 const STAGE_WAIT = {
-  1: "Poses extracted. Agent 2 is classifying each person's windows independently…",
-  2: "Activities labelled. Agent 3 is measuring durations, transitions and falls…",
-  3: "Behaviour measured. Agent 4 is writing the report — this is the slow stage, "
-     + "and every claim is verified before you see it…",
+  1: "uploadStage1",
+  2: "uploadStage2",
+  3: "uploadStage3",
 };
 
 export function mountUpload() {
@@ -52,20 +54,52 @@ export function mountUpload() {
   const pipeline = node("clip-pipeline");
   const checks = node("clip-checks");
   const overlay = new SkeletonOverlay(canvas, video);
+  const caregiverEl = node("caregiver-video");
+  const caregiver = mountCaregiverReport(caregiverEl, { translate: translateReport });
 
   let blobUrl = null;
+  let busy = false;
+  let currentStatus = { key: "uploadConnect", tone: "", params: {} };
 
-  const say = (text, tone = "") => {
+  const say = (key, tone = "", params = {}, detail = "") => {
+    currentStatus = { key, tone, params, detail };
     status.dataset.tone = tone;
-    status.textContent = text;
+    status.textContent = t(key, params);
+    status.lang = getLanguage();
+    status.title = detail;
+  };
+  onLanguageChange(() => {
+    const { key, tone, params, detail } = currentStatus;
+    say(key, tone, params, detail);
+  });
+  const updateControls = () => {
+    input.disabled = busy;
+    node("clip-enrol").disabled = busy;
+    panel.setAttribute("aria-busy", String(busy));
+    drop.setAttribute("aria-disabled", String(busy));
   };
 
   async function analyse(file) {
     if (!file) return;
-    if (state.mode !== "live") {
-      say("Connect a backend first — pose extraction needs the GPU session.", "bad");
+    if (busy) return;
+    if (state.mode !== "live" || state.health?.video === false) {
+      say(state.mode === "live" ? "uploadUnavailable" : "uploadConnect", "bad");
+      input.value = "";
       return;
     }
+    if (file.size > 60 * 1024 * 1024) {
+      say("uploadTooLarge", "bad"); input.value = ""; return;
+    }
+    if (!file.size || (file.type ? !file.type.startsWith("video/")
+      : !/\.(mp4|webm|mov|avi|mkv|m4v|mpeg|mpg|ogv)$/i.test(file.name))) {
+      say("uploadNotVideo", "bad"); input.value = ""; return;
+    }
+    busy = true;
+    updateControls();
+    overlay.stop();
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+    if (caregiverEl) caregiverEl.hidden = true;
+    caregiver.update({ claims: [], totalClaims: 0 });
     // Show the clip immediately. The full chain takes tens of seconds to a couple of
     // minutes — Qwen alone runs ~50 s per report — and watching a still frame is a better
     // wait than watching nothing.
@@ -79,9 +113,7 @@ export function mountUpload() {
     // HONEST DURATION, not a marketing one: pose is ~2 s per second of footage on the
     // served GPU, so a ten-minute clip is minutes of analysis. Saying "a minute or two"
     // made a legitimate run look wedged.
-    say(`Running all four agents over ${file.name}. RTMO first, then the ST-GCN++ `
-      + "ensemble, then the behaviour layer, then a hosted model writes and the verifier "
-      + "checks it — roughly two seconds of analysis per second of footage.", "wait");
+    say("uploadRunning", "wait", { name: file.name });
 
     try {
       // PROGRESSIVE. The backend streams one line per agent, so each card is drawn the moment
@@ -119,6 +151,8 @@ export function mountUpload() {
       // inside this try, and the C1-C5 table — the entire point of the page — never rendered
       // because of a warning. Nothing advisory may preempt the result.
       renderStages(data, { pipelineEl: pipeline, checksEl: checks });
+      caregiver.update(videoReport(data));
+      if (caregiverEl) caregiverEl.hidden = false;
 
       const people = data.n_people ?? (data.tracks || []).length;
       const t = data.timing || {};
@@ -129,16 +163,16 @@ export function mountUpload() {
       const subjectTracks = (data.stages || []).find((s) => s.agent === 2)
         ?.payload?.subject_tracks || [];
       const merged = subjectTracks.length > 1 ? ` (${subjectTracks.length} merged into one subject)` : "";
-      meta.innerHTML = [
+      meta.textContent = [
         `${data.frames_kept} frames at ${data.fps} Hz`,
-        `${data.width}&times;${data.height}`,
+        `${data.width}×${data.height}`,
         `${people} ${people === 1 ? "track" : "tracks"}${merged}`,
         `pose ${t.pose_s ?? "—"}s · classify ${t.classify_s ?? "—"}s · behaviour ${
           t.behaviour_s ?? "—"}s · report ${t.report_s ?? "—"}s`,
         data.reid ? "re-id on" : "re-id off, roles unidentified",
-        `&tau;=${data.tau}`,
+        `τ=${data.tau}`,
       ].join(" · ") + (data.truncated
-        ? ` · <b>truncated at ${data.frames_kept} frames</b>` : "");
+        ? ` · truncated at ${data.frames_kept} frames` : "");
 
       const failed = (data.stages || []).filter((s) => s.status === "failed");
       // Both decoders must agree on the frame size or the skeletons are drawn in the wrong
@@ -151,31 +185,29 @@ export function mountUpload() {
       if (mismatch) {
         // Outranks the rest: if the overlay is drawing in the wrong coordinate space, nothing
         // else on screen should be read with confidence.
-        say(mismatch, "bad");
+        say("uploadOverlayMismatch", "bad", {}, mismatch);
       } else if (failed.length) {
-        say(`Agent ${failed[0].agent} failed and the run continued — its card says why.`,
-          "bad");
+        say("uploadStageFailed", "bad", { agent: failed[0].agent });
       } else {
         const checks = data.checks || [];
-        const withheld = checks.filter((c) => !c.faithful).length;
+        const report = videoReport(data);
+        const withheld = report.withheldClaims;
         // ZERO CLAIMS IS NOT A PASS. "Every claim passed all five checks" over an empty set
         // is vacuously true and reads as a clean bill of health - observed on a 5.7 s clip
         // where the model emitted no claims at all and its prose said "no activity was
         // detected", while Agent 3 had measured 5.2 s of cooking. The verifier had nothing
         // to catch because nothing was claimed, and that is a finding about the report, not
         // a verdict about its truthfulness.
-        say(checks.length === 0
-          ? "Done — but the model produced NO verifiable claims for this clip, so C1–C5 had "
-            + "nothing to check. Read the prose with that in mind: an empty claim set is not "
-            + "a clean bill of health."
-          : withheld
-            ? `Done. ${withheld} claim${withheld === 1 ? " was" : "s were"} withheld by the `
-              + "verifier and struck below."
-            : `Done. All ${checks.length} claims passed all five checks.`, "");
+        say(checks.length === 0 ? "uploadNoClaims" : withheld ? "uploadWithheld" : "uploadDone",
+          "", { count: withheld || report.claims.length });
       }
     } catch (err) {
       overlay.stop();
-      say(err.message, "bad");
+      say("uploadFailed", "bad", {}, err.message);
+    } finally {
+      busy = false;
+      input.value = "";
+      updateControls();
     }
   }
 
@@ -202,10 +234,12 @@ export function mountUpload() {
     sync(s) {
       const ok = s.mode === "live" && s.health?.video !== false;
       panel.dataset.ready = ok ? "1" : "0";
-      if (!ok && s.mode === "live") {
-        say("This backend has no rtmo-l.onnx attached, so pose extraction is off.", "bad");
-      } else if (!ok) {
-        say("Connect a backend to analyse a clip.", "");
+      if (!busy && !ok && s.mode === "live") {
+        say("uploadUnavailable", "bad");
+      } else if (!busy && !ok) {
+        say("uploadConnect", "");
+      } else if (!busy && ok && ["uploadConnect", "uploadUnavailable"].includes(currentStatus.key)) {
+        say("dropClip");
       }
     },
   };
